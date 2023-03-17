@@ -1,0 +1,18 @@
+::use 'design.mtt'::
+<div id="content" class="col-md-12" style="overflow: hidden;">
+	<div id="volunteers-calendar-neo-container" style="margin-bottom: 24px;"></div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			neo.createNeoModule("volunteers-calendar-neo-container", "volunteersCalendar", {
+				userId: ::user.id::,
+				toBeDone: ::toBeDone::,
+				done: ::done::,
+				fromDate: "::timeframe.from::",
+				toDate: "::timeframe.to::",
+				daysBeforeDutyPeriodsOpen: ::daysBeforeDutyPeriodsOpen::,
+				focusedMultiDistribId: ::multiDistribId::
+			});
+		});
+	</script>
+</div>
+::end::

@@ -1,0 +1,162 @@
+::use 'contractadmin/design.mtt'::
+
+	<div class="article">
+
+        <h3>Souscriptions</h3>
+        
+        <div class="row" ::cond negativeBalanceCount != 0:: >
+			<div id="content" class="col-md-12">
+				<div class="alert  alert-danger ">
+                    <i class="icon icon-alert"></i>
+                    Il y a ::negativeBalanceCount:: souscription(s) avec un solde négatif.
+                    </div>
+			</div>
+        </div>
+        
+        <div class="row" ::cond catalog.isVariableOrdersCatalog():: >
+			<div id="content" class="col-md-12">
+                <p style="font-weight: bold;">Contraintes du contrat</p>
+				<table class="table table-striped table-bordered">
+                    <tr class="greyhead">
+                        <th>Minimum de commande par distribution</th>
+                        <th>Minimum de commandes sur la durée du contrat</th>
+                    </tr>
+                    <tr style="text-align: center;">                       
+                        <td class="::class::" style="vertical-align: middle;">
+                            ::if catalog.distribMinOrdersTotal > 0::
+                                ::catalog.distribMinOrdersTotal::&nbsp;::currency()::
+                            ::else::
+                                Aucun
+                            ::end::
+                        </td>
+                        <td style="vertical-align: middle;">
+                            ::if catalog.catalogMinOrdersTotal > 0::
+                                ::catalog.catalogMinOrdersTotal::&nbsp;::currency()::
+                            ::else::
+                                Aucun
+                            ::end::
+                        </td>
+                        
+                    </tr>
+                </table>
+			</div>
+		</div>
+	
+        <br/>
+
+        $$insert( Nouvelle souscription, /contractAdmin/subscriptions/insert/::catalog.id:: )
+
+        <a href="/contractAdmin/subscriptions/massPayments/::catalog.id::" class="btn btn-default btn-sm">
+            <i class="icon icon-euro"></i> Saisie de paiements en masse
+        </a>
+
+        ::if(orderBy=="userName")::
+        <a href="?orderBy=subscriptionId" class="btn btn-default btn-sm">
+            Trier par ordre chronologique
+        </a>
+        ::else::
+        <a href="?orderBy=userName" class="btn btn-default btn-sm">
+            Trier par nom
+        </a>
+        ::end::
+        
+        <div class="row" style="margin-top: 10px; margin-bottom: 24px;">
+            <div class="col-md-12">
+                ::if subscriptions != null && subscriptions.length != 0::
+                    <table class="table table-striped table-bordered">
+                        <tr class="greyhead">
+                            <th>Membre</th>
+                            <th>Engagement</th>
+                            <th>Période d'engagement</th>
+                            <th>Nbre de distributions</th>
+                            <th>Total commandé</th>
+                            <th>Solde</th>
+                            <th></th>
+                        </tr>
+                        ::foreach subscription subscriptions::
+                            
+                            <tr style="text-align: center;">
+                                <td style="vertical-align: middle;">
+                                    <div style="overflow-wrap: break-word;">
+                                        <a href="/member/view/::subscription._user.id::" target="_blank">::subscription._user.getName()::</a>
+                                        ::if(subscription._user2!=null)::
+                                        <br/> ( alterné avec <a href="/member/view/::subscription._user2.id::" target="_blank">::subscription._user2.getName()::</a> )
+                                        ::end::
+                                    </div>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    $$nullSafe(::subscriptionService.getSubscriptionConstraints(subscription)::)
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    du ::sDate(subscription.startDate)::<br/>
+                                    au ::sDate(subscription.endDate)::
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <a title="Voir les commandes" target="_blank" href="/history/subscriptionOrders/::subscription.id::">
+                                        ::subscriptionService.getSubscriptionDistribsNb(subscription, null, true)::
+                                    </a>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    ::subscription.getTotalPrice()::&nbsp;::currency()::
+                                </td>
+                                
+                                ::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
+                                ::set background = ""::
+                                ::if balance < 0::
+                                    ::set background = "background-color: #d9534f;"::
+                                ::else::
+                                ::set background = "background-color: #84bd55;"::
+                                ::end::
+                                <td style="vertical-align: middle;color: white;font-weight:bold; ::background::">
+                                    ::formatNum(balance)::&nbsp;::currency()::
+                                </td>
+                                
+                                <td style="vertical-align: middle;">
+                                    <div class="dropdown" style="display:inline-block;">
+                                        <button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu::subscription._user.id::" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon icon-cog"></i> Gérer
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu::subscription._user.id::">
+                                            <li>
+                                                <a href="/contractAdmin/subscriptions/edit/::subscription.id::">
+                                                    <i class="icon icon-edit"></i> ::_("Edit")::
+                                                </a>
+                                            </li>
+                                            
+                                           <!-- ::if(catalog.hasAbsencesManagement())::
+                                            <li>
+                                                <a href="/contractAdmin/subscriptions/absences/::subscription.id::">
+                                                    <i class="icon icon-vacation"></i> Absences
+                                                </a>
+                                            </li>
+                                            ::end::-->
+                                            
+                                            <li>
+                                                <a href="/contractAdmin/subscriptions/payments/::subscription.id::">
+                                                    <i class="icon icon-euro"></i> ::_("Payments")::
+                                                </a>
+                                            </li>
+                                            
+                                            <li>
+                                                <a href="/contractAdmin/subscriptions/delete/::subscription.id::?token=::token::" $$confirm(Voulez vous vraiment supprimer cette souscription et toutes les commandes rattachées ?)>
+                                                    <i class="icon icon-delete"></i> ::_("Delete")::
+                                                </a>
+                                            </li>	
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        ::end::
+                    </table>
+                ::else::
+                    Il n'y a pas de souscription pour ce catalogue.
+                ::end::
+                
+            </div>
+            
+        </div>
+
+        <div id="ordersdialog-container"></div>
+
+    </div>
+::end::

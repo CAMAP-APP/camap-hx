@@ -1,0 +1,199 @@
+
+::use 'design.mtt'::
+
+<div class="col-md-4">
+	<h3>::_("Contact informations")::</h3>
+	<div class="article">
+		
+		<div style="font-weight:bold;font-size:120%;">
+		::member.firstName:: ::member.lastName::
+		
+		::if member.firstName2!=null && member.lastName2!=null::
+			& ::member.firstName2:: ::member.lastName2::
+		::end::
+		</div>
+		<p>
+			$$nullSafe(::member.address1::)<br/>
+			$$nullSafe(::member.address2::)<br/>
+			$$nullSafe(::member.zipCode::) 
+			$$nullSafe(::member.city::)
+			<br/>
+			<br/>
+			
+			::if member.phone!=null::
+				::_("Téléphone"):: : ::member.phone::<br/>
+			::end::
+
+			::if member.email!=null::
+				::_("E-mail"):: : <a href="mailto: ::member.email::">::member.email::</a><br/>
+			::end::
+			
+			::if member.email2!=null::
+				::_("E-mail"):: : <a href="mailto: ::member.email2::">::member.email2::</a><br/>
+			::end::
+		</p>
+		
+		
+		<div class="panel panel-default ">
+			<div class="panel-heading">Notifications</div>
+			
+			<table class="table" style="font-size:0.8em;">
+				::foreach n notifications::
+				<tr>
+					<td>
+						::if(n.active)::
+						<i class="icon icon-check" style="color:grey"></i>
+						::else::
+						<i class="icon icon-delete" style="color:grey"></i>
+						::end::
+
+					</td>
+					<td>::n.name::</td>
+				</tr>
+				::end::
+			</table>
+		</div>
+
+		<div class="panel panel-default ">
+			<div class="panel-heading">Activité</div>
+			
+			<div class="panel-body" style="font-size:0.8em;">
+				::_("Last login"):: : 
+				::if member.ldate!=null::
+					::dDate(member.ldate):: 
+				::else:: 
+					<b>::_("This member never logged in")::</b>
+				::end::
+				<br/>
+				::_("Registred since"):: : 
+				::if member.cdate!=null:: 
+					::dDate(member.cdate)::
+				::else:: 
+					??? 
+				::end::			
+				<br/>
+				::if member.pass==""::
+					<div class="alert alert-danger">::_("This member has not set a password"):: </div>
+				::end::
+			</div>
+		</div>
+
+	
+		<p>
+			<!--$$edit(::_("Edit")::,/member/edit/::member.id::) -->
+			$$delete(::_("Remove from group")::,/member/delete/::member.id::?token=::token::)
+			<a href="/member/movetowl/::member.id::" class="btn btn-default btn-sm">::_("Put on waiting list")::</a>
+		</p>
+
+		<p ::cond canLoginAs::>
+			<a href="/member/loginas/::member.id::" class="btn btn-danger btn-xs">
+				::_("Log in as this member")::
+			</a>
+		</p>
+	</div>
+</div>
+
+<div class="col-md-8">
+	<h3>
+		Contrats
+	</h3>
+
+		<!-- SUBSCRIPTIONS FOR CSA MODE -->
+		::foreach i loopList(0, 2)::	
+			<!--
+			<h4>
+				::if i == 0::
+					<br/>
+					<i class="icon icon-basket"></i> Contrats AMAP variables
+				::else::
+					<hr/>
+					<br/>
+					<i class="icon icon-refresh"></i> Contrats AMAP classiques
+				::end::
+			</h4>-->
+
+			::foreach catalog subscriptionsByCatalog.keys()::
+				::if ( i == 0 && catalog.isVariableOrdersCatalog() ) || ( i == 1 && catalog.isConstantOrdersCatalog() )::
+					::set subscriptionsFound = true::
+
+					::set subscriptions = subscriptionsByCatalog.get(catalog)::
+					::foreach subscription subscriptions::
+						$$subscription(::subscription::,::user::)					
+					::end::
+				::end::
+			::end::
+			
+		::end::
+
+		::if count(subscriptionsByCatalog) == 0::
+		<div class="article">
+			<div class="text-center" style="margin-top:40px;margin-bottom:40px;">Aucune souscription à un contrat</div>
+		</div>				
+		::end::
+		
+</div>
+
+
+<div class="col-md-4">
+	<h3>::_("Balance")::</h3>
+	<div  class="article">
+		
+		<span style="font-size:1.3em;">
+			
+			::if userGroup.balance<0:: 
+			::set color = "C00"::
+			::else::
+				::set color = "0C0"::
+			::end::
+			<span style="color:#::color::;">
+				::formatNum(userGroup.balance):: ::currency()::
+			</span>
+		</span>
+		
+		<span style="margin-left:30px;">
+
+			<a href="/member/payments/::member.id::" class="btn btn-default btn-small">
+				<i class="fa fa-credit-card" aria-hidden="true"></i>
+				::_("Payments details")::
+			</a>
+		</span>
+		
+	</div>
+</div>
+
+::set rights = userGroup.getRights()::
+<div class="col-md-4" ::cond rights.length > 0 ::>
+	<h3>::_("Rights")::</h3>
+	<div class="article">
+		<ul>
+		::foreach r rights::
+		<li>::userGroup.getJsonRightName(r)::</li>
+		::end::
+		</ul>
+	</div>	
+</div>
+
+<div class="col-md-4" ::cond user.getGroup().hasMembership::>
+	<h3>Adhésion</h3>
+		::set hasValidMembership = userGroup.hasValidMembership()::
+		::if(hasValidMembership)::
+			::set css = "alert alert-success"::
+		::else::
+			::set css = "alert alert-danger"::
+		::end::
+
+		<div class="::css::">
+			$$check(::hasValidMembership::)
+			::if hasValidMembership::
+				::_("Membership up to date")::
+			::else::
+				::_("Membership to renew")::
+			::end::
+			::_("for the period||full sentence : Membership up to date for the period 2017-2018"):: <b>::user.getGroup().getPeriodName(null)::</b>
+			<br/>
+			
+			<a onclick="_Camap.membershipBox(::member.id::,`::member.getName()::`,::userGroup._group.id::,'/member/view/::member.id::')" class="btn btn-default btn-sm">::_("Manage membership fees")::</a>
+		</div>
+</div>
+
+::end::

@@ -1,0 +1,22 @@
+::use 'design.mtt'::
+
+<div class="col-md-12">
+    <div class="article">
+        <h2>Créer un groupe en mode AMAP</h2>
+        <p>
+            La création de groupes en mode AMAP est soumise à validation.<br/>
+            Afin de prouver que votre groupe est bien une AMAP, merci de bien vouloir nous envoyer par mail les pièces suivantes :
+        </p>
+        <ul>
+            <li>Une copie des statuts de votre association</li>
+            <li>Un contrat papier signé entre un de vos adhérents et un de vos producteurs</li>
+            <li>L'email avec lequel vous êtes inscrit sur ::theme.name::</li>
+            <li>L'adresse postale de votre lieu de distribution</li>
+        </ul>
+        <p>
+            <a class="btn btn-primary" href="mailto: ::theme.supportEmail::?subject=Créer un groupe AMAP : ::groupName::">Ecrire au support ::theme.name::</a>
+        </p>
+    </div>
+</div>
+	
+::end::

@@ -1,0 +1,47 @@
+::use 'design.mtt'::
+<div class="article">
+	<h2>Commandes en cours</h2>
+	<h3>Distribution du ::hDate(md.getDate())::</h3>
+
+	<p>
+		Ces commandes ont été initiées mais pas encore validées.<br/>
+	</p>
+		
+	<div class="row">
+		
+		::foreach b tmpBaskets::
+		<div class="col-md-6">
+			<b>
+				::if(b._user!=null)::
+				<a href="/member/view/::b._user.id::">::b._user.getName()::</a>
+				::else::
+				Nouvel utilisateur qui n'a pas encore créé de compte.
+				::end::
+			</b>
+			<br/>
+			<span class="disabled">commande initié le ::hDate(b.cdate)::</span>
+			<table class="table table-bordered">
+				<tr>
+					<th>Qté</th>
+					<th>Produit</th>
+				</tr>
+				::foreach o b.getTmpOrders()::
+				<tr>
+					<td>::o.quantity::</td>
+					<td>::o.product::</td>
+				</tr>
+				::end::
+				<tr>
+					<th>Total</th>
+					<th>::b.getTmpTotal():: ::currency()::</th>
+				</tr>
+			</table>
+		</div>	
+		::end::
+		
+
+	</div>	
+
+</div>
+	
+::end::

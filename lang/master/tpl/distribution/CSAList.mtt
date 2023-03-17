@@ -1,0 +1,30 @@
+::use 'design.mtt'::
+<div class="col-md-12">
+	<div id="attendance-container"></div>
+
+	::if(c.type==1)::
+
+	<!--VAR ORDERS-->
+	<script>
+	document.addEventListener("DOMContentLoaded", function (event) {
+		neo.createNeoModule("attendance-container", "variableContractAttendance", {
+		catalogId: ::c.id::,
+		distributionId: ::distribution.id::
+		});
+	});
+	</script>
+
+	::else::
+
+	<!--CONST ORDERS-->
+	<script>
+	document.addEventListener("DOMContentLoaded", function (event) {
+		neo.createNeoModule("attendance-container", "classicContractAttendance", {
+		catalogId: ::c.id::
+		});
+	});
+	</script>
+
+	::end::
+</div>
+::end::

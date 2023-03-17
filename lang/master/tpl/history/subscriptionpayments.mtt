@@ -1,0 +1,94 @@
+::use 'design.mtt'::
+
+<div class="col-md-12">
+	
+	<div class="article">		
+
+			<h3 class="text-center">
+				Paiements liés à la souscription de ::subscription._user.getName()::<br/>
+				::subscription._catalog.name::
+			</h3>
+
+			<table class="table table-condensed table-bordered text-center">
+	
+				<tr style="font-size:1.1em;font-weight:bold;background-color:#EEE;">
+					<td colspan="2"></td>
+					<td class="text-right" style="padding: 10px 0;">Solde &nbsp;</td>
+					::set balance = subscription.getBalance()::
+						::set background = ""::
+					::if balance < 0::
+						::set background = "redBg"::
+					::else::
+						::set background = "greenBg"::
+					::end::
+					<td style="vertical-align: middle;padding: 10px 0;color: white;font-weight:bold;" class="::background::">
+						::formatNum(balance)::&nbsp;::currency()::
+					</td>
+					::if balance > 0::
+						<td>
+							<a href="/contractAdmin/subscriptions/balanceTransfer/::subscription.id::" class="btn btn-default btn-sm" data-toggle="tooltip" title="Transférer le solde de cette souscription sur une autre souscription avec le même membre et le même producteur.">
+								<i class="icon icon-sign-out"></i>&nbsp;Transférer le solde
+	
+								
+							</a>
+						</td>
+					::end::
+				</tr>
+	
+				<tr>
+					<th>Date de l'opération</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Montant</th>
+				</tr>
+				::foreach payment payments::
+					<tr>
+						<td style="vertical-align: middle;">
+							::sDate(payment.date)::
+						</td>
+	
+						<td style="vertical-align: middle;">
+							<i class="icon icon-euro" aria-hidden="true"></i> ::payment.getPaymentTypeName()::
+						</td>
+					
+						<td style="font-size:1em;vertical-align: middle;padding-top:15px;padding-bottom:15px;">
+							::payment.name::
+						</td>
+	
+						<td style="vertical-align: middle;">
+							&nbsp;&nbsp;::payment.amount::&nbsp;::currency()::
+						</td>
+					</tr>
+				::end::
+			
+				<tr>
+	
+					<td style="vertical-align: middle;">
+						::sDate(subscriptionTotal.date)::
+					</td>
+	
+					<td style="vertical-align: middle;">
+						<i class="icon icon-calendar-check"></i> Souscription à un <br/>contrat AMAP
+					</td>
+	
+					<td style="vertical-align: middle;padding-top:15px;padding-bottom:15px;">
+						Total commandé
+					</td>
+	
+					<td style="vertical-align: middle;">
+						::if subscriptionTotal.amount != 0::
+							-&nbsp;::-subscriptionTotal.amount::&nbsp;::currency()::
+						::else::
+							0&nbsp;::currency()::
+						::end::
+					</td>
+					
+				</tr>
+			
+			</table>
+		</div>
+	</div>
+
+			
+
+::end::

@@ -1,0 +1,21 @@
+<config
+	lang="fr"
+	langs="fr"
+	langnames="Français"
+
+	host="localhost"
+	name = "CAMAP"
+	webmaster_email = "contact@camap.tld"
+	
+	database="mysql://root:root@mysql/db-camap"
+	sqllog="0"
+	
+	debug="1"
+	cache="0"
+	maintain="0"
+	cachetpl="0"
+	key="n5dzdNw2DaWnd1TrVsif"
+
+	camap_api="http://localhost:3010"
+	camap_bridge_api="http://nest-camap:3010"
+/>

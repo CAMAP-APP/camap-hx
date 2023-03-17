@@ -1,0 +1,11 @@
+# list of Debian packages installed in Scalingo environment
+apache2
+curl
+git
+haxe
+imagemagick
+libapache2-mod-neko
+libutf8-all-perl
+libxml-twig-perl
+nodejs
+npm

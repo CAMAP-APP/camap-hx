@@ -1,0 +1,56 @@
+﻿::use 'contractadmin/design.mtt'::
+
+<style>
+
+	body {
+		
+		background-color: #f8f4e5;
+	}
+	
+</style>
+
+	<div class="article">
+
+		<h3 ::cond title != null:: >::title::</h3>
+		<br/>
+
+		<form id="subscription" class="form-horizontal" name="subscription" method="POST" action="">
+
+			<input type="hidden" name="token" value="::token::"/>
+
+	
+			<div class="form-group">
+
+				<label class="col-sm-3 control-label" for="subscription" id="subscriptionLabel">
+					Souscription *
+				</label>
+				<div class="col-sm-9">
+					<select name="subscription" id="subscription" class="form-control" required="required">
+						<option value="0">-</option>
+						::foreach subscription subscriptions::
+							<option value="::subscription.id::">Souscription au ::subscription._catalog.name:: du ::sDate(subscription.startDate):: au ::sDate(subscription.endDate):: - Solde : ::subscription.getBalance():: ::currency()::</option>
+						::end::
+					</select>
+				</div>
+
+			</div>
+		
+			<hr/>
+	
+
+
+			<div class="form-group">
+
+				<div class="col-sm-5"></div>
+				<div class="col-sm-7">
+					<br/>
+					<input type="submit" class="btn btn-primary" value="OK" null="" name="submit" id="submit"/>
+				</div>
+
+			</div>
+
+		</form>
+		
+	</div>
+
+::end::

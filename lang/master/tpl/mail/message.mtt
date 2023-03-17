@@ -1,0 +1,13 @@
+::if(group!=null)::
+
+    :: use 'mail/layout-group.mtt'::
+        ::raw text::
+    ::end::
+
+::else::
+
+    :: use 'mail/layout-camap.mtt'::
+        ::raw text::
+    ::end::
+
+::end::

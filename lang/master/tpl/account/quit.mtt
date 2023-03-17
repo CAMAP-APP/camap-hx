@@ -1,0 +1,21 @@
+::use 'design.mtt'::
+<div class="col-md-3"></div>
+<div class="col-md-6">
+
+	<div style="margin-bottom: 16px">
+		<div id="neo-container"></div>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function(event) {
+				neo.createNeoModule("neo-container", "quitGroup", {
+						userId: ::userId::,
+						groupId: ::groupId::,
+						controlKey: "::controlKey::"
+					});
+			});
+		</script>
+	</div>
+	
+</div>
+
+::end::

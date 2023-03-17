@@ -1,0 +1,18 @@
+::use 'base.mtt'::
+
+	$$browserDetection()
+
+	<div id="map"></div>
+
+	<script>
+	document.addEventListener("DOMContentLoaded", function(event) {
+        neo.createNeoModule("map", "groupMap", {
+                initLat: ::lat::,
+                initLng: ::lng::,
+                initAddress: "::escapeJS(address)::"
+            });
+	});
+
+	</script>
+	
+::end::

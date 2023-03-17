@@ -1,0 +1,9 @@
+<FilesMatch "^([_a-z0-9A-Z-])+$">
+	RewriteEngine On
+	RewriteRule (.*)/css/[a-z0-9]+/(.*) $1/css/$2 [L]
+	RewriteRule (.*)/js/[a-z0-9]+/(.*) $1/js/$2 [L]
+
+    # RewriteCond %{REQUEST_URI} !\.(png|gif|jpg|ico|swf|css|js|dat)$
+    RewriteCond %{REQUEST_URI} !\/file/(.*)$
+    RewriteRule (.*) /index.n
+</FilesMatch>

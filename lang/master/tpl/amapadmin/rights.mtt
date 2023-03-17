@@ -1,0 +1,40 @@
+::use 'amapadmin/design.mtt'::
+
+		<h3>::_("Administration rights")::</h3>		
+
+		<div class="alert alert-warning">
+			<i class="icon icon-info"></i>
+			Pour connaître en détail le fonctionnement des droits, 
+			<a href="https://wiki.cagette.net/admin:droits" target="_blank">consultez la documentation</a>
+		</div>
+		
+		<p>
+			$$insert(::_("Add a right")::,/amapadmin/editRight)
+		</p>
+		
+		<table class="table table-bordered">
+			<tr>
+				<th>::_("Name")::</th>
+				<th>::_("Rights")::</th>
+				<th>::_("Actions")::</th>				
+			</tr>
+			::foreach u users::
+			<tr>
+				<td>
+					::u._user.getName()::	
+				</td>
+				<td>
+					::set rights = u.getRights()::
+					<ul ::cond rights!=null::>
+					::foreach r rights::
+						<li>::u.getJsonRightName(r)::</li>
+					::end::
+					</ul>
+				</td>
+				<td>
+					$$edit(::_("Modify")::,/amapadmin/editRight/::u.userId::)
+				</td>
+			</tr>
+			::end::
+		</table>
+::end::

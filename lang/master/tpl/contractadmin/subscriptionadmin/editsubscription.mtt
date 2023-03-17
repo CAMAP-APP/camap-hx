@@ -1,0 +1,182 @@
+﻿::use 'contractadmin/design.mtt'::
+
+<div class="article">
+
+		<h3>
+			::if(subscription==null)::
+				Nouvelle souscription
+			::else::
+				Modification de la souscription de ::subscription._user.getName()::
+			::end::
+		</h3>
+		
+		<form id="subscription" class="form-horizontal" name="subscription" method="POST" action="">
+
+			<input type="hidden" name="token" value="::token::"/>
+
+			<!-- select a member -->
+			::if !edit::
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="user" id="userLabel">
+						Membre *
+					</label>
+					<div class="col-sm-9">
+						<select name="user" id="user" class="form-control" required="required">
+							<option value="0">-</option>
+							::foreach member members::
+								<option value="::member.value::">::member.label::</option>
+							::end::
+						</select>
+					</div>
+				</div>	
+				<hr/>
+			::end::
+
+			::if(catalog.hasDefaultOrdersManagement())::
+				<div class="form-group" >
+					<label class="col-sm-3 control-label"></label>
+					<div class="col-sm-5">
+						<h4>
+							::if catalog.isConstantOrdersCatalog() ::
+							Commande récurrente
+							::else::
+							Commande par défaut
+							::end::
+						</h4>
+					</div>
+				</div>
+
+				<div class="form-group" style="font-weight: bold;">				
+					<div class="col-sm-3"></div>
+					<div class="col-sm-2">Quantité</div>
+					::if catalog.isConstantOrdersCatalog()::
+						<div class="col-sm-5">Alterner avec</div>
+						<div class="col-sm-2">Inverser alternance</div>
+					::end::
+				</div>
+				
+				::foreach product products::
+
+					::set quantity = 0::
+					::set user2Id = null::
+					::set invert = false::
+
+					::if edit ::
+						::if catalog.isConstantOrdersCatalog()::
+							::set productOrder = getProductOrder(product.id)::
+							::if productOrder != null::
+								::set quantity = productOrder.quantity::
+								::set user2Id = productOrder.userId2::
+								::set invert = productOrder.hasInvertSharedOrder()::
+							::end::
+						::else::
+							::set defaultProductOrder = subscription.getDefaultOrders(product.id)::
+							::if defaultProductOrder.length != 0 && defaultProductOrder[0] != null::
+								::set quantity = defaultProductOrder[0].quantity::
+							::end::
+						::end::
+					::end::
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="quantity::product.id::" id="quantity::product.id::Label">
+							::product.name + " " + product.price + " €"::
+						</label>
+						<div class="col-sm-2">
+							<input class="form-control" type="text" name="quantity::product.id::" id="quantity::product.id::" value="::quantity::" />
+						</div>
+						::if catalog.isConstantOrdersCatalog()::
+							<div class="col-sm-6">
+								<select name="user2::product.id::" id="user2::product.id::" class="form-control">
+									<option value="0">-</option>
+									::foreach member members::
+										<option value="::member.value::" ::attr selected if( member.value == user2Id ) '1' ::>::member.label::</option>
+									::end::
+								</select>
+							</div>
+							<div class="col-sm-1">
+								<input data-toggle="tooltip" title="::_("Reverse the alternation")::" type="checkbox" name="invert::product.id::" id="invert::product.id::" value="true" ::attr checked if( invert ) '1' :: />
+							</div>
+						::end::
+					</div>
+				::end::
+			::end::
+
+			<!-- help for VARORDERS -->
+			::if (!catalog.isConstantOrdersCatalog())::
+			<div class="alert alert-warning">
+				<p>
+					<i class="icon icon-info"></i> 
+					Pour modifier les commandes de cette souscription, il faut se rendre sur <a href="/contractAdmin/selectDistrib/::catalog.id::">la page commandes de ce contrat</a>.
+				</p>
+			</div>
+			::end::
+
+			<hr/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="startdatepicker" id="startdatepickerLabel">
+					Date de début
+				</label>
+				<div class="col-sm-5">
+					::raw startDate.render()::
+				</div>
+			</div>
+		
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="enddatepicker" id="enddatepickerLabel">
+					Date de fin
+				</label>
+				<div class="col-sm-5">
+					::raw endDate.render()::
+				</div>
+			</div>
+
+			<!-- Absences -->
+			::if(catalog.hasAbsencesManagement())::
+			<hr/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label" for="absences" id="absencesLabel">					
+					Absences autorisées entre le ::dDate(catalog.absencesStartDate):: et le ::dDate(catalog.absencesEndDate)::
+				</label>
+				
+				<div class="col-sm-9">
+					<table class="table">
+					::foreach i loopList(1, catalog.absentDistribsMaxNb+1 )::
+						<tr>
+							<td>Absence ::i::</td>
+							<td>
+								<select name="absence::i::" id="absence::i::" class="form-control">
+								<option value="" >-</option>
+								::foreach d lockedDistribs::
+									<option value="::d.id::" ::attr selected if(isSelected(i,d)) '1':: disabled="disabled" >::dDate(d.date):: </option>
+								::end::
+								::foreach d possibleAbsences::							
+									<option value="::d.id::" ::attr selected if(isSelected(i,d)) '1'::>::dDate(d.date)::</option>
+								::end::
+							</select>
+							</td>
+						</tr>
+					::end::
+					</table>
+				</div>
+			</div>
+			::end::
+
+			<!-- submit -->
+			<div class="form-group">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-9">
+					<input type="submit" class="btn btn-primary btn-large" value="OK" name="submit" id="submit"/>
+				</div>
+			</div>
+
+		</form>
+
+
+
+		::if(isAdmin && subscription!=null)::
+		<a href="/contractAdmin/subscriptions/reattribute/::subscription.id::" class="btn btn-danger">Admin : Réattribuer souscription</a>
+		::end::
+		
+	</div>
+
+::end::

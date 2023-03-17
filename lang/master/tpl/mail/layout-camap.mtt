@@ -1,0 +1,60 @@
+﻿<html>
+	<head>
+		<meta name="viewport" content="width=device-width"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<style>
+			#email-body {
+				color: #333;
+				font-family: sans-serif;
+				background-color: #d7e7ca !important;
+			}
+
+			#email-root {
+				margin: auto;
+				max-width: 600px;
+				background-color: white;
+				padding: 16px;
+			}
+
+			#email-header {
+				padding: 16px;
+				text-align: center;
+			}
+
+			#email-footer {
+				font-size: 0.75rem;
+				max-width: 600px;
+				text-align: center;
+				padding: 16px;
+				padding-top: 0px;
+				margin: auto;
+				margin-top: 24px;
+			}
+
+			.bold-green {
+				font-weight: bold;
+				color: #61810a;
+			}
+
+			.light-green-background {
+				background-color: #d9ead3; 
+			}
+		</style>
+		<title>::theme.name::</title>
+	</head>
+
+	<body id="email-body">
+		<div id="email-root">
+			<div id="email-header">
+				<img src="http://::HOST::/theme/::theme.id::/logo2.png" alt="logo ::theme.name::" style="width:166px;"/>
+			</div>
+
+			::raw __content__::
+		</div>
+
+		<div id="email-footer">
+			::raw theme.email.brandedEmailLayoutFooter::
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,62 @@
+::use 'design.mtt'::
+
+    <div class="col-md-12"><h2>Choisissez le type de contrat que vous voulez créer</h2></div>
+    
+    <br/><br/><br/><br/><br/>
+
+	<div class="col-md-6">
+		<div class="article">
+
+            <br/><br/>
+			<div style="text-align:center;margin-bottom:12px;">
+                <a href="/contract/insert/::vendor.id::/0" class="btn btn-default btn-lg">
+                    <i class="icon icon-refresh"></i> Contrat AMAP classique</a>
+            </div>
+            <br/>
+            <div>
+                <p>
+                    Avec ce type de contrat, les produits commandés sont les mêmes à chaque distribution.<br/>
+                    <i>Exemple : Julie reçoit un panier de légumes à 15 € chaque semaine.</i>
+                </p>
+                <p>
+                    Options disponibles : 
+                    <ul>
+                        <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
+                    </ul>
+                </p>
+                <br/>
+            </div>
+
+		</div>
+	</div>
+	
+	<div class="col-md-6">
+		<div class="article">
+
+			<br/><br/>
+			<div style="text-align:center;margin-bottom:12px;">	
+                <a href="/contract/insert/::vendor.id::/1" class="btn btn-default btn-lg">
+                    <i class="icon icon-basket"></i> 
+                    Contrat AMAP variable
+                </a>
+            </div>
+            <br/>
+            <div>
+                <p>
+                    Avec ce type de contrat les membres peuvent faire des commandes différentes pour chaque distribution.<br/>
+                    <i>Exemple : Jean fait une commande de miel pour 10 € pour une distribution, puis rien à la prochaine, puis une autre commande pour 20 € etc.</i>
+                </p>
+                <p>
+                    Options disponibles : 
+                    <ul>
+                        <li>Montant minimum de commande par distribution</li>
+                        <li>Montant minimum de commande sur la durée du contrat</li>
+                        <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
+                    </ul>
+                </p>
+            </div>
+
+		</div>
+	</div>
+
+::end::

@@ -1,0 +1,149 @@
+::use 'contractadmin/design.mtt'::
+
+	<h3>::_("Orders")::</h3>
+	
+	::if distribution!=null::
+	::_("Delivery of the"):: <b>::hDate(distribution.date)::</b>
+	::end::
+	
+	<div style="margin:8px 0;">
+		
+		::if(!catalog.isConstantOrdersCatalog())::
+		<a class="btn btn-default btn-sm"
+			onclick="_Camap.initOrderBox(null,::multiDistribId::,::distribution._catalog.id::,::catalog.type::,'::escapeJS(hDate(distribution.date))::','::escapeJS(distribution._place.toString())::',null,'::user.getGroup().currency::', '/contractAdmin/orders/::catalog.id::?d=::distribution.id::', ::user.getGroup().id::)">
+			<i class="icon icon-plus"></i>
+			::_("New order")::
+		</a>							
+		::end::
+		
+		$$export(/contractAdmin/orders/::catalog.id::?csv=1&d=::distribution.id::)
+		<a href="/contractAdmin/ordersByProduct/::catalog.id::?d=::distribution.id::" class="btn btn-default btn-sm">
+			<i class="icon icon-products"></i>
+			::_("Summary by products")::
+		</a>
+
+		<div class="dropdown" style="display:inline-block;">
+			<button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="icon icon-print"></i> ::_("Attendance sheet")::
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">					
+				<li><a href="/distribution/csaList/::distribution.id::"> Liste d'émargement AMAP</a></li>
+				<li><a href="/distribution/listByProductUser/::distribution.id::"> ::_("By Product-User")::</a></li>			
+			</ul>
+		</div>
+	</div>
+
+	::if disabledProducts > 0::
+	$$alert( ::raw __("Be careful, there are <b>::disabledProducts::</b> order(s) containing <b>disabled products</b>.",{disabledProducts:disabledProducts}):: )
+	::end::
+
+	<div id="ordersdialog-container"></div>	
+
+	<style>
+	td.userRow{
+		font-size:120%;
+		color:#e7e7e7;
+	}
+	td.userRow a{ color:white; }
+	</style>
+	
+		::foreach basket distribution._multiDistrib.getBaskets()::
+			::set total = 0::
+			::set distribOrders = prepare(basket.getDistributionOrders(distribution))::
+			::if (distribOrders.length > 0 )::
+			<table class="table table-bordered table-hover table-condensed"  style="width:100%;">
+				
+				<tr class="darkhead">
+					<td colspan="7">
+						<div class="basketNumber" ::cond basket!=null:: >
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::basket.num::
+						</div>
+						
+						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a> 						
+					</td>
+					<td>
+						::if(!catalog.isConstantOrdersCatalog())::
+						<a class="btn btn-default btn-xs"
+							onclick="_Camap.initOrderBox(::basket.userId::,::multiDistribId::,::distribution._catalog.id::,::distribution._catalog.type::,'::escapeJS(hDate(distribution.date))::','::escapeJS(distribution._place.toString())::','::escapeJS(basket._user.getName())::','::user.getGroup().currency::', '/contractAdmin/orders/::c.id::?d=::distribution.id::', ::user.getGroup().id::, ::basket.id::)">
+							<i class="icon icon-edit"></i>
+							::_("Edit")::
+						</a>
+						::end::
+					</td>
+				</tr>
+				<tr>
+					<th class="col-md-1">::_("Prod. ID")::</th>
+					<th class="col-md-1">::_("Qty")::</th>						
+					<th class="col-md-4">::_("Product")::</th>
+					<th class="col-md-1"><a href="#" data-toggle="tooltip" data-placement="top" title="::_("Unit price including taxes")::">::_("U.P||price per unit")::</a></th>
+					<th class="col-md-1">Ss-total</th>
+					<th class="col-md-1">::_("Fees")::</th>
+					<th class="col-md-1">::_("Total")::</th>						
+					<th class="col-md-2"></th>
+				</tr>
+				
+				::foreach o distribOrders::
+					::if o.product.active==false::
+					::set class="danger"::
+					::else::
+					::set class="none"::
+					::end::
+					<tr class="::class::">
+						<td class="ref">
+							$$nullSafe(::o.product.ref::)							
+						</td>
+						<td>
+							::if(o.quantity==0 && o.canceled)::
+								<span style="color:#AAA">::_("Canceled")::</span>						
+							::else::
+								::raw o.smartQt::
+							::end::
+						</td>
+						<td>												
+							::o.productName::						
+							::if o.userName2!=null::
+								<span class="glyphicon glyphicon-refresh"></span> ::_("alternated with"):: ::o.userName2::
+							::end::
+						</td>
+						<td>
+							::formatNum(o.productPrice)::&nbsp;::currency()::
+						</td>
+						<td>
+							::formatNum(o.subTotal)::&nbsp;::currency()::
+						</td>
+						<td>
+							<!-- frais -->
+							::if o.percentageValue!=null::
+							<a href="#" data-toggle="tooltip" data-placement="top" title="::o.percentageName:: : ::o.percentageValue:: %">
+								::formatNum(o.fees)::&nbsp;::currency()::
+							</a>
+							::end::
+						</td>
+						<td>
+							<!-- total -->
+							::formatNum(o.total)::&nbsp;::currency()::
+							::set total = total + o.total::
+						</td>
+						<td>
+							::if(o.quantity==0)::
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="/contractAdmin/orders/::c.id::?d=::distribution.id::&delete=::o.id::&token=::token::" $$confirm(::__("Do you really want to delete this order row for the product \"::o.productName::\" ?",{productName:o.productName})::) class="btn btn-danger btn-xs" >
+									<i class="icon icon-delete"></i>
+									::_("Delete")::
+								</a>
+							::end::
+						</td>
+					</tr>
+				::end::
+				
+				<tr style="background:#DDD;">
+					<th colspan="6">::_("Total")::</th>
+					<th>::formatNum(total)::&nbsp;::currency()::</th>
+					<th></th>
+				</tr>
+			</table>
+			::end::
+
+		::end::
+
+::end::

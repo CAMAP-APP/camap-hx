@@ -1,0 +1,13 @@
+::use 'design.mtt':: 
+
+$$browserDetection()
+
+<div class="col-md-12" style="margin-bottom: 16px;">
+  <div id='login-registration-container'></div>
+  <script language="javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+      _Camap.loginBox('::redirect::','::sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::, null, null, null, false);
+    });
+  </script>
+</div>
+::end::

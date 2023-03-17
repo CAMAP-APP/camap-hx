@@ -1,0 +1,13 @@
+::use 'design.mtt'::
+
+	<div id="group-disabled-neo-container"></div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			neo.createNeoModule("group-disabled-neo-container", "groupDisabled", {
+					groupId: ::group.id::,
+				});
+		});
+	</script>
+
+::end::

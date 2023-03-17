@@ -1,0 +1,14 @@
+
+::use 'design.mtt'::
+
+<span id="loginas-module-container"></span>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		neo.createNeoModule("loginas-module-container", "loginAs", {
+			userId: ::userId::,
+			groupId: ::groupId::
+		});
+	});
+</script>
+
+::end::

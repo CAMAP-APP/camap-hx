@@ -1,0 +1,11 @@
+﻿::use 'design.mtt'::
+<div class="col-md-9">
+	<div class="article">
+		<script>
+			document.addEventListener("DOMContentLoaded", function(event) {
+				_Camap.registerBox('/home','::loginBoxOptions.sid::',"Le formulaire de création de compte a été pré-rempli avec les informations fournies par la personne qui vous a invitée.",::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::, "::invitedUserEmail::", ::invitedGroupId::)
+			});
+		</script>
+	</div>
+</div>
+::end::

@@ -1,0 +1,90 @@
+::use 'contractadmin/design.mtt'::
+
+	<div class="article">
+
+        <h3>Saisie de paiements en masse</h3>
+        
+        <div class="row" style="margin-top: 10px; margin-bottom: 24px;">
+            <div class="col-md-12">
+                ::if subscriptions != null && subscriptions.length != 0::
+                <form action="" method="POST">
+                    <input type="hidden" name="token" value="::token::"/>
+                    <table class="table table-striped table-bordered">
+                        <tr class="greyhead">
+                            <th>Membre</th>                            
+                            <th>Période d'engagement</th>                            
+                            <th>Solde</th>
+                            <th>Moyen de paiement</th>                            
+                            <th data-toggle="tooltip" title="Exemple : numéro du chèque, indication libre...">Libellé</th>                            
+                            <th>Montant du paiement</th>
+                            
+                        </tr>
+                        ::foreach subscription subscriptions::
+                            
+                            <tr style="text-align: center;">
+                                <td style="vertical-align: middle;">
+                                    <div style="overflow-wrap: break-word;">
+                                                                              
+                                        <a href="/contractAdmin/subscriptions/payments/::subscription.id::" target="_blank">::subscription._user.getName()::</a>
+                                        ::if(subscription._user2!=null)::
+                                        <br/> ( alterné avec ::subscription._user2.getName():: )
+                                        ::end::
+                                    </div>
+                                </td>
+                                
+                                <td style="vertical-align: middle;">
+                                    du ::dateToString(subscription.startDate)::<br/>
+                                    au ::dateToString(subscription.endDate)::
+                                </td>
+                               
+                                ::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
+                                ::set background = ""::
+                                ::if balance < 0::
+                                    ::set background = "redBg"::
+                                ::else::
+                                    ::set background = "greenBg"::
+                                ::end::
+                                <td style="vertical-align: middle;color: white;font-weight:bold;" class="::background::">
+                                    ::formatNum(balance)::&nbsp;::currency()::
+                                </td>
+
+                                <td>
+                                    <select name="sub::subscription.id::_paymentType" class="form-control">
+                                        ::foreach pt paymentTypes::
+                                        <option value="::pt.value::"  ::attr selected (pt.value==selected)::>::pt.label::</option>
+                                        ::end::
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="sub::subscription.id::_label" class="form-control" value="Paiement" />                                   
+                                </td>
+                                    
+                                <td>
+                                    <div class="input-group">
+                                        <input type="number" step="0.01" name="sub::subscription.id::_amount" class="form-control" value="" />
+                                        <div class="input-group-addon">::currency()::</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        ::end::
+                        <tr>
+                            <td colspan="5"></td>
+                            <td>
+                                <input type="submit" value="Enregistrer les paiements" class="btn btn-primary btn-large" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                ::else::
+                    Il n'y a pas de souscription pour ce catalogue.
+                ::end::
+                
+            </div>
+            
+        </div>
+
+        $$back()
+       
+
+    </div>
+::end::

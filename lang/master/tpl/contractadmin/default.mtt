@@ -1,0 +1,131 @@
+::use 'design.mtt'::
+
+<div class="col-md-12">
+
+	<div class="article" id="contracts">
+		<h2>
+			::if getParam("old"):: 
+			::_("Old catalogs")::
+			::else::
+			::_("Catalogs")::
+			::end::
+		</h2>
+		
+		<table class="table">
+			::foreach c contracts::
+				::if c.endDate!=null && c.endDate.getTime() < now().getTime()::
+					::set class = "disabled"::
+				::elseif c.startDate!=null && c.startDate.getTime() > now().getTime()::
+					::set class = "disabled"::
+				::else::
+					::set class = ""::
+				::end::
+				<tr  class="::class::" >
+					<td>
+						<!-- CSA MODE GROUP -->	
+						::if c.isConstantOrdersCatalog()::
+							<div class="tag big" style="background-color:#e5d3bf;" data-toggle="tooltip" title="Contrat AMAP classique">
+								<i class="icon icon-refresh"></i>
+							</div>
+						::else::
+							::set title = "Catalogue standard (commande variable)"::								
+							::set title = "Contrat AMAP variable"::								
+							<div class="tag big" style="background-color:#e5d3bf" data-toggle="tooltip" title="::title::">
+								<i class="icon icon-basket"></i>
+							</div>
+						::end::
+					</td>
+					<td>
+						<div class="productImg sm" style="background-image:url('::c._vendor.getImage()::?v=2');margin:0" ></div>
+					</td>
+					<td>::c._vendor.name::</td>
+					
+					<td>
+						<a href="/contractAdmin/view/::c.id::">
+							::c.name::
+						</a>							
+					</td>
+					<td style="font-size:0.9em;">
+						du ::hDate(c.startDate)::<br/>
+						au ::hDate(c.endDate)::
+					</td>
+					<td>
+						<div class="btn-group" role="group">
+						::if(user.canManageContract(c))::
+							$$edit(::_("Manage")::,/contractAdmin/view/::c.id::)
+						::end::
+						</div>
+					</td>
+				</tr>
+			::end::
+		</table>
+	
+		
+		::if user.canManageAllContracts():: 
+		<a href="/contract/defineVendor/" class="btn btn-primary btn-sm"><i class="icon icon-search"></i> Chercher un producteur</a>		
+		::end::
+
+		<a href="/contractAdmin?old=1" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-folder-close"></span> Anciens catalogues</a>
+
+		::if user.canManageAllContracts():: 
+		<div class="dropdown" style="display:inline-block;">
+		  <button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			<i class="icon icon-list"></i> ::_("Global orders view")::
+			<span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			<li><a href="/contractAdmin/ordersByDate">::_("Same day")::</a></li>
+			<li><a href="/contractAdmin/ordersByTimeFrame">::_("Timeframe")::</a></li>			
+		  </ul>
+		</div>
+		::end::
+		
+	</div>
+	
+</div>
+
+
+
+<div class="col-md-6">
+	<div class="article" id="vendors">
+		<h2>::_("Farmers")::</h2>
+		<table class="table">
+			::foreach v vendors::		
+				<tr>
+					<td>
+						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
+					</td>
+					<td>
+						<b>::v.name::</b><br/>
+						::v.zipCode:: ::v.city::
+
+						::if(v.isDisabled())::
+							::if( (v.disabled!=3 && v.disabled!=6)  )::	
+								<div class="alert alert-danger"><i class="icon icon-alert"></i> Producteur désactivé : ::raw v.getDisabledReason()::</div>
+							::end::
+						::end::
+					</td>
+					<td>
+						<div class="btn-group" role="group">
+							<!-- ::if user.isAmapManager():: $$delete(,/vendor/delete/::v.id::?token=::token::) ::end::-->
+						</div>
+					</td>
+				</tr>
+			::end::
+		</table>
+		<!--$$insert(::_("New farmer")::,/vendor/insert/) -->
+		<div class="alert alert-warning text-center">Pour référencer un nouveau producteur, cliquez sur "Chercher un producteur"</div>
+		
+	</div>	
+</div>
+
+<div class="col-md-6">
+	<div class="article" id="places">
+		
+		<h2>::_("Delivery places")::</h2>
+		<div class="alert alert-warning text-center">La gestion des lieux a été déplacée dans <a href="/place">l'onglet "paramètres"</a></div>
+		
+	</div>
+</div>
+	
+::end::

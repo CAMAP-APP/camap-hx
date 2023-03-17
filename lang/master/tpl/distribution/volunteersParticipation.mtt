@@ -1,0 +1,95 @@
+::use 'design.mtt'::
+<div id="content" class="col-md-8">
+	<div class="article">
+
+		<h3>::_("Duty periods participation")::</h3>
+
+		<form >
+			<div style="float:left;width:50px;">Du</div>
+			<div style="width:210px;float:left;margin-right: 20px;">       
+				::raw fromField.render()::
+			</div>
+			<div style="float:left;width:50px;">au</div>
+			<div style="width:210px;float:left;margin-right:20px;">       
+				::raw toField.render()::
+			</div>
+
+			<input type="submit" class="btn btn-primary" value="OK" />
+		</form>
+
+     
+        <hr/>
+        
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-md-6">::_("Member")::</th>
+                <td></td>
+                <th class="col-md-6 text-center">::_("Duty periods done / to do")::</th>
+                
+            </tr>
+
+            ::foreach userId participation.keys()::
+
+				::set p = participation.get(userId)::
+				::set toBeDone = p.genericRolesToBeDone + p.contractRolesToBeDone::
+				::set done = p.genericRolesDone + p.contractRolesDone::  
+
+				::if(done >= toBeDone)::
+					::set class="success text-success"::
+				::else::
+					::set class="danger text-danger"::
+				::end::
+				<tr class="::class::">
+					<td>
+						::getUser(userId).getCoupleName()::
+					</td>
+					<td>
+						::if(done >= toBeDone)::
+							<i class="icon icon-check"></i>
+						::else::
+							<i class="icon icon-alert"></i>
+						::end::
+					</td>
+					<td class="text-center">						
+						::done:: / ::toBeDone::
+					</td>
+				</tr>
+            
+            ::end::
+        </table>
+		
+		
+			
+		<a href="/" class="btn btn-default btn-sm">
+			<i class="icon icon-chevron-left"></i> ::_("Back")::
+		</a>
+	</div>
+</div>
+
+<!-- RIGHT COLUMN -->
+<div class="col-md-4">
+	<div class="block" >
+       
+        <ul>
+            <li>
+                <b>::multiDistribs.length::</b> distributions
+            </li>
+            <li>
+                <b>::members.length::</b> adhérents
+            </li>
+            <li>
+                <b>::totalRolesToBeDone::</b> permanences à faire
+            </li>
+            <li>
+                <b>::totalRolesDone::</b> inscriptions à une permanence
+            </li>
+        </ul>
+        
+        <p>
+            Par défaut, la fenêtre de temps sélectionnée correspond à une année à partir de votre date de renouvellement d'adhésion.
+        </p>
+       
+    </div>
+</div>
+
+::end::

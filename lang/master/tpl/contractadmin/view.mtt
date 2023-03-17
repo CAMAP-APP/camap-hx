@@ -1,0 +1,92 @@
+::use 'contractadmin/design.mtt'::
+
+		<h3>::_("Summary")::</h3>
+		
+		<table class="table table-bordered" style="width:600px;">
+			<tr>
+				<td class="col-md-3">
+					Type de catalogue
+				</td>
+				<td>
+					::if contract.type==0::
+					<div class="tag big" style="background-color:#e5d3bf;width:48px;display:inline-block;" >
+						<i class="icon icon-refresh"></i>
+					</div>
+					::else::
+					<div class="tag big" style="background-color:#e5d3bf;width:48px;display:inline-block;" >
+						<i class="icon icon-basket"></i>
+					</div>
+					::end::
+
+					::if contract.type == 0::
+						Contrat AMAP classique
+					::else::
+						Contrat AMAP variable
+					::end::
+				</td>
+			</tr>
+			<tr>
+				<td>::_("Start date")::</td>
+				<td>::dDate(contract.startDate)::</td>
+			</tr>
+			<tr>
+				<td>::_("End date")::</td>
+				<td>::dDate(contract.endDate)::</td>
+			</tr>
+		</table>
+
+		<div>
+			$$edit(::_("Edit")::,/contractAdmin/edit/::c.id::)			
+			
+			$$edit(::_("Duplicate")::,/contractAdmin/duplicate/::c.id::)
+
+			::if user.canManageAllContracts()::
+				$$delete(Supprimer,/contractAdmin/delete/::c.id::?token=::token::)
+				<div style="margin-top:8px">
+					<div class="alert alert-warning">
+						<i class="icon icon-info"></i>					
+						Vous ne pourrez pas supprimer ce catalogue si il contient des commandes, afin de ne pas perdre l'historique des commandes. 
+						Si vous souhaitez simplement le faire disparaitre, il suffit de changer sa date de fin. Si la date de fin est plus ancienne qu'un mois avant aujourd'hui, le catalogue sera masqué. Vous pourrez le retrouver si besoin en cliquant sur "anciens catalogues".
+					</div>
+				</div>
+			::end::
+		</div>
+
+		<hr/>
+		
+		<h4>::_("Farmer")::</h4>
+		<table class="table table-bordered" style="width:600px;">
+			<tr>
+				<td class="col-md-3">::_("Name")::</td>
+				<td><b>::contract._vendor.name::</b></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td>$$nullSafe(::contract._vendor.email::)</td>
+			</tr>
+			<tr>
+				<td>::_("Phone")::</td>
+				<td>$$nullSafe(::contract._vendor.phone::)</td>
+			</tr>
+			<tr>
+				<td>Statut</td>
+				<td>
+					::set vendor = contract._vendor::
+				</td>
+			</tr>
+		</table>
+		
+		<h4><a href="/contractAdmin/products/::c.id::">::_("Products")::</a></h4>
+		<div style="max-height:400px;overflow:auto;">
+			<table class="table table-bordered" style="width:600px;">
+				::foreach p contract.getProducts(true)::
+				<tr>
+					<td><img src="::p.getImage()::" style="width:32px;height:32px;" />	</td>
+					<td>::p.getName()::</td>
+					<td>::formatNum(p.price)::&nbsp;::currency()::</td>					
+				</tr>
+				::end::
+			</table>
+		</div>
+
+::end::

@@ -1,0 +1,614 @@
+<macros>
+
+	<macro name="jsConfirm(?text)">confirm(::if text==null::'Confirmer cette action ?'::else::'::escapeJS(text)::'::end::)</macro>
+	
+	<macro name="confirm(?text)" onclick="return $$jsConfirm(::text::)"/>
+	
+	<macro name="userMenu(user)">
+		::if user != null::
+			<!-- Home -->			
+			<div class="dropdown pull-right text-right">
+				
+				<a  class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
+					<i class="icon icon-user"></i>
+					::user.getName()::
+					::if user.firstName2!=null::
+						::_("et"):: ::user.lastName2:: ::user.firstName2::  						
+					::end::
+				</a>
+
+				<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
+					<li><a href="/account"><i class="icon icon-user"></i> ::_("My account")::</a></li>
+					::if(isAdmin)::
+					<li><a href="/db"><i class="icon icon-cog"></i> ::_("Database")::</a></li>
+					::end::
+					<li><a href="/user/logout"><i class="icon icon-sign-out"></i> ::_("Log out")::</a></li>
+				</ul>
+				
+			</div>			
+		::else::
+			<div class="pull-right text-right">
+				<a href="/user/login" class="btn btn-default btn-sm"><i class="icon icon-user"></i> ::_("Log in")::</a>
+				<a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i> ::_("Look for another group")::</a>	
+			</div>
+		::end::
+
+		<!-- Home -->
+		<div class="pull-right">
+			<a class="" href="/user/choose?show=1" >
+				<i class="icon icon-chevron-left"></i> ::_("Home")::
+			</a>
+		</div>
+			
+	</macro>
+	
+	<macro name="browse(b,url)">$$browseCustom(::b::,::url::,Page ::b.page:: ::if b.pages::/::b.pages:: ::end::)</macro>
+
+	<macro name="browseCustom(b,url,custom)">
+		&lt; 
+		::if b.prev::<a href="::url::/?page=::b.prev::">::_("Previous")::</a>::else:: ::_("Previous"):: ::end::
+		| ::custom:: |
+		::if b.next::<a href="::url::/?page=::b.next::">::_("Next")::</a>::else:: ::_("Next"):: ::end:: &gt;
+	</macro>
+	
+	<macro name="nullSafe(text)">::if text==null::	::else::::raw text::::end::</macro>
+	
+	<macro name="edit(text,url)">		
+		<a href="::url::" class="btn btn-default btn-sm">
+			<i class="icon icon-edit"></i>
+			&nbsp;::text::
+		</a>	
+	</macro>
+	
+	<macro name="insert(text,url)">
+		<!--<img src="/img/icons/add.png" style="vertical-align:middle;" />&nbsp;<a href="::url::">::text::</a>-->
+		<a href="::url::" class="btn btn-default btn-sm">
+				<i class="icon icon-plus"></i>
+			&nbsp;::text::
+		</a>	
+	</macro>
+	
+	<macro name="delete(text,url)">
+		<a href="::url::" $$confirm(::_("Delete ?")::) class="btn btn-default btn-sm" >
+				<i class="icon icon-delete"></i>
+		::if text!=null && text!=""::	
+			&nbsp;::text::
+		::end::
+		</a>
+	</macro>
+	
+	<macro name="export(url)">
+		<a href="::url::" class="btn btn-default btn-sm"><i class="icon icon-download"></i> ::_("Excel/CSV Export")::</a>	
+	</macro>
+	
+	<macro name="bool(v)">
+		::if v==true::
+		<i class="icon icon-circle greenColor" ></i>
+		::else::
+		<i class="icon icon-circle-empty" style="color:#888"></i>
+		::end::
+	</macro>
+
+	<macro name="bigBool(v)">
+		::if v==true::
+		<div class="iconBadge greenBg" style="margin: 6px;">
+			<i class="icon icon-check"></i>
+		</div>
+		::else::
+		<div class="iconBadge" style="background-color:#CCC;margin: 6px;">
+			<i class="icon icon-delete"></i>
+		</div>		
+		::end::
+	</macro>
+	
+	<macro name="check(v)">
+		::if(v==true || v==1)::
+		<i class="icon icon-check greenColor" ></i>
+		::else::
+		<i class="icon icon-alert redColor"></i>
+		::end::
+	</macro>
+	
+	<macro name="balance(balance)">
+		::if balance<0:: 
+			::set color = "redColor"::
+		::else::
+			::set color = "greenColor"::
+		::end::
+		<span class="::color::">
+			::formatNum(balance)::&nbsp;::currency()::
+		</span>
+	</macro>
+	
+	<macro name="date(dow,d,m,y,place)">
+		<div class="dateBox" >
+			<div class="box">
+				<div>::dow::</div>
+				<div style="font-size:28px;color:#990000;">::d::</div>
+				<div>::m::</div>				
+			</div>
+			::if place!=null:: 
+			<div style="margin-top:6px;">
+                <i class="icon icon-map-marker"></i>
+                <a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>
+            </div>
+            ::end::
+            <div style="width: 0px; height: 0px; overflow: hidden">
+                <span id="::dow::-::d::-::m::-::y::"></span>	
+            </div>
+		</div>		
+    </macro>
+    
+    <macro name="placeOsm(place,unique)">
+        <i class="icon icon-map-marker"></i>		
+		<a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>		
+		
+        <div style="width: 0px; height: 0px; overflow: hidden">
+            <span id="::unique::"></span>	
+        </div>
+	</macro>
+
+	<macro name="subscriptionBalance(sub)">
+        ::set balance = sub.getBalance()::
+		::if balance < 0::
+			::set color = "redColor"::
+		::else::
+			::set color = "greenColor"::
+		::end::
+		<a href="/history/subscriptionPayments/::sub.id::" class="::color::"><i class="icon icon-euro"></i> Solde : ::balance::€</a>
+	</macro>
+
+	<macro name="subscription(subscription,currentUser)">
+		::set catalog = subscription._catalog::
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					::if catalog.isVariableOrdersCatalog()::
+					<i class="icon icon-basket"></i>
+					::else::
+					<i class="icon icon-refresh"></i>
+					::end::
+
+					::catalog.name:: - ::catalog._vendor.name::
+				</h3>
+			</div>
+			<div class="panel-body">
+
+				::if subscription._user2 != null::
+					<p>
+						<a href="/member/view/::subscription._user.id::" target="_blank">::subscription._user.getName()::</a>
+						<br/> ( alterné avec <a href="/member/view/::subscription._user2.id::" target="_blank">::subscription._user2.getName()::</a> )
+					</p>
+				::end::
+				
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Engagement</div>
+						<div class="panel-body">
+							::set orderName = subscriptionService.getSubscriptionConstraints(subscription)::
+							::if orderName == null::
+								Pas de contraintes								
+							::else::
+								::raw orderName::
+							::end::
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Période d'engagement</div>
+						<div class="panel-body">
+							du ::dDate(subscription.startDate)::<br/>
+							au ::dDate(subscription.endDate)::
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Jours d'absence</div>
+						<div class="panel-body">
+							::set absences = subscription.getAbsentDistribs()::
+							::if absences.length>0::							
+								::foreach d absences::
+									::dDate(d.date)::<br/>
+								::end::							
+							::else::
+							<span class="disabled">Pas d'absences</span>
+							::end::
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Distributions</div>
+						<div class="panel-body">
+							::subscriptionService.getSubscriptionDistribsNb(subscription, null, false):: sur la période d'engagement
+							::if absences.length > 0::
+								<br/>avec ::absences.length:: jour(s) d'absence
+								<br/>soit ::subscriptionService.getSubscriptionDistribsNb(subscription, null, true):: distributions effectives.
+							::end::
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Total commandé</div>
+						<div class="panel-body">
+							::subscription.getTotalPrice()::&nbsp;::currency()::
+							<a href="/history/subscriptionOrders/::subscription.id::" class="btn btn-default btn-xs">
+								Commandes
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="panel panel-default subPanel">
+						<div class="panel-heading">Solde</div>
+						::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
+						::if balance < 0::
+							::set color = "redColor"::
+						::else::
+							::set color = "greenColor"::
+						::end::
+						<div class="panel-body" >
+							<span style="::color::">::formatNum(balance)::&nbsp;::currency()::</span>
+							<a href="/history/subscriptionPayments/::subscription.id::" class="btn btn-default btn-xs">
+								Paiements
+							</a>							
+						</div>
+					</div>
+				</div>	
+				
+				::if(subscription.userId==currentUser.id)::
+				<div class="col-md-12">
+					<div class="text-center">
+						<a href="/subscriptions/contract/::subscription.catalogId::" class="btn btn-default">
+							<i class="icon icon-edit"></i> Modifier ma souscription
+						</a>
+					</div>
+				</div>	
+				::end::
+
+			</div>
+			
+		</div>
+	</macro>
+	
+	<macro name="today(dow,d,m,y,h,place)">
+		<div class="dateBox" style="background-color:#080;" >
+			<img src="/img/go.png"/>
+			<div style="font-size:16px;margin-bottom:8px;">
+				::if parseInt(h)<=12::
+					::_("THIS MORNING")::
+				::elseif parseInt(h)<18::
+					<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
+				::else::
+					::_("THIS EVENING")::
+				::end::
+				
+			</div>
+			::if place!=null:: 
+			<div style="margin-top:6px;">
+                <i class="icon icon-map-marker"></i>
+                <span id="::dow::-::d::-::m::-::y::"></span>
+                <a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>
+			</div>
+			::end::
+		</div>		
+	</macro>
+	
+	<macro name="contact(u)">
+		
+		<i class="icon-user"></i>
+		
+		::if u!=null::
+			<b>::u.firstName:: ::u.lastName::</b><br/>
+			<span ::cond u.email!=null::>
+					<i class="icon icon-mail"></i> <a href="mailto: ::u.email::">::u.email::</a><br/>			
+			</span>
+			<span ::cond u.phone!=null::>
+					<i class="icon icon-phone"></i>  ::u.phone::<br/>			
+			</span>
+		::else:: 
+			::_("No contact")::
+		::end::
+		
+	</macro>
+
+	
+	<macro name="alert(msg)">
+		<div class="alert alert-danger">
+			<i class="icon icon-alert"></i>
+			
+			::raw msg::					
+		</div>
+	</macro>
+	
+	
+	<macro name="operation(t)">
+		::set x = t.getTypeIndex()::
+		<!--::if x==2:: ::set class="text-right":: ::end:: -->
+		<td class="::class::">
+			::if x==0::
+			<i class="icon icon-basket" aria-hidden="true"></i>&nbsp;::_("Order")::
+			::elseif x==1::
+			<i class="icon icon-basket" aria-hidden="true"></i>&nbsp;::raw _("CSA&nbsp;contract")::
+			::elseif x==2::
+			<!--<span style="margin-left:48px;">::_("Payment"):: ::_(t.getPaymentType())::</span>-->
+			<i class="icon icon-euro" aria-hidden="true"></i> ::t.getPaymentTypeName()::
+			::else::						
+			<i class="icon icon-user" aria-hidden="true"></i> Adhésion
+			::end::
+		</td>
+		
+		<td>
+			::if t.pending==true::			
+				<i class="fa fa-circle-thin" style="color:#CCC;" aria-hidden="true"></i>			
+			::else::		
+				<i class="fa fa-check" aria-hidden="true"></i>
+			::end::
+		</td>
+		<td style="font-size:1em;">
+			
+			::t.name::<br/>
+
+			::if x==2 && t.pending==true::		
+				::if(t.getPaymentType()=="check")::
+					<span style="color:red;">::_("Check to be given at the collection of products")::</span>
+				::elseif(t.getPaymentType()=="cash")::
+					<span style="color:red;">::_("Cash to be given at the collection of products")::</span>
+				::elseif(t.getPaymentType()=="transfer")::
+					<span style="color:red;">::_("This transfer must be validated by a coordinator")::</span>		
+				::elseif(t.getPaymentType()=="onthespot")::
+					<span style="color:red;">::_("You need to pay on the spot at the collection of products")::</span>
+				::end::
+				
+			::else::
+				<span style="font-size:0.90em;color:#AAA;">::sDate(t.date)::</span>
+			::end::
+
+			::set sub = t._subscription:: 
+			::if(sub!=null)::
+				<br/><a href="/contractAdmin/subscriptions/payments/::sub.id::">Souscription ::sub._catalog.name::</a>
+			::end::
+		</td>
+		<td class="text-right">
+			::if(t.amount<0)::
+				-
+			::end::
+		</td>
+		<td>
+			::if(t.amount<0)::
+				::formatNum(0-t.amount)::&nbsp;::currency()::
+			::else::
+				::formatNum(t.amount)::&nbsp;::currency()::
+			::end::
+		</td>
+		::set class=""::
+		</macro>
+
+		<macro name="back()">	
+		<a href="#" onclick="window.history.back();" class="btn btn-default btn-sm"><i class="icon icon-chevron-left"></i> ::_("Back")::</a>
+	</macro>
+
+	<macro name="empty(txt)">	
+		<div style="text-align:center;width:100%;height:300px;color: #AAA;">			
+			<p>
+				::txt::
+			</p>			
+		</div>		
+	</macro>
+
+	<macro name="timeframe(timeframe)">
+		::set next = timeframe.next()::
+		::set previous = timeframe.previous()::
+		<div class="btn-group">
+			<a href="?_from=::previous.from.toString().substr(0,10)::&_to=::previous.to.toString().substr(0,10)::" class="btn btn-default">
+				<i class="icon icon-chevron-left"></i>
+			</a>
+			<a class="btn btn-default disabled">Du ::dDate(timeframe.from):: au ::dDate(timeframe.to)::</a>
+			<a href="?_from=::next.from.toString().substr(0,10)::&_to=::next.to.toString().substr(0,10)::" class="btn btn-default">
+				<i class="icon icon-chevron-right"></i>
+			</a>
+		</div>
+	</macro>	
+	
+	<macro name="footer()">
+		::if(theme!=null && theme.footer!=null)::
+		<div class="row">
+			<div class="col-md-12">
+				<div id="footer" >
+						<div class="col-md-3" >
+							::if(theme.footer.bloc1!=null):: ::raw theme.footer.bloc1:: ::end::
+						</div>
+						<div class="col-md-3" >
+							::if(theme.footer.bloc2!=null):: ::raw theme.footer.bloc2:: ::end::
+						</div>
+						<div class="col-md-3" >
+							::if(theme.footer.bloc3!=null):: ::raw theme.footer.bloc3:: ::end::
+						</div>
+						<div class="col-md-3" >
+							::if(theme.footer.bloc4!=null):: ::raw theme.footer.bloc4:: ::end::
+						</div>
+				</div>
+			</div>
+		</div>
+		::end::
+		<div class="row">
+			<div id="subfooter"></div>
+		</div>
+	</macro>
+
+	<!--insert in HEAD section-->
+	<macro name="googleTagManager(googleTagManagerId)">
+		::if(googleTagManagerId!=null && googleTagManagerId!="")::
+			<script>
+				::if(user!=null)::
+					window.dataLayer = window.dataLayer || [];
+					window.dataLayer.push({
+						'userId' : '::user.id::'
+					});
+				::end::
+				(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','dataLayer','::googleTagManagerId::');
+			</script>
+		::end::
+	</macro>
+
+	<!--insert in BODY section-->
+	<macro name="googleTagManagerNoScript(googleTagManagerId)">
+		::if(googleTagManagerId!=null && googleTagManagerId!="")::
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=::googleTagManagerId::"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		::end::
+	</macro>
+
+    <macro name="browserDetection()">
+        <script type="text/javascript" src="/js/browser-detect.js"></script>
+        <div id="browser-detection-container"></div>
+        <script>
+        if (!window.IsValidBrowser) {
+            var browserDetectionContainer = document.getElementById("browser-detection-container");
+
+            var style = document.createElement("style");
+            style.innerHTML =
+            "#browser-detection-container {" +
+            "margin-left: auto;" +
+            "margin-right: auto;" +
+            "left: 0;" +
+            "right: 0;" +
+            "text-align: center;" +
+            "}" +
+            ".browser-detection-card {" +
+            "background-color: #fff;" +
+            "border-radius: 4px;" +
+            "box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0,0,0,.12);" +
+            "margin: 32px;" +
+            "position: relative;" +
+            "width: 600px;" +
+            "height: 260px;" +
+            "margin-left: auto;" +
+            "margin-right: auto;" +
+            "z-index: 1;" +
+            "}" +
+            ".browser-detection-title-root {" +
+            "margin: 0;" +
+            "padding: 16px 24px;" +
+            "}" +
+            ".browser-detection-title {" +
+            "color: #777;" +
+            "margin: 0;" +
+            "font-size: 1.25rem;" +
+            "line-height: 1.6;" +
+            "text-align: left;" +
+            "font-style: normal;" +
+            "}" +
+            ".browser-detection-content-root {" +
+            "padding: 8px 24px;" +
+            "}" +
+            ".browser-detection-content {" +
+            "color: #777;" +
+            "margin: 0;" +
+            "line-height: 1.5;" +
+            "white-space: pre-line;" +
+            "text-align: left;" +
+            "}" +
+            ".browser-detection-buttons-root {" +
+            "padding-top: 16px;" +
+            "padding-bottom: 16px;" +
+            "}" +
+            ".browser-detection-icon-root {" +
+            "display: inherit;" +
+            "margin-left: -4px;" +
+            "margin-right: 8px;" +
+            "}";
+
+            var ref = document.querySelector("script");
+            ref.parentNode.insertBefore(style, ref);
+
+            var box = document.createElement("div");
+            box.classList.add("browser-detection-card");
+
+            var titleContainer = document.createElement("div");
+            titleContainer.classList.add("browser-detection-title-root");
+            var title = document.createElement("h2");
+            title.classList.add("browser-detection-title");
+            title.textContent = "Attention votre navigateur est trop ancien.";
+            titleContainer.append(title);
+            box.append(titleContainer);
+
+            var contentContainer = document.createElement("div");
+            contentContainer.classList.add("browser-detection-content-root");
+            var content = document.createElement("p");
+            content.classList.add("browser-detection-content");
+            content.textContent = "Votre navigateur Internet est trop ancien pour afficher ce site. \n Cela peut entraîner des problèmes d'affichage. \n Nous vous conseillons fortement de télécharger un navigateur plus récent, comme Firefox ou Brave.";
+            contentContainer.append(content);
+            box.append(contentContainer);
+
+            var buttonsContainer = document.createElement("div");
+            buttonsContainer.classList.add("browser-detection-buttons-root");
+            box.append(buttonsContainer);
+
+            var firefoxLink = document.createElement("a");
+            firefoxLink.href = "https://www.mozilla.org/firefox/new/";
+            firefoxLink.classList.add("btn", "btn-default");
+            firefoxLink.style.marginRight = "30px";
+            firefoxLink.target = "_blank";
+            firefoxLink.rel = "noopener";
+            var firefoxLabel = document.createElement("span");
+            firefoxLabel.style.display = "flex";
+            firefoxLabel.style["align-items"] = "center";
+            var firefoxIconContainer = document.createElement("span");
+            firefoxIconContainer.classList.add("browser-detection-icon-root");
+            var firefoxIcon = document.createElement("img");
+            firefoxIcon.src = "/img/firefox.svg";
+            firefoxIcon.style.height = "0.875rem";
+            firefoxLabel.textContent = "Télécharger Firefox";
+            firefoxIconContainer.append(firefoxIcon);
+            firefoxLabel.prepend(firefoxIconContainer);
+            firefoxLink.append(firefoxLabel);
+            buttonsContainer.append(firefoxLink);
+
+            var braveLink = document.createElement("a");
+            braveLink.href = "https://www.brave.com/";
+            braveLink.classList.add("btn", "btn-default");
+            braveLink.style.marginLeft = "30px";
+            braveLink.target = "_blank";
+            braveLink.rel = "noopener";
+            var braveLabel = document.createElement("span");
+            braveLabel.style.display = "flex";
+            braveLabel.style["align-items"] = "center";
+            var braveIconContainer = document.createElement("span");
+            braveIconContainer.classList.add("browser-detection-icon-root");
+            var braveIcon = document.createElement("img");
+            braveIcon.src = "/img/brave.svg";
+            braveIcon.style.height = "0.875rem";
+            braveLabel.textContent = "Télécharger Brave";
+            braveIconContainer.append(braveIcon);
+            braveLabel.prepend(braveIconContainer);
+            braveLink.append(braveLabel);
+            buttonsContainer.append(braveLink);
+
+            browserDetectionContainer.appendChild(box);
+        }
+        </script>
+    </macro>
+
+	<macro name="favicons()">
+		<link rel="apple-touch-icon" sizes="180x180" href="/theme/::theme.id::/apple-touch-icon.png"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/theme/::theme.id::/favicon-32x32.png"/>
+		<link rel="icon" type="image/png" sizes="16x16" href="/theme/::theme.id::/favicon-16x16.png"/>
+		<link rel="icon" type="image/x-icon" href="/theme/::theme.id::/favicon.ico"/>
+	</macro>
+
+</macros>

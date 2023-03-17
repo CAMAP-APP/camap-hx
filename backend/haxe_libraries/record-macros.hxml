@@ -1,0 +1,4 @@
+# @install: lix --silent download "gh://github.com/bablukid/record-macros#41538b73570eedd2091906091d6c1d1683ee8529" into record-macros/1.0.0-alpha/github/41538b73570eedd2091906091d6c1d1683ee8529
+-cp ${HAXE_LIBCACHE}/record-macros/1.0.0-alpha/github/41538b73570eedd2091906091d6c1d1683ee8529/src
+-D record-macros=1.0.0-alpha
+--macro addGlobalMetadata("Date.toString", "@:keep", false, false, true)

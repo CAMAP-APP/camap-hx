@@ -1,0 +1,61 @@
+::use 'design.mtt'::
+<div class="col-md-3">
+
+	<div class="article">
+
+		::if(breadcrumb()[2]!=null)::
+		::set category = breadcrumb()[2].id::
+		::end::
+		<ul id="subnav" class="nav nav-pills nav-stacked" >
+			<li id="rights" ::attr class if(category=="rights") 'active'::>
+				<a href="/amapadmin/rights/">::_("Administration rights")::</a>
+			</li>
+			<li id="rates" ::attr class if(category=="vatrates") 'active'::>
+				<a href="/amapadmin/vatRates/">::_("VAT rates")::</a>
+			</li>			
+			<li id="volunteers" ::attr class if(category=="volunteers") 'active'::>
+				<a href="/amapadmin/volunteers/">
+					<i class="icon icon-users"></i>  ::_("Duty Periods")::</a>
+			</li>
+			<li id="membership" ::attr class if(category=="membership") 'active'::>
+				<a href="/amapadmin/membership/">
+					<i class="icon icon-users"></i>  Adhésions</a>
+			</li>
+			<li id="places" ::attr class if(category=="places") 'active'::>
+				<a href="/place/">
+					<i class="icon icon-map-marker"></i> Lieu de distribution</a>
+			</li>
+			<li id="currency" ::attr class if(category=="currency") 'active'::>
+				 <a href="/amapadmin/currency/">
+					<i class="icon icon-payment-type"></i> ::_("Currency")::
+				</a>
+			</li>
+			<li id="documents" ::attr class if(category=="documents") 'active'::>
+				<a href="/amapadmin/documents">
+					<i class="icon icon-file-pdf"></i> Documents
+				</a>
+			</li>
+			::if nav != null::				
+				::foreach i nav::
+					::if i.name != null::
+						<li ::attr class if(nav[1]==i.id) 'active'::>
+							<a href="::i.link::">
+								<i ::cond i.icon:: class="icon icon-::i.icon::" ></i>
+								::i.name::
+							</a>						
+						</li>
+					::end::
+				::end::		
+			::end::
+		</ul>
+		
+	</div>
+</div>
+
+<div class="col-md-9">
+	<div class="article">
+	::raw __content__::	
+	</div>
+</div>
+
+::end::

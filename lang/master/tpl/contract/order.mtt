@@ -1,0 +1,16 @@
+::use 'design.mtt'::
+<div id="content" class="col-md-12" style="overflow: hidden;">
+	<h2>::catalog.name::</h2>
+
+	<div id="csa-catalog-neo-container" style="margin-bottom: 24px;"></div>
+	<script>
+		document.addEventListener("DOMContentLoaded", function(event) {
+			neo.createNeoModule("csa-catalog-neo-container", "csaCatalog", {
+				catalogId: ::catalog.id::,
+				userId: ::userId::,
+				subscriptionId: ::subscriptionId::
+			});
+		});
+	</script>
+</div>
+::end::

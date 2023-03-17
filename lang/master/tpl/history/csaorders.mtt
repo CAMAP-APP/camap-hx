@@ -1,0 +1,80 @@
+::use 'design.mtt'::
+<div class="col-md-12">
+
+	
+	<div class="article">
+
+		<h3 class="text-center">Commandes de ::member.getName()::<br/>::catalog.name::</h3>
+		
+		::if distribs.length > 0::
+	
+			::foreach d distribs::
+				<h5 style="margin-top:50px;">
+					Distribution du ::dDate(d.date)::
+				</h5>
+				::set orders = d.getUserOrders(member)::
+				
+				::if(orders!=null && orders.length>0)::
+
+					::if(d.date.getTime() < now.getTime() )::
+					::set disabled = "disabled"::
+					::else::
+					::set disabled = ""::
+					::end::
+					<table class="table table-bordered table-condensed text-center ::disabled::" >
+						<tr class="greyhead">
+							<th class="col-md-1">::_("Qty||short version for quantity")::</th>
+							<th class="col-md-4">::_("Product")::</th>
+							<th class="col-md-1"><a href="#" data-toggle="tooltip" data-placement="top" title="::_('Unit price including taxes')::">::_("U.P||short version of price per unit")::</a></th>
+							<th class="col-md-2">::_("Sub-total")::</th>
+							<th class="col-md-1">::_("Fees")::</th>
+							<th class="col-md-1">::_("Total")::</th>
+						</tr>
+						::set total = 0::
+						::foreach o prepare(orders)::
+							<tr>
+								<td style="vertical-align: middle;">
+									::raw o.smartQt::
+								</td>
+								<td style="vertical-align: middle;">
+									<a href="#" onclick="_Camap.overlay('/shop/productInfo/::o.productId::','::o.productName::')">
+										<img src="::o.productImage::" style="width:32px;height:32px;" />
+										::o.productName::
+									</a>
+								</td>
+								<td style="vertical-align: middle;">
+									::formatNum(o.productPrice)::&nbsp;::currency()::
+								</td>
+								<td style="vertical-align: middle;">
+									::formatNum(o.subTotal)::&nbsp;::currency()::
+								</td>
+								<td style="vertical-align: middle;">
+									$$nullSafe(::formatNum(o.fees)::)
+								</td>
+								<td style="vertical-align: middle;">
+									::formatNum(o.total)::&nbsp;::currency()::
+									::set total = total + o.total::
+								</td>
+							
+							</tr>
+						::end::	
+						<tr>
+							<td colspan="4"></td>
+							<td style="vertical-align: middle;">TOTAL</td>
+							<td style="vertical-align: middle;"><b>::formatNum(total)::&nbsp;::currency()::</b></td>
+						</tr>
+					</table>
+				::else::
+				<div class="text-center" style="margin:50px 0;">
+					Aucune commande pour cette distribution.
+				</div>
+
+				::end::
+			::end::
+		
+		::end::
+
+	</div>
+</div>
+
+::end::

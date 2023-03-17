@@ -1,0 +1,30 @@
+﻿::use 'design.mtt'::
+<div class="col-md-9">
+	<div class="article">
+		<h3 ::cond title!=null::>::title::</h3>
+		<p ::cond text!=null::>
+			::raw text::
+		</p>
+		
+		::raw form::
+		
+	</div>
+</div>
+<div class="col-md-3">
+        <div class="alert alert-warning">
+            <i class="icon icon-info"></i>
+            <b>Configuration des contrats AMAP</b>
+            <p>
+                Pour comprendre en détail comment configurer vos contrats AMAP, 
+                nous vous recommandons de consulter 
+                la documentation. 
+                <ul>
+                    <li><a href="https://wiki.cagette.net/admin:admin_contratsamap" target="_blank">contrats AMAP classique</a></li>
+                    <li><a href="https://wiki.cagette.net/admin:contratsamapvariables" target="_blank">contrats AMAP variables</a></li>
+                </ul> 
+                
+            </p>
+        </div>
+</div>
+
+::end::

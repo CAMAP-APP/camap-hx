@@ -1,0 +1,68 @@
+::use 'amapadmin/design.mtt'::
+
+	<h3>::user.getGroup().name::</h3>		
+	
+	<div class="row">
+		
+		<div class="col-md-6">
+			<p>
+				<strong>::membersNum::</strong> ::_("members")::.<br/>
+				<strong>::contractsNum::</strong> catalogues actifs.<br/>	
+				
+				<hr/>
+				
+				$$edit(::_("Edit properties")::,/amap/edit)
+				
+				<a class="btn btn-default btn-sm" onclick="_Camap.openImageUploader('group', ::user.getGroup().id::, 400, 400)">
+					<i class="icon icon-image"></i> ::_("Choose a logo")::
+				</a>
+			</p>
+			
+			<hr/>
+			
+			<p>
+				::raw _("Your group has a public page, You can use it as a micro-website.<br/>Copy-paste the address of this page and share it !")::
+				<br/>				
+			</p>
+			
+			
+			<p class="linkToShare">
+				<i class="icon icon-link"></i>
+				<a href="http://::HOST::/group/::user.getGroup().id::">
+					http://::HOST::/group/::user.getGroup().id::				
+				</a>
+			</p>
+			
+			<p>
+				<a href="/group/::user.getGroup().id::" class="btn btn-default"><i class="icon icon-chevron-right"></i>&nbsp; ::_("Display")::</a>
+			</p>
+
+			
+			<p>				
+				::if(visibleOnMap)::
+				<div class="alert alert-success">
+					$$check(true) Votre groupe est visible sur la carte.
+					<br/><a href="https://wiki.cagette.net/admin:admin_carte" target="_blank">Documentation</a>
+				</div>
+				::else::
+				<div class="alert alert-danger">
+					$$check(false) Votre groupe n'est pas visible sur la carte, pour les raisons suivantes : ::visibleOnMapText::
+					<br/><a href="https://wiki.cagette.net/admin:admin_carte" target="_blank">Documentation</a>
+				</div>
+				::end::
+			</p>
+			
+		</div>
+		
+		<div class="col-md-6">			
+			::if user.getGroup().imageId!=null::
+			<img src="::file(user.getGroup().imageId)::" style="width: 100%; max-width: 400px" class="thumbnail" />
+			::end::
+		</div>
+
+
+
+	</div>
+
+
+::end::

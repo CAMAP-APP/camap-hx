@@ -1,0 +1,14 @@
+::use 'design.mtt'::
+
+<div id="members-neo-container" style="margin-right: 15px; margin-left: 15px;"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+       neo.createNeoModule("members-neo-container", "members", {
+            groupId: parseInt("::user.getGroup().id::", 10),
+            token: "::token::"
+        });
+    });
+</script>
+
+::end::

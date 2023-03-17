@@ -1,0 +1,35 @@
+::use 'amapadmin/design.mtt'::
+
+	<h3>Lieux de distribution</h3>		
+	
+	<div class="row">
+		
+		<div class="col-md-8">
+			<table class="table">
+                ::foreach p places::		
+                    <tr>
+                        <td><b>::p.name::</b></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                            $$edit(::_("Edit")::,/place/edit/::p.id::)
+                            ::if user.isAmapManager():: $$delete(::_("Del.||short version for delete")::,/place/delete/::p.id::?token=::token::) ::end::
+                            </div>
+                        </td>
+                    </tr>
+                ::end::
+            </table>
+            $$insert(::_("New delivery place")::,/place/insert/)
+        </div>
+        
+        <div class="col-md-4">
+            <div class="alert alert-warning">
+                <i class="icon icon-info"></i>
+                Pour être sûr d'apparaître sur la carte des groupes, 
+                <a href="https://wiki.cagette.net/admin:admin_carte" target="_blank">consultez la documentation</a>
+            </div>
+        </div>
+
+	</div>
+
+
+::end::
