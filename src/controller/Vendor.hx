@@ -23,4 +23,27 @@ class Vendor extends Controller
 		view.vendor = vendor;
 	}
 
+	@tpl('form.mtt')
+	function doEdit(vendor:db.Vendor) {
+		
+		if(!app.user.canManageVendor(vendor))  throw Error("/contractAdmin","Vous n'avez pas les droits de modification de ce producteur");
+
+		app.session.addMessage("Attention, les fiches producteurs sont partagées entre les AMAP, n'ajoutez pas d'informations propres à votre AMAP.");
+
+		var form = VendorService.getForm(vendor);
+		
+		if (form.isValid()){
+			vendor.lock();
+			try{
+				vendor = VendorService.update(vendor,form.getDatasAsObject());
+			}catch(e:tink.core.Error){
+				throw Error(sugoi.Web.getURI(),e.message);
+			}			
+			vendor.update();		
+			throw Ok('/contractAdmin', t._("This supplier has been updated"));
+		}
+
+		view.form = form;
+	}
+
 }

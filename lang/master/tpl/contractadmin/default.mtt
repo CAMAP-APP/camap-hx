@@ -100,14 +100,13 @@
 						::v.zipCode:: ::v.city::
 
 						::if(v.isDisabled())::
-							::if( (v.disabled!=3 && v.disabled!=6)  )::	
-								<div class="alert alert-danger"><i class="icon icon-alert"></i> Producteur désactivé : ::raw v.getDisabledReason()::</div>
-							::end::
+							<div class="alert alert-danger"><i class="icon icon-alert"></i> Producteur désactivé : ::raw v.getDisabledReason()::</div>
 						::end::
 					</td>
 					<td>
-						<div class="btn-group" role="group">
-							<!-- ::if user.isAmapManager():: $$delete(,/vendor/delete/::v.id::?token=::token::) ::end::-->
+						<div class="btn-group" role="group">							
+							$$edit(Modifier,/vendor/edit/::v.id::)
+							$$edit(Image,/vendor/addImage/::v.id::)
 						</div>
 					</td>
 				</tr>
