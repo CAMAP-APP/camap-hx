@@ -35,6 +35,10 @@ class Main extends Controller {
 		app.event(Permalink({link: p.link, entityType: p.entityType, entityId: p.entityId}));
 	}
 
+	function doTransaction(d:haxe.web.Dispatch) {
+		d.dispatch(new controller.Transaction());
+	}
+
 	/**
 	 * public pages 
 	 */
