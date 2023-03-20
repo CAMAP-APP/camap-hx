@@ -44,7 +44,7 @@
                                 ::else::
                                     ::set background = "greenBg"::
                                 ::end::
-                                <td style="vertical-align: middle;color: white;font-weight:bold;" class="::background::">
+                                <td style="vertical-align: middle;font-weight:bold;" class="::background::">
                                     ::formatNum(balance)::&nbsp;::currency()::
                                 </td>
 

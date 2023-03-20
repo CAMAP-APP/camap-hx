@@ -1,9 +1,7 @@
 ::use 'design.mtt'::
 <div class="col-md-8">
 
-	<h2>
-		Mes contrats
-	</h2>
+	<h2>Mes contrats</h2>
 
 		<!-- SUBSCRIPTIONS FOR CSA MODE -->
 		::if count(subscriptionsByCatalog) > 0 ::
@@ -11,19 +9,6 @@
 			::foreach i loopList(0, 2)::
 
 				::set subscriptionsFound = false::
-				<!--
-				<h4>
-					::if i == 0::
-						<br/>
-						<i class="icon icon-basket"></i> Contrats AMAP variables
-					::else::
-						<hr/>
-						<br/>
-						<i class="icon icon-refresh"></i> Contrats AMAP classiques
-					::end::
-				</h4>
-				-->
-
 				::foreach catalog subscriptionsByCatalog.keys()::
 
 					::if ( i == 0 && catalog.isVariableOrdersCatalog() ) || ( i == 1 && catalog.isConstantOrdersCatalog() )::
@@ -31,10 +16,9 @@
 						::set subscriptionsFound = true::
 
 						::set subscriptions = subscriptionsByCatalog.get(catalog)::
+						
 						::foreach subscription subscriptions::
-
-							$$subscription(::subscription::,::user::)
-							
+							$$subscription(::subscription::,::user::)					
 						::end::
 					::end::
 				::end::

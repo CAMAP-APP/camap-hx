@@ -253,12 +253,12 @@
 						<div class="panel-heading">Solde</div>
 						::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
 						::if balance < 0::
-							::set color = "redColor"::
+							::set color = "redBg"::
 						::else::
-							::set color = "greenColor"::
+							::set color = "greenBg"::
 						::end::
-						<div class="panel-body" >
-							<span style="::color::">::formatNum(balance)::&nbsp;::currency()::</span>
+						<div class="panel-body ::color::" >
+							::formatNum(balance)::&nbsp;::currency()::
 							<a href="/history/subscriptionPayments/::subscription.id::" class="btn btn-default btn-xs">
 								Paiements
 							</a>							
