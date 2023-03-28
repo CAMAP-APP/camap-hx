@@ -32,7 +32,7 @@ class Product extends Controller
 			f.toSpod(product);
 
 			//manage stocks by distributions for CSA contracts
-			if(product.catalog.hasStockManagement()){
+			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
 				var distribNum = product.catalog.getDistribs(false).length;
 				distribNum = distribNum == 0 ? 1 : distribNum;
 				product.stock = (f.getValueOf("stock"):Float) * distribNum;

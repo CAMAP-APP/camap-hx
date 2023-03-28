@@ -14,7 +14,6 @@
 			<li><a href="/admin/messages"><i class="icon icon-info"></i> Messages</a> </li>		
 			<li><a href="/admin/group"><i class="icon icon-users"></i> Groupes</a> </li>		
 			<li><a href="/admin/user"><i class="icon icon-user"></i> Utilisateurs</a> </li>		
-			<li><a href="/admin/vendor"><i class="icon icon-user"></i> Producteurs</a> </li>		
 		</ul>
 	</div>
 	

@@ -84,7 +84,7 @@
 				</td>
 				<td>
 					<span ::cond r.uid!=null::>
-						<a href="/p/hosted/user/view/::r.uid::">::r._user.getName()::</a>
+						<a href="/admin/user/view/::r.uid::">::r._user.getName()::</a>
 					</span>
 				</td>
 				<td>::r.url::</td>
