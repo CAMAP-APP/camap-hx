@@ -1,15 +1,8 @@
 package controller;
 
 import tools.ArrayTool;
-import db.VolunteerRole;
-import haxe.display.JsonModuleTypes.JsonPos;
-import haxe.macro.CompilationServer.ModuleCheckPolicy;
-import db.Operation;
 import sugoi.BaseApp;
-import db.Catalog;
 import tools.ObjectListTool;
-import db.DistributionCycle;
-import db.UserOrder;
 import sugoi.form.Form;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.TextArea;
@@ -46,12 +39,8 @@ class Distribution extends Controller {
 		var distribs = db.MultiDistrib.getFromTimeRange(app.user.getGroup(), timeframe.from, timeframe.to);
 
 		view.distribs = distribs;
-		view.cycles = DistributionCycle.getFromTimeFrame(app.user.getGroup(), timeframe);
+		view.cycles = db.DistributionCycle.getFromTimeFrame(app.user.getGroup(), timeframe);
 		view.timeframe = timeframe;
-
-		// legal infos alert
-		// var vendors = app.user.getGroup().getActiveVendors();
-		// view.noSiret = vendors.filter(v -> v.companyNumber==null);
 
 		checkToken();
 	}
