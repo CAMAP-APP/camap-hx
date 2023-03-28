@@ -1,0 +1,26 @@
+::use 'admin/design.mtt'::
+
+	<div class="article">
+		
+		<h2>Recherche d'utilisateurs</h2>
+		
+		<p>
+			<table class="table table-bordered table-condensed">
+				::foreach u users::
+				<tr>
+					<td>
+						#::u.id::
+					</td>
+					<td>
+						<a href="/admin/user/view/::u.id::">::u.getCoupleName()::</a>
+					</td>
+					<td>
+						::u.email::						
+					</td>
+				</tr>
+				::end::
+			</table>
+		</p>
+		
+	</div>
+::end::

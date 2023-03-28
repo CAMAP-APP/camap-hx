@@ -1,0 +1,57 @@
+::use 'admin/design.mtt'::
+
+	<div class="article">
+		<h4>Utilisateur #::member.id::</h4>
+		<h2>::member.getName()::</h2>
+
+		<p>
+			Tel. <b>::member.phone::</b><br/>
+			Email <b>::member.email::</b><br/>
+			Dernier login ::member.ldate:: <br/>				
+		</p>
+
+		<p>
+			Nbre de commandes : <a href="/db/UserContract/search?user=::member.id::">::orders::</a>
+		</p>
+
+		<a href="/member/loginas/::member.id::" class="btn btn-default btn-xs">Connexion sur son compte</a>
+
+		<br />
+
+		<script>
+			function onDeleteAccountClick() {
+				let text = "Es-tu sûr de vouloir supprimer définitivement ce compte ? On ne pourra jamais récupérer ces données.";
+				if (confirm(text) == true) {
+					window.location.href = "/admin/user/delete/::member.id::"
+				}
+			}
+		</script>
+
+		<button onclick="onDeleteAccountClick()" class="btn btn-danger btn-xs" style="margin-top: 16px;">Supprimer définitivement ce compte</button>
+		
+		<h3>Membre de :</h3>
+		<p>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<th class="col-md-4">Groupe</th>
+					<th class="col-md-8">Droits</th>
+				</tr>
+				::foreach ug member.getUserGroups()::
+				<tr>
+					<td>
+						<a href="/admin/user/userGroup/::member.id::/::ug.groupId::">::ug._group.name::</a>
+					</td>
+					<td>
+						::foreach r ug.getRights()::
+							::ug.getJsonRightName(r):: - 
+						::end::
+					</td>
+				</tr>
+				::end::
+			</table>
+		</p>
+
+		
+		
+	</div>
+::end::

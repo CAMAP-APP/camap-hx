@@ -1,0 +1,9 @@
+::use 'admin/basedesign.mtt'::
+
+<div class="col-md-9">
+	<div class="article">
+	::raw __content__::	
+	</div>
+</div>
+	
+::end::

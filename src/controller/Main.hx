@@ -282,16 +282,18 @@ class Main extends Controller {
 		Sys.print(haxe.Json.stringify({version: App.VERSION.toString()}));
 	}
 
-	public function doHealth() {
-		var vars = sugoi.db.Variable.manager.search(true);
-		var json = {version: App.VERSION.toString()};
-		for (v in vars) {
-			Reflect.setField(json, v.name, v.value);
-		}
-		Sys.print(haxe.Json.stringify(json));
-	}
+	
 	/**
-		Maintenance and migration scripts
+		backoffice for superadmins
+	**/
+	@admin
+	public function doAdmin(d:Dispatch) {
+		d.dispatch(new controller.admin.Admin());
+	}
+
+
+	/**
+		Maintenance and migration scripts to run in CLI like "neko index.n scripts/scriptAction"
 	**/
 	function doScripts(d:Dispatch) {
 		try {
@@ -305,9 +307,7 @@ class Main extends Controller {
 			Sys.println(Std.string(e));
 			for(m in stack.split("\n")) Sys.println(m);
 			Sys.println("");
-
 			app.rollback();
-
 		}
 	}
 

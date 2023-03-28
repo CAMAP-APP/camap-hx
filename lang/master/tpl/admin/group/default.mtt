@@ -1,0 +1,46 @@
+::use 'admin/design.mtt'::
+
+<h2>Admin Groupes</h2>
+
+<p>
+	::raw form::
+</p>
+
+<p>
+	<table class="table table-bordered">
+		<tr>
+			<th style="text-align:center;">Total</th>					
+			<th style="text-align:center;">Actifs</th>				
+		</tr>		
+	</table>
+</p>
+
+<table class="table table-bordered table-condensed table-striped" >
+	<tr>
+		<th>Id</th>
+		<th>Nom</th>		
+		<th>Code postal</th>
+		<th>Pays</th>
+		
+	</tr>
+	::foreach g groups::	
+	<tr>
+		<td>::g.id::</td>
+		<td>
+			<a href="/admin/group/view/::g.id::" target="_blank">::g.name::</a>			
+		</td>
+		<td>
+			::if(g.zipCode!=null)::
+				::g.zipCode.substr(0,2)::
+			::end::
+		</td>
+		<td>
+			::g.country::
+		</td>
+		
+	</tr>
+	::end::
+</table>
+
+
+::end::

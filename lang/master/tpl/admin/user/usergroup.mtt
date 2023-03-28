@@ -1,0 +1,47 @@
+::use 'admin/design.mtt'::
+
+	<div class="article">
+		
+		<h2>
+			<a href="/admin/user/view/::member.id::" >::member.getName()::</a>
+		</h2> 
+		<h4>
+		dans le groupe <a href="/admin/group/view/::ua._group.id::" >::ua._group.name::</a>
+		</h4>
+
+		$$timeframe(::timeframe::)
+
+		<h3>Dernières commandes</h3>
+		<p>
+			<table class="table table-bordered table-condensed">
+			::foreach md mds::
+			<tr>
+				<td class="col-md-6">
+					MultiDistrib #::md.id:: - ::hDate(md.getDate())::
+				</td>
+				<td class="col-md-6">
+					<!-- BASKETS -->
+					::set orders = md.getUserOrders(member,null)::
+					::if orders.length > 0::						
+						::set basket = orders[0]._basket::
+						Panier #::basket.id::						
+					::end::
+				</td>
+			</tr>			
+			::end::
+			</table>
+		</p>
+		
+		<h3>Operations</h3>
+		<p>
+			<table class="table table-bordered table-condensed">
+				::foreach op operations::
+				<tr>
+					$$operation(::op::)
+				</tr>
+				::end::
+			</table>
+		</p>
+				
+	</div>
+::end::

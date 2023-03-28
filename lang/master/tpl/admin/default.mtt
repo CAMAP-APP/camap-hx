@@ -1,0 +1,33 @@
+::use 'admin/design.mtt'::
+
+
+<h3>Console d'administration</h3>
+
+<table class="table table-striped">
+	<tr>
+		<td>Nom de l'instance</td>
+		<th>::theme.name::</th>
+	</tr>
+	<tr>
+		<td>ID du thème courant</td>
+		<th>::theme.id::</th>
+	</tr>
+	<tr>
+		<td>Heure serveur</td>
+		<th>::hDate(now)::</th>
+	</tr>
+	<tr>
+		<td>Votre IP</td>
+		<th>::ip::</th>
+	</tr>
+	
+	
+</table>
+
+<p>
+	<a href="/admin/theme" class="btn btn-default btn-sm"><i class="icon icon-cog"></i> Thème</a>
+	<a href="/admin/?reloadSettings=1" class="btn btn-default btn-sm"><i class="icon icon-refresh"></i> Recharger les paramètres et le thème</a>
+	<a href="/admin/superadmins" class="btn btn-default btn-sm"><i class="icon icon-user"></i> Superadmins</a>
+</p>
+
+::end::

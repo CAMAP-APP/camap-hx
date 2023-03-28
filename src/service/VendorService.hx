@@ -80,10 +80,6 @@ class VendorService{
 		return vendor;
 	}
 
-	public static function get(email:String,status:String){
-		return db.Vendor.manager.select($email==email && $status==status,false);
-	}
-
 	public static function getForm(vendor:db.Vendor):sugoi.form.Form {
 		var t = sugoi.i18n.Locale.texts;
 		var form = form.CamapForm.fromSpod(vendor);
@@ -102,8 +98,6 @@ class VendorService{
 		//email is required
 		form.getElement("email").required = true;
 
-		
-		
 		return form;
 	}
 

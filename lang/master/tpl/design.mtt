@@ -22,7 +22,7 @@
 			</div>
 			
 			<div class="col-md-4 accountBlock">					
-				$$userMenu(::user::)
+				$$userMenu(::user::)				
 			</div>				
 		</div>
 

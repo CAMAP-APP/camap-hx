@@ -20,7 +20,6 @@ class Vendor extends Object
 	public var name : SString<128>;	//Business name 
 	public var peopleName : SNull<SString<128>>; //Business owner(s) name
 	
-	//public var legalStatus : SNull<SEnum<LegalStatus>>;
 	@hideInForms public var profession : SNull<SInt>;
 	@hideInForms public var production2 : SNull<SInt>;
 	@hideInForms public var production3 : SNull<SInt>;
@@ -45,7 +44,6 @@ class Vendor extends Object
 	
 	@hideInForms @:relation(imageId) 	public var image : SNull<sugoi.db.File>;
 	
-	@hideInForms public var status : SNull<SString<32>>; //temporaire , pour le dédoublonnage
 	@hideInForms public var disabled : SNull<SEnum<DisabledReason>>; // vendor is disabled
 	
 	@hideInForms public var lat:SNull<SFloat>;
@@ -162,9 +160,7 @@ class Vendor extends Object
 		return tools.ObjectListTool.deduplicate(groups);
 	}
 
-	public static function get(email:String,status:String){
-		return manager.select($email==email && $status==status,false);
-	}
+	
 
 	public static function getLabels(){
 		var t = sugoi.i18n.Locale.texts;

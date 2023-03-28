@@ -4,7 +4,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/controller/Place.hx:959 ../src/controller/Place.hx:1682 ../src/controller/Group.hx:3367 ../src/service/VendorService.hx:2708 ../src/db/Place.hx:1435
+#: ../src/controller/Transaction.hx:689 ../src/controller/Transaction.hx:2030 ../src/controller/Transaction.hx:2340 ../src/controller/SubscriptionAdmin.hx:17177
+msgid "Action forbidden"
+msgstr ""
+
+#. label or name for a payment
+#: ../src/controller/Transaction.hx:1038
+msgid "Label"
+msgstr ""
+
+#: ../src/controller/Transaction.hx:1168 ../src/controller/SubscriptionAdmin.hx:17896
+msgid "Amount"
+msgstr ""
+
+#: ../src/controller/Transaction.hx:1260 ../src/controller/SubscriptionAdmin.hx:17978 ../src/db/MultiDistrib.hx:7977 ../src/db/Distribution.hx:8250 ../lang/master/tpl/contractadmin/selectDistrib.mtt:191
+msgid "Date"
+msgstr ""
+
+#: ../src/controller/Transaction.hx:1541
+msgid "Operation updated"
+msgstr ""
+
+#: ../src/controller/Transaction.hx:2523
+msgid "Operation deleted"
+msgstr ""
+
+#: ../src/controller/Place.hx:959 ../src/controller/Place.hx:1682 ../src/controller/Group.hx:3367 ../src/service/VendorService.hx:2572 ../src/db/Place.hx:1435
 msgid "Country"
 msgstr ""
 
@@ -122,7 +147,7 @@ msgstr ""
 msgid "New member"
 msgstr ""
 
-#: ../src/controller/User.hx:7848 ../src/controller/Main.hx:7591
+#: ../src/controller/User.hx:7848 ../src/controller/Main.hx:7686
 msgid ""
 "You're now a member of \"::group::\" ! You'll receive an email as soon as "
 "next order will open"
@@ -408,18 +433,6 @@ msgstr ""
 msgid "You've been removed from the waiting list"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:17177
-msgid "Action forbidden"
-msgstr ""
-
-#: ../src/controller/SubscriptionAdmin.hx:17896
-msgid "Amount"
-msgstr ""
-
-#: ../src/controller/SubscriptionAdmin.hx:17978 ../src/db/MultiDistrib.hx:7977 ../src/db/Distribution.hx:8250 ../lang/master/tpl/contractadmin/selectDistrib.mtt:191
-msgid "Date"
-msgstr ""
-
 #: ../src/controller/SubscriptionAdmin.hx:18424
 msgid "Payment type"
 msgstr ""
@@ -646,6 +659,10 @@ msgstr ""
 
 #: ../src/controller/ContractAdmin.hx:29796
 msgid "Catalog deleted"
+msgstr ""
+
+#: ../src/controller/Vendor.hx:1169
+msgid "This supplier has been updated"
 msgstr ""
 
 #: ../src/controller/History.hx:514 ../src/controller/History.hx:2473 ../src/controller/History.hx:3024 ../src/controller/History.hx:3509
@@ -1200,7 +1217,7 @@ msgstr ""
 msgid "Catalog name"
 msgstr ""
 
-#: ../src/db/Catalog.hx:11393 ../src/db/Product.hx:4865 ../src/db/Vendor.hx:4766
+#: ../src/db/Catalog.hx:11393 ../src/db/Product.hx:4865 ../src/db/Vendor.hx:4497
 msgid "Description"
 msgstr ""
 
@@ -1228,19 +1245,19 @@ msgstr ""
 msgid "Farmer"
 msgstr ""
 
-#: ../src/db/Place.hx:1303 ../src/db/User.hx:18127 ../src/db/Vendor.hx:4914
+#: ../src/db/Place.hx:1303 ../src/db/User.hx:18127 ../src/db/Vendor.hx:4645
 msgid "Address 1"
 msgstr ""
 
-#: ../src/db/Place.hx:1338 ../src/db/User.hx:18162 ../src/db/Vendor.hx:4952
+#: ../src/db/Place.hx:1338 ../src/db/User.hx:18162 ../src/db/Vendor.hx:4683
 msgid "Address 2"
 msgstr ""
 
-#: ../src/db/Place.hx:1372 ../src/db/User.hx:18196 ../src/db/Vendor.hx:4989
+#: ../src/db/Place.hx:1372 ../src/db/User.hx:18196 ../src/db/Vendor.hx:4720
 msgid "Zip code"
 msgstr ""
 
-#: ../src/db/Place.hx:1403 ../src/db/User.hx:18227 ../src/db/Vendor.hx:5023
+#: ../src/db/Place.hx:1403 ../src/db/User.hx:18227 ../src/db/Vendor.hx:4754
 msgid "City"
 msgstr ""
 
@@ -1362,7 +1379,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ../src/db/User.hx:17902 ../src/db/Vendor.hx:4880 ../lang/master/tpl/contractadmin/view.mtt:1982 ../lang/master/tpl/member/payments.mtt:521
+#: ../src/db/User.hx:17902 ../src/db/Vendor.hx:4611 ../lang/master/tpl/contractadmin/view.mtt:1982 ../lang/master/tpl/member/payments.mtt:521
 msgid "Phone"
 msgstr ""
 
@@ -1418,7 +1435,7 @@ msgstr ""
 msgid "Group name"
 msgstr ""
 
-#: ../src/db/Group.hx:11082 ../src/db/Vendor.hx:4842
+#: ../src/db/Group.hx:11082 ../src/db/Vendor.hx:4573
 msgid "Legal status"
 msgstr ""
 
@@ -1454,15 +1471,15 @@ msgstr ""
 msgid "Legal representative"
 msgstr ""
 
-#: ../src/db/Vendor.hx:4803
+#: ../src/db/Vendor.hx:4534
 msgid "Email pro"
 msgstr ""
 
-#: ../src/db/Vendor.hx:5059
+#: ../src/db/Vendor.hx:4790
 msgid "Link text"
 msgstr ""
 
-#: ../src/db/Vendor.hx:5099
+#: ../src/db/Vendor.hx:4830
 msgid "Link URL"
 msgstr ""
 
@@ -1538,7 +1555,7 @@ msgstr ""
 msgid "Technical description of the error"
 msgstr ""
 
-#: ../lang/master/tpl/place/view.mtt:648 ../lang/master/tpl/vendor/addimage.mtt:327 ../lang/master/tpl/macros.mtt:12281 ../lang/master/tpl/distribution/volunteersParticipation.mtt:1674 ../lang/master/tpl/distribution/validate.mtt:3468
+#: ../lang/master/tpl/place/view.mtt:648 ../lang/master/tpl/vendor/addimage.mtt:327 ../lang/master/tpl/macros.mtt:12254 ../lang/master/tpl/distribution/volunteersParticipation.mtt:1674 ../lang/master/tpl/distribution/validate.mtt:3468
 msgid "Back"
 msgstr ""
 
@@ -1576,16 +1593,16 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: ../lang/master/tpl/history/default.mtt:1464 ../lang/master/tpl/member/view.mtt:4499
+#: ../lang/master/tpl/history/default.mtt:1215 ../lang/master/tpl/member/view.mtt:4499
 msgid "Membership up to date"
 msgstr ""
 
-#: ../lang/master/tpl/history/default.mtt:1510 ../lang/master/tpl/member/view.mtt:4546
+#: ../lang/master/tpl/history/default.mtt:1261 ../lang/master/tpl/member/view.mtt:4546
 msgid "Membership to renew"
 msgstr ""
 
 #. full sentence : Membership up to date for the period 2017-2018
-#: ../lang/master/tpl/history/default.mtt:1551 ../lang/master/tpl/member/view.mtt:4589
+#: ../lang/master/tpl/history/default.mtt:1302 ../lang/master/tpl/member/view.mtt:4589
 msgid "for the period"
 msgstr ""
 
@@ -1692,7 +1709,7 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/view.mtt:899 ../lang/master/tpl/contractadmin/orders.mtt:3035 ../lang/master/tpl/contractadmin/products.mtt:3433 ../lang/master/tpl/contractadmin/documents.mtt:3248 ../lang/master/tpl/contractadmin/documents.mtt:3594 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1885 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6643 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2962 ../lang/master/tpl/member/payments.mtt:1740 ../lang/master/tpl/member/view.mtt:1924 ../lang/master/tpl/amapadmin/places.mtt:386 ../lang/master/tpl/amapadmin/volunteers/default.mtt:596 ../lang/master/tpl/amap/default.mtt:573
+#: ../lang/master/tpl/contractadmin/view.mtt:899 ../lang/master/tpl/contractadmin/orders.mtt:3035 ../lang/master/tpl/contractadmin/products.mtt:3433 ../lang/master/tpl/contractadmin/documents.mtt:3248 ../lang/master/tpl/contractadmin/documents.mtt:3594 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1872 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6643 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2962 ../lang/master/tpl/member/payments.mtt:1740 ../lang/master/tpl/member/view.mtt:1924 ../lang/master/tpl/amapadmin/places.mtt:386 ../lang/master/tpl/amapadmin/volunteers/default.mtt:596 ../lang/master/tpl/amap/default.mtt:573
 msgid "Edit"
 msgstr ""
 
@@ -1776,7 +1793,7 @@ msgstr ""
 msgid "Every 3 weeks"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3363 ../lang/master/tpl/contractadmin/products.mtt:3811 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1949 ../lang/master/tpl/member/payments.mtt:1797 ../lang/master/tpl/amapadmin/places.mtt:487
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3363 ../lang/master/tpl/contractadmin/products.mtt:3811 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1936 ../lang/master/tpl/member/payments.mtt:1797 ../lang/master/tpl/amapadmin/places.mtt:487
 msgid "Del."
 msgstr ""
 
@@ -1864,11 +1881,11 @@ msgstr ""
 msgid "Farmers"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/default.mtt:3529
+#: ../lang/master/tpl/contractadmin/default.mtt:3459
 msgid "New farmer"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/default.mtt:3786
+#: ../lang/master/tpl/contractadmin/default.mtt:3716
 msgid "Delivery places"
 msgstr ""
 
@@ -2057,7 +2074,7 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: ../lang/master/tpl/contract/view.mtt:2069 ../lang/master/tpl/amap/default.mtt:1634
+#: ../lang/master/tpl/contract/view.mtt:2069 ../lang/master/tpl/amap/default.mtt:1643
 msgid "Coordinator"
 msgstr ""
 
@@ -2132,47 +2149,47 @@ msgstr ""
 msgid "Excel/CSV Export"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:9007
+#: ../lang/master/tpl/macros.mtt:8980
 msgid "THIS MORNING"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:9102
+#: ../lang/master/tpl/macros.mtt:9075
 msgid "AFTERNOON"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:9146
+#: ../lang/master/tpl/macros.mtt:9119
 msgid "THIS EVENING"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:9902
+#: ../lang/master/tpl/macros.mtt:9875
 msgid "No contact"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:10309
+#: ../lang/master/tpl/macros.mtt:10282
 msgid "Order"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:10407
+#: ../lang/master/tpl/macros.mtt:10380
 msgid "CSA&nbsp;contract"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:10492
+#: ../lang/master/tpl/macros.mtt:10465
 msgid "Payment"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:11087
+#: ../lang/master/tpl/macros.mtt:11060
 msgid "Check to be given at the collection of products"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:11224
+#: ../lang/master/tpl/macros.mtt:11197
 msgid "Cash to be given at the collection of products"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:11364
+#: ../lang/master/tpl/macros.mtt:11337
 msgid "This transfer must be validated by a coordinator"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:11509
+#: ../lang/master/tpl/macros.mtt:11482
 msgid "You need to pay on the spot at the collection of products"
 msgstr ""
 
@@ -2200,11 +2217,11 @@ msgid ""
 "you."
 msgstr ""
 
-#: ../lang/master/tpl/group/view.mtt:1987 ../lang/master/tpl/user/choose.mtt:2575
+#: ../lang/master/tpl/group/view.mtt:1987 ../lang/master/tpl/user/choose.mtt:1847
 msgid "Request sent on ::date::"
 msgstr ""
 
-#: ../lang/master/tpl/group/view.mtt:2207 ../lang/master/tpl/user/choose.mtt:2764
+#: ../lang/master/tpl/group/view.mtt:2207 ../lang/master/tpl/user/choose.mtt:2036
 msgid "Cancel"
 msgstr ""
 
@@ -2236,19 +2253,19 @@ msgstr ""
 msgid "Non-complete extract of available products:"
 msgstr ""
 
-#: ../lang/master/tpl/user/choose.mtt:999 ../lang/master/tpl/mail/forgottenPassword.mtt:41 ../lang/master/tpl/mail/newPasswordConfirmed.mtt:41
+#: ../lang/master/tpl/user/choose.mtt:271 ../lang/master/tpl/mail/forgottenPassword.mtt:41 ../lang/master/tpl/mail/newPasswordConfirmed.mtt:41
 msgid "Hello"
 msgstr ""
 
-#: ../lang/master/tpl/user/choose.mtt:1790
+#: ../lang/master/tpl/user/choose.mtt:1062
 msgid "You don't belong to any group yet"
 msgstr ""
 
-#: ../lang/master/tpl/user/choose.mtt:2103
+#: ../lang/master/tpl/user/choose.mtt:1375
 msgid "Find other groups near me"
 msgstr ""
 
-#: ../lang/master/tpl/user/choose.mtt:2384
+#: ../lang/master/tpl/user/choose.mtt:1656
 msgid "Subscriptions on waiting list"
 msgstr ""
 

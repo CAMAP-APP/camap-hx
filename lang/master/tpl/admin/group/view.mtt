@@ -1,0 +1,115 @@
+::use 'admin/design.mtt'::
+
+	<div class="article">
+		<h4>Groupe #::group.id::</h4>
+		<h2>::group.name::</h2>
+
+		<p>
+			créé le : ::group.cdate::<br/>
+			
+			::if group._contact!=null::
+			
+				Par <a href="/p/hosted/userGroup/::group._contact.id::/::group.id::">::group._contact.getName()::</a>
+				<p>
+					Tel. <b>::group._contact.phone::</b><br/>
+					Email <b>::group._contact.email::</b><br/>
+					Dernier login ::group._contact.ldate:: <br/>				
+				</p>
+				
+				::set memberof = group._contact.getGroups()::		
+				<div ::cond memberof.length>1:: style="max-height:300px;overflow-y:scroll;">
+					Egalement membre de : 
+					<ul>
+					::foreach x memberof::
+						::if x.id!=group.id::
+						<li><a href="/p/hosted/group/::x.id::">#::x.id::-::x.name::</a></li>
+						::end::
+					::end::
+					</ul>
+				</div>
+			
+			::end::
+		</p>
+		<hr/>
+		
+
+		<hr/>
+		<h3>Lieux de livraison</h3>		
+		<p>
+			<ul>
+			::foreach d group.getDeliveries(4)::
+			::set p = d._place::
+			<li>
+				[::p.lat::,::p.lng::]
+				
+				::if p.lat!=0 && p.lat!=null::
+					$$bool(true)
+				::else::
+					$$bool(false)
+				::end::
+				
+				::d._place.getFullAddress()::
+			</li>
+			::end::
+			</ul>
+		</p>
+		
+		<hr/>
+		
+		<a href="/group/::group.id::" class="btn btn-default">Page publique</a>
+		<a href="/admin/group/addMe/::group.id::" class="btn btn-default">Devenir Membre de ce groupe</a>
+		
+		<hr/>
+		
+		<h3>Membres</h3>		
+		<div style="max-height:300px;overflow-y:scroll;">		
+			<table class="table table-condensed">
+				::foreach u group.getMembers()::
+				<tr>
+					<td>::u.id::</td>
+					<td><a href="/admin/user/userGroup/::u.id::/::group.id::">::u.getName()::</a></td>
+				</tr>
+				::end::
+			</table>
+		</div>
+		
+		<hr/>
+		
+		<h3>Producteurs</h3>
+		<div style="max-height:300px;overflow-y:scroll;">
+			<table class="table table-condensed">
+				::foreach v vendors::
+				<tr>
+					<td>::v.id::</td>
+					<td><a href='/admin/vendor/view/::v.id::'>::v.name::</a></td>
+				</tr>
+				::end::
+			</table>
+		</div>
+	
+		<hr/>
+
+
+		<h3>Catalogues</h3>
+		<div style="max-height:300px;overflow-y:scroll;">
+			<table class="table table-condensed">
+				::foreach c group.getActiveContracts(false)::
+				<tr>
+					<td>::c.id::</td>
+					<td>::c.name::</td>
+				</tr>
+				::end::
+			</table>
+			
+		</div>
+
+		<hr/>
+	
+
+		<a href="/admin/group/deleteGroup/::group.id::?token=::token::" $$confirm(::_("Delete ?")::) class="btn btn-danger" >
+				<i class="icon icon-delete"></i>
+				Supprimer DEFINITIVEMENT le groupe (irréversible)
+		</a>
+		
+	</div>
+::end::
