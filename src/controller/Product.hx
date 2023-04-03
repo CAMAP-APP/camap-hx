@@ -117,7 +117,7 @@ class Product extends Controller
 		var csv = new sugoi.tools.Csv();
 		csv.step = 1;
 		var request = sugoi.tools.Utils.getMultipart(1024 * 1024 * 4);
-		csv.setHeaders( ["productName","price","ref","desc","qt","unit","organic","floatQt","vat","stock"] );
+		csv.setHeaders( ["productName","price","ref","desc","qt","unit","organic","bulk","variablePrice","vat","stock"] );
 		view.contract = c;
 		
 		// get the uploaded file content
@@ -160,7 +160,8 @@ class Product extends Controller
 					}
 					if (p["stock"] != null) product.stock = fv.filterString(p["stock"]);
 					product.organic = p["organic"] != null;
-					// product.hasFloatQt = p["floatQt"] != null;
+					product.bulk = p["bulk"] != null;
+					product.variablePrice = p["variablePrice"] != null;
 					
 					product.catalog = c;
 					product.insert();

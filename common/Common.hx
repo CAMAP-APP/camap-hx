@@ -59,17 +59,13 @@ typedef ProductInfo = {
 	vat : Null<Float>,					//VAT rate
 	vatValue : Null<Float>,				//amount of VAT included in the price
 	desc : Null<String>,
-	categories : Null<Array<Int>>,	//used in old shop
-	subcategories : Null<Array<Int>>,  //used in new shop
 	orderable : Bool,			//can be currently ordered
 	stock: Null<Float>,			//available stock
-	// hasFloatQt : Bool,
 	qt:Null<Float>,
 	unitType:Null<Unit>,
 
 	organic:Bool,
 	variablePrice:Bool,
-	wholesale:Bool,
 	active:Bool,
 	bulk:Bool,
 
