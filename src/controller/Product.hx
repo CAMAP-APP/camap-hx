@@ -159,9 +159,9 @@ class Product extends Controller
 						}
 					}
 					if (p["stock"] != null) product.stock = fv.filterString(p["stock"]);
-					product.organic = p["organic"] != null;
-					product.bulk = p["bulk"] != null;
-					product.variablePrice = p["variablePrice"] != null;
+					product.organic = p["organic"] == "1";
+					product.bulk = p["bulk"] == "1";
+					product.variablePrice = p["variablePrice"] == "1";
 					
 					product.catalog = c;
 					product.insert();
