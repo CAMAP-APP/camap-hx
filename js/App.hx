@@ -51,14 +51,7 @@ class App {
 		this.currency = currency;
 	}
 
-	/**
-	**/
-	/*public static inline function jq(r:Dynamic):js.jquery.JQuery{
-		trace("CALL JQUERY");
-		return new js.jquery.JQuery(r);
-	}*/
-
-	/**
+    /**
 	 * The JS App will be available as "_" in the document.
 	 */
 	public static function main() {
@@ -66,12 +59,6 @@ class App {
         untyped js.Browser.window._ = app;
         untyped js.Browser.window._Camap = app;//avoid conflicts with lodash
     }
-    
-
-	// public function getTuto(name:String, step:Int) {
-    
-	// 	new Tuto(name,step);
-	// }
 	
 	/**
 	 * remove method for IE compat
