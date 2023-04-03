@@ -93,7 +93,6 @@ class Group extends Object
 	{
 		super();
 		flags = cast 0;
-		betaFlags = cast 0;
 		setVatRates([{label:"TVA alimentaire",value:5.5},{label:"TVA standard",value:20}]);
 		cdate = Date.now();
 		regOption = Open;
