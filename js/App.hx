@@ -193,7 +193,6 @@ class App {
 
 			var modalElement = Browser.document.getElementById(divId);
 			var modal = new Modal(modalElement);
-            r(".modal-dialog").classList.remove("modal-lg");
 			modal.show();
 	}
 
