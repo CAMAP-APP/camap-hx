@@ -4,7 +4,6 @@ import sugoi.form.ListData.FormData;
 import sys.db.Object;
 import db.MultiDistrib.MultiDistribValidatedStatus;
 import sys.db.Types;
-
 using tools.DateTool;
 
 enum GroupFlags {
@@ -20,8 +19,6 @@ enum GroupFlags {
 	__UnUsed;
 	__Show3rdCategoryLevel; //@deprecated Show the third category level in the shop (Only for shop V2)
 }
-
-enum BetaFlags{ }
 
 //user registration options
 enum RegOption{
@@ -62,7 +59,6 @@ class Group extends Object
 	
 	//options and flags
 	public var flags:SFlags<GroupFlags>;
-	public var betaFlags:SFlags<BetaFlags>;
 	@hideInForms public var hasMembership:SBool;
 
 	@hideInForms @:relation(imageId)
