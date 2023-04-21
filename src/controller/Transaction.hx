@@ -14,6 +14,72 @@ using Lambda;
 class Transaction extends controller.Controller
 {
 
+	/**
+	 * insert manually a payment
+	 */
+	@tpl('form.mtt')
+	public function doInsertPayment( user : db.User ) {
+		if(app.user==null){
+			throw Redirect("/");
+		}
+		if (!app.user.isContractManager()) throw Error("/", t._("Action forbidden"));	
+		var t = sugoi.i18n.Locale.texts;
+
+		var group = app.user.getGroup();
+		var returnUrl = '/member/payments/' + user.id;
+	
+		var form = new sugoi.form.Form("payement");
+
+		form.addElement(new sugoi.form.elements.StringInput("name", t._("Label||label or name for a payment"), "Paiement", false));
+		form.addElement(new sugoi.form.elements.FloatInput("amount", t._("Amount"), null, true));
+		form.addElement(new form.CamapDatePicker("date", t._("Date"), Date.now(), NativeDatePickerType.date, true));
+		var paymentTypes = service.PaymentService.getPaymentTypes(PCManualEntry, group);
+		var out = [];
+		for (paymentType in paymentTypes){
+			out.push({label: paymentType.name, value: paymentType.type});
+		}
+		form.addElement(new sugoi.form.elements.StringSelect("Mtype", t._("Payment type"), out, null, true));
+		
+		//related operation
+		var unpaid = db.Operation.manager.search($user == user && $group == group && $type != Payment ,{limit:20,orderBy:-date});
+		var data = unpaid.map(function(x) return {label:x.name, value:x.id}).array();
+		form.addElement(new sugoi.form.elements.IntSelect("unpaid", "Paiment rattaché à", data, null, false));
+	
+		if (form.isValid()){
+
+			var operation = new db.Operation();
+			operation.user = user;
+			operation.date = Date.now();
+
+			form.toSpod(operation);
+
+			operation.type = db.Operation.OperationType.Payment;			
+			operation.setPaymentData({type:form.getValueOf("Mtype")});
+			operation.group = group;
+			operation.user = user;
+			
+			if (form.getValueOf("unpaid") != null){
+				var t2 = db.Operation.manager.get(form.getValueOf("unpaid"));
+				operation.relation = t2;
+				if (t2.amount + operation.amount == 0) {
+					operation.pending = false;
+					t2.lock();
+					t2.pending = false;
+					t2.update();
+				}
+			}
+			
+			operation.insert();
+			service.PaymentService.updateUserBalance( user, group );
+
+			throw Ok( returnUrl, "Paiment enregistré");
+
+		}
+		
+		view.title = t._("Record a payment for ::user::",{user:user.getCoupleName()}) ;
+		view.form = form;
+	}
+
 	@tpl('form.mtt')
 	public function doEdit( operation : db.Operation ) {
 		if(app.user==null){
@@ -76,7 +142,7 @@ class Transaction extends controller.Controller
 
 			operation.delete();
 			service.PaymentService.updateUserBalance( operation.user, operation.group );
-			throw Ok( returnUrl, t._("Operation deleted") );
+			throw Ok( returnUrl, "Operation supprimée" );
 			
 		}
 	}
