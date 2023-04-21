@@ -42,31 +42,6 @@ class Basket extends Object
 	public static function get(user:db.User,distrib:db.MultiDistrib, ?lock = false):db.Basket{
 		return manager.select($user==user && $multiDistrib==distrib,lock);
 	}
-
-	/*public static function get(user:db.User,md:db.MultiDistrib, ?lock = false):db.Basket{
-		
-		//date = tools.DateTool.setHourMinute(date, 0, 0);
-
-		//caching
-		 var k = user.id + "-" + place.id + "-" + date.toString().substr(0, 10);
-		 var b = CACHE.get(k);
-		var b = null;
-		// if (b == null){
-			//var md = db.MultiDistrib.get(date, place);
-			if(md==null) return null;
-			for( o in md.getUserOrders(user)){
-				if(o.basket!=null) {
-					b = o.basket;
-					break;
-				}
-			}
-			CACHE.set(k, b);
-		 }
-		
-		return b;
-
-	}*/
-
 	
 	/**
 	 * Get a Basket or create it if it doesn't exists.

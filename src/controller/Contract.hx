@@ -95,7 +95,7 @@ class Contract extends Controller
 				throw Error(Web.getURI(),e.message);
 			}
 			
-			throw Ok('/contract/insert/'+vendor.id, t._("This supplier has been saved"));
+			throw Ok('/contract/insertChoose/'+vendor.id, t._("This supplier has been saved"));
 		}else{
 			form.getElement("name").value = name;
 		}
