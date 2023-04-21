@@ -4,7 +4,6 @@ import db.Basket.BasketStatus;
 import db.Catalog;
 import haxe.Json;
 import db.Operation;
-import db.MultiDistrib.MultiDistribValidatedStatus;
 import Common;
 import tink.core.Error;
 

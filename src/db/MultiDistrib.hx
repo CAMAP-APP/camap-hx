@@ -7,11 +7,6 @@ using Lambda;
 import haxe.Json;
 import db.Basket.BasketStatus;
 
-enum MultiDistribValidatedStatus { 
-	NOT_VALIDATED;
-	VALIDATED;
-	PAID;
-}
 
 /**
  * MultiDistrib represents a global distributions with many vendors. 	
@@ -35,15 +30,11 @@ class MultiDistrib extends Object
 
 	@:skip public var contracts : Array<db.Catalog>;
 	@:skip public var extraHtml : String;
-
-	@hideInForms public var validatedStatus:SString<32>;
-	@hideInForms public var validatedDate:SNull<SDateTime>;
 	
 	public function new(){
 		super();
 		contracts = [];
 		extraHtml = "";
-		validatedStatus = Std.string(MultiDistribValidatedStatus.NOT_VALIDATED);
 	}
 	
 	/**
@@ -269,15 +260,9 @@ class MultiDistrib extends Object
 			}else{
 				return "closed";
 			}
-			
-
 		}else{
 			//after distrib
-			if(isValidated()){
-				return "validated";
-			}else{
-				return "distributed";
-			}
+			return "distributed";			
 		}
 	}
 
@@ -285,10 +270,6 @@ class MultiDistrib extends Object
 		return getState();
 	}
 	
-	public function isValidated():Bool{
-		return validatedStatus==Std.string(VALIDATED) || validatedStatus==Std.string(PAID);
-	}
-
 	/**
 		retrocomp
 	**/
@@ -480,7 +461,4 @@ class MultiDistrib extends Object
 		return null;
 	}
 
-	public function getValidatedStatus():MultiDistribValidatedStatus{
-		return Type.createEnum(MultiDistribValidatedStatus,validatedStatus);		
-	}
 }

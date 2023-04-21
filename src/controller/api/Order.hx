@@ -37,7 +37,6 @@ class Order extends Controller
 		//rights	
 		if (catalog==null && !app.user.canManageAllContracts()) throw new Error(403,t._("Forbidden access"));
 		if (catalog!=null && !app.user.canManageContract(catalog)) throw new Error(403,t._("You do not have the authorization to manage this catalog"));
-		if ( multiDistrib != null && multiDistrib.isValidated() ) throw new Error(t._("This delivery has been already validated"));
 	}
 
 	/**

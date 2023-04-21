@@ -345,8 +345,8 @@ class Distribution extends Controller {
 		var from = Date.now();
 		var to = DateTools.delta(d.catalog.endDate, 1000.0 * 60 * 60 * 24 * 30.5 * 6); // $to is 6 month after the end of catalog
 		var mds = db.MultiDistrib.getFromTimeRange(d.catalog.group, from, to);
-		// remove validated distribs, and the current one
-		mds = mds.filter(md -> return !md.isValidated() && md.id != d.multiDistrib.id);
+		// remove the current one
+		mds = mds.filter(md -> return md.id != d.multiDistrib.id);
 		// remove already attended distribs
 		mds = mds.filter(md -> return md.getDistributionForContract(d.catalog) == null);
 		var mds = mds.map(md -> return {label: view.hDate(md.getDate()), value: md.id});
@@ -841,21 +841,6 @@ class Distribution extends Controller {
 		}
 
 		throw Ok("/distribution/", t._("Recurrent deliveries deleted"));
-	}
-
-	/**
-	 * Validate a multiDistrib (main page)
-	 * @param	date
-	 * @param	place
-	 */
-	@tpl('distribution/validate.mtt')
-	public function doValidate(multiDistrib:db.MultiDistrib) {
-		checkHasDistributionSectionAccess();
-		checkToken();
-
-		var baskets = multiDistrib.getBaskets();
-		view.baskets = baskets;
-		view.distribution = multiDistrib;
 	}
 
 	/**

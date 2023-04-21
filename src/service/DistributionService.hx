@@ -319,10 +319,6 @@ class DistributionService
 		d.lock();
 		var t = sugoi.i18n.Locale.texts;
 
-		if(d.multiDistrib.isValidated()) {
-			throw new Error(t._("You cannot edit a distribution which has been already validated."));
-		}
-
 		//cannot change to a different date than the multidistrib
 		if(date.toString().substr(0,10) != d.multiDistrib.distribStartDate.toString().substr(0,10) ){
 			if(d.multiDistrib.getDistributions().length==1){
@@ -388,10 +384,6 @@ class DistributionService
 		//We prevent others from modifying it
 		d.lock();
 		var t = sugoi.i18n.Locale.texts;
-
-		if(d.multiDistrib.isValidated()) {
-			throw new Error(t._("You cannot edit a distribution which has been already validated."));
-		}
 	
 		if(d.catalog.type==db.Catalog.TYPE_VARORDER){
 			d.orderStartDate = orderStartDate;
@@ -417,10 +409,6 @@ class DistributionService
 		//We prevent others from modifying it
 		d.lock();
 		var t = sugoi.i18n.Locale.texts;
-
-		if(d.multiDistrib.isValidated()) {
-			throw new Error(t._("You cannot edit a distribution which has been already validated."));
-		}
 
 		//Distribution shift
 		if(newMd.id==d.multiDistrib.id){

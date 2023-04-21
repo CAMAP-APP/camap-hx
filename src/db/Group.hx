@@ -2,7 +2,6 @@ package db;
 import Common;
 import sugoi.form.ListData.FormData;
 import sys.db.Object;
-import db.MultiDistrib.MultiDistribValidatedStatus;
 import sys.db.Types;
 using tools.DateTool;
 

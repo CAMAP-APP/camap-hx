@@ -87,7 +87,6 @@ class VolunteerService
 		var t = sugoi.i18n.Locale.texts;
 		if ( multidistrib == null ) throw "Multidistribution is null";
 		if ( role == null ) throw "Role is null";
-		if ( multidistrib.isValidated() ) throw new Error(t._("This distribution has already been validated"));
 
 		//Check that the user is not already assigned to a role for this multidistrib
 		/*var userAlreadyAssigned = multidistrib.getVolunteerForUser(user);
