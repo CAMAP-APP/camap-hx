@@ -14,6 +14,7 @@ import sugoi.form.elements.StringInput;
 import sugoi.tools.ResultsBrowser;
 import tools.ArrayTool;
 import tools.DateTool;
+import db.Message;
 
 class Main extends Controller {
 	public function new() {
