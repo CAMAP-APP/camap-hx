@@ -34,7 +34,7 @@ class CatalogService{
 		
 		form.removeElementByName("percentageValue");
 		form.removeElementByName("percentageName");
-		untyped form.getElement("flags").excluded = [2];// remove "PercentageOnOrders" flag
+		untyped form.getElement("flags").excluded = [2];// remove unused "PercentageOnOrders" flag
 
 		var absencesIndex = 16;
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {

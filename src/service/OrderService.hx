@@ -129,13 +129,11 @@ class OrderService
 					order.product.lock();
 					order.product.stock = 0;
 					order.product.update();
-					App.current.event(StockMove({product:order.product, move:0 - (quantity - canceled) }));
 					
 				}else {
 					order.product.lock();
 					order.product.stock -= quantity;
 					order.product.update();	
-					App.current.event(StockMove({product:order.product, move:0 - quantity}));
 				}
 			}	
 		}
@@ -310,7 +308,6 @@ class OrderService
 				product.lock();
 				product.stock +=  order.quantity;
 				product.update();
-				// e = StockMove({product:product, move:0-order.quantity });
 			}
 
 			order.delete();

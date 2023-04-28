@@ -32,7 +32,9 @@ class Vendor extends Object
 	public var zipCode:SString<32>;
 	public var city:SString<25>;
 	public var country:SNull<SString<64>>;
-	
+	public var companyNumber:SNull<SString<64>>;
+
+
 	public var desc : SNull<SText>;
 	@hideInForms public var cdate : SNull<SDateTime>; // date de création
 

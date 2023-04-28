@@ -121,7 +121,8 @@ class Catalog extends Object
 	}
 		
 	public function hasPercentageOnOrders():Bool {
-		return flags.has(PercentageOnOrders) && percentageValue!=null && percentageValue!=0;
+		// return flags.has(PercentageOnOrders) && percentageValue!=null && percentageValue!=0;
+		return false;
 	}
 	
 	public function hasStockManagement():Bool {

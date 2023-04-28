@@ -448,12 +448,12 @@ class SubscriptionService
 		var catalogMinOrdersTotal = Math.floor(ratio * catalog.catalogMinOrdersTotal);
 
 		//si paiements, le minimum à commander correspond à la provision déja payée
-		if ( subscription != null ) {
+		/*if ( subscription != null ) {
 			var subscriptionPayments = subscription.getPaymentsTotal();
 			if ( subscriptionPayments != 0 && subscriptionPayments > catalogMinOrdersTotal) {
 				return subscriptionPayments;
 			}
-		}
+		}*/
 
 		return catalogMinOrdersTotal;
 	}
