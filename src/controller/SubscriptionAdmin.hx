@@ -524,7 +524,7 @@ class SubscriptionAdmin extends controller.Controller
 			var params = Web.getParams();
 			for( sub in catalogSubscriptions.copy()){
 				var amount = params.get('sub${sub.id}_amount').parseFloat();
-				if(amount!=null && amount>0){
+				if(amount!=null){
 					
 					var paymentType = params.get('sub${sub.id}_paymentType');
 					var label = params.get('sub${sub.id}_label');

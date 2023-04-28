@@ -43,7 +43,7 @@ class PaymentService {
 		}
 
 		var operation = new db.Operation();
-		operation.amount = Math.abs(amount);
+		operation.amount = amount;
 		operation.date = Date.now();
 		operation.name = name;
 		operation.group = group;
