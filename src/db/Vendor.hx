@@ -34,7 +34,6 @@ class Vendor extends Object
 	public var country:SNull<SString<64>>;
 	public var companyNumber:SNull<SString<64>>;
 
-
 	public var desc : SNull<SText>;
 	@hideInForms public var cdate : SNull<SDateTime>; // date de création
 
@@ -162,8 +161,6 @@ class Vendor extends Object
 		return tools.ObjectListTool.deduplicate(groups);
 	}
 
-	
-
 	public static function getLabels(){
 		var t = sugoi.i18n.Locale.texts;
 		return [
@@ -207,9 +204,9 @@ class Vendor extends Object
 	}
 
 	function check(){
-		/*if(this.email==null){
+		if(this.email==null){
 			throw new tink.core.Error("Vous devez obligatoirement saisir un email pour ce producteur.");
-		}*/
+		}
 
 		if(this.email!=null && !EmailValidator.check(this.email) ) {
 			throw new tink.core.Error('Email du producteur ${this.id} invalide.');
