@@ -520,10 +520,14 @@ class SubscriptionAdmin extends controller.Controller
 		view.nav.push( 'subscriptions' );
 
 		if(checkToken()){
-			
 			var params = Web.getParams();
-			for( sub in catalogSubscriptions.copy()){
-				var amount = params.get('sub${sub.id}_amount').parseFloat();
+			for( sub in catalogSubscriptions.copy() ){
+				var amount = 0.0;
+				if(params.get('sub${sub.id}_amount')==null || params.get('sub${sub.id}_amount')==""){
+					amount = null;
+				}else{
+					amount = params.get('sub${sub.id}_amount').parseFloat();
+				}				
 				if(amount!=null){
 					
 					var paymentType = params.get('sub${sub.id}_paymentType');
@@ -540,9 +544,6 @@ class SubscriptionAdmin extends controller.Controller
 			}
 
 			throw Ok(sugoi.Web.getURI(),catalogSubscriptions.length+" paiements saisis, les soldes ont été mis à jour.");
-
 		}
-
 	}
-
 }
