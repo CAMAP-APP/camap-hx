@@ -312,4 +312,12 @@ class Main extends Controller {
 		}
 	}
 
+	public function doTos() {
+		throw Redirect(App.current.getTheme().terms.termsOfServiceLink);
+	}
+
+	public function doCgu() {
+		throw Redirect('/tos');
+	}
+
 }
