@@ -27,7 +27,7 @@ class VendorService{
 		var vendors = [];
 		var names = [];
 		var where = [];
-		if(search.name!=null){
+		if(search.name!=null && search.name!=""){
 			for( n in search.name.split(" ")){
 				n = n.toLowerCase();
 				if(Lambda.has(["le","la","les","du","de","l'","a","à","au","en","sur","qui","ferme","GAEC","EARL","SCEA","jardin","jardins"],n)) continue;
@@ -35,7 +35,10 @@ class VendorService{
 			
 				names.push(n);
 			}
-			where.push('(' + names.map(n -> 'name LIKE "%$n%"').join(' OR ') + ')');
+			if(names.length>0){
+				where.push('(' + names.map(n -> 'name LIKE "%$n%"').join(' OR ') + ')');
+			}
+			
 		}
 		
 		//search by mail
@@ -56,6 +59,8 @@ class VendorService{
 			selectDist = ',SQRT(POW(lat-${search.fromLat},2) + POW(lng-${search.fromLng},2)) as dist';
 			where.push("lat is not null");
 		}
+
+		if(where.length==0) where.push("true");
 
 		//search for each term
 		vendors = Lambda.array(db.Vendor.manager.unsafeObjects('SELECT * $selectDist FROM Vendor WHERE ${where.join(' AND ')} $orderBy LIMIT 30',false));
@@ -98,6 +103,8 @@ class VendorService{
 		//email is required
 		form.getElement("email").required = true;
 
+		form.getElement("companyNumber").required = true;
+
 		return form;
 	}
 
@@ -122,6 +129,16 @@ class VendorService{
 
 		//desc
 		if( vendor.desc!=null && vendor.desc.length>1000) throw  new Error("Merci de saisir une description de moins de 1000 caractères");
+
+		//geocoding
+		var address = vendor.getAddress();
+		var res = Mapbox.geocode(address);
+		if(res.geometry.coordinates[0]==null){
+			throw new tink.core.Error("unable to locate this address");
+		}
+		
+		vendor.lat = res.geometry.coordinates[1];
+		vendor.lng = res.geometry.coordinates[0];
 
 		return vendor;
 	}
