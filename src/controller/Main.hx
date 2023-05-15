@@ -1,5 +1,6 @@
 package controller;
 
+import sugoi.form.elements.RadioGroup;
 import payment.MoneyPot;
 import db.Basket;
 import Common;
@@ -121,6 +122,24 @@ class Main extends Controller {
 		// message if address is required
 		if (app.user != null && group.flags.has(db.Group.GroupFlags.AddressRequired) && app.user.city == null) {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
+		}
+
+		if(app.user.isAmapManager() && Date.now().getTime() < new Date(2023,6,7,0,0,0).getTime() ){
+			var g = app.getCurrentGroup();
+			if(g.questAnswer!=null){
+				var choice = switch(g.questAnswer){
+					case "move" : "Je souhaite basculer sur le serveur de l'InterAMAP44";
+					case "stay" : "Je souhaite rester sur ce serveur avec arrêt du service au 30 Août";
+					case "cagette" : "Je souhaite revenir sur Cagette.net pour gérer des commandes en \"mode marché\"";
+					case "bye" : "Je ne souhaite plus utiliser CAMAP, ni Cagette.net";
+					default : "???";
+				};
+
+				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>Votre réponse au questionnaire : <b>"+choice+"</b>, le "+view.hDate(g.questDate)+" par "+g.questUser.getName());
+			}else{
+				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
+			}
+			
 		}
 
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
@@ -318,6 +337,53 @@ class Main extends Controller {
 
 	public function doCgu() {
 		throw Redirect('/tos');
+	}
+
+	@tpl('form.mtt')
+	public function doQuestionnaire(){
+
+		view.title = "Questionnaire pour connaître vos intentions quant à la reprise de CAMAP par l'InterAMAP 44";
+
+		view.text = "<div class='alert alert-warning'>
+		<p>Ce questionnaire est réservé aux administrateurs d'AMAP</p>
+		<p><a href='https://amap44.org' target='_blank'>L'InterAMAP 44</a> a été choisie par Alilo pour reprendre l'hébergement et la maintenance du logiciel CAMAP.</p>
+		<p>Nous proposons aux AMAP qui le souhaitent de basculer sur leur serveur CAMAP <b>la semaine du 3 juillet 2023</b></p>
+		<p>
+		Si celà vous intéresse, nous vous invitons vivement à étudier leur offre d'hébergement : <a href='https://www.amap44.org/camap/' class='btn btn-default' target='_blank'>Conditions hébergement InterAMAP 44</a>.
+		</p>		
+		</div>
+		Afin de nous faire connaître vos intentions, merci de bien vouloir remplir ce formulaire avant le 3 juillet 2023 :";
+
+		var f = new sugoi.form.Form("quest");
+		f.addElement(new sugoi.form.elements.Html("user",app.user.getName(),"Votre nom"));
+		f.addElement(new sugoi.form.elements.Html("amap",app.getCurrentGroup().name,"Votre AMAP"));
+
+		var data = [
+			{label:"Je souhaite basculer sur le serveur CAMAP de l'InterAMAP 44 la semaine du 3 juillet 2023. Je donne mon accord pour que les données de mon AMAP soient transférées à l'InterAMAP 44 afin de pouvoir continuer à utiliser le logiciel sans perte de données.",value:"move"},
+			{label:"Je souhaite rester sur ce serveur. J'ai compris que le service s'arrêtera le 30 Août 2023 sans reprise de données possible.",value:"stay"},
+			{label:"Je souhaite revenir sur Cagette.net pour gérer des commandes en \"mode marché\".",value:"cagette"},
+			{label:"Je ne souhaite plus utiliser CAMAP, ni Cagette.net",value:"bye"},
+		];
+
+		f.addElement(new RadioGroup("choice","Choix pour mon AMAP :",data));
+
+		if(f.isValid()){
+
+			var g = App.current.getCurrentGroup();
+			g.lock();
+
+			g.questUser = app.user;
+			g.questDate = Date.now();
+			g.questAnswer = f.getValueOf("choice");
+			g.update();
+
+			throw Ok("/home","Merci pour votre réponse.");
+
+		}
+
+
+		view.form = f;
+
 	}
 
 }
