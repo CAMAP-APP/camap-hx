@@ -69,17 +69,6 @@
 			<tr>
 				$$operation(::t::)
 				<td>
-					::if t.type==2::
-					<div class="btn-group" role="group">
-						$$edit(::_("Edit")::,/transaction/edit/::t.id::)
-						$$delete(::_("Del.")::,/transaction/delete/::t.id::?token=::token::)						
-					</div>
-					::elseif isAdmin::
-						<a href="/transaction/delete/::t.id::?token=::token::" $$confirm(::_("Delete ?")::) class="btn btn-danger btn-sm" >
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</a>
-					::end::
-					
 				</td>
 			</tr>
 			
@@ -114,9 +103,6 @@
 		</tr>
 		
 		</table>
-		
-		
-		$$insert(::_("Insert a payement")::,/transaction/insertPayment/::member.id::)
 		
 	</div>
 </div>
