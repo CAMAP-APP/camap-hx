@@ -118,9 +118,9 @@ class CatalogService{
 				Si vous voulez utiliser l\'ouverture par défaut des distributions laissez le champ vide.');
 			}
 			
-			if( form.getValueOf("distribMinOrdersTotal")==0 && form.getValueOf("catalogMinOrdersTotal")==0 ){
-				throw new Error("Vous devez définir un minimum de commande ( par distribution et/ou sur la durée du contrat )");
-			}
+			//if( form.getValueOf("distribMinOrdersTotal")==0 && form.getValueOf("catalogMinOrdersTotal")==0 ){
+			//	throw new Error("Vous devez définir un minimum de commande ( par distribution et/ou sur la durée du contrat )");
+			//}
 
 			//no absences datas if distribMinOrdersTotal=0
 			if(form.getValueOf("distribMinOrdersTotal")==0){
