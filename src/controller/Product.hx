@@ -117,7 +117,7 @@ class Product extends Controller
 		var csv = new sugoi.tools.Csv();
 		csv.step = 1;
 		var request = sugoi.tools.Utils.getMultipart(1024 * 1024 * 4);
-		csv.setHeaders( ["productName","price","ref","desc","qt","unit","organic","bulk","variablePrice","vat","stock"] );
+		csv.setHeaders( ["productName","price","ref","desc", "vat", "qt", "unit", "stock", "organic", "bulk", "variablePrice"] );
 		view.contract = c;
 		
 		// get the uploaded file content
@@ -150,19 +150,35 @@ class Product extends Controller
 					if(p["unit"]!=null){
 						product.unitType = switch(p["unit"].toLowerCase()){
 							case "kg" : Kilogram;
+							case "kilogram" : Kilogram;
 							case "g" : Gram;
+							case "gram" : Gram;
 							case "l" : Litre;
-							case "cl" : Centilitre;
 							case "litre" : Litre;
+							case "cl" : Centilitre;
+							case "centilitre" : Centilitre;
 							case "ml" : Millilitre;
+							case "millilitre" : Millilitre;
 							default : Piece;
 						}
 					}
 					if (p["stock"] != null) product.stock = fv.filterString(p["stock"]);
-					product.organic = p["organic"] == "1";
-					product.bulk = p["bulk"] == "1";
-					product.variablePrice = p["variablePrice"] == "1";
-					
+					if (p["organic"] == "true" || p["organic"] == "1") {
+						product.organic = true;
+					} else {
+						product.organic = false;
+					}
+					if (p["bulk"] == "true" || p["bulk"] == "1") {
+						product.bulk = true;
+					} else {
+						product.bulk = false;
+					}
+					if (p["variablePrice"] == "true" || p["variablePrice"] == "1") {
+						product.variablePrice = true;
+					} else {
+						product.variablePrice = false;
+					}
+															
 					product.catalog = c;
 					product.insert();
 				}
@@ -188,22 +204,30 @@ class Product extends Controller
 		var data = new Array<Dynamic>();
 		for (p in c.getProducts(false)) {
 			data.push({
-				"id": p.id,
+				//"id": p.id,
 				"name": p.name,
-				"ref": p.ref,
 				"price": p.price,
+				"ref": p.ref,
+				"desc": p.desc,
 				"vat": p.vat,
-				"catalogId": c.id,
-				"vendorId": c.vendor.id,
-				"unit": p.unitType,
 				"quantity": p.qt,
+				//"catalogId": c.id,
+				"unit": p.unitType,
+				"stock": p.stock,
+				"organic": p.organic,
+				"bulk": p.bulk,
+				"variablePrice": p.variablePrice,
+				//"vendorId": c.vendor.id,
 				"active": p.active,
-				"image": "https://"+App.config.HOST+p.getImage(),
+				//"image": "https://"+App.config.HOST+p.getImage(),
 			});
 		}
 
-		sugoi.tools.Csv.printCsvDataFromObjects(data, [
-			"id", "name", "ref", "price", "vat", "catalogId", "vendorId", "unit", "quantity", "active", "image"], "Export-produits-" + c.name + "-CAMAP");
+//		sugoi.tools.Csv.printCsvDataFromObjects(data, [
+//			"id", "name", "ref", "price", "vat", "catalogId", "vendorId", "unit", "quantity", "active", "image"], "Export-produits-" + c.name + "-CAMAP");
+//		return;
+	sugoi.tools.Csv.printCsvDataFromObjects(data, [
+			"name", "price", "ref", "desc", "vat", "quantity", "unit", "stock", "organic", "bulk", "variablePrice"], "Export-produits-" + c.name + "-CAMAP");
 		return;
 		
 	}

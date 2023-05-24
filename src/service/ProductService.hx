@@ -74,6 +74,7 @@ class ProductService{
 		p.unitType = source_p.unitType;
 		p.multiWeight = source_p.multiWeight;
 		p.variablePrice = source_p.variablePrice;
+		p.bulk = source_p.bulk;
 		p.insert();
 		
 		//custom categs
