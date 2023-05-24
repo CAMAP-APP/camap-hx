@@ -1,13 +1,18 @@
 /*
-	CAMAP SASS stylesheet
+	Cagette.net SASS stylesheet
 	Use it with with bootstrap 3
 */
 @import url("https://fonts.googleapis.com/css?family=Cabin:400,500,700");
 
-$primaryColor: #10654e;
+$mediumGreen: #3c763d;
+$secondaryColor: #85bd56 !default; //primary buttons color @brand-success
+$darkGrey: #333;
 $mediumGrey: #666;
 $lightGrey: #aaa;
-$danger: #d32f2f;
+
+$farmer: #e4ba2b;
+$farmerPro: #85bd56; //@brand-success
+$farmerDanger: #f74747;
 
 html {
   //for rem units
@@ -17,8 +22,14 @@ html {
 body {
   //usefull when BS is not here
   font-family: Cabin, Arial, Helvetica, sans-serif;
-  color: "rgba(0,0,0,0.87)";
+  color: $darkGrey;
 }
+
+// h1,h2,h3,h4{
+// 	//margin-top: 4px !important;
+// 	//margin-bottom: 8px !important;
+// 	// font-style: italic;
+// }
 
 h1 {
   margin-bottom: 8px !important;
@@ -26,7 +37,7 @@ h1 {
 }
 
 a {
-  color: $primaryColor;
+  color: $mediumGreen;
   cursor: pointer;
 }
 
@@ -43,24 +54,39 @@ ol.breadcrumb {
   background: none;
 }
 
+body.cpro {
+  ol.breadcrumb {
+    li + li:before {
+      color: lighten(#3c763d, 25%);
+    }
+    a {
+      color: #3c763d;
+    }
+  }
+}
+
 //used in Js app.toggle()
 .hidden {
   display: none;
 }
 
+//informations before footer, maintenance ...
+div.footer-info {
+  color: #8a6d3b;
+  margin: 24px 0;
+}
+
 .greenBg {
-  color:white;
-  background-color: #2e7d32;
+  background-color: $secondaryColor;
 }
 .greenColor {
-  color: #2e7d32 !important;
+  color: $secondaryColor;
 }
 .redBg {
-  color:white;
-  background-color: $danger;
+  background-color: $farmerDanger;
 }
 .redColor {
-  color: $danger !important;
+  color: $farmerDanger;
 }
 
 //description in checkboxes ( sugoi form element )
@@ -158,14 +184,13 @@ ul.nav {
 /* Page Footer */
 
 #footer {
-  background: $primaryColor;
+  background: $secondaryColor;
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
-  color: #fff;
 
   ul > li > a {
-    color: #fff;
+    color: #333;
     text-decoration: none;
   }
 
@@ -467,9 +492,31 @@ div.reportHeader {
     font-size: 1.5em;
   }
 
+  &.farmer-pro {
+    color: $farmerPro;
+    border-color: $farmerPro;
+    border: 3px solid;
+    background-color: white;
+    i.icon {
+      margin-top: -6px; //corrige l'effet du border
+      color: $farmerPro;
+    }
+  }
+
+  &.farmer {
+    color: $farmer;
+    border-color: $farmer;
+    border: 3px solid;
+    background-color: white;
+    i.icon {
+      margin-top: -6px; //corrige l'effet du border
+      color: $farmer;
+    }
+  }
+
   &.danger {
-    color: $danger;
-    border-color: $danger;
+    color: $farmerDanger;
+    border-color: $farmerDanger;
     border: 3px solid;
     background-color: #f2dede;
     i.icon {
@@ -477,7 +524,7 @@ div.reportHeader {
       margin-top: -5px;
       margin-left: 0px;
 
-      color: $danger;
+      color: $farmerDanger;
     }
   }
 
@@ -506,7 +553,7 @@ div.reportHeader {
   // line-height: 20px;
 }
 
-/* a camap group block (use it with .clickable ) */
+/* a cagette group block (use it with .clickable ) */
 .groupBlock {
   height: 110px;
   overflow: hidden;
@@ -516,6 +563,36 @@ div.reportHeader {
   .address {
     font-size: 0.9em;
   }
+  .distance {
+    font-weight: bold;
+    color: $secondaryColor;
+    font-size: 1.2em;
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+  }
+}
+
+/* a cagette pro block (use it with .clickable ) */
+.proBlock {
+  height: 110px;
+  overflow: hidden;
+  vertical-align: top;
+  position: relative;
+  background: #bad096;
+  &:hover {
+    background: darken(#bad096, 10%);
+  }
+  /*span.cpro{
+		position: absolute;
+		right:0px;
+		top:0px;
+		background:darken(#bad096,30%);
+		color:yellow;
+		height: 12px;
+		padding:4px;
+		font-weight: bold;
+	}*/
 }
 
 .header {
@@ -744,6 +821,55 @@ div.reportHeader {
   line-height: 45px;
 }
 
+/**
+	Popovers for help and tutorials
+**/
+/*.popover{
+
+	color:white;
+	font-size:14px;
+	
+	h3.popover-title{
+		//padding: 4px;
+		color:#BB9931 !important;
+		//border-bottom:1px solid #BB9931 !important;
+		//background-color:none;
+		font-weight:normal;
+		font-size: 20px;
+	}
+	
+	.popover-content{
+		font-size: 16px;
+		b{ 
+			color:#FC0;
+			font-weight:normal;
+		}
+		a{ 
+			color:#FC0;
+			font-weight:normal;
+			text-decoration:underline; 
+		}
+	}
+	
+	.footer{
+		//border-top: 1px solid #BB9931;
+		height: 45px;
+		padding: 12px 0;
+		
+		.pull-left .btn{
+			background-color:#583816;
+			color:#BB9931;
+			border:1px solid #BB9931;
+		}
+		
+		.pull-right .btn{
+			background-color:#FC0;
+			color:#583816;
+			border:1px solid #583816;
+		}
+	}
+}*/
+
 /* skin a modal like a tuto popover */
 .modal.help {
   .modal-header {
@@ -956,6 +1082,31 @@ div.productSelect {
   }
 }
 
+// Cagette Pro Catalogs
+div.productBox {
+  div.productImg {
+    background-size: cover;
+    height: 220px;
+    width: 220px;
+    background-position: center center;
+    border-radius: 6px;
+  }
+
+  div.productName {
+    display: block;
+    font-weight: bold;
+    color: #967820;
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 4px;
+  }
+
+  .price {
+    font-weight: bold;
+    text-align: right;
+  }
+}
+
 // typeahead ( autocomplete js lib )
 .tt-menu {
   background-color: #f5e3ac;
@@ -973,6 +1124,36 @@ div.productSelect {
   }
 }
 
+//txp product input
+#pInput {
+  .txpProduct {
+    color: #aaa;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin: 4px 0;
+  }
+
+  img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
+//Product composer
+/*
+div.ProductComp{
+	margin:8px 0;
+	padding:8px 0;
+	border-bottom:solid 1px #CCC;
+}
+
+.ComposerApp{
+	.add-button{
+		vertical-align:top !important;
+	}
+}
+*/
+
 //basket
 div.basketNumber {
   display: inline-block;
@@ -985,12 +1166,12 @@ div.basketNumber {
 }
 
 tr.success td div.basketNumber {
-  background-color: #2e7d32;
+  background-color: $secondaryColor;
   color: white;
 }
 
 tr.danger td div.basketNumber {
-  background-color: #d32f2f;
+  background-color: #df3826;
   color: white;
 }
 

@@ -1,5 +1,5 @@
 ::use 'design.mtt'::
-
+::set viewButton = "no"::
 <div class="col-md-12">
 
 	<div class="article" id="contracts">
@@ -53,6 +53,7 @@
 						<div class="btn-group" role="group">
 						::if(user.canManageContract(c))::
 							$$edit(::_("Manage")::,/contractAdmin/view/::c.id::)
+							::set viewButton = "yes"::
 						::end::
 						</div>
 					</td>
@@ -67,14 +68,16 @@
 
 		<a href="/contractAdmin?old=1" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-folder-close"></span> Anciens catalogues</a>
 
-		::if user.canManageAllContracts():: 
+		::if (user.canManageAllContracts() || viewButton == "yes"):: 
 		<div class="dropdown" style="display:inline-block;">
 		  <button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			<i class="icon icon-list"></i> ::_("Global orders view")::
 			<span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			::if user.canManageAllContracts()::
 			<li><a href="/contractAdmin/ordersByDate">::_("Same day")::</a></li>
+			::end::
 			<li><a href="/contractAdmin/ordersByTimeFrame">::_("Timeframe")::</a></li>			
 		  </ul>
 		</div>

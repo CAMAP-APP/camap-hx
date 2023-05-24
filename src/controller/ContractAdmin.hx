@@ -228,10 +228,22 @@ class ContractAdmin extends Controller
 	@tpl('contractadmin/ordersByTimeFrame.mtt')
 	function doOrdersByTimeFrame(?from:Date, ?to:Date/*, ?place:db.Place*/){
 
-		if(!app.user.canManageAllContracts())  throw Error('/',"Accès interdit");
+		 /* if(!app.user.canManageAllContracts())  throw Error('/',"Accès interdit"); */
 		
 		if (from == null) {
-		
+			var contracts = app.user.getGroup().getActiveContracts(true);
+			var itsok = "no";
+			if(!app.user.canManageAllContracts()) {
+				if (!app.user.isAmapManager()) {
+					for ( c in Lambda.array(contracts).copy()) {				
+						if(app.user.canManageContract(c)) itsok = "yes";				
+					}
+				}
+			} 
+		else { 
+			itsok = "yes";
+		}
+			if( itsok == "no" )  throw Error('/',"Accès interdit");
 			var f = new sugoi.form.Form("listBydate", null, sugoi.form.Form.FormMethod.GET);
 			
 			var now = DateTime.now();	
@@ -264,16 +276,22 @@ class ContractAdmin extends Controller
 			return;
 			
 		}else {
-			
 			var d1 = tools.DateTool.setHourMinute(from,0,0);
 			var d2 = tools.DateTool.setHourMinute(to,23,59);
 			var contracts = app.user.getGroup().getActiveContracts(true);
+			if(!app.user.canManageAllContracts()) {
+				if (!app.user.isAmapManager()) {
+					for ( c in Lambda.array(contracts).copy()) {				
+						if(!app.user.canManageContract(c)) contracts.remove(c);				
+					}
+				}
+			}
 			var cids = contracts.getIds();
 			
 			//distribs
 			var distribs = db.Distribution.manager.search(($catalogId in cids)   && $date >= d1 && $date <= d2 /*&& place.id==$placeId*/, false);					
 			
-			if (distribs.length == 0) throw Error("/contractAdmin/ordersByDate", t._("There is no delivery at this date"));
+			if (distribs.length == 0) throw Error("/contractAdmin/ordersByTimeFrame", t._("There is no delivery at this date"));
 			
 
 			var orders = db.UserOrder.manager.search($distributionId in distribs.getIds()  , { orderBy:userId } );
@@ -301,7 +319,17 @@ class ContractAdmin extends Controller
 		if(!app.user.canManageAllContracts())  throw Error('/',"Accès interdit");
 
 		if (date == null) {
-		
+	/*		var contracts = app.user.getGroup().getActiveContracts(true);
+			var itsok = "no";
+			if(!app.user.canManageAllContracts()) {
+				if (!app.user.isAmapManager()) {
+					for ( c in Lambda.array(contracts).copy()) {				
+						if(app.user.canManageContract(c)) itsok = "yes";				
+					}
+				}
+			}
+			if( itsok == "no" )  throw Error('/',"Accès interdit");
+	*/
 			var f = new sugoi.form.Form("listBydate", null, sugoi.form.Form.FormMethod.GET);
 			var el = new form.CamapDatePicker("date", t._("Delivery date"),  NativeDatePickerType.date, true);
 			el.format = 'LL';
@@ -331,6 +359,14 @@ class ContractAdmin extends Controller
 			var d1 = date.setHourMinute(0, 0);
 			var d2 = date.setHourMinute(23,59);
 			var contracts = app.user.getGroup().getActiveContracts(true);
+	/*		if(!app.user.canManageAllContracts()) {
+				if (!app.user.isAmapManager()) {
+					for ( c in Lambda.array(contracts).copy()) {				
+						if(!app.user.canManageContract(c)) contracts.remove(c);				
+					}
+				}
+			}
+	*/
 			var cids = contracts.map(x->return x.id);
 			
 			//distribs
@@ -378,7 +414,17 @@ class ContractAdmin extends Controller
 		var d1 = tools.DateTool.setHourMinute(from,0,0);
 		var d2 = tools.DateTool.setHourMinute(to,23,59);
 		var contracts = app.user.getGroup().getActiveContracts(true);
+		/*
+		 * Permettre à un gestionnaire de catalogue d'imprimmer sa récap
+		 */
+		if (!app.user.isAmapManager()) {
+			for ( c in Lambda.array(contracts).copy()) {				
+				if(!app.user.canManageContract(c)) contracts.remove(c);				
+			}
+		}
+		
 		var cids = contracts.getIds();
+
 		
 		//distribs for both types in active contracts
 		var distribs = db.Distribution.manager.search(($catalogId in cids) && $date >= d1 && $date <= d2 /*&& $place==place*/, false);		
@@ -834,7 +880,7 @@ class ContractAdmin extends Controller
 		var html = "<div class='alert alert-warning'><p><i class='icon icon-info'></i> 
 		Vous pouvez définir une période pendant laquelle les membres pourront choisir d'être absent.<br/>
 		<b>Saisissez la période d'absence uniquement après avoir défini votre planning de distribution définitif sur toute la durée du contrat.</b><br/>
-		<a href='https://wiki.cagette.net/admin:absences' target='_blank'>Consulter la documentation.</a>
+		<a href='https://wiki.amap44.org/fr/app/Administration-CAMAP#gestion-des-absences-en-amap' target='_blank'>Consulter la documentation.</a>
 		</p></div>";
 		
 		form.addElement( new sugoi.form.elements.Html( 'absences', html, '' ) );
