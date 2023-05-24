@@ -40,10 +40,10 @@ class CatalogService{
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {
 			//VAR
 			form.addElement( new sugoi.form.elements.Html( 'constraints', '<h4>Engagement</h4>', '' ), 10 );
-			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat. <br/><a href="https://wiki.cagette.net/admin:contratsamapvariables#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
+			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat. <br/><a href="https://wiki.amap44.org/fr/app/Administration-CAMAP#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
 
-			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.cagette.net/admin:contratsamapvariables#ouverture_et_fermeture_de_commande";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.cagette.net/admin:contratsamapvariables#ouverture_et_fermeture_de_commande";				
+			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#ouverture-et-fermeture-de-commande";
+			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#ouverture-et-fermeture-de-commande";				
 			// form.getElement("catalogMinOrdersTotal").docLink = "";
 			
 		} else { 
@@ -54,7 +54,7 @@ class CatalogService{
 			form.removeElement(form.getElement("catalogMinOrdersTotal"));
 
 			form.getElement("orderEndHoursBeforeDistrib").label = "Délai minimum pour saisir une souscription (nbre d'heures avant prochaine distribution)";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.cagette.net/admin:admin_contratsamap#champs_delai_minimum_pour_saisir_une_souscription";
+			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
 
 			absencesIndex = 9;
 		}
