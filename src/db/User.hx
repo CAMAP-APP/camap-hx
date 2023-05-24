@@ -173,9 +173,9 @@ class User extends Object {
 	/**
 	 * Est ce que ce membre a la gestion d'au moins un catalogue de ce vendor
 	 */
-	public function canManageVendor(vendor:db.Vendor ) {
-		var catalogs = vendor.getActiveContracts();
-		for (c in catalogs) {
+	public function canManageVendor(vendor:db.Vendor) {
+		if(isAdmin()) return true;
+		for (c in vendor.getContracts() ) {
 			if (this.canManageContract(c)) {
 				return true;
 			}
@@ -208,6 +208,7 @@ class User extends Object {
 	}
 	
 	public function canManageContract(c:db.Catalog):Bool {
+		if(isAdmin()) return true;
 		var ua = getUserGroup(c.group);
 		if (ua == null) return false;
 		if (ua.hasRight(Right.ContractAdmin())) return true;
