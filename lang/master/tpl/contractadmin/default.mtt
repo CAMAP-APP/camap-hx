@@ -79,52 +79,44 @@
 		  </ul>
 		</div>
 		::end::
-		
 	</div>
-	
 </div>
 
-
-
-<div class="col-md-6">
+<div class="col-md-12">
 	<div class="article" id="vendors">
 		<h2>::_("Farmers")::</h2>
-		<table class="table">
+		<div class="row">
 			::foreach v vendors::		
-				<tr>
-					<td>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-2">
 						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
-					</td>
-					<td>
+					</div>
+					<div class="col-md-6">
 						<b>::v.name::</b><br/>
 						::v.zipCode:: ::v.city::
 
 						::if(v.isDisabled())::
 							<div class="alert alert-danger"><i class="icon icon-alert"></i> Producteur désactivé : ::raw v.getDisabledReason()::</div>
 						::end::
-					</td>
-					<td>
+					</div>
+					<div class="col-md-4">
 						<div class="btn-group" role="group">							
 							$$edit(Modifier,/vendor/edit/::v.id::)
 							$$edit(Image,/vendor/addImage/::v.id::)
 						</div>
-					</td>
-				</tr>
+					</div>
+				</div>
+			</div>
 			::end::
-		</table>
-		<!--$$insert(::_("New farmer")::,/vendor/insert/) -->
+		</div>
+		<br/>
 		<div class="alert alert-warning text-center">Pour référencer un nouveau producteur, cliquez sur "Chercher un producteur"</div>
-		
-	</div>	
+	</div>
+	
 </div>
 
-<div class="col-md-6">
-	<div class="article" id="places">
-		
-		<h2>::_("Delivery places")::</h2>
-		<div class="alert alert-warning text-center">La gestion des lieux a été déplacée dans <a href="/place">l'onglet "paramètres"</a></div>
-		
-	</div>
-</div>
+
+
 	
 ::end::
