@@ -87,7 +87,7 @@
 		<h2>::_("Farmers")::</h2>
 		<div class="row">
 			::foreach v vendors::		
-			<div class="col-md-4">
+			<div class="col-md-4" style="height:100px">
 				<div class="row">
 					<div class="col-md-2">
 						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
