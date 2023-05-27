@@ -28,8 +28,8 @@
 			
 			<p class="linkToShare">
 				<i class="icon icon-link"></i>
-				<a href="http://::HOST::/group/::user.getGroup().id::">
-					http://::HOST::/group/::user.getGroup().id::				
+				<a href="https://::HOST::/group/::user.getGroup().id::">
+					https://::HOST::/group/::user.getGroup().id::				
 				</a>
 			</p>
 			
