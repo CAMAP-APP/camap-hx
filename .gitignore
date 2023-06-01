@@ -38,7 +38,8 @@ www/css/*.css
 
 devLibs/
 
-
+www/theme/default/*.plugin
+www/img/*.png
 
 codes.sh
 
