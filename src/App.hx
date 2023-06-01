@@ -95,7 +95,7 @@ class App extends sugoi.BaseApp {
                         ',
                 bloc4: '
                         <a href="http://www.amap44.org" target="_blank">
-                             <img src="/theme/default/logo_amap44.jpg" alt="CAMAP" style="width:166px;"/>
+                             <img src="/theme/default/logo_amap44.png" alt="CAMAP" style="width:166px;"/>
                         </a>
                        '
             },

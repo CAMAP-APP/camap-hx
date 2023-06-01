@@ -104,6 +104,7 @@ form {
   z-index: 99;
 }
 
+
 /* buttons */
 
 /* bounce effect */
@@ -181,6 +182,16 @@ ul.nav {
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
+.alert-warning a {
+    color: #fff;
+}
+
+.alert-success {
+color:#6faf1d;
+background-color: #fff;
+border-color:           #d1004e;
+}
+
 /* Page Footer */
 
 #footer {
@@ -188,6 +199,7 @@ ul.nav {
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
+  color: #fff;
 
   ul > li > a {
     color: #fff;
@@ -737,7 +749,7 @@ div.reportHeader {
   margin-top: 13px;
 
   font-size: 13px;
-  background-color: #080;
+  background-color: #6faf1d;
   /*border-top:1px solid #fff ;*/
 }
 
@@ -749,7 +761,7 @@ div.reportHeader {
 }
 .dateBox {
   border-radius: 8px;
-  background-color: #c59654;
+  background-color: #d1004e;
   color: #fff;
   font-size: 13px;
   line-height: 13px;
@@ -980,6 +992,9 @@ div.reportHeader {
     .alert {
       margin-bottom: 0;
     }
+	.alert-warning a {
+		color: #fff;
+	  }
 
     //footer of orders : attendance list, subscription balance
     .orderFooter {
@@ -991,8 +1006,7 @@ div.reportHeader {
         margin-right: 12px;
       }
     }
-  }
-
+  } 
   .footer {
     height: 8px;
     // font-size:0.9em;
@@ -1000,6 +1014,19 @@ div.reportHeader {
     border-bottom-right-radius: 8px;
     background: #fff;
   }
+}
+.content.orders a {
+	color: #6faf1d;
+}
+
+.btn-group>.btn-default {
+    padding: 2px 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #000;
+    background-color: #fff;
+    border-color: #d1004e;
 }
 
 div.groupImg {
