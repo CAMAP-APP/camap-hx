@@ -281,16 +281,18 @@
 	
 	<macro name="today(dow,d,m,y,h,place)">
 		<div class="dateBox"  >
+			<div class="box">
 			<img src="/img/go.png" style="background-color: #fff;border-radius: 8px;margin: 5px;" />
-			<div style="font-size:16px;margin-bottom:4px;margin-bottom:4px">
-				::if parseInt(h)<=12::
-					::_("THIS MORNING")::
-				::elseif parseInt(h)<18::
-					<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
-				::else::
-					::_("THIS EVENING")::
-				::end::
+				<div style="font-size:14px">
+					::if parseInt(h)<=12::
+						::_("THIS MORNING")::
+					::elseif parseInt(h)<18::
+						<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
+					::else::
+						::_("THIS EVENING")::
+					::end::
 				
+				</div>
 			</div>
 			::if place!=null:: 
 			<div style="margin-top:6px;">
