@@ -2557,7 +2557,7 @@ msgstr "Export Excel/CSV"
 
 #: ../lang/master/tpl/macros.mtt:9535
 msgid "THIS MORNING"
-msgstr "CE MATIN"
+msgstr "Ce matin"
 
 #: ../lang/master/tpl/macros.mtt:9630
 msgid "AFTERNOON"
@@ -2565,7 +2565,7 @@ msgstr "APRES-MIDI"
 
 #: ../lang/master/tpl/macros.mtt:9674
 msgid "THIS EVENING"
-msgstr "CE SOIR"
+msgstr "Ce soir"
 
 #: ../lang/master/tpl/macros.mtt:10430
 msgid "No contact"

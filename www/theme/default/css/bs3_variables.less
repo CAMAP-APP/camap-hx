@@ -3,8 +3,8 @@
 // --------------------------------------------------
 
 //Cagette vars
-@lightBeige:#efe9d5;
-@darkBrown:#583816;
+@lightBeige:#ffffff;
+@darkBrown:#d1004e;
 
 //== Colors
 //
@@ -17,11 +17,11 @@
 @gray-light:             lighten(@gray-base, 46.7%); // #777
 @gray-lighter:           lighten(@gray-base, 93.5%); // #eee
 
-@brand-primary:         #a53fa1;
-@brand-success:         #85BD56;
-@brand-info:            #CDA87B;
-@brand-warning:         #FF7800;
-@brand-danger:          #DF3826;
+@brand-primary:         #6faf1d;
+@brand-success:         #6faf1d;
+@brand-info:            #d1004e;
+@brand-warning:         #d1004e;
+@brand-danger:          red;
 
 
 //== Scaffolding
@@ -29,12 +29,12 @@
 //## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #F8F4E5;
+@body-bg:               #ffffff;
 //** Global text color on `<body>`.
 @text-color:            @gray-dark;
 
 //** Global textual link color.
-@link-color:            #3c763d;
+@link-color:            #00b0da;
 //** Link hover color set via `darken()` function.
 @link-hover-color:      darken(@link-color, 15%);
 //** Link hover decoration.
@@ -147,9 +147,9 @@
 
 @btn-font-weight:                normal;
 
-@btn-default-color:              #333;
-@btn-default-bg:                 #fff;
-@btn-default-border:             #ccc;
+@btn-default-color:              #fff;
+@btn-default-bg:                 #6faf1d;
+@btn-default-border:             #6faf1d;
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
@@ -159,7 +159,7 @@
 @btn-success-bg:                 @brand-success;
 @btn-success-border:             darken(@btn-success-bg, 5%);
 
-@btn-info-color:                 rgb(88, 56, 22);;
+@btn-info-color:                 rgb(209, 0, 78);;
 @btn-info-bg:                    @brand-info;
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
@@ -203,7 +203,7 @@
 @input-border-radius-small:      @border-radius-small;
 
 //** Border color for inputs on focus
-@input-border-focus:             #66afe9;
+@input-border-focus:             #00b0da;
 
 //** Placeholder text color
 @input-color-placeholder:        #999;
@@ -375,7 +375,7 @@
 @navbar-default-link-color:                #777;
 @navbar-default-link-hover-color:          #333;
 @navbar-default-link-hover-bg:             transparent;
-@navbar-default-link-active-color:         rgb(233, 82, 22);
+@navbar-default-link-active-color:         rgb(0, 175, 219);
 @navbar-default-link-active-bg:            @lightBeige;
 @navbar-default-link-disabled-color:       #ccc;
 @navbar-default-link-disabled-bg:          transparent;
@@ -499,19 +499,19 @@
 //
 //## Define colors for form feedback states and, by default, alerts.
 
-@state-success-text:             #3c763d;
-@state-success-bg:               #dff0d8;
-@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+@state-success-text:             #6faf1d;
+@state-success-bg:               #fff;
+@state-success-border:           #d1004e;
 
-@state-info-text:                #31708f;
+@state-info-text:                #00b0da;
 @state-info-bg:                  #d9edf7;
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
 
-@state-warning-text:             #8a6d3b;
+@state-warning-text:             #6faf1d;
 @state-warning-bg:               #fcf8e3;
-@state-warning-border:           darken(spin(@state-warning-bg, -10), 5%);
+@state-warning-border:           #d1004e;
 
-@state-danger-text:              #a94442;
+@state-danger-text:              red;
 @state-danger-bg:                #f2dede;
 @state-danger-border:            darken(spin(@state-danger-bg, -10), 5%);
 
@@ -832,7 +832,7 @@
 //
 //##
 
-@code-color:                  #c7254e;
+@code-color:                  #d1004e;
 @code-bg:                     #f9f2f4;
 
 @kbd-color:                   #fff;

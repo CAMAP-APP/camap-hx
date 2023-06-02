@@ -74,7 +74,6 @@ class ProductService{
 		p.unitType = source_p.unitType;
 		p.multiWeight = source_p.multiWeight;
 		p.variablePrice = source_p.variablePrice;
-		p.bulk = source_p.bulk;
 		p.insert();
 		
 		//custom categs
@@ -106,12 +105,13 @@ class ProductService{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			stock.label = "Stock (par distribution)";				 
-			if(product.stock!=null){
-				distLeft = product.catalog.getDistribs(false).length;
+            if(product.stock!=null){
+				var distLeft = product.catalog.getDistribs(false).length;
 				if (distLeft > 0) {
 					stock.value = Math.floor( product.stock / distLeft );
-			} else {
+			    } else {
 				stock.value = product.stock;
+			    }
 			}
 		}
 
