@@ -191,7 +191,11 @@ color:#6faf1d;
 background-color: #fff;
 border-color:           #d1004e;
 }
-
+.alert-danger {
+    color: #d1004e;
+    background-color: #fff;
+    border-color: #6faf1d;
+}
 /* Page Footer */
 
 #footer {
@@ -995,6 +999,12 @@ div.reportHeader {
 	.alert-warning a {
 		color: #fff;
 	  }
+	
+	  alert-danger {
+		color: #d1004e;
+		background-color: #fff;
+		border-color: #6faf1d;
+	}
 
     //footer of orders : attendance list, subscription balance
     .orderFooter {

@@ -2,7 +2,7 @@
 
 	::set homeMessage = getVariable("homeMessage")::
 	<div class="col-md-12" ::cond (homeMessage!="")::>
-		<div class="alert alert-warning" style="background-color: #6faf1d;color: white;">
+		<div class="alert alert-warning" style="background-color: #fff;color: #6faf1d;">
 			::raw homeMessage::			
 		</div>
 	</div>

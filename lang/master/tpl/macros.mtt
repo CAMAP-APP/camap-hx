@@ -280,8 +280,8 @@
 	</macro>
 	
 	<macro name="today(dow,d,m,y,h,place)">
-		<div class="dateBox" style="background-color: #ffffff;color: #d1004e;" >
-			<img src="/img/go.png"/>
+		<div class="dateBox"  >
+			<img src="/img/go.png" style="background-color: #fff;border-radius: 8px;margin: 5px;" />
 			<div style="font-size:16px;margin-bottom:4px;margin-bottom:4px">
 				::if parseInt(h)<=12::
 					::_("THIS MORNING")::
