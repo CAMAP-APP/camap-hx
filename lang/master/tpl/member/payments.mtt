@@ -67,6 +67,7 @@
 
 		::foreach t rb.current()::	
 			<tr>
+				$$operation(::t::)
 			</tr>
 			
 		::end::
