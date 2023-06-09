@@ -137,7 +137,7 @@ class Main extends Controller {
 
 				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>Votre réponse au questionnaire : <b>"+choice+"</b>, le "+view.hDate(g.questDate)+" par "+g.questUser.getName());
 			}else{
-				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
+				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, <b>si vous désirez continuer à utiliser l'application sans pertes de données lors de la migration</b>,<br/>merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
 			}
 		}
 

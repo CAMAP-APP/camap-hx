@@ -207,9 +207,21 @@ class Member extends Controller
 		view.md = md;
 		view.getVendor = function(id) return db.Vendor.manager.get(id,false);
 		view.paymentOps = paymentOps;
-
-
 	}
+
+	/**
+	 * Move to waiting list
+	 */
+	 function doMovetowl(u:db.User){
+		try{
+			service.WaitingListService.moveBackToWl(u,app.user.getGroup(),"Remis en liste d'attente par "+app.user.getName());
+		}catch(e:tink.core.Error){
+			throw Error("/member/view/"+u.id, e.message );
+		}
+		
+		throw Ok("/member", u.getName() +" a été remis(e) en liste d'attente");
+	}
+
 
 
 	

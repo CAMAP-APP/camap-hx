@@ -68,4 +68,28 @@ class WaitingListService{
 		wl.delete();
 	}
 
+
+	/**
+		Put a member of the group back on waiting list
+	**/
+	public static function moveBackToWl(user:db.User,group:db.Group,message:String){
+		var t  = sugoi.i18n.Locale.texts;
+
+		//checks
+		var ug = db.UserGroup.get(user,group,true);
+		if( ug==null ) throw new Error(user.getName()+" ne fait pas partie de ce groupe.");
+		if( App.current.user.id==user.id ) throw new Error("Vous ne pouvez pas vous mettre vous-même en liste d'attente.");
+		if(ug.hasRight(GroupAdmin)) throw new Error("Vous ne pouvez pas mettre "+user.getName()+" en liste d'attente, car c'est un administrateur du groupe.");
+		var wl = db.WaitingList.manager.select($user==user && $group==group);
+		if(wl!=null) throw new Error("Cette personne est déjà dans la liste d'attente.");
+
+		ug.delete();
+
+		var w = new db.WaitingList();
+		w.user = user;
+		w.group = group;
+		w.message = message;
+		w.insert();
+	}
+
 }

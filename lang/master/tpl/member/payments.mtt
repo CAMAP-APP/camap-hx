@@ -61,12 +61,12 @@
 						::balance::&nbsp;::currency()::
 					::end::
 				</td>
-				<td colspan="2">
-				</td>
+				<td></td>
 			</tr>
 
 		::foreach t rb.current()::	
 			<tr>
+				$$operation(::t::)		
 			</tr>
 			
 		::end::
@@ -100,6 +100,9 @@
 		</tr>
 		
 		</table>
+		
+		
+		$$insert(::_("Insert a payement")::,/transaction/insertPayment/::member.id::)
 		
 	</div>
 </div>
