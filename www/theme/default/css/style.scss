@@ -183,7 +183,7 @@ ul.nav {
 }
 
 .alert-warning a {
-    color: #fff;
+        color: #fff;
 }
 
 .alert-success {
@@ -191,6 +191,7 @@ color:#6faf1d;
 background-color: #fff;
 border-color:           #d1004e;
 }
+
 .alert-danger {
     color: #d1004e;
     background-color: #fff;
@@ -473,7 +474,7 @@ div.reportHeader {
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(#000, 75%);
+    background-color: lighten(#000, 70%);
     //border-color:darken(#F0D277,10%);
     text-decoration: none;
     transition: all 0.15s ease;
@@ -996,15 +997,14 @@ div.reportHeader {
     .alert {
       margin-bottom: 0;
     }
-	.alert-warning a {
+    .alert-warning a {
 		color: #fff;
 	  }
-	
-	  alert-danger {
-		color: #d1004e;
-		background-color: #fff;
-		border-color: #6faf1d;
-	}
+    .alert-danger {
+    color: #d1004e;
+    background-color: #fff;
+    border-color: #6faf1d;
+    }
 
     //footer of orders : attendance list, subscription balance
     .orderFooter {
@@ -1016,7 +1016,8 @@ div.reportHeader {
         margin-right: 12px;
       }
     }
-  } 
+  }
+
   .footer {
     height: 8px;
     // font-size:0.9em;
@@ -1025,8 +1026,9 @@ div.reportHeader {
     background: #fff;
   }
 }
+
 .content.orders a {
-	color: #6faf1d;
+    color: #6faf1d;
 }
 
 .btn-group>.btn-default {
@@ -1278,3 +1280,4 @@ i.icon {
     font-weight: bold;
   }
 }
+
