@@ -39,8 +39,6 @@ www/css/*.css
 devLibs/
 
 www/theme/default/*.plugin
-www/theme/default/*.png
-www/img/*.png
 
 codes.sh
 
