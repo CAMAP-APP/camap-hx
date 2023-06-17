@@ -119,21 +119,21 @@ ul.nav li {
   /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
 .alert-warning a {
-  color: #fff; }
+  color: #00b0da; }
 
 .alert-success {
   color: #6faf1d;
   background-color: #fff;
-  border-color: #d1004e; }
+  border-color: #00b0da; }
 
 .alert-danger {
-  color: #d1004e;
+  color: #00b0da;
   background-color: #fff;
   border-color: #6faf1d; }
 
 /* Page Footer */
 #footer {
-  background: #6faf1d;
+  background: #00b0da;
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
@@ -234,11 +234,11 @@ span.panel-title {
 /* block marron + contours */
 .block2 {
   margin-bottom: 32px;
-  background: #d1004e;
+  background: #00b0da;
   border-radius: 8px;
   position: relative;
   padding: 8px;
-  border: 2px solid #d1004e; }
+  border: 2px solid #00b0da; }
 
 /* product in shop */
 table.product {
@@ -552,7 +552,7 @@ div.reportHeader {
 
 .dateBox {
   border-radius: 8px;
-  background-color: #d1004e;
+  background-color: #00b0da;
   color: #fff;
   font-size: 13px;
   line-height: 13px;
@@ -686,7 +686,7 @@ div.reportHeader {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     color: #fff;
-    background-color: #d1004e;
+    background-color: #00b0da;
     margin: 0;
     padding: 6px 6px 6px 90px;
     min-height: 70px; }
@@ -694,7 +694,7 @@ div.reportHeader {
       background-color: #999;
       opacity: 1; }
     .distrib .header.orders {
-      background-color: #d1004e; }
+      background-color: #00b0da; }
     .distrib .header.active {
       background-color: #85b14d; }
     .distrib .header .info {
@@ -737,7 +737,7 @@ div.reportHeader {
     .distrib .content .alert-warning a {
       color: #fff; }
     .distrib .content .alert-danger {
-      color: #d1004e;
+      color: #00b0da;
       background-color: #fff;
       border-color: #6faf1d; }
     .distrib .content .orderFooter {
@@ -762,7 +762,7 @@ div.reportHeader {
   border-radius: 3px;
   color: #000;
   background-color: #fff;
-  border-color: #d1004e; }
+  border-color: #00b0da; }
 
 div.groupImg {
   background: no-repeat center;
@@ -886,7 +886,7 @@ tr.success td div.basketNumber {
   color: white; }
 
 tr.danger td div.basketNumber {
-  background-color: #d1004e;
+  background-color: #00b0da;
   color: white; }
 
 /* fixed bar on bottom for buttons */
