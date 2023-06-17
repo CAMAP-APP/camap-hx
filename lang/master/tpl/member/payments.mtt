@@ -102,8 +102,7 @@
 		</table>
 		
 		
-		$$insert(::_("Insert a payement")::,/transaction/insertPayment/::member.id::)
-		
+				
 	</div>
 </div>
 ::end::

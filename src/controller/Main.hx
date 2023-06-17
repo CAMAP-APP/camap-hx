@@ -124,6 +124,8 @@ class Main extends Controller {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
 		}
 
+		// désactivation du questionnaire de migration
+		/*
 		if(app.user != null && app.user.isAmapManager() && Date.now().getTime() < new Date(2023,6,7,0,0,0).getTime() ){
 			var g = app.getCurrentGroup();
 			if(g.questAnswer!=null){
@@ -140,7 +142,8 @@ class Main extends Controller {
 				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, <b>si vous désirez continuer à utiliser l'application sans pertes de données lors de la migration</b>,<br/>merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
 			}
 		}
-
+		*/
+		
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}

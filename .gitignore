@@ -39,11 +39,14 @@ www/css/*.css
 devLibs/
 
 www/theme/default/*.plugin
-www/img/*.png
 
 codes.sh
 
 
 *.scss~
 *.un~
-www/theme/default/logo3.png
+
+data/productTaxonomy.json
+src/db/TxpCategory.hx
+src/db/TxpProduct.hx
+src/db/TxpSubCategory.hx

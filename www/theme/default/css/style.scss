@@ -4,6 +4,10 @@
 */
 @import url("https://fonts.googleapis.com/css?family=Cabin:400,500,700");
 
+// $camapColor: #5430b0;
+$camapColor: #00b0da;
+$camapBtnColor: #6faf1d;
+
 $mediumGreen: #3c763d;
 $secondaryColor: #6faf1d !default; //primary buttons color @brand-success
 $darkGrey: #fff;
@@ -183,23 +187,24 @@ ul.nav {
 }
 
 .alert-warning a {
-    color: #fff;
+        color: #00b0da;
 }
 
 .alert-success {
 color:#6faf1d;
 background-color: #fff;
-border-color:           #d1004e;
+border-color:           $camapColor;
 }
+
 .alert-danger {
-    color: #d1004e;
+    color: $camapColor;
     background-color: #fff;
     border-color: #6faf1d;
 }
 /* Page Footer */
 
 #footer {
-  background: $secondaryColor;
+  background: $camapColor;
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
@@ -327,11 +332,11 @@ span.panel-title {
 /* block marron + contours */
 .block2 {
   margin-bottom: 32px;
-  background: #d1004e;
+  background: $camapColor;
   border-radius: 8px;
   position: relative;
   padding: 8px;
-  border: 2px solid #d1004e;
+  border: 2px solid $camapColor;
 }
 
 /* product in shop */
@@ -473,7 +478,7 @@ div.reportHeader {
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(#000, 75%);
+    background-color: lighten(#000, 70%);
     //border-color:darken(#F0D277,10%);
     text-decoration: none;
     transition: all 0.15s ease;
@@ -765,7 +770,7 @@ div.reportHeader {
 }
 .dateBox {
   border-radius: 8px;
-  background-color: #d1004e;
+  background-color: $camapColor;
   color: #fff;
   font-size: 13px;
   line-height: 13px;
@@ -923,7 +928,7 @@ div.reportHeader {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     color: #fff;
-    background-color: #d1004e;
+    background-color: $camapColor;
     // vertical-align:middle;
     margin: 0;
     padding: 6px 6px 6px 90px;
@@ -934,7 +939,7 @@ div.reportHeader {
       opacity: 1;
     }
     &.orders {
-      background-color: #d1004e;
+      background-color: $camapColor;
     }
     &.active {
       background-color: #85b14d;
@@ -996,15 +1001,14 @@ div.reportHeader {
     .alert {
       margin-bottom: 0;
     }
-	.alert-warning a {
+    .alert-warning a {
 		color: #fff;
 	  }
-	
-	  alert-danger {
-		color: #d1004e;
-		background-color: #fff;
-		border-color: #6faf1d;
-	}
+    .alert-danger {
+    color: $camapColor;
+    background-color: #fff;
+    border-color: #6faf1d;
+    }
 
     //footer of orders : attendance list, subscription balance
     .orderFooter {
@@ -1016,7 +1020,8 @@ div.reportHeader {
         margin-right: 12px;
       }
     }
-  } 
+  }
+
   .footer {
     height: 8px;
     // font-size:0.9em;
@@ -1025,8 +1030,9 @@ div.reportHeader {
     background: #fff;
   }
 }
+
 .content.orders a {
-	color: #6faf1d;
+    color: #6faf1d;
 }
 
 .btn-group>.btn-default {
@@ -1036,7 +1042,7 @@ div.reportHeader {
     border-radius: 3px;
     color: #000;
     background-color: #fff;
-    border-color: #d1004e;
+    border-color: $camapColor;
 }
 
 div.groupImg {
@@ -1208,7 +1214,7 @@ tr.success td div.basketNumber {
 }
 
 tr.danger td div.basketNumber {
-  background-color: #d1004e;
+  background-color: $camapColor;
   color: white;
 }
 
@@ -1278,3 +1284,4 @@ i.icon {
     font-weight: bold;
   }
 }
+

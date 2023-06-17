@@ -8,7 +8,7 @@ html {
 
 body {
   font-family: Cabin, Arial, Helvetica, sans-serif;
-  color: #333; }
+  color: #fff; }
 
 h1 {
   margin-bottom: 8px !important;
@@ -23,9 +23,9 @@ ol.breadcrumb {
   margin: 0 0 8px 0px;
   background: none; }
   ol.breadcrumb li + li:before {
-    color: #deceb3; }
+    color: #666666; }
   ol.breadcrumb a {
-    color: #b89559; }
+    color: #262626; }
 
 body.cpro ol.breadcrumb li + li:before {
   color: #77ba79; }
@@ -36,20 +36,20 @@ body.cpro ol.breadcrumb a {
   display: none; }
 
 div.footer-info {
-  color: #8a6d3b;
+  color: #000;
   margin: 24px 0; }
 
 .greenBg {
-  background-color: #85bd56; }
+  background-color: #6faf1d; }
 
 .greenColor {
-  color: #85bd56; }
+  color: #6faf1d; }
 
 .redBg {
-  background-color: #a94442; }
+  background-color: #f74747; }
 
 .redColor {
-  color: #a94442; }
+  color: #f74747; }
 
 form p.desc {
   color: #666;
@@ -102,7 +102,7 @@ ul.nav li {
     color: #777; }
   ul.nav li.active > a {
     background-color: #eee !important;
-    color: #e95216 !important; }
+    color: #00b0da !important; }
 
 .noSelect {
   -webkit-touch-callout: none;
@@ -118,14 +118,28 @@ ul.nav li {
   user-select: none;
   /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
+.alert-warning a {
+  color: #00b0da; }
+
+.alert-success {
+  color: #6faf1d;
+  background-color: #fff;
+  border-color: #00b0da; }
+
+.alert-danger {
+  color: #00b0da;
+  background-color: #fff;
+  border-color: #6faf1d; }
+
 /* Page Footer */
 #footer {
-  background: #85bd56;
+  background: #00b0da;
   border-radius: 8px;
   padding: 20px;
-  overflow: auto; }
+  overflow: auto;
+  color: #fff; }
   #footer ul > li > a {
-    color: #333;
+    color: #fff;
     text-decoration: none; }
   #footer ul {
     margin: 3px 0 0;
@@ -152,7 +166,7 @@ ul.nav li {
       #footer .cagsocialmedia li.cagyoutube {
         background-color: #ff0000; }
       #footer .cagsocialmedia li.caggithub {
-        background-color: #333333; }
+        background-color: #fff333; }
 
 #subfooter {
   /*background-color : #313131;
@@ -189,7 +203,7 @@ ul.nav li {
     margin: 8px 8px 8px 90px; }
 
 span.panel-title {
-  color: #966125 !important;
+  color: #000 !important;
   font-size: 20px !important;
   font-weight: normal !important; }
 
@@ -220,11 +234,11 @@ span.panel-title {
 /* block marron + contours */
 .block2 {
   margin-bottom: 32px;
-  background: #f0d277;
+  background: #00b0da;
   border-radius: 8px;
   position: relative;
   padding: 8px;
-  border: 2px solid #c3a04c; }
+  border: 2px solid #00b0da; }
 
 /* product in shop */
 table.product {
@@ -333,13 +347,13 @@ div.reportHeader {
   z-index: 10; }
   .clickable:hover {
     cursor: pointer;
-    background-color: #eee5d6;
+    background-color: #b3b3b3;
     text-decoration: none;
     transition: all 0.15s ease; }
   .clickable:active {
     cursor: pointer;
-    background-color: #f0d277;
-    border-color: #ebc349;
+    background-color: #00b0da;
+    border-color: #0087a7;
     text-decoration: none;
     transform: scale(0.95); }
   .clickable.disabled {
@@ -359,30 +373,30 @@ div.reportHeader {
     color: white;
     font-size: 1.5em; }
   .iconBadge.farmer-pro {
-    color: #85bd56;
-    border-color: #85bd56;
+    color: #6faf1d;
+    border-color: #6faf1d;
     border: 3px solid;
     background-color: white; }
     .iconBadge.farmer-pro i.icon {
       margin-top: -6px;
-      color: #85bd56; }
+      color: #6faf1d; }
   .iconBadge.farmer {
-    color: #e4ba2b;
-    border-color: #e4ba2b;
+    color: #ffffff;
+    border-color: #ffffff;
     border: 3px solid;
     background-color: white; }
     .iconBadge.farmer i.icon {
       margin-top: -6px;
-      color: #e4ba2b; }
+      color: #ffffff; }
   .iconBadge.danger {
-    color: #a94442;
-    border-color: #a94442;
+    color: #f74747;
+    border-color: #f74747;
     border: 3px solid;
     background-color: #f2dede; }
     .iconBadge.danger i.icon {
       margin-top: -5px;
       margin-left: 0px;
-      color: #a94442; }
+      color: #f74747; }
 
 .blockIconBadge {
   position: absolute;
@@ -403,7 +417,7 @@ div.reportHeader {
     font-size: 0.9em; }
   .groupBlock .distance {
     font-weight: bold;
-    color: #85bd56;
+    color: #6faf1d;
     font-size: 1.2em;
     position: absolute;
     right: 8px;
@@ -527,8 +541,8 @@ div.reportHeader {
   padding: 4px;
   margin-top: 13px;
   font-size: 13px;
-  background-color: #080;
-  /*border-top:1px solid #333 ;*/ }
+  background-color: #6faf1d;
+  /*border-top:1px solid #fff ;*/ }
 
 .dateBoxOffset {
   position: absolute;
@@ -538,7 +552,7 @@ div.reportHeader {
 
 .dateBox {
   border-radius: 8px;
-  background-color: #c59654;
+  background-color: #00b0da;
   color: #fff;
   font-size: 13px;
   line-height: 13px;
@@ -672,7 +686,7 @@ div.reportHeader {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     color: #fff;
-    background-color: #b2823f;
+    background-color: #00b0da;
     margin: 0;
     padding: 6px 6px 6px 90px;
     min-height: 70px; }
@@ -680,7 +694,7 @@ div.reportHeader {
       background-color: #999;
       opacity: 1; }
     .distrib .header.orders {
-      background-color: #b2823f; }
+      background-color: #00b0da; }
     .distrib .header.active {
       background-color: #85b14d; }
     .distrib .header .info {
@@ -720,6 +734,12 @@ div.reportHeader {
       padding-left: 50px; }
     .distrib .content .alert {
       margin-bottom: 0; }
+    .distrib .content .alert-warning a {
+      color: #fff; }
+    .distrib .content .alert-danger {
+      color: #00b0da;
+      background-color: #fff;
+      border-color: #6faf1d; }
     .distrib .content .orderFooter {
       color: #999;
       margin: 10px 0; }
@@ -732,6 +752,18 @@ div.reportHeader {
     border-bottom-right-radius: 8px;
     background: #fff; }
 
+.content.orders a {
+  color: #6faf1d; }
+
+.btn-group > .btn-default {
+  padding: 2px 5px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-radius: 3px;
+  color: #000;
+  background-color: #fff;
+  border-color: #00b0da; }
+
 div.groupImg {
   background: no-repeat center;
   background-size: cover;
@@ -743,7 +775,7 @@ div.groupImg {
 **/
 div.productImg {
   display: inline-block;
-  border: solid 2px #f8f4e5;
+  border: solid 2px #ffffff;
   background: no-repeat center;
   background-size: cover;
   margin: 4px;
@@ -807,17 +839,17 @@ div.productBox .price {
   text-align: right; }
 
 .tt-menu {
-  background-color: #f5e3ac; }
+  background-color: #FFFFFF; }
 
 .tt-suggestion {
-  background-color: #f5e3ac;
+  background-color: #FFFFFF;
   padding: 8px;
   border-top: 1px solid #ccc;
-  color: #634e0c;
+  color: #666666;
   cursor: pointer;
   font-style: italic; }
   .tt-suggestion:hover {
-    background-color: #f0d47e; }
+    background-color: #e6e6e6; }
 
 #pInput .txpProduct {
   color: #aaa;
@@ -843,18 +875,18 @@ div.ProductComp{
 */
 div.basketNumber {
   display: inline-block;
-  background-color: #333;
+  background-color: #fff;
   border-radius: 10px;
   padding: 6px;
   font-weight: bold;
   color: #ccc; }
 
 tr.success td div.basketNumber {
-  background-color: #85bd56;
+  background-color: #6faf1d;
   color: white; }
 
 tr.danger td div.basketNumber {
-  background-color: #df3826;
+  background-color: #00b0da;
   color: white; }
 
 /* fixed bar on bottom for buttons */
@@ -884,9 +916,9 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
   background-color: white !important; }
 
 a.btn-warning {
-  color: #8a6d3b;
+  color: #000;
   background-color: #fcf8e3;
-  border-color: #ae894a; }
+  border-color: #1a1a1a; }
 
 i.icon {
   position: relative;
