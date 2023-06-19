@@ -42,7 +42,6 @@ www/theme/default/*.plugin
 
 codes.sh
 
-
 *.scss~
 *.un~
 
