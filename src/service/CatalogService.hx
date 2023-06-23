@@ -78,6 +78,9 @@ class CatalogService{
 			form.getElement("endDate").value = DateTools.delta( Date.now(), 365.25 * 24 * 60 * 60 * 1000 );
 		}
 
+		form.getElement("startDate").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#dates-de-d%C3%A9but-et-dates-de-fins";
+		form.getElement("endDate").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#dates-de-d%C3%A9but-et-dates-de-fins";
+		
 		form.addElement( new sugoi.form.elements.Html( "vendorHtml", '<b>${catalog.vendor.name}</b> ( ${catalog.vendor.zipCode} ${catalog.vendor.city} )', t._( "Vendor" ) ), 3 );
 
 		var contact = form.getElement("userId");
