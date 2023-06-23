@@ -341,6 +341,7 @@ class Main extends Controller {
 		throw Redirect('/tos');
 	}
 
+	/*
 	@tpl('form.mtt')
 	public function doQuestionnaire(){
 
@@ -387,5 +388,6 @@ class Main extends Controller {
 		view.form = f;
 
 	}
+	*/
 
 }
