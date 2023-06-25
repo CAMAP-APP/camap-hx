@@ -158,6 +158,25 @@ class Admin extends Controller {
 		view.form = f;
 	}
 
+	/**
+		edit alert message on group's page
+	**/
+	@tpl('form.mtt')
+	function doAttention() {
+		var attMessage = Variable.get("attMessage");
+
+		var f = new sugoi.form.Form("msg");
+		f.addElement(new sugoi.form.elements.TextArea("attMessage", "Message d'alerte  afficher sur tous les groupes", attMessage));
+
+		if (f.isValid()) {
+			Variable.set("attMessage", f.getValueOf("attMessage"));			
+			throw Ok("/admin/", "Alerte mise à jour");
+		}
+
+		view.title = "Alerte";
+		view.form = f;
+	}
+
 	
 	@tpl('admin/superadmins.mtt')
 	function doSuperadmins() {

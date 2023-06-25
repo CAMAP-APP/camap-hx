@@ -11,7 +11,8 @@
 			<li><a href="/db"><i class="icon icon-cog"></i> Base de données</a> </li>
 			<li><a href="/admin/errors"><i class="icon icon-cog"></i> Errors</a> </li>			
 			<li><a href="/admin/emails"><i class="icon icon-mail"></i> Emails</a> </li>			
-			<li><a href="/admin/messages"><i class="icon icon-info"></i> Messages</a> </li>		
+			<li><a href="/admin/messages"><i class="icon icon-info"></i> Messages</a> </li>	
+			<li><a href="/admin/attention"><i class="icon icon-info"></i> Alerte</a></li>	
 			<li><a href="/admin/group"><i class="icon icon-users"></i> Groupes</a> </li>		
 			<li><a href="/admin/user"><i class="icon icon-user"></i> Utilisateurs</a> </li>		
 		</ul>
