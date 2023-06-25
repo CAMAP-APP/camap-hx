@@ -16,6 +16,7 @@ import sugoi.tools.ResultsBrowser;
 import tools.ArrayTool;
 import tools.DateTool;
 import db.Message;
+import sugoi.db.Variable;
 
 class Main extends Controller {
 	public function new() {
@@ -144,6 +145,13 @@ class Main extends Controller {
 		}
 		*/
 		
+		
+		var attMessage = Variable.get("attMessage");
+		if (attMessage != "") {
+			App.current.session.addMessage(attMessage);
+		}
+		
+
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}
