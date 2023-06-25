@@ -166,7 +166,7 @@ class Admin extends Controller {
 		var attMessage = Variable.get("attMessage");
 
 		var f = new sugoi.form.Form("msg");
-		f.addElement(new sugoi.form.elements.TextArea("attMessage", "Message d'alerte  afficher sur tous les groupes", attMessage));
+		f.addElement(new sugoi.form.elements.TextArea("attMessage", "Message d'alerte à afficher sur tous les groupes", attMessage));
 
 		if (f.isValid()) {
 			Variable.set("attMessage", f.getValueOf("attMessage"));			
