@@ -145,12 +145,12 @@ class Main extends Controller {
 		}
 		*/
 		
-		/*
+		
 		var attMessage = Variable.get("attMessage");
 		if (attMessage != "") {
 			App.current.session.addMessage(attMessage);
 		}
-		*/
+		
 
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
