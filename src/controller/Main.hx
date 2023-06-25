@@ -147,7 +147,7 @@ class Main extends Controller {
 		
 		
 		var attMessage = Variable.get("attMessage");
-		if (attMessage != "") {
+		if (attMessage != "" && attMessage != null) {
 			App.current.session.addMessage(attMessage);
 		}
 		
