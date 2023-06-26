@@ -1,5 +1,6 @@
 package controller;
 
+import db.UserGroup;
 import sugoi.form.elements.RadioGroup;
 import payment.MoneyPot;
 import db.Basket;
@@ -124,20 +125,24 @@ class Main extends Controller {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
 		}
 
-		if(app.user != null && app.user.isAmapManager() && Date.now().getTime() < new Date(2023,6,7,0,0,0).getTime() ){
-			var g = app.getCurrentGroup();
-			if(g.questAnswer!=null){
-				var choice = switch(g.questAnswer){
-					case "move" : "Je souhaite basculer sur le serveur de l'InterAMAP44";
-					case "stay" : "Je souhaite rester sur ce serveur avec arrêt du service au 30 Août";
-					case "cagette" : "Je souhaite revenir sur Cagette.net pour gérer des commandes en \"mode marché\"";
-					case "bye" : "Je ne souhaite plus utiliser CAMAP, ni Cagette.net";
-					default : "???";
-				};
+		if(app.user != null && Date.now().getTime() < new Date(2023,6,7,0,0,0).getTime() ){
 
-				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>Votre réponse au questionnaire : <b>"+choice+"</b>, le "+view.hDate(g.questDate)+" par "+g.questUser.getName());
-			}else{
-				App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, <b>si vous désirez continuer à utiliser l'application sans pertes de données lors de la migration</b>,<br/>merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
+			var ug = app.user.getUserGroup(app.getCurrentGroup());
+			if(ug.getRights().length>0 || app.user.isAdmin()){
+				var g = app.getCurrentGroup();
+				if(g.questAnswer!=null){
+					var choice = switch(g.questAnswer){
+						case "move" : "Je souhaite basculer sur le serveur de l'InterAMAP44";
+						case "stay" : "Je souhaite rester sur ce serveur avec arrêt du service au 30 Août";
+						case "cagette" : "Je souhaite revenir sur Cagette.net pour gérer des commandes en \"mode marché\"";
+						case "bye" : "Je ne souhaite plus utiliser CAMAP, ni Cagette.net";
+						default : "???";
+					};
+	
+					App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>Votre réponse au questionnaire : <b>"+choice+"</b>, le "+view.hDate(g.questDate)+" par "+g.questUser.getName());
+				}else{
+					App.current.session.addMessage("<h4>Reprise de CAMAP par l'interAMAP 44</h4>En tant qu'administrateur de cette AMAP, <b>si vous désirez continuer à utiliser l'application sans pertes de données lors de la migration</b>,<br/>merci de bien vouloir remplir ce questionnaire avant le 3 Juillet 2023 : <a href='/questionnaire' class='btn btn-default'>Questionnaire</a>");
+				}
 			}
 		}
 
