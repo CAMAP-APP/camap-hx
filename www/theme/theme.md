@@ -4,7 +4,7 @@ _style.css_, _style.css.map_, _style.min.css_, _style.min.css.map_, _bootstrap.m
 
 # Compile SASS
 
-In the theme folder modify the _style.scss_.
+In the theme folder modify the _bootswatch.scss_.
 In the backend folder run **build:sass** to build style.min.css and **dev:sass** to build style.css
 
 ```
@@ -15,7 +15,7 @@ npm run dev:sass
 
 # Compile Bootstrap
 
-In the theme folder modify the _bs3_variables.less_.
+In the theme folder modify the _variables.less_.
 
 1. Download Bootstrap 3.4.1
    https://github.com/twbs/bootstrap/archive/v3.4.1.zip
@@ -31,10 +31,10 @@ cd bootstrap-3.4.1
 npm install
 ```
 
-4. Copy the content of a bs3_variables.less to /bootstrap-3.4.1/less/variables.less
+4. Copy the content of a variables.less to /bootstrap-3.4.1/less/variables.less
 
 ```
-bs3_variables.less is in the theme folder e.g. /www/theme/default/css/bs3_variables.less
+variables.less is in the theme folder e.g. /www/theme/default/css/variables.less
 ```
 
 5. In the bootstrap repo run grunt dist to compile
