@@ -9,8 +9,8 @@ import Common;
 
 @:enum 
 abstract CGColors(String) to String {
-	var Primary = "#10654e";
-	var Secondary = "#10654e";
+	var Primary = "#eb702f";
+	var Secondary = "#eb702f";
 
 	var White = "#FFFFFF";
 

@@ -24,13 +24,13 @@
 					<td>
 						<!-- CSA MODE GROUP -->	
 						::if c.isConstantOrdersCatalog()::
-							<div class="tag big" style="background-color:#00B0DA;" data-toggle="tooltip" title="Contrat AMAP classique">
+							<div class="tag big" data-toggle="tooltip" title="Contrat AMAP classique">
 								<i class="icon icon-refresh"></i>
 							</div>
 						::else::
 							::set title = "Catalogue standard (commande variable)"::								
 							::set title = "Contrat AMAP variable"::								
-							<div class="tag big" style="background-color:#00B0DA" data-toggle="tooltip" title="::title::">
+							<div class="tag big" data-toggle="tooltip" title="::title::">
 								<i class="icon icon-basket"></i>
 							</div>
 						::end::
