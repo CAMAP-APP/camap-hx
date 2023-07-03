@@ -122,7 +122,7 @@
 		<div class="dateBox" >
 			<div class="box">
 				<div>::dow::</div>
-				<div style="font-size:28px;color:#000099;">::d::</div>
+				<div class="date-calendar";">::d::</div>
 				<div>::m::</div>				
 			</div>
 			::if place!=null:: 
