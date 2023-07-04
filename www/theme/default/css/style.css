@@ -29,7 +29,7 @@ h1 {
     margin-right: 15px; }
 
 a {
-  color: #eb702f;
+  color: #eb7334;
   cursor: pointer; }
 
 ol.breadcrumb {
@@ -107,7 +107,8 @@ form p.desc {
 
 /* Navigation */
 .navbar {
-  margin-bottom: 8px !important; }
+  margin-bottom: 8px !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; }
 
 ul.nav.admin {
   background-color: #eeeeee; }
@@ -119,7 +120,7 @@ ul.nav li {
     color: #777777; }
   ul.nav li.active > a {
     background-color: #eee !important;
-    color: #eb702f !important; }
+    color: #eb7334 !important; }
 
 .noSelect {
   -webkit-touch-callout: none;
@@ -136,7 +137,7 @@ ul.nav li {
   /* Non-prefixed version, currently supported by Chrome and Opera */ }
 
 .alert-warning a {
-  color: #eb702f; }
+  color: #eb7334; }
 
 .alert-success {
   color: #3db66c;
@@ -150,11 +151,12 @@ ul.nav li {
 
 /* Page Footer */
 #footer {
-  background: #eb702f;
+  background: #eb7334;
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
-  color: #ffffff; }
+  color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; }
   #footer ul > li > a {
     color: #ffffff;
     text-decoration: none; }
@@ -252,11 +254,11 @@ span.panel-title {
 /* block marron + contours */
 .block2 {
   margin-bottom: 32px;
-  background: #eb702f;
+  background: #eb7334;
   border-radius: 8px;
   position: relative;
   padding: 8px;
-  border: 2px solid #eb702f; }
+  border: 2px solid #eb7334; }
 
 /* product in shop */
 table.product {
@@ -370,8 +372,8 @@ div.reportHeader {
     transition: all 0.15s ease; }
   .clickable:active {
     cursor: pointer;
-    background-color: #eb702f;
-    border-color: #d35614;
+    background-color: #eb7334;
+    border-color: #d75815;
     text-decoration: none;
     transform: scale(0.95); }
   .clickable.disabled {
@@ -431,7 +433,10 @@ div.reportHeader {
   overflow: hidden;
   vertical-align: top;
   position: relative;
-  font-size: 0.8em; }
+  border: solid 1px #9f3385;
+  font-size: 0.8em;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  background-color: rgba(93, 30, 78, 0.05); }
   .groupBlock .address {
     font-size: 0.9em; }
   .groupBlock .distance {
@@ -468,11 +473,11 @@ div.reportHeader {
 .header .accountBlock a {
   color: #000; }
 .header .accountBlock i.icon {
-  color: #eb702f; }
+  color: #eb7334; }
 .header .accountBlock .btn-default {
   background-color: transparent; }
 .header .accountBlock .css-wkfemu {
-  background-color: #eb702f; }
+  background-color: #eb7334; }
 
 /*
 	SHOP v1
@@ -577,7 +582,7 @@ div.reportHeader {
 
 .dateBox {
   border-radius: 8px;
-  background-color: #eb7334;
+  background-color: #eb7639;
   color: #ffffff;
   font-size: 13px;
   line-height: 13px;
@@ -585,8 +590,8 @@ div.reportHeader {
   vertical-align: middle;
   width: 90px;
   margin: 0;
-  padding: 3px;
-  box-shadow: 2px 2px 0px #fdf0e9;
+  padding: 2px;
+  box-shadow: 2px 2px 0px #fdf3ee;
   /* place link */ }
   .dateBox .box {
     line-height: 22px;
@@ -713,17 +718,16 @@ div.reportHeader {
     overflow: hidden;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 3px solid #eb702f;
+    border: 2px solid #eb7334;
     color: #5d1e4e;
-    background-color: white;
+    background-color: #fef9f7;
     margin: 0;
     padding: 6px 6px 6px 90px;
-    min-height: 70px; }
+    min-height: 70px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; }
     .distrib .header.disabled {
       background-color: #999;
       opacity: 1; }
-    .distrib .header.orders {
-      background-color: white; }
     .distrib .header.active {
       background-color: #3db66c; }
     .distrib .header i.icon {
@@ -738,10 +742,10 @@ div.reportHeader {
       background-color: transparent;
       /* place link */ }
       .distrib .header .info a {
-        color: #eb702f !important; }
+        color: #eb7334 !important; }
         .distrib .header .info a:hover {
           color: #ffffff !important;
-          background-color: #eb702f;
+          background-color: #eb7334;
           text-decoration: none; }
     .distrib .header .date {
       line-height: 23px;
@@ -758,10 +762,10 @@ div.reportHeader {
       font-size: 0.9em;
       line-height: 16px; }
   .distrib .content {
-    padding: 12px;
-    background-color: white; }
+    padding: 12px; }
     .distrib .content.myorder {
       border-bottom: 1px solid #d275bc;
+      background-color: rgba(93, 30, 78, 0.05);
       color: #5d1e4e;
       padding: 8px 8px 8px 20px;
       font-weight: bold; }
@@ -791,8 +795,11 @@ div.reportHeader {
 .content.orders a {
   color: #5d1e4e; }
 
+.btn {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; }
+
 .btn-default {
-  background-color: #eb702f; }
+  background-color: #eb7334; }
 
 .btn-group .btn-default {
   padding: 2px 5px;
@@ -800,8 +807,8 @@ div.reportHeader {
   line-height: 1.5;
   border-radius: 3px;
   color: #ffffff;
-  background-color: #eb702f;
-  border-color: #eb702f;
+  background-color: #eb7334;
+  border-color: #eb7334;
   margin: 2px; }
   .btn-group .btn-default.disabled {
     color: #5d1e4e;
@@ -819,8 +826,7 @@ div.groupImg {
 **/
 div.productImg {
   display: inline-block;
-  border: solid 1px #eb702f;
-  background: #ffffff no-repeat center;
+  background: transparent no-repeat center;
   background-size: 50px 50px;
   margin: 4px;
   width: 70px;

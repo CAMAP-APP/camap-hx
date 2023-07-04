@@ -4,7 +4,8 @@
 
 //Cagette vars
 @white-base:#ffffff;//Background
-
+//@darkBrown:#d1004e;//fuschia red<-Amaury!!!
+//@darkBrown:#00b0da;//new blue
 
 //== Colors
 //
@@ -30,7 +31,7 @@
 @teal:    #20c997 !default;
 @cyan:    #17a2b8 !default;
 
-@brand-primary:          #eb702f;  
+@brand-primary:          #eb7334;  
 //orange  #e95420 ///  @orange bugs error evaluating function `darken` The first argument to darken must be a color index: 6181
 @brand-success:         #3db66c;
 @brand-info:            #5d1e4e; 
@@ -163,7 +164,7 @@
 
 @btn-default-color:              #fff;
 @btn-default-bg:                 @brand-primary;
-@btn-default-border:             #fff;
+@btn-default-border:             darken(@brand-primary, 8%);
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
@@ -513,6 +514,8 @@
 //
 //## Define colors for form feedback states and, by default, alerts.
 
+@state-primary-bg-alpha:            lighten(@brand-primary, 42%);
+
 @state-success-text:             @brand-success;
 @state-success-bg:              lighten(@brand-success, 49%);
 //@state-success-border:            darken(spin(@brand-success, -10), 5%);
@@ -520,9 +523,10 @@
 
 @state-info-text:                @brand-info;
 @state-info-bg:                  lighten(@brand-info, 65%);
+@state-info-bg-alpha:            fade-out(@brand-info, 0.95);
 
 //@state-info-border:              darken(spin(@brand-info, -10), 7%);
-@state-info-border:              @brand-info;
+@state-info-border:               lighten(@brand-info, 17%);
 
 @state-warning-text:             darken(@brand-warning, 20%);
 @state-warning-bg:              lighten(@brand-warning, 35%);
