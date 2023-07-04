@@ -148,7 +148,6 @@ form {
 	40% {-webkit-transform: translateY(-30px);} 
 	60% {-webkit-transform: translateY(-15px);} 
  } */
-
 @keyframes bounce {
   0%,
   50%,
@@ -176,6 +175,7 @@ form {
 
 .navbar {
   margin-bottom: 8px !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
 
 //admin buttons in navbar
@@ -234,6 +234,7 @@ border-color: $state-success-border;
   padding: 20px;
   overflow: auto;
   color: $white-base;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 
   ul > li > a {
     color: $white-base;
@@ -606,7 +607,10 @@ div.reportHeader {
   overflow: hidden;
   vertical-align: top;
   position: relative;
+  border: solid 1px $state-info-border;
 font-size: 0.8em;
+box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+background-color: $state-info-bg-alpha;
   .address {
     font-size: 0.9em;
   }
@@ -815,7 +819,7 @@ font-size: 0.8em;
 
   width: 90px;
   margin: 0;
-  padding: 3px;
+  padding: 2px;
   box-shadow: 2px 2px 0px lighten($brand-primary, 40%); //HEX
 
   .box {
@@ -968,20 +972,21 @@ font-size: 0.8em;
     overflow: hidden;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border: 3px solid $brand-primary;
+    border: 2px solid $brand-primary;
     color: $brand-info;
-    background-color: lighten($brand-primary,45%);
+    background-color: $state-primary-bg-alpha;
     // vertical-align:middle;
     margin: 0;
     padding: 6px 6px 6px 90px;
     min-height: 70px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 
     &.disabled {
       background-color: #999;  //HEX
       opacity: 1;
     }
     &.orders {
-      background-color: lighten($brand-primary,45%);
+//       background-color: lighten($brand-primary,45%);
     }
     &.active {
       background-color: $brand-success; 
@@ -1029,12 +1034,13 @@ font-size: 0.8em;
 
   .content {
     padding: 12px;
-    background-color: white;
+//     background-color: white;
 
     //used in home.mtt
     &.myorder {
 //       background: lighten($brand-info, 60%); 
       border-bottom: 1px solid lighten($brand-info, 40%);
+      background-color: $state-info-bg-alpha;
       color: $brand-info;
       padding: 8px 8px 8px 20px;
       font-weight: bold;
@@ -1082,6 +1088,10 @@ font-size: 0.8em;
 .content.orders a {
     color: $brand-info;
 }
+.btn {
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+	}
+ 
 .btn-default {
 	background-color: $brand-primary;
 	}
@@ -1116,8 +1126,8 @@ div.groupImg {
 **/
 div.productImg {
   display: inline-block;
-  border: solid 1px $brand-primary;
-  background: $white-base no-repeat center;
+//   border: solid 1px $brand-primary;
+  background: transparent no-repeat center;
   background-size: 50px 50px;
   margin: 4px;
   //default size is medium
