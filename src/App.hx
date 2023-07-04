@@ -66,7 +66,7 @@ class App extends sugoi.BaseApp {
             supportEmail: "inter@amap44.org",
             footer: {
                 bloc1: '<a href="http://camap.amap44.org" target="_blank">
-                            <img src="/theme/default/logo.png" alt="CAMAP" style="width:166px;"/>
+                            <img src="/theme/default/logo.png" alt="CAMAP" style="width:105px;"/>
                         </a>',
                 bloc2: '<ul>
                             <li>
@@ -95,7 +95,7 @@ class App extends sugoi.BaseApp {
                         ',
                 bloc4: '
                         <a href="http://www.amap44.org" target="_blank">
-                             <img src="/theme/default/logo_amap44.png" alt="CAMAP" style="width:166px;"/>
+                             <img src="/theme/default/logo_amap44.png" alt="CAMAP" style="width:145px;"/>
                         </a>
                        '
             },
