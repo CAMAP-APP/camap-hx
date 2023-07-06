@@ -835,7 +835,7 @@ msgstr "Cette personne ne fait pas partie de \"::amapname::\""
 
 #: ../src/controller/amapadmin/Volunteers.hx:527
 msgid ""
-"Number of days before duty periods open to volunteers (between 7 and 180"
+"Number of days before duty periods open to volunteers (between 7 and 365"
 msgstr ""
 "Ouverture des inscriptions aux permanences ( en jours avant la distribution )"
 
@@ -1130,10 +1130,10 @@ msgstr ""
 #: ../src/service/VolunteerService.hx:7679
 msgid ""
 "The number of days before the volunteers can join a duty period needs to be "
-"lower than 181 days."
+"lower than 366 days."
 msgstr ""
 "Le nombre de jours qui définissent l'ouverture des inscriptions aux "
-"permanences doit être inferieur à 181 jours."
+"permanences doit être inferieur à 366 jours."
 
 #: ../src/service/VolunteerService.hx:7872
 msgid ""
