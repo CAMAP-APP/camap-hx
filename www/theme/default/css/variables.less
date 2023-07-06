@@ -162,7 +162,7 @@
 
 @btn-font-weight:                normal;
 
-@btn-default-color:              #fff;
+@btn-default-color:              @white-base;
 @btn-default-bg:                 @brand-primary;
 @btn-default-border:             darken(@brand-primary, 8%);
 
@@ -175,12 +175,12 @@
 @btn-success-border:             darken(@btn-success-bg, 5%);
 
 @btn-info-color:                 #FFF;
-@btn-info-bg:                    @brand-info;
+@btn-info-bg:                     lighten( @brand-info, 20%);
 @btn-info-border:                darken(@btn-info-bg, 5%);
 
 @btn-warning-color:              #fff;
 @btn-warning-bg:                 @brand-warning;
-@btn-warning-border:             darken(@btn-warning-bg, 5%);
+@btn-warning-border:             darken(@btn-warning-bg, 10%);
 
 @btn-danger-color:               #fff;
 @btn-danger-bg:                  @brand-danger;
@@ -513,7 +513,8 @@
 //== Form states and alerts
 //
 //## Define colors for form feedback states and, by default, alerts.
-
+@state-primary-text:             darken(@brand-primary, 10%);
+@state-primary-bg:              lighten(@brand-primary, 49%);
 @state-primary-bg-alpha:            lighten(@brand-primary, 42%);
 
 @state-success-text:             @brand-success;
@@ -523,7 +524,7 @@
 
 @state-info-text:                @brand-info;
 @state-info-bg:                  lighten(@brand-info, 65%);
-@state-info-bg-alpha:            fade-out(@brand-info, 0.95);
+@state-info-bg-alpha:            fade-out(@brand-info, 0.9);
 
 //@state-info-border:              darken(spin(@brand-info, -10), 7%);
 @state-info-border:               lighten(@brand-info, 17%);

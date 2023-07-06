@@ -436,7 +436,7 @@ div.reportHeader {
   border: solid 1px #9f3385;
   font-size: 0.8em;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
-  background-color: rgba(93, 30, 78, 0.05); }
+  background-color: rgba(93, 30, 78, 0.1); }
   .groupBlock .address {
     font-size: 0.9em; }
   .groupBlock .distance {
@@ -475,7 +475,7 @@ div.reportHeader {
 .header .accountBlock i.icon {
   color: #eb7334; }
 .header .accountBlock .btn-default {
-  background-color: transparent; }
+  background-color: #eb7334; }
 .header .accountBlock .css-wkfemu {
   background-color: #eb7334; }
 
@@ -765,7 +765,7 @@ div.reportHeader {
     padding: 12px; }
     .distrib .content.myorder {
       border-bottom: 1px solid #d275bc;
-      background-color: rgba(93, 30, 78, 0.05);
+      background-color: rgba(93, 30, 78, 0.1);
       color: #5d1e4e;
       padding: 8px 8px 8px 20px;
       font-weight: bold; }
@@ -798,9 +798,18 @@ div.reportHeader {
 .btn {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px; }
 
-.btn-default {
-  background-color: #eb7334; }
+.btn-primary {
+  color: #ffffff;
+  background-color: #eb7334;
+  border-color: #e05c16; }
 
+/*
+.btn-default:hover {
+    color: $btn-default-bg;
+    background-color: darken($btn-default-color, 10%);
+    border-color: $btn-default-border;
+}
+*/
 .btn-group .btn-default {
   padding: 2px 5px;
   font-size: 14px;
@@ -808,7 +817,7 @@ div.reportHeader {
   border-radius: 3px;
   color: #ffffff;
   background-color: #eb7334;
-  border-color: #eb7334;
+  border-color: #e05c16;
   margin: 2px; }
   .btn-group .btn-default.disabled {
     color: #5d1e4e;
@@ -968,8 +977,7 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
 
 a.btn-warning {
   color: #ffffff;
-  background-color: #f1c44b;
-  border-color: #ffffff; }
+  background-color: #f1c44b; }
 
 i.icon {
   position: relative;

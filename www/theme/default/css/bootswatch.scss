@@ -148,6 +148,7 @@ form {
 	40% {-webkit-transform: translateY(-30px);} 
 	60% {-webkit-transform: translateY(-15px);} 
  } */
+
 @keyframes bounce {
   0%,
   50%,
@@ -659,7 +660,7 @@ background-color: $state-info-bg-alpha;
 	    color: $brand-primary;
     }
     .btn-default {
-	background-color: transparent;
+	background-color: $btn-default-bg;
 	}
 	.css-wkfemu {
 		background-color: $brand-primary
@@ -1056,7 +1057,7 @@ background-color: $state-info-bg-alpha;
       padding-left: 50px;
     }
     .alert-warning a {
-		color: $white-base;
+ 		color: $btn-default-color;
 	  }
     .alert-danger {
     color: $state-danger-text;
@@ -1092,18 +1093,30 @@ background-color: $state-info-bg-alpha;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 	}
  
-.btn-default {
-	background-color: $brand-primary;
+
+.btn-primary {
+	color: $btn-default-color;
+	background-color: $btn-default-bg;
+	border-color: $btn-default-border;
 	}
+/*
+.btn-default:hover {
+    color: $btn-default-bg;
+    background-color: darken($btn-default-color, 10%);
+    border-color: $btn-default-border;
+}
+*/
+
+
 .btn-group{
 	.btn-default {
     padding: 2px 5px;
     font-size: 14px;
     line-height: 1.5;
     border-radius: 3px;
-    color: $white-base;
-    background-color: $brand-primary;
-    border-color: $brand-primary;
+    color: $btn-default-color;
+    background-color: $btn-default-bg;
+    border-color: $btn-default-border;
     margin: 2px;
     &.disabled {
 	    color: $brand-info;
@@ -1325,7 +1338,7 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
 a.btn-warning {
   color: $white-base;
   background-color: $brand-warning; 
-  border-color: $white-base;
+//   border-color: $white-base;
 }
 
 i.icon {
