@@ -180,10 +180,6 @@ class CatalogService{
 			throw new Error( 'Vous avez défini un nombre maximum d\'absences alors vous devez sélectionner des dates pour la période d\'absences.' );
 		}
 
-		// if ( ( absencesStartDate != null || absencesEndDate != null ) && ( absentDistribsMaxNb == null || absentDistribsMaxNb == 0 ) ) {
-		// 	throw new Error( 'Vous avez défini des dates pour la période d\'absences alors vous devez entrer un nombre maximum d\'absences.' );
-		// }
-	
 		if ( absencesStartDate != null && absencesEndDate != null ) {
 			if ( absencesStartDate.getTime() >= absencesEndDate.getTime() ) {
 				throw new Error( 'La date de début des absences doit être avant la date de fin des absences.' );
