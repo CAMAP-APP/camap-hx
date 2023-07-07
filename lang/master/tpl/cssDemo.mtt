@@ -48,7 +48,7 @@
 					<i class="icon icon-truck"></i> Default</button>
 
 				<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-				<button type="button" class="btn btn-primary">Primary</button>
+				<button type="button" class="btn btn-default">Primary</button>
 
 				<!-- Indicates a successful or positive action -->
 				<button type="button" class="btn btn-success">Success</button>
@@ -112,7 +112,7 @@
 							Type : <b>Gratuit jusqu'à 20 foyers</b> ( actuellement 1 foyers dans votre groupe)  
 						</p>
 						<p>
-							<button type="button" class="btn btn-primary"><i class="icon icon-chevron-right"></i> Primary</button>
+							<button type="button" class="btn btn-default"><i class="icon icon-chevron-right"></i> Primary</button>
 						</p>
 						
 					</div>

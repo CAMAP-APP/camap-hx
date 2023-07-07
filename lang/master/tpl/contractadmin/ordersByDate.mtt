@@ -18,11 +18,7 @@
 		
 		<div class="text-center">
 
-			<a class="btn btn-default btn-sm"
-				onclick="_Camap.initOrderBox(null, ::distrib.id::, null, 1,'::escapeJS(hDate(date))::','::escapeJS(place.toString())::', null, '::currency()::', '/contractAdmin/ordersByDate/::date::/::place.id::', ::user.getGroup().id::)">
-				<i class="icon icon-plus"></i>
-				::_("New order")::
-			</a>
+
 			<a href="/distribution/listByDate/::date.toString().substr(0,10)::/::place.id::/csv" class="btn btn-default btn-sm"> <i class="icon icon-list"></i> ::_("CSV Export"):: </a>
 			<a href="/distribution/listByDate/::date.toString().substr(0,10)::/::place.id::" class="btn btn-default btn-sm"> <i class="icon icon-print"></i> ::_("Attendance sheet"):: </a>
 			

@@ -19,7 +19,8 @@
 				<td style="vertical-align: middle;padding: 10px 0;font-weight:bold;" class="::background::">
 					::formatNum(balance)::&nbsp;::currency()::
 				</td>
-				::if balance > 0::
+				<!-- Autorisation de transférer un solde négatif -->
+				<!-- ::if balance > 0:: -->
 					<td>
 						<a href="/contractAdmin/subscriptions/balanceTransfer/::subscription.id::" class="btn btn-default btn-sm" data-toggle="tooltip" title="Transférer le solde de cette souscription sur une autre souscription avec le même membre et le même producteur.">
 							<i class="icon icon-sign-out"></i>&nbsp;Transférer le solde
@@ -27,7 +28,7 @@
 							
 						</a>
 					</td>
-				::end::
+				<!-- ::end:: -->
 			</tr>
 
 			<tr>

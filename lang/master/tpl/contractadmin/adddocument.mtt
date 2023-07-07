@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			
-			<input type="submit" value="::_("Send")::" class="btn btn-primary" />
+			<input type="submit" value="::_("Send")::" class="btn btn-default" />
 
 		</form>
 		

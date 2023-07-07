@@ -105,9 +105,14 @@ class ProductService{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			stock.label = "Stock (par distribution)";				 
-			if(product.stock!=null){
-				stock.value = Math.floor( product.stock / product.catalog.getDistribs(false).length );
-			}		
+            if(product.stock!=null){
+				var distLeft = product.catalog.getDistribs(false).length;
+				if (distLeft > 0) {
+					stock.value = Math.floor( product.stock / distLeft );
+			    } else {
+				stock.value = product.stock;
+			    }
+			}
 		}
 
 		var group = product.catalog.group;

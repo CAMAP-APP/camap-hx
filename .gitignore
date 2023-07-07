@@ -38,8 +38,13 @@ www/css/*.css
 
 devLibs/
 
-
+www/theme/default/*.plugin
 
 codes.sh
 
+*.un~
 
+data/productTaxonomy.json
+src/db/TxpCategory.hx
+src/db/TxpProduct.hx
+src/db/TxpSubCategory.hx
