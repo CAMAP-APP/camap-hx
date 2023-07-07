@@ -32,9 +32,13 @@ class Subscription extends Controller
             var user = db.User.manager.get(newSubData.userId,false);
             var catalog = db.Catalog.manager.get(newSubData.catalogId,false);
 
-            if(!app.user.isAdmin() && !user.canManageContract(catalog) && app.user.id!=user.id){
+            if(!app.user.isAdmin() && !user.canManageContract(catalog) && app.user.id!=user.id && ){
                 throw new Error(403,"You're not allowed to create a subscription for this user");
             }
+			// Ajout Amaury blocage souscriptions sauvages
+			if (!subscription.catalog.hasOpenOrders() && (!user.canManageContract(catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
+				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+			}
 
             var ss = new SubscriptionService();
             sub = ss.createSubscription(user,catalog,newSubData.defaultOrder,newSubData.absentDistribIds);
@@ -57,6 +61,10 @@ class Subscription extends Controller
             if(!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id!=sub.user.id){
                 throw new Error(403,"You're not allowed to edit a subscription for this user");
             }
+			// Ajout Amaury blocage souscriptions sauvages
+			if (!subscription.catalog.hasOpenOrders() && (!user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
+				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+			}
 
             for( d in updateOrdersData.distributions){
                 for( order in d.orders){
