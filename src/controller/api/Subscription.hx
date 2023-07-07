@@ -62,7 +62,7 @@ class Subscription extends Controller
                 throw new Error(403,"You're not allowed to edit a subscription for this user");
             }
 			// Ajout Amaury blocage souscriptions sauvages
-			if (!subscription.catalog.hasOpenOrders() && (!user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
+			if (!sub.catalog.hasOpenOrders() && (!user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
 				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
 			}
 
