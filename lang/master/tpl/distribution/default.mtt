@@ -167,7 +167,7 @@
 							<div class="number"><i class="icon icon-basket"></i></div>
 							<div class="status">::_("Orders closed")::</div>
 							::if(isToday(d.getDate()))::
-							<a href="::validateUrl::" class="btn btn-primary">
+							<a href="::validateUrl::" class="btn btn-default">
 								<i class="icon icon-check"></i> Valider cette distribution
 							</a>
 							::end::
@@ -206,7 +206,7 @@
 							</a>
 
 							::else::
-							<a href="/distribution/inviteFarmers/::d.id::" class="btn btn-primary">
+							<a href="/distribution/inviteFarmers/::d.id::" class="btn btn-default">
 								Inviter des producteurs
 							</a>
 							::end::
@@ -276,7 +276,7 @@
 				<hr />
 
 				<p>
-					<a href="/distribution/inviteFarmers/::d.id::" class="btn btn-primary">
+					<a href="/distribution/inviteFarmers/::d.id::" class="btn btn-default">
 						<i class="icon icon-plus"></i> Ajouter / supprimer des producteurs
 					</a>
 				</p>

@@ -449,7 +449,7 @@ class Distribution extends Controller {
 
 			if (createdDistrib.date == null) {
 				var html = 'Votre demande de distribution a été envoyée à ${contract.vendor.name}. Vous recevrez un courriel vous indiquant si la demande a été acceptée ou refusée';
-				var btn = "<a href='/contractAdmin/distributions/" + contract.id + "' class='btn btn-primary'>OK</a>";
+				var btn = "<a href='/contractAdmin/distributions/" + contract.id + "' class='btn btn-default'>OK</a>";
 				App.current.view.extraNotifBlock = App.current.processTemplate("block/modal.mtt",
 					{html: html, title: t._("Distribution request sent"), btn: btn});
 			} else {
