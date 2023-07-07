@@ -597,49 +597,6 @@ class OrderService
 	}
 
 	/**
-		Action triggered from controllers to check if we have a tmpBasket to validate
-	**/
-	public static function checkTmpBasket(user:db.User,group:db.Group){
-		//check for a basket created when logged off ( tmpBasketId stored in session )
-		var tmpBasket = getTmpBasketFromSession(group);
-		if(tmpBasket!=null){
-			if(tmpBasket.user!=null && user!=null){
-				//same user ?
-				if(tmpBasket.user.id!=user.id) tmpBasket = null;
-
-			}else if(tmpBasket.user==null && user!=null){
-				//attribute to a user
-				tmpBasket.update();
-				tmpBasket.user = user;
-				tmpBasket.update();
-			}
-		}
-		
-		//check for a tmpBasket attached to a user
-		if(tmpBasket==null && user!=null ){
-			tmpBasket = getTmpBasket(user,group);
-		}
-		
-		if(tmpBasket!=null){
-
-			//basket is empty
-			if(tmpBasket.getData().products.length==0){
-				tmpBasket.lock();
-				tmpBasket.delete();
-				return;
-			}
-
-			//basket is related to a closed distribution
-			if(tmpBasket.multiDistrib.getOrdersEndDate(true).getTime() < Date.now().getTime()){
-				return;
-			}
-			
-			throw sugoi.ControllerAction.ControllerAction.RedirectAction("/transaction/tmpBasket/"+tmpBasket.id);
-			
-		}
-	}
-
-	/**
 		Get a tmpBasket from session.
 		Checks that it belongs to the current group.
 	**/
