@@ -736,7 +736,7 @@ msgid "This person does not belong to \"::amapname::\""
 msgstr ""
 
 #: ../src/controller/amapadmin/Volunteers.hx:527
-msgid "Number of days before duty periods open to volunteers (between 7 and 180"
+msgid "Number of days before duty periods open to volunteers (between 7 and 365)"
 msgstr ""
 
 #: ../src/controller/amapadmin/Volunteers.hx:711
