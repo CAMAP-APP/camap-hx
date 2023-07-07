@@ -276,12 +276,12 @@ $$browserDetection()
 		</p>
 
 		::if (user==null)::		
-		<a href="#" class="btn btn-primary" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+		<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 			<span class="glyphicon glyphicon-plus"></span>
 			M'inscrire à ce groupe
 		</a>
 		::else::
-		<a href="/user/joingroup" class="btn btn-primary">
+		<a href="/user/joingroup" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 			M'inscrire à ce groupe
 		</a>

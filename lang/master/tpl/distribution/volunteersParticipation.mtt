@@ -14,7 +14,7 @@
 				::raw toField.render()::
 			</div>
 
-			<input type="submit" class="btn btn-primary" value="OK" />
+			<input type="submit" class="btn btn-default" value="OK" />
 		</form>
 
      
