@@ -835,7 +835,7 @@ msgstr "Cette personne ne fait pas partie de \"::amapname::\""
 
 #: ../src/controller/amapadmin/Volunteers.hx:527
 msgid ""
-"Number of days before duty periods open to volunteers (between 7 and 365"
+"Number of days before duty periods open to volunteers (between 7 and 180"
 msgstr ""
 "Ouverture des inscriptions aux permanences ( en jours avant la distribution )"
 
@@ -1130,10 +1130,10 @@ msgstr ""
 #: ../src/service/VolunteerService.hx:7679
 msgid ""
 "The number of days before the volunteers can join a duty period needs to be "
-"lower than 366 days."
+"lower than 181 days."
 msgstr ""
 "Le nombre de jours qui définissent l'ouverture des inscriptions aux "
-"permanences doit être inferieur à 366 jours."
+"permanences doit être inferieur à 181 jours."
 
 #: ../src/service/VolunteerService.hx:7872
 msgid ""
@@ -2557,7 +2557,7 @@ msgstr "Export Excel/CSV"
 
 #: ../lang/master/tpl/macros.mtt:9535
 msgid "THIS MORNING"
-msgstr "Ce matin"
+msgstr "CE MATIN"
 
 #: ../lang/master/tpl/macros.mtt:9630
 msgid "AFTERNOON"
@@ -2565,7 +2565,7 @@ msgstr "APRES-MIDI"
 
 #: ../lang/master/tpl/macros.mtt:9674
 msgid "THIS EVENING"
-msgstr "Ce soir"
+msgstr "CE SOIR"
 
 #: ../lang/master/tpl/macros.mtt:10430
 msgid "No contact"

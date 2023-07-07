@@ -17,7 +17,6 @@ import sugoi.tools.ResultsBrowser;
 import tools.ArrayTool;
 import tools.DateTool;
 import db.Message;
-import sugoi.db.Variable;
 
 class Main extends Controller {
 	public function new() {
@@ -319,6 +318,5 @@ class Main extends Controller {
 	public function doCgu() {
 		throw Redirect('/tos');
 	}
-
 
 }

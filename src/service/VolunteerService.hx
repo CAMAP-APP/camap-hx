@@ -216,8 +216,8 @@ class VolunteerService
 			case "volunteersCanJoin":
 				if ( numberOfDays <  7 ) {
 					throw new Error(t._("The number of days before the volunteers can join a duty period needs to be greater than 6 days."));
-				} else if ( numberOfDays > 365 ) {
-					throw new Error(t._("The number of days before the volunteers can join a duty period needs to be lower than 366 days."));
+				} else if ( numberOfDays > 181 ) {
+					throw new Error(t._("The number of days before the volunteers can join a duty period needs to be lower than 181 days."));
 				}
 
 			case "instructionsMail":

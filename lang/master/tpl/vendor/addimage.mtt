@@ -4,7 +4,7 @@
 		<h2>Importer une image pour ::vendor.name::</h2>
 		
 		<div class="article">
-			<a class="btn btn-default" onclick="_Camap.openImageUploader('vendor', ::vendor.id::, 300, 300)">Importer une image</a>
+			<a class="btn btn-primary" onclick="_Camap.openImageUploader('vendor', ::vendor.id::, 300, 300)">Importer une image</a>
 			<br/>
 			<br/>
 			<a href="/contractAdmin" class="btn btn-default btn-xs">::_("Back")::</a>

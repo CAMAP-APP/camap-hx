@@ -1,5 +1,5 @@
 ::use 'design.mtt'::
-::set viewButton = "no"::
+
 <div class="col-md-12">
 
 	<div class="article" id="contracts">
@@ -24,13 +24,13 @@
 					<td>
 						<!-- CSA MODE GROUP -->	
 						::if c.isConstantOrdersCatalog()::
-							<div class="tag big" data-toggle="tooltip" title="Contrat AMAP classique">
+							<div class="tag big" style="background-color:#e5d3bf;" data-toggle="tooltip" title="Contrat AMAP classique">
 								<i class="icon icon-refresh"></i>
 							</div>
 						::else::
 							::set title = "Catalogue standard (commande variable)"::								
 							::set title = "Contrat AMAP variable"::								
-							<div class="tag big" data-toggle="tooltip" title="::title::">
+							<div class="tag big" style="background-color:#e5d3bf" data-toggle="tooltip" title="::title::">
 								<i class="icon icon-basket"></i>
 							</div>
 						::end::
@@ -53,7 +53,6 @@
 						<div class="btn-group" role="group">
 						::if(user.canManageContract(c))::
 							$$edit(::_("Manage")::,/contractAdmin/view/::c.id::)
-							::set viewButton = "yes"::
 						::end::
 						</div>
 					</td>
@@ -63,21 +62,19 @@
 	
 		
 		::if user.canManageAllContracts():: 
-		<a href="/contract/defineVendor/" class="btn btn-default btn-sm"><i class="icon icon-search"></i> Chercher un producteur</a>		
+		<a href="/contract/defineVendor/" class="btn btn-primary btn-sm"><i class="icon icon-search"></i> Chercher un producteur</a>		
 		::end::
 
 		<a href="/contractAdmin?old=1" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-folder-close"></span> Anciens catalogues</a>
 
-		::if (user.canManageAllContracts() || viewButton == "yes"):: 
+		::if user.canManageAllContracts():: 
 		<div class="dropdown" style="display:inline-block;">
 		  <button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 			<i class="icon icon-list"></i> ::_("Global orders view")::
 			<span class="caret"></span>
 		  </button>
 		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			::if user.canManageAllContracts()::
 			<li><a href="/contractAdmin/ordersByDate">::_("Same day")::</a></li>
-			::end::
 			<li><a href="/contractAdmin/ordersByTimeFrame">::_("Timeframe")::</a></li>			
 		  </ul>
 		</div>
@@ -90,7 +87,7 @@
 		<h2>::_("Farmers")::</h2>
 		<div class="row">
 			::foreach v vendors::		
-			<div class="col-md-4" style="height: 125px;border-radius: 20px;border-spacing: 4px;">
+			<div class="col-md-4" style="height:100px">
 				<div class="row">
 					<div class="col-md-2">
 						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>

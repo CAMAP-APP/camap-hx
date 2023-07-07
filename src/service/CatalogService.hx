@@ -40,10 +40,10 @@ class CatalogService{
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {
 			//VAR
 			form.addElement( new sugoi.form.elements.Html( 'constraints', '<h4>Engagement</h4>', '' ), 10 );
-			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat. <br/><a href="https://wiki.amap44.org/fr/app/Administration-CAMAP#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
+			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat. <br/><a href="https://wiki.cagette.net/admin:contratsamapvariables#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
 
-			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#ouverture-et-fermeture-de-commande";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#ouverture-et-fermeture-de-commande";				
+			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.cagette.net/admin:contratsamapvariables#ouverture_et_fermeture_de_commande";
+			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.cagette.net/admin:contratsamapvariables#ouverture_et_fermeture_de_commande";				
 			// form.getElement("catalogMinOrdersTotal").docLink = "";
 			
 		} else { 
@@ -54,7 +54,7 @@ class CatalogService{
 			form.removeElement(form.getElement("catalogMinOrdersTotal"));
 
 			form.getElement("orderEndHoursBeforeDistrib").label = "Délai minimum pour saisir une souscription (nbre d'heures avant prochaine distribution)";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
+			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.cagette.net/admin:admin_contratsamap#champs_delai_minimum_pour_saisir_une_souscription";
 
 			absencesIndex = 9;
 		}
@@ -78,9 +78,6 @@ class CatalogService{
 			form.getElement("endDate").value = DateTools.delta( Date.now(), 365.25 * 24 * 60 * 60 * 1000 );
 		}
 
-		form.getElement("startDate").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#dates-de-d%C3%A9but-et-dates-de-fins";
-		form.getElement("endDate").docLink = "https://wiki.amap44.org/fr/app/Administration-CAMAP#dates-de-d%C3%A9but-et-dates-de-fins";
-		
 		form.addElement( new sugoi.form.elements.Html( "vendorHtml", '<b>${catalog.vendor.name}</b> ( ${catalog.vendor.zipCode} ${catalog.vendor.city} )', t._( "Vendor" ) ), 3 );
 
 		var contact = form.getElement("userId");
@@ -125,9 +122,9 @@ class CatalogService{
 				Si vous voulez utiliser l\'ouverture par défaut des distributions laissez le champ vide.');
 			}
 			
-			//if( form.getValueOf("distribMinOrdersTotal")==0 && form.getValueOf("catalogMinOrdersTotal")==0 ){
-			//	throw new Error("Vous devez définir un minimum de commande ( par distribution et/ou sur la durée du contrat )");
-			//}
+			if( form.getValueOf("distribMinOrdersTotal")==0 && form.getValueOf("catalogMinOrdersTotal")==0 ){
+				throw new Error("Vous devez définir un minimum de commande ( par distribution et/ou sur la durée du contrat )");
+			}
 
 			//no absences datas if distribMinOrdersTotal=0
 			if(form.getValueOf("distribMinOrdersTotal")==0){

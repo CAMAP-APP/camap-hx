@@ -330,15 +330,6 @@ class SubscriptionService
 	 */
 	public function check( subscription:db.Subscription, ?previousStartDate:Date ) {
 
-		//catalog must have the flag UsersCanOrder or user must have admin rights on catalog
-		
-		// if (!subscription.catalog.hasOpenOrders() && (!app.user.isContractManager() || !app.user.isAdmin() || !app.user.isGroupManager()))
-		if (!subscription.catalog.hasOpenOrders() && !adminMode)
-			{
-				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
-			}
-		
-		
 		//catalog should have distribs
 		if(subscription.catalog.getDistribs().length==0){
 			throw new Error("Ce catalogue n'a pas de distributions planifiées");
@@ -1029,10 +1020,8 @@ class SubscriptionService
 		
 		if( fromSubscription == null || toSubscription == null )  throw new Error( 'Pas de souscriptions fournies.' );
 		if( fromSubscription.user.id != toSubscription.user.id )  throw new Error( 'Le transfert est possible uniquement pour un même membre.' );
-		/** Permettre de transférer une souscription négative **/
-		/*
 		if( balance <= 0 ) throw new Error( 'Impossible de transférer un solde négatif ou à zéro.' );
-		*/
+		
 		var operationFrom = new db.Operation();
 		operationFrom.name = "Transfert du solde sur la souscription #" + toSubscription.id + " de " + toSubscription.catalog.name;
 		operationFrom.type = Payment;

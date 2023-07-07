@@ -116,11 +116,6 @@ class Group extends controller.Controller
 	function doCreate() {
 		view.title = "Créer un nouveau groupe " + App.current.getTheme().name;
 
-       if (!app.user.isAdmin()){
-         throw Error("/","Vous ne pouvez pas créer de nouveau groupe.
-         Vous devez faire une demande sur <a href=\"https://www.amap44.org/camap/\" target=_blank;>notre site</a> et nous vous contacterons.");
-       } 
-
 		var p = new db.Place();
 		var f = form.CamapForm.fromSpod(p);
 		f.addElement(new sugoi.form.elements.StringSelect('country',t._("Country"),db.Place.getCountries(),p.country,true));			

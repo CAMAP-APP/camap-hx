@@ -41,7 +41,7 @@
 						
 					::if isMember::
 						<!-- connected and member of the group-->
-						<a href="/user/choose?group=::group.id::" class="btn btn-default">
+						<a href="/user/choose?group=::group.id::" class="btn btn-primary">
 							<i class="icon icon-chevron-right"></i>
 							 ::_("Go to my account")::
 						</a>
@@ -56,7 +56,7 @@
 								::_("Contact the person in charge in order to subscribe to this group and get to know membership conditions.")::
 							</p>
 							<p ::cond group._contact!=null::>
-								<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::"  class="btn btn-default">
+								<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::"  class="btn btn-primary">
 									<span class="glyphicon glyphicon-envelope"></span>
 									::_("Membership request")::
 								</a>
@@ -70,19 +70,19 @@
 									::__("Request sent on ::date::",{ date:hDate(isInWaitingList.date) })::
 								</p>
 								<p>
-									<a href="/group/listCancel/::isInWaitingList._group.id::" class="btn btn-default"><i class="icon icon-delete"></i> ::_("Cancel")::</a>
+									<a href="/group/listCancel/::isInWaitingList._group.id::" class="btn btn-primary"><i class="icon icon-delete"></i> ::_("Cancel")::</a>
 								</p>
 							::else::
 								::if user==null::
 								<p>
-									<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/group/list/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+									<a href="#" class="btn btn-primary" onclick="_Camap.registerBox('/group/list/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 									<i class="icon icon-chevron-right"></i>
 										::_("Subscription on waiting list")::
 									</a>
 								</p>
 								::else::
 								<p>
-									<a href="/group/list/::group.id::"  class="btn btn-default">
+									<a href="/group/list/::group.id::"  class="btn btn-primary">
 									<i class="icon icon-chevron-right"></i>
 										::_("Subscription on waiting list")::
 									</a>
@@ -92,7 +92,7 @@
 							
 						::case::
 							<p>
-								<a href="/group/register/::group.id::"  class="btn btn-default">
+								<a href="/group/register/::group.id::"  class="btn btn-primary">
 									<i class="icon icon-chevron-right"></i>
 									::_("Free subscription")::
 								</a>

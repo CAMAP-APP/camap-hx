@@ -5,9 +5,10 @@
 
 		<!-- SUBSCRIPTIONS FOR CSA MODE -->
 		::if count(subscriptionsByCatalog) > 0 ::
-			::set subscriptionsFound = false::
-
+			
 			::foreach i loopList(0, 2)::
+
+				::set subscriptionsFound = false::
 				::foreach catalog subscriptionsByCatalog.keys()::
 
 					::if ( i == 0 && catalog.isVariableOrdersCatalog() ) || ( i == 1 && catalog.isConstantOrdersCatalog() )::
@@ -22,7 +23,7 @@
 					::end::
 				::end::
 
-				::if subscriptionsFound == false::
+				::if !subscriptionsFound::
 					<div class="text-center" style="margin-top:40px;margin-bottom:40px;">Il n'y a pas de souscription.</div>
 				::end::
 

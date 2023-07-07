@@ -70,7 +70,7 @@
                         <tr>
                             <td colspan="5"></td>
                             <td>
-                                <input type="submit" value="Enregistrer les paiements" class="btn btn-default btn-large" />
+                                <input type="submit" value="Enregistrer les paiements" class="btn btn-primary btn-large" />
                             </td>
                         </tr>
                     </table>

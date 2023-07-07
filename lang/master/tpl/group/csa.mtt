@@ -14,7 +14,7 @@
             <li>L'adresse postale de votre lieu de distribution</li>
         </ul>
         <p>
-            <a class="btn btn-default" href="mailto: ::theme.supportEmail::?subject=Créer un groupe AMAP : ::groupName::">Ecrire au support ::theme.name::</a>
+            <a class="btn btn-primary" href="mailto: ::theme.supportEmail::?subject=Créer un groupe AMAP : ::groupName::">Ecrire au support ::theme.name::</a>
         </p>
     </div>
 </div>

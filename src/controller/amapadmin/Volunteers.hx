@@ -15,7 +15,7 @@ class Volunteers extends controller.Controller
 		checkToken();
 
 		var form = new sugoi.form.Form("msg");
-		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 365"), app.user.getGroup().daysBeforeDutyPeriodsOpen, true) );
+		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 180"), app.user.getGroup().daysBeforeDutyPeriodsOpen, true) );
 		
 		form.addElement( new IntInput("maildays", t._("Number of days before duty period to send mail"), app.user.getGroup().volunteersMailDaysBeforeDutyPeriod, true) );
 		form.addElement( new TextArea("volunteersMailContent", t._("Email body sent to volunteers"), app.user.getGroup().volunteersMailContent, true, null, "style='height:300px;'") );

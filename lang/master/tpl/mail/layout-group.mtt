@@ -7,13 +7,13 @@
 			#email-body {
 				color: #333;
 				font-family: sans-serif;
-				background-color: #fff !important;
+				background-color: #f8f4e5 !important;
 			}
 
 			#email-root {
 				margin: auto;
 				max-width: 600px;
-				background-color: #f3fbe9;
+				background-color: white;
 				padding: 16px;
 			}
 
@@ -22,7 +22,7 @@
 				max-width: 600px;
 				padding: 16px;
 				text-align: center;
-				color: #000;
+				color: #a0734d;
 			}
 
 			#email-footer {
@@ -37,11 +37,11 @@
 
 			.bold-green {
 				font-weight: bold;
-				color: #548415;
+				color: #61810a;
 			}
 
 			.light-green-background {
-				background-color: #f3fbe9; 
+				background-color: #d9ead3; 
 			}
 
 			#email-group {

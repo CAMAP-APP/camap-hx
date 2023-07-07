@@ -122,7 +122,7 @@
 		<div class="dateBox" >
 			<div class="box">
 				<div>::dow::</div>
-				<div class="date-calendar">::d::</div>
+				<div style="font-size:28px;color:#990000;">::d::</div>
 				<div>::m::</div>				
 			</div>
 			::if place!=null:: 
@@ -280,19 +280,17 @@
 	</macro>
 	
 	<macro name="today(dow,d,m,y,h,place)">
-		<div class="dateBox"  >
-			<div class="box">
-			<img src="/img/go.png" width="40px" style="background-color: #fff;border-radius: 8px;margin: 5px;" />
-				<div style="font-size:14px">
-					::if parseInt(h)<=12::
-						::_("THIS MORNING")::
-					::elseif parseInt(h)<18::
-						<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
-					::else::
-						::_("THIS EVENING")::
-					::end::
+		<div class="dateBox" style="background-color:#080;" >
+			<img src="/img/go.png"/>
+			<div style="font-size:16px;margin-bottom:8px;">
+				::if parseInt(h)<=12::
+					::_("THIS MORNING")::
+				::elseif parseInt(h)<18::
+					<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
+				::else::
+					::_("THIS EVENING")::
+				::end::
 				
-				</div>
 			</div>
 			::if place!=null:: 
 			<div style="margin-top:6px;">

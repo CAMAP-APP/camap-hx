@@ -23,7 +23,6 @@
                     <ul>
                         <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
                     </ul>
-                    <u>Attention:</u> Si les poids varient d'une distribution à l'autre (option "Prix variable selon pesée") vous devez obligatoirement choisir un contrat AMAP variable
                 </p>
                 <br/>
             </div>
@@ -50,7 +49,7 @@
                 <p>
                     Options disponibles : 
                     <ul>
-                        <li>Montant minimum de commande par distribution (rend la commande obligatoire à chaque distribution)</li>
+                        <li>Montant minimum de commande par distribution</li>
                         <li>Montant minimum de commande sur la durée du contrat</li>
                         <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
                     </ul>
