@@ -93,6 +93,10 @@ class CatalogService{
     **/
     public static function checkFormData( catalog:db.Catalog, form:sugoi.form.Form ) {
 
+		if(form.getValueOf("startDate").getTime() > form.getValueOf("endDate").getTime()){
+			throw new Error("La date de début du contrat doit être avant la date de fin.");
+		}
+
         //distributions should always happen between catalog dates
         if(form.getElement("startDate")!=null){
             for( distribution in catalog.getDistribs(false)){
