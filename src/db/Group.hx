@@ -442,7 +442,10 @@ class Group extends Object
 		}catch(e:Dynamic){
 			return [];
 		}
-		
+	}
+
+	public function isDisabled():Bool{
+		return disabled!=null;
 	}
 
 }
