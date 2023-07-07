@@ -125,6 +125,11 @@ class Main extends Controller {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
 		}
 	
+		var attMessage = Variable.get("attMessage");
+		if (attMessage != "" && attMessage != null) {
+			App.current.session.addMessage(attMessage);
+		}
+
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}
