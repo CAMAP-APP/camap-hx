@@ -73,9 +73,6 @@ class Main extends Controller {
 
 		view.amap = group;
 
-		// has unconfirmed basket ?
-		service.OrderService.checkTmpBasket(app.user, app.getCurrentGroup());
-
 		// contract not ended with UserCanOrder flag
 		view.openContracts = group.getActiveContracts().filter((c) -> c.hasOpenOrders());
 
@@ -321,7 +318,5 @@ class Main extends Controller {
 	public function doCgu() {
 		throw Redirect('/tos');
 	}
-
-
 
 }
