@@ -88,11 +88,6 @@ class Group extends Object
 	
 	@hideInForms public var disabled : SNull<SString<32>>; //Mysql enum GroupDisabledReason
 
-	@hideInForms @:relation(questUserId) public var questUser : SNull<db.User>;
-	@hideInForms public var questDate : SNull<SDateTime>;
-	@hideInForms public var questAnswer : SNull<STinyText>;
-
-
 	public function new() 
 	{
 		super();
@@ -447,7 +442,10 @@ class Group extends Object
 		}catch(e:Dynamic){
 			return [];
 		}
-		
+	}
+
+	public function isDisabled():Bool{
+		return disabled!=null;
 	}
 
 }

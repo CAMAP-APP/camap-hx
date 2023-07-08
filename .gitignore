@@ -44,7 +44,6 @@ www/theme/default/*.plugin
 
 codes.sh
 
-*.scss~
 *.un~
 
 data/productTaxonomy.json

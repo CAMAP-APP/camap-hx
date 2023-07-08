@@ -1,5 +1,6 @@
 package controller;
 
+import db.UserGroup;
 import sugoi.form.elements.RadioGroup;
 import payment.MoneyPot;
 import db.Basket;
@@ -73,9 +74,6 @@ class Main extends Controller {
 
 		view.amap = group;
 
-		// has unconfirmed basket ?
-		service.OrderService.checkTmpBasket(app.user, app.getCurrentGroup());
-
 		// contract not ended with UserCanOrder flag
 		view.openContracts = group.getActiveContracts().filter((c) -> c.hasOpenOrders());
 
@@ -124,12 +122,12 @@ class Main extends Controller {
 		if (app.user != null && group.flags.has(db.Group.GroupFlags.AddressRequired) && app.user.city == null) {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
 		}
+
 	
 		var attMessage = Variable.get("attMessage");
 		if (attMessage != "" && attMessage != null) {
 			App.current.session.addMessage(attMessage);
 		}
-
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}
@@ -326,7 +324,6 @@ class Main extends Controller {
 	public function doCgu() {
 		throw Redirect('/tos');
 	}
-
 
 
 }

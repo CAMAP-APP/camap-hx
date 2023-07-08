@@ -96,6 +96,10 @@ class CatalogService{
     **/
     public static function checkFormData( catalog:db.Catalog, form:sugoi.form.Form ) {
 
+		if(form.getValueOf("startDate").getTime() > form.getValueOf("endDate").getTime()){
+			throw new Error("La date de début du contrat doit être avant la date de fin.");
+		}
+
         //distributions should always happen between catalog dates
         if(form.getElement("startDate")!=null){
             for( distribution in catalog.getDistribs(false)){
@@ -179,10 +183,6 @@ class CatalogService{
 			throw new Error( 'Vous avez défini un nombre maximum d\'absences alors vous devez sélectionner des dates pour la période d\'absences.' );
 		}
 
-		// if ( ( absencesStartDate != null || absencesEndDate != null ) && ( absentDistribsMaxNb == null || absentDistribsMaxNb == 0 ) ) {
-		// 	throw new Error( 'Vous avez défini des dates pour la période d\'absences alors vous devez entrer un nombre maximum d\'absences.' );
-		// }
-	
 		if ( absencesStartDate != null && absencesEndDate != null ) {
 			if ( absencesStartDate.getTime() >= absencesEndDate.getTime() ) {
 				throw new Error( 'La date de début des absences doit être avant la date de fin des absences.' );

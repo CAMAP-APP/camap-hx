@@ -105,7 +105,7 @@ class Cron extends Controller
 				AND distrib.distribStartDate < DATE_ADD(\'${toNow}\', INTERVAL g.volunteersMailDaysBeforeDutyPeriod DAY);', false).array();
 			
 			for (multidistrib  in multidistribs) {
-
+				if(multidistrib.getGroup().isDisabled()) continue;
 				var volunteers: Array<db.Volunteer> = multidistrib.getVolunteers();
 				if ( volunteers.length != 0 ) {
 					task.log(multidistrib.getGroup().name+" : "+multidistrib.getDate());
@@ -153,6 +153,8 @@ class Cron extends Controller
 			var vacantVolunteerRolesMultidistribs = Lambda.filter( multidistribs, function(multidistrib) return multidistrib.hasVacantVolunteerRoles() );
 			
 			for (multidistrib  in vacantVolunteerRolesMultidistribs) {
+				if(multidistrib.getGroup().isDisabled()) continue;
+
 				task.log(multidistrib.getGroup().name+" : "+multidistrib.getDate());
 				var mail = new Mail();
 				mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
@@ -193,11 +195,6 @@ class Cron extends Controller
 			openingOrdersNotif(task);
 		});
 		task.execute(!App.config.DEBUG);
-
-		//Distrib Validation notifications				
-		// var task = new TransactionWrappedTask("Distrib Validation notifications");
-		// task.setTask(distribValidationNotif.bind(task));
-		// task.execute(!App.config.DEBUG);
 
 		var task = new TransactionWrappedTask( 'Default automated orders for CSA variable contracts' );
 		task.setTask( function() {
