@@ -835,9 +835,9 @@ msgstr "Cette personne ne fait pas partie de \"::amapname::\""
 
 #: ../src/controller/amapadmin/Volunteers.hx:527
 msgid ""
-"Number of days before duty periods open to volunteers (between 7 and 365"
+"Number of days before duty periods open to volunteers (between 7 and 365)"
 msgstr ""
-"Ouverture des inscriptions aux permanences ( en jours avant la distribution )"
+"Ouverture des inscriptions aux permanences (en jours avant la distribution)"
 
 #: ../src/controller/amapadmin/Volunteers.hx:711
 msgid "Number of days before duty period to send mail"
