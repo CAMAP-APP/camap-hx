@@ -199,7 +199,7 @@ class Vendor extends Object
 			case null : null;
 			case DisabledReason.IncompleteLegalInfos : "Informations légales incomplètes. Complétez vos informations légales pour débloquer le compte. (SIRET,capital social,numéro de TVA)";
 			case DisabledReason.NotCompliantWithPolicy : "Producteur incompatible avec la charte producteur de CAMAP";
-			case DisabledReason.Banned : "Producteur bloqué par les administrateurs";
+			case DisabledReason.Banned : "Contactez support@amap44.org";
 		};
 	}
 
