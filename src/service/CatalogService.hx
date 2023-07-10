@@ -12,6 +12,10 @@ class CatalogService{
 		if ( catalog.group == null || catalog.type == null || catalog.vendor == null ) {
 			throw new tink.core.Error( "Un des éléments suivants est manquant : le groupe, le type, ou le producteur." );
 		}
+		if (catalog.vendor.isDisabled()) {
+			///throw new tink.core.Error( "Ce producteur est désactivé. Contactez support@amap44.org pour plus d'informations" );
+			throw new Error('${catalog.vendor.name} est désactivé. Raison : ${catalog.vendor.getDisabledReason()}');
+		}
 
 		var t = sugoi.i18n.Locale.texts;
 
