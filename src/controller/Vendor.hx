@@ -30,7 +30,7 @@ class Vendor extends Controller
 
 		app.session.addMessage("Attention, les fiches producteurs sont partagées entre les AMAP, n'ajoutez pas d'informations propres à votre AMAP.");
 		if (vendor.isDisabled()) {
-			app.session.addMessage('<i class="icon icon-alert"></i><b>Ce producteur est désactivé.</b>  ${vendor.getDisabledReason()}' );
+			app.session.addMessage('<div class="alert-danger"><i class="icon icon-alert"> </i><b>Ce producteur est désactivé.</b>  ${vendor.getDisabledReason()}' );
 		}
 
 		var form = VendorService.getForm(vendor);
