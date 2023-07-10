@@ -13,7 +13,7 @@ class CatalogService{
 			throw new tink.core.Error( "Un des éléments suivants est manquant : le groupe, le type, ou le producteur." );
 		}
 		if (catalog.vendor.isDisabled()) {
-			throw Error ( "/contract/defineVendor/", '${catalog.vendor.name} est désactivé. Raison : ${catalog.vendor.getDisabledReason()}' );
+			throw new Error ( "/contract/defineVendor/", '${catalog.vendor.name} est désactivé. Raison : ${catalog.vendor.getDisabledReason()}' );
 			//throw new Error('${catalog.vendor.name} est désactivé. Raison : ${catalog.vendor.getDisabledReason()}');
 		}
 
