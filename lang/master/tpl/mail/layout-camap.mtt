@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<style>
 			#email-body {
-				color: #333;
+				color: #5d1e4e;
 				font-family: sans-serif;
 				background-color: #fff !important;
 			}
@@ -12,14 +12,14 @@
 			#email-root {
 				margin: auto;
 				max-width: 600px;
-				background-color: #f3fbe9;
+				background-color: #fef9f7;
 				padding: 16px;
 			}
 
 			#email-header {
 				padding: 16px;
 				text-align: center;
-				background-color: #f3fbe9 !important;
+				background-color: #fef9f7 !important;
 			}
 
 			#email-footer {
@@ -34,11 +34,11 @@
 
 			.bold-green {
 				font-weight: bold;
-				color: #548415;
+				color: #eb7334;
 			}
 
 			.light-green-background {
-				background-color: #f3fbe9; 
+				background-color: #fef9f7; 
 			}
 		</style>
 		<title>::theme.name::</title>
