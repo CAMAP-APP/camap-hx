@@ -100,7 +100,7 @@
 						::v.zipCode:: ::v.city::
 
 						::if(v.isDisabled())::
-							<i class="icon icon-alert"></i><b> Producteur désactivé :</b> ::raw v.getDisabledReason()::
+							<br/><i class="icon icon-alert"></i><b> Producteur désactivé :</b><br/> ::raw v.getDisabledReason()::
 						::end::
 					</div>
 					<div class="col-md-4">
