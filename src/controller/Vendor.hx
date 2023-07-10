@@ -29,6 +29,9 @@ class Vendor extends Controller
 		if(!app.user.canManageVendor(vendor))  throw Error("/contractAdmin","Vous n'avez pas les droits de modification de ce producteur");
 
 		app.session.addMessage("Attention, les fiches producteurs sont partagées entre les AMAP, n'ajoutez pas d'informations propres à votre AMAP.");
+		if (vendor.isDisabled()) {
+			app.session.addMessage("Ce producteur est désactivé. ", + vendor.getDisabledReason() );
+		}
 
 		var form = VendorService.getForm(vendor);
 		

@@ -90,7 +90,7 @@
 		<h2>::_("Farmers")::</h2>
 		<div class="row">
 			::foreach v vendors::		
-			<div class="col-md-4" style="height: 125px;border-radius: 20px;border-spacing: 4px;">
+			<div class="col-md-4" style="height:unset;border-spacing: 4px;">
 				<div class="row">
 					<div class="col-md-2">
 						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
@@ -100,7 +100,7 @@
 						::v.zipCode:: ::v.city::
 
 						::if(v.isDisabled())::
-							<br/><i class="icon icon-alert"></i><b> Producteur désactivé :</b><br/> ::raw v.getDisabledReason()::
+							<br/><div class="alert alert-danger"><i class="icon icon-alert"></i><b> Producteur désactivé:</b> Contactez le support<br/></div>
 						::end::
 					</div>
 					<div class="col-md-4">
