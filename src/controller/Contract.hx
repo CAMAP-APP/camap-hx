@@ -112,9 +112,9 @@ class Contract extends Controller
 
 		if (!app.user.canManageAllContracts()) throw Error('/', t._("Forbidden action"));
 		if (vendor.isDisabled()) {
-			throw Error("/","Ce producteur est désactivé. Raison : " + catalog.vendor.getDisabledReason() );
+			throw Error("/","Ce producteur est désactivé. Raison : " + vendor.getDisabledReason() );
 		}
-		
+
 		view.vendor = vendor;
 		
 	}
