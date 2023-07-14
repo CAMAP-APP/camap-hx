@@ -153,7 +153,7 @@
 			<p><a href="::user.getEditNotificationsLink(group)::" rel="notrack">Changer les préférences de notification</a></p>
 			<p><a href="::user.getQuitGroupLink(group)::" rel="notrack">Quitter ce groupe</a></p>
 			::else::
-			<p>Pour ne plus recevoir de message, veuillez <a href="https://wiki.amap44.org/fr/app/Utilisation-de-CAMAP#quitter-un-groupe" rel="notrack">quitter ce groupe</a>"
+			<p>Pour ne plus recevoir de message, veuillez <a href="https://wiki.amap44.org/fr/app/Utilisation-de-CAMAP#quitter-un-groupe" rel="notrack">quitter ce groupe</a>
 			::end::
 		</div>
 	</body>
