@@ -704,7 +704,7 @@ class SubscriptionService
 				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
 				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}else if(catalog.catalogMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque correspondant au montant total de votre commande (à consulter dans l\'onglet Mes contrats), soit ${subscription.getTotalPrice()} €.<br/>';
+				html += '<p>Merci de préparer un chèque correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\".<br/>';
 				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
 				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}
