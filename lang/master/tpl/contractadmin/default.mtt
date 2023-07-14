@@ -99,9 +99,6 @@
 						<b>::v.name::</b><br/>
 						::v.zipCode:: ::v.city::
 
-						::if(v.isDisabled())::
-							<br/><div class="alert alert-danger"><i class="icon icon-alert"></i><b> Producteur désactivé:</b> Contactez le support<br/></div>
-						::end::
 					</div>
 					<div class="col-md-4">
 						<div class="btn-group" role="group">							
@@ -109,6 +106,11 @@
 							$$edit(Image,/vendor/addImage/::v.id::)
 						</div>
 					</div>
+                    <div class="col-md-12">
+				        ::if(v.isDisabled())::
+					    <br/><div class="alert alert-danger"><i class="icon icon-alert"></i><b> Producteur désactivé:</b> Contactez le support<br/></div>
+					    ::end::
+                    </div>
 				</div>
 			</div>
 			::end::
