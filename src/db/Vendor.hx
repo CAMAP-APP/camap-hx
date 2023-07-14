@@ -197,7 +197,7 @@ class Vendor extends Object
 	public function getDisabledReason():Null<String>{
 		return switch(this.disabled){
 			case null : null;
-			case DisabledReason.IncompleteLegalInfos : "Informations légales incomplètes. Complétez votre SIRET et contactez le support pour débloquer le compte.";
+			case DisabledReason.IncompleteLegalInfos : "Informations légales incomplètes. Complétez votre SIRET et contactez le support pour réactiver le producteur.";
 			case DisabledReason.NotCompliantWithPolicy : "Producteur incompatible avec la charte producteur de CAMAP.";
 			case DisabledReason.Banned : "Contactez le support.";
 		};
