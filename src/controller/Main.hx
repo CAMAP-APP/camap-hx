@@ -30,6 +30,17 @@ class Main extends Controller {
 	}
 
 	function doDefault(?permalink:String) {
+		//Check for maintenance
+		var maintain = sugoi.db.Variable.getInt("maintain") != 0;
+        var user = app.user;
+		//bypass maintenance for admins		
+		if( maintain && (user != null && user.isAdmin()) ){
+			maintain = false;
+		} 
+		if( maintain ) {
+			app.setTemplate("maintain.mtt");
+			return;
+		}
 		if (permalink == null || permalink == "")
 			throw Redirect("/home");
 		var p = sugoi.db.Permalink.get(permalink);
