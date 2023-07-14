@@ -702,11 +702,11 @@ class SubscriptionService
 			if(catalog.distribMinOrdersTotal>0){
 				html += '<p>Merci de préparer un chèque de provision correspondant au total de votre commande par défaut multiplié par le nombre de distributions, soit ${subscription.getTotalPrice()} €.<br/>';
 				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}else if(catalog.catalogMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque de provision correspondant à votre minimum de commande multiplié par le nombre de distributions à consulter dans l\'onglet Mes contrats, soit ${getCatalogMinOrdersTotal( catalog, subscription )} €.<br/>';
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
+				html += '<p>Merci de préparer un chèque correspondant au montant total de votre commande (à consulter dans l\'onglet Mes contrats), soit ${subscription.getTotalPrice()} €.<br/>';
+				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}
 			
 		}else{
