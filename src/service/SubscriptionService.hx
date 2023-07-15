@@ -673,7 +673,7 @@ class SubscriptionService
 		
 		html += "<p>";
 		var engagement = SubscriptionService.getSubscriptionConstraints(subscription);
-		html += 'Votre engagement : ${(engagement==null?"":engagement)}<br/>';
+		html += 'Votre engagement : ${(engagement==null?"Aucun":engagement)}<br/>';
 		html += 'Nombre de distributions : ${SubscriptionService.getSubscriptionDistribsNb(subscription)}<br/>';
 		if(catalog.isVariableOrdersCatalog() && catalog.distribMinOrdersTotal>0){
 			html += 'Votre commande par défaut est :<ul>';
@@ -700,13 +700,18 @@ class SubscriptionService
 
 		if(catalog.isVariableOrdersCatalog()){
 			if(catalog.distribMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque de provision correspondant au total de votre commande par défaut multiplié par le nombre de distribution, soit ${subscription.getTotalPrice()} €.<br/>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
+				html += '<p>Merci de préparer un/des chèque(s) de provision correspondant au total de votre commande par défaut multiplié par le nombre de distributions, soit ${subscription.getTotalPrice()} €. ';
 				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}else if(catalog.catalogMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque de provision correspondant au minimum de commande, soit ${getCatalogMinOrdersTotal( catalog, subscription )} €.<br/>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
+				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
+			}
+			else {
+				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}
 			
 		}else{

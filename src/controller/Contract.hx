@@ -111,6 +111,10 @@ class Contract extends Controller
 	function doInsertChoose(vendor:db.Vendor) {
 
 		if (!app.user.canManageAllContracts()) throw Error('/', t._("Forbidden action"));
+		if (vendor.isDisabled()) {
+			throw Error("/contract/defineVendor/","Ce producteur est désactivé. Raison : " + vendor.getDisabledReason() );
+		}
+
 		view.vendor = vendor;
 		
 	}
