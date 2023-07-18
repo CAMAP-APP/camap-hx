@@ -347,7 +347,7 @@ class PaymentService {
 		/**
 		* Rectification des soldes: Suppressions de toutes les opérations dont subscription.endDate < 1 janvier 2021	
 		**/
-		var b = sys.db.Manager.cnx.request('SELECT SUM(Operation.amount) FROM Operation, Subscription WHERE userId=${user.id} and groupId=${group.id} and Operation.subscriptionId = Subscription.id and year(Subscription.edate) > 2021').getFloatResult(0);
+		var b = sys.db.Manager.cnx.request('SELECT SUM(Operation.amount) FROM Operation, Subscription WHERE userId=${user.id} and groupId=${group.id} and Operation.subscriptionId = Subscription.id and year(Subscription.endDate) > 2021').getFloatResult(0);
 		b = Math.round(b * 100) / 100;
 		ua.balance = b;
 		ua.update();
