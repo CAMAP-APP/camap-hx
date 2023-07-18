@@ -58,5 +58,35 @@
 	
 </div>
 
+<div class="col-md-4">
+	<!--Membership-->
+	::if user.getGroup().hasMembership::
+	<h3>::_("Balance")::</h3>
+	<div  class="article">
+		
+		<span style="font-size:1.3em;">
+			
+			::if userGroup.balance<0:: 
+			::set color = "C00"::
+			::else::
+				::set color = "0C0"::
+			::end::
+			<span style="color:#::color::;">
+				::formatNum(userGroup.balance):: ::currency()::
+			</span>
+		</span>
+		
+		<span style="margin-left:30px;">
+
+			<a href="/member/payments/::member.id::" class="btn btn-default btn-small">
+				<i class="fa fa-credit-card" aria-hidden="true"></i>
+				::_("Payments details")::
+			</a>
+		</span>
+		
+	</div>
+	::en::
+</div>
+
 
 ::end::

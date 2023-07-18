@@ -343,7 +343,11 @@ class PaymentService {
 	public static function updateUserBalance(user:db.User, group:db.Group) {
 		var ua = db.UserGroup.getOrCreate(user, group);
 		//do not count pending payments
-		var b = sys.db.Manager.cnx.request('SELECT SUM(amount) FROM Operation WHERE userId=${user.id} and groupId=${group.id} and !(type=2 and pending=1)').getFloatResult(0);
+		//var b = sys.db.Manager.cnx.request('SELECT SUM(amount) FROM Operation WHERE userId=${user.id} and groupId=${group.id} and !(type=2 and pending=1)').getFloatResult(0);
+		/**
+		* Rectification des soldes: Suppressions de toutes les opérations dont subscription.endDate < 1 janvier 2021	
+		**/
+		var b = sys.db.Manager.cnx.request('SELECT SUM(amount) FROM Operation WHERE userId=${user.id} and groupId=${group.id} and year(date) > 2020').getFloatResult(0);
 		b = Math.round(b * 100) / 100;
 		ua.balance = b;
 		ua.update();
