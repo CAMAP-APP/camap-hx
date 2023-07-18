@@ -410,10 +410,11 @@
 					: Du ::hDate(c.startDate):: au ::hDate(c.endDate)::
 				</td>
 				<td>
+				<!-- DESACTIVATION	
 					<a href="/distribution/inviteFarmersCycle/::c.id::" class="btn btn-default btn-sm">
 						<i class="icon icon-farmer"></i> Producteurs participants
 					</a>
-
+				-->
 					$$delete(::_("Delete")::,::"/distribution/deleteCycle/"+c.id::)
 				</td>
 			</tr>
