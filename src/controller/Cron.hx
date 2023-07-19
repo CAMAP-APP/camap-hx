@@ -554,7 +554,7 @@ class Cron extends Controller
 						text += t._("The following suppliers are involved :");
 						text += "<br/><ul>";
 						for ( v in g.vendors) {
-							text += "<li>" + v.name + " (" + v.peopleNanme + ")</br>Commandes ouvertes jusqu'au: " + hDate(g.distributions[0].orderEndDate) + " </li>";
+							text += "<li>" + v.name + " (" + v.peopleNanme + ")</br>Commandes ouvertes jusqu'au: " + view.hDate(g.distributions[0].orderEndDate) + " </li>";
 						}
 						text += "</ul>";						
 											
