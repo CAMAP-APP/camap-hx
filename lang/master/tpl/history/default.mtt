@@ -61,7 +61,6 @@
 <div class="col-md-4">
 	<!--Membership-->
 	::if user.getGroup().hasMembership::
-	<div data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">
 	<h3>::_("Balance")::</h3>
 	</div>
 	<div  class="article">
@@ -74,7 +73,7 @@
 				::set color = "0C0"::
 			::end::
 			<span style="color:#::color::;">
-				::formatNum(userGroup.balance):: ::currency()::
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">::formatNum(userGroup.balance):: ::currency()::</i>
 			</span>
 		</span>
 		
