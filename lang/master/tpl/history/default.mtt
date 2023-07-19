@@ -62,7 +62,6 @@
 	<!--Membership-->
 	::if user.getGroup().hasMembership::
 	<h3>::_("Balance")::</h3>
-	</div>
 	<div  class="article">
 		
 		<span style="font-size:1.3em;">
