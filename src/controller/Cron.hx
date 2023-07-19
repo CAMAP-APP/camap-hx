@@ -557,7 +557,7 @@ class Cron extends Controller
 							text += "<li>" + v.name + " (" + v.peopleName + ")</br>Commandes ouvertes jusqu'au: " + view.hDate(g.distributions[0].orderEndDate) + " </li>";
 						}
 						text += "</ul>";						
-						task.log (text);
+						task.log(text);
 											
 						try{
 							var m = new Mail();
