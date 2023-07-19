@@ -32,8 +32,9 @@
 				::_("E-mail"):: : <a href="mailto: ::member.email2::">::member.email2::</a><br/>
 			::end::
 		</p>
-		
+        <div data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">		
 		<h3>::_("Balance")::</h3>
+		</div>
 		<div  class="article">	
 			<span style="font-size:1.3em;">
 			
