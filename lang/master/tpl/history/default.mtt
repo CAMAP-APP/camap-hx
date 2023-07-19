@@ -65,7 +65,7 @@
 	<div  class="article">
 		
 		<span style="font-size:1.3em;">
-			<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023"></i>
+			<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">&nbsp;</i>
 			::if userGroup.balance<0:: 
 			::set color = "C00"::
 			::else::
