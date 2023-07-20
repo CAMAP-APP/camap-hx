@@ -260,7 +260,7 @@ class PaymentService {
 					new payment.Cash(),
 					new payment.Check(),
 					new payment.Transfer(),	
-					new payment.MoneyPot(),
+					//new payment.MoneyPot(),
 					new payment.OnTheSpotPayment(),
 					new payment.OnTheSpotCardTerminal()						
 				];
