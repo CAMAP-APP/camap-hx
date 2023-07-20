@@ -311,7 +311,7 @@ class AmapAdmin extends Controller
 			group.setAllowedPaymentTypes(paymentTypes);
 			// group.checkOrder = f.getValueOf("checkOrder");
 			group.IBAN = f.getValueOf("IBAN");
-			group.allowMoneyPotWithNegativeBalance = f.getValueOf("allowMoneyPotWithNegativeBalance");
+			// group.allowMoneyPotWithNegativeBalance = f.getValueOf("allowMoneyPotWithNegativeBalance");
 			group.update();
 			
 			throw Ok("/amapadmin/payments", t._("Payment options updated"));
