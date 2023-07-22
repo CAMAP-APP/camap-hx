@@ -52,7 +52,7 @@
                     Options disponibles : 
                     <ul>
                         <li>Montant minimum de commande par distribution: rend la commande obligatoire à chaque distribution mais le contenu de la commande peut varier.</li>
-                        <li>Montant minimum de commande sur la durée du contrat: pas obligation de commandes à chaque distribution mais sur la durée du contrat.<br/> Permet un fonctionnement de type cagnotte.</br>
+                        <li>Montant minimum de commande sur la durée du contrat: pas obligation de commandes à chaque distribution mais sur la durée du contrat.<br/> Permet un fonctionnement de type cagnotte.<br/>
                         Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
 						
                     </ul>
