@@ -36,9 +36,9 @@
 			</li>
 			::end::
 
-			<li id="orders" ::attr class if(nav[1]=="orders") 'active'::>
-				<a href="/contractAdmin/selectDistrib/::c.id::">
-					<i class="icon icon-basket"></i> ::_("Orders")::
+			<li id="documents" ::attr class if(nav[1]=="documents") 'active'::>
+				<a href="/contractAdmin/documents/::c.id::">
+					<i class="icon icon-file-pdf"></i> Documents
 				</a>
 			</li>
 			<li id="subscriptions" ::attr class if(nav[1]=="subscriptions") 'active'::>
@@ -46,9 +46,9 @@
 					<i class="icon icon-calendar-check"></i> Souscriptions
 				</a>
 			</li>
-			<li id="documents" ::attr class if(nav[1]=="documents") 'active'::>
-				<a href="/contractAdmin/documents/::c.id::">
-					<i class="icon icon-file-pdf"></i> Documents
+			<li id="orders" ::attr class if(nav[1]=="orders") 'active'::>
+				<a href="/contractAdmin/selectDistrib/::c.id::">
+					<i class="icon icon-basket"></i> ::_("Orders")::
 				</a>
 			</li>
 			<li id="stats">
