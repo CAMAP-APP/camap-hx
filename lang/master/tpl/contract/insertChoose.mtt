@@ -19,7 +19,7 @@
                     <i>Exemple : Julie reçoit un panier de légumes à 15 € chaque semaine.</i>
                 </p>
                 <p>
-                    Options disponibles : 
+                    <u>Options disponibles:</u> 
                     <ul>
                         <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
                     </ul>
@@ -49,12 +49,15 @@
                     <i>Exemple : Jean fait une commande de miel pour 10 € pour une distribution, puis rien à la prochaine, puis une autre commande pour 20 € etc.</i>
                 </p>
                 <p>
-                    Options disponibles : 
+                    <u>Options disponibles:</u>
                     <ul>
                         <li>Montant minimum de commande par distribution: rend la commande obligatoire à chaque distribution mais le contenu de la commande peut varier.</li>
-                        <li>Montant minimum de commande sur la durée du contrat: pas obligation de commandes à chaque distribution mais sur la durée du contrat.<br/> Permet un fonctionnement de type cagnotte.<br/>
-                        Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
-						
+                        <li>Montant minimum de commande sur la durée du contrat:
+								<ul>
+									<li>pas d'obligation de commandes à chaque distribution: permet un fonctionnement de type cagnotte.</li>
+									<li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
+								</ul>
+						</li>
                     </ul>
                 </p>
 				<i class="icon icon-info">&nbsp;</i><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable" target="_blank">Plus d'info sur le contrat AMAP Variable</a>
