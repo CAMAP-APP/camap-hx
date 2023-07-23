@@ -112,7 +112,7 @@ class ProductService{
 						stock.value = product.stock;
 					}
 				} else {
-					stock.label = "Stock (sur la durée du contrat)";				 
+					stock.label = "Stock (pour la prochaine distribution)";				 
 					if(product.stock!=null){
 						stock.value = product.stock;					
 					}
