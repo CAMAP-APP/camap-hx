@@ -46,7 +46,12 @@
             <div>
                 <p>
                     Avec ce type de contrat les membres peuvent faire des commandes différentes pour chaque distribution.<br/>
-                    <i>Exemple : Jean fait une commande de miel pour 10 € pour une distribution, puis rien à la prochaine, puis une autre commande pour 20 € etc.</i>
+                    <i>Exemple: 
+						<ul>
+							<li>Joe fait une commande de miel pour 10€ pour une distribution, puis rien à la prochaine, puis une autre commande pour 20€ etc.</li>
+							<li>William commande 1 pain de sègle et 1 pain d'épautre la semaine 1, puis 1 pain de sègle et 1 pain au céréales la semaine 2 etc.</li>
+						</ul>
+					</i>
                 </p>
                 <p>
                     <u>Options disponibles:</u>
@@ -54,12 +59,13 @@
                         <li>Montant minimum de commande par distribution: 
 							<ul>
 								<li>Rend la commande obligatoire à chaque distribution mais le contenu de la commande peut varier.</li>
+								<li>Une commande par défaut doit être saisie</li>
 								<li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
 							</ul>
 						</li>
                         <li>Montant minimum de commande sur la durée du contrat:
 								<ul>
-									<li>pas d'obligation de commandes à chaque distribution: permet un fonctionnement de type cagnotte.</li>
+									<li>Pas d'obligation de commandes à chaque distribution: permet un fonctionnement de type cagnotte.</li>
 								</ul>
 						</li>
                     </ul>
