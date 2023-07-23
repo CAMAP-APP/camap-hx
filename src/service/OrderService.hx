@@ -690,6 +690,7 @@ class OrderService
 
 	/**
 		Create or update orders for variable catalogs
+		20230723 Adapter Stock ?
 	**/ 
 	public static function createOrUpdateOrders( user:db.User, multiDistrib:db.MultiDistrib, catalog:db.Catalog, ordersData:Array<{id:Int, productId:Int, qt:Float, paid:Bool}> ) : Array<db.UserOrder> {
 
