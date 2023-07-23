@@ -42,7 +42,7 @@ class Product extends Controller
 			}
 			*/
 			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				product.stock = f.getValueOf("stock")
+				product.stock = f.getValueOf("stock");
 			}
 			try{
 				ProductService.check(product);
