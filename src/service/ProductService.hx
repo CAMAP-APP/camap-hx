@@ -107,11 +107,11 @@ class ProductService{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			if(product.stock!=null){
-				//Nbre de distri planifiées
-				var distLeft = product.catalog.getDistribs(false).length;
+				//Nbre de distri ouvertes
+				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
 				// Si distri > 0
 				if (distLeft > 0) {
-					stock.label = "Stock par distribution (pour " +distLeft+ " distributions)";				 
+					stock.label = "Stock par distribution (pour " +distLeft+ " distributions ouvertes)";				 
 					stock.value = Math.floor( product.stock / distLeft );
 				} 
 				// Sinon (pas distri planifiées)

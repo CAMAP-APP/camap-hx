@@ -112,7 +112,7 @@ class OrderService
 				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $catalogId==c.id);
 				var msg = "Nombre de distributions ouvertes: " +distLeft;
 				App.current.session.addMessage(msg, true);
-				var availableStockPerDistri : Float = Math.floor(order.product.stock / distLeft);
+				var availableStockPerDistri = order.product.stock / distLeft;
 				
 				if (availableStockPerDistri == 0) {
 					if (App.current.session != null) {
