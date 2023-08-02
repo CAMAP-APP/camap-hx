@@ -135,7 +135,7 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					int (availableStockPerDistri) -= quantity;
+					availableStockPerDistri = availableStockPerDistri.toInt() - quantity;
 					order.product.stock = availableStockPerDistri * distLeft;
 					order.product.update();	
 				}
