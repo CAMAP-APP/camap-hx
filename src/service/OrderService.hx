@@ -110,7 +110,7 @@ class OrderService
 				// Il faut considérer le stock par distribution
 				var distLeft = c.getDistribs(false).length;
 				var availableStockPerDistri = Math.floor(order.product.stock / distLeft);
-
+				
 				if (availableStockPerDistri == 0) {
 					if (App.current.session != null) {
 						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
@@ -135,8 +135,8 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					availableStockPerDistri -= quantity;
-					order.product.stock = Math.flor(availableStockPerDistri * distLeft);
+					availableStockPerDistri -= quantity.toInt();
+					order.product.stock = availableStockPerDistri * distLeft;
 					order.product.update();	
 				}
 			}
