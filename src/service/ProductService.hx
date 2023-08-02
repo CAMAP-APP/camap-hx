@@ -101,7 +101,9 @@ class ProductService{
 		//stock mgmt ?
 		if (!product.catalog.hasStockManagement()){
 			f.removeElementByName('stock');	
-		} else {
+		} 
+		else 
+		{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			if(product.stock!=null){
@@ -119,6 +121,7 @@ class ProductService{
 				stock.value = product.stock;
 			    }
 			}
+		}
 			
 			
 		var group = product.catalog.group;
