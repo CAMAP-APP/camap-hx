@@ -109,7 +109,7 @@ class OrderService
 			if (c.hasStockManagement()) {
 				// Il faut considérer le stock par distribution
 				var distLeft = c.hasOpenOrders();
-				var msg = "Nombre de distributions ouvertes: " +distLeft);
+				var msg = "Nombre de distributions ouvertes: " +distLeft;
 				App.current.session.addMessage(msg, true);
 				var availableStockPerDistri : Float = Math.floor(order.product.stock / distLeft);
 				
