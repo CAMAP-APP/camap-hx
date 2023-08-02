@@ -307,7 +307,11 @@ $$browserDetection()
 		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
 		::end::
-
+		<div class="block hidden-sm hidden-xs">
+			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
+			</a>
+		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
 		::end::
