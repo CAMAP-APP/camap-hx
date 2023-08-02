@@ -104,21 +104,23 @@ class ProductService{
 		} else {
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
-			// 20230723 Classique ou Variable
-			// Changement du label pour clarifier la compréhension du stock
-				if (product.catalog.isConstantOrdersCatalog()){
-					stock.label = "Stock (par distribution)";		
-					if(product.stock!=null){
-						stock.value = product.stock;
-					}
-				} else {
-					stock.label = "Stock (pour la prochaine distribution)";				 
-					if(product.stock!=null){
-						stock.value = product.stock;					
-					}
-				}
-		}
-
+			if(product.stock!=null){
+				//Nbre de distri planifiées
+				var distLeft = product.catalog.getDistribs(false).length;
+				// Si distri > 0
+				if (distLeft > 0) {
+					stock.label = "Stock par distribution (pour " +distLeft+ " distributions)";				 
+					stock.value = Math.floor( product.stock / distLeft );
+			    } 
+				// Sinon (pas distri planifiées)
+				else {
+				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
+				product.stock = null;
+				stock.value = product.stock;
+			    }
+			}
+			
+			
 		var group = product.catalog.group;
 		
 		//VAT selector
