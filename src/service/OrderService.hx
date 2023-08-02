@@ -115,11 +115,7 @@ class OrderService
 					if (App.current.session != null) {
 						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					}
-					order.quantity -= quantity;
-					if ( order.quantity <= 0 ) {
-						order.delete();
-						return null;	
-					}
+					order.delete();					
 				}else if (availableStockPerDistri - quantity < 0) {
 					var canceled = quantity - availableStockPerDistri;
 					order.quantity -= canceled;
@@ -135,7 +131,7 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					order.product.stock = (availableStockPerDistri * distLeft) - quantity;
+					order.product.stock -= quantity;
 					order.product.update();	
 				}
 			}
