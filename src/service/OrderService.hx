@@ -109,7 +109,7 @@ class OrderService
 			if (c.hasStockManagement()) {
 				// Il faut considérer le stock par distribution
 				var distLeft = c.getDistribs(false).length;
-				var availableStockPerDistri = Math.floor(order.product.stock / distLeft);
+				var availableStockPerDistri : Float = Math.floor(order.product.stock / distLeft);
 				
 				if (availableStockPerDistri == 0) {
 					if (App.current.session != null) {
@@ -135,7 +135,6 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					availableStockPerDistri = Math.round(availableStockPerDistri * 100) / 100;
 					availableStockPerDistri -= quantity;
 					order.product.stock = availableStockPerDistri * distLeft;
 					order.product.update();	
