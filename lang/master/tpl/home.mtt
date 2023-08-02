@@ -318,12 +318,6 @@ $$browserDetection()
 
 	</div>
 
-	<div class="block hidden-sm hidden-xs">
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
-			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
-		</a>
-	</div>
-
 	<div class="block" ::cond visibleDocuments.length !=0::>
 		<h4>Documents</h4>
 		<div>
