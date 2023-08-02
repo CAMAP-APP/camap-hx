@@ -32,17 +32,10 @@ class Product extends Controller
 			f.toSpod(product);
 
 			//manage stocks by distributions for CSA contracts
-			// 20230723 Classique ou Variable
-			// désactivation traitement différent la gestion des cas se fait à la commande
-			/*
 			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
 				var distribNum = product.catalog.getDistribs(false).length;
 				distribNum = distribNum == 0 ? 1 : distribNum;
 				product.stock = (f.getValueOf("stock"):Float) * distribNum;
-			}
-			*/
-			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				product.stock = f.getValueOf("stock");
 			}
 			try{
 				ProductService.check(product);
