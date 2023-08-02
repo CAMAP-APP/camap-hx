@@ -107,8 +107,11 @@ class OrderService
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			if (c.hasStockManagement()) {
-				
-				if (order.product.stock == 0) {
+				// Il faut considérer le stock par distribution
+				var distLeft = c.getDistribs(false).length;
+				var availableStockPerDistri = Math.floor(order.product.stock / distLeft);
+
+				if (availableStockPerDistri == 0) {
 					if (App.current.session != null) {
 						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					}
@@ -117,8 +120,8 @@ class OrderService
 						order.delete();
 						return null;	
 					}
-				}else if (order.product.stock - quantity < 0) {
-					var canceled = quantity - order.product.stock;
+				}else if (availableStockPerDistri - quantity < 0) {
+					var canceled = quantity - availableStockPerDistri;
 					order.quantity -= canceled;
 					order.update();
 					
@@ -132,10 +135,12 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					order.product.stock -= quantity;
+					availableStockPerDistri -= quantity;
+					order.product.stock = availableStockPerDistri * distLeft;
 					order.product.update();	
 				}
-			}	
+			}
+				
 		}
 
 		return order;
@@ -690,7 +695,7 @@ class OrderService
 
 	/**
 		Create or update orders for variable catalogs
-		20230723 Adapter Stock ?
+		20230723 Adapter Stock ??
 	**/ 
 	public static function createOrUpdateOrders( user:db.User, multiDistrib:db.MultiDistrib, catalog:db.Catalog, ordersData:Array<{id:Int, productId:Int, qt:Float, paid:Bool}> ) : Array<db.UserOrder> {
 
