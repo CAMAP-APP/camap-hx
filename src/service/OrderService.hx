@@ -135,8 +135,7 @@ class OrderService
 					
 				}else {
 					order.product.lock();
-					availableStockPerDistri -= quantity;
-					order.product.stock = availableStockPerDistri * distLeft;
+					order.product.stock = (availableStockPerDistri * distLeft) - quantity;
 					order.product.update();	
 				}
 			}
