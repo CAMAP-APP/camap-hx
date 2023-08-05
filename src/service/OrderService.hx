@@ -139,8 +139,8 @@ class OrderService
 					} else {
 						// Si AMAP Classique le stock doit être suffisant pour tout le contrat sinon annuler commande
 						if (order.product.stock - (quantity * distLeft) < 0){
-							throw new Error( "'::productName::' stock insuffisant, impossible d'enregistrer la commande.", {productName:order.product.name}, true);
 							order.delete();
+							throw new Error("Stock insuffisant, impossible d'enregistrer votre commande.");
 						}
 					}
 					
