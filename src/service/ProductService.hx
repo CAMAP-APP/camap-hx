@@ -113,7 +113,9 @@ class ProductService{
 				// Si distri > 0
 				if (distLeft > 0) {
 					stock.label = "Stock par distribution (pour " +distLeft+ " distributions ouvertes)";				 
-					stock.value = Math.floor( product.stock / distLeft );
+					if(product.stock!=null){
+						stock.value = Math.floor( product.stock / distLeft );
+					}
 				} 
 				// Sinon (pas distri planifiées)
 				else {
