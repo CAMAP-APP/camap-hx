@@ -139,9 +139,7 @@ class OrderService
 					} else {
 						// Si AMAP Classique le stock doit être suffisant pour tout le contrat sinon annuler commande
 						if (order.product.stock - (quantity * distLeft) < 0){
-							if (App.current.session != null) {
-								App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
-							}
+							throw new Error( "'::productName::' stock insuffisant, impossible d'enregistrer la commande.", {productName:order.product.name}, true);
 							order.delete();
 						}
 					}
