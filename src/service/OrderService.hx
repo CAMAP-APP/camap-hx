@@ -110,29 +110,41 @@ class OrderService
 				// Il faut considérer le stock par distribution
 				var orderDate = order.distribution.date;
 				var now = Date.now();
-				// nb dist restante = cmdes ouvertes + distri restantes à date de commande
+				// nb dist restante = cmdes ouvertes && distri restantes à date de commande
 				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $date >= orderDate && $catalogId==c.id);
+				// debug
 				var msg = "Nombre de distributions ouvertes à date de commande: " +distLeft;
 				App.current.session.addMessage(msg, true);
-				var availableStockPerDistri = order.product.stock / distLeft;
-				
+				var availableStockPerDistri = Math.floor(order.product.stock / distLeft);
+				// si stock à 0 annuler commande
 				if (availableStockPerDistri == 0) {
 					if (App.current.session != null) {
 						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					}
 					order.delete();					
 				}else if (availableStockPerDistri - quantity < 0) {
-					var canceled = quantity - availableStockPerDistri;
-					order.quantity -= canceled;
-					order.update();
-					
-					if (App.current.session != null) {
-						var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
-						App.current.session.addMessage(msg, true);
+					// si stock insuffisant
+					if (c.isVariableOrdersCatalog()) {
+						// si AMAP variable passer les commandes possible
+						var canceled = quantity - availableStockPerDistri;
+						order.quantity -= canceled;
+						order.update();
+						if (App.current.session != null) {
+							var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
+							App.current.session.addMessage(msg, true);
+						}
+						order.product.lock();
+						order.product.stock = 0;
+						order.product.update();
+					} else {
+						// Si AMAP Classique le stock doit être suffisant pour tout le contrat sinon annuler commande
+						if (order.product.stock - (quantity * distLeft) < 0){
+							if (App.current.session != null) {
+								App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
+							}
+							order.delete();
+						}
 					}
-					order.product.lock();
-					order.product.stock = 0;
-					order.product.update();
 					
 				}else {
 					order.product.lock();
