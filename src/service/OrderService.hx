@@ -111,7 +111,7 @@ class OrderService
 				var orderDate = order.distribution.date;
 				var now = Date.now();
 				// nb dist restante = cmdes ouvertes + distri restantes à date de commande
-				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $distributionStartDate >= orderDate && $catalogId==c.id);
+				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $date >= orderDate && $catalogId==c.id);
 				var msg = "Nombre de distributions ouvertes à date de commande: " +distLeft;
 				App.current.session.addMessage(msg, true);
 				var availableStockPerDistri = order.product.stock / distLeft;
