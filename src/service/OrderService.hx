@@ -152,8 +152,8 @@ class OrderService
 					
 					// Calculer le stock de la distri concernée
 					// Commande en cours dans la distri
-					var totOrdersQt = 0;
-					var actualOrders = db.UserOrder.manager.search($product==product && $user!=user && $distributionId==distribId, true);
+					var totOrdersQt;
+					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
 					}
