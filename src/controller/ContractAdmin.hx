@@ -161,7 +161,6 @@ class ContractAdmin extends Controller
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
 		if (contract.hasStockManagement()) {
 			var now = Date.now();
-			var totOrdersQt : Float = 0;
 			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==contract.id),{orderBy:orderEndDate}).array();
 			if (nextDistribs[0] != null){
 				// debug
@@ -169,7 +168,8 @@ class ContractAdmin extends Controller
 				App.current.session.addMessage(msg, true);
 				// end debug
 				for (product in contract.getProducts(false)){
-					var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
+					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+					var totOrdersQt : Float = 0;
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
 					}
