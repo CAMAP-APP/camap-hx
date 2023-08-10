@@ -160,16 +160,7 @@ class ContractAdmin extends Controller
 		sendNav(contract);
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
 		view.c = contract;
-		/**
-			Gestion affichage Stock restant
-		**/
-		if (contract.hasStockManagement()) {
-			var now = Date.now();
-			var nextDistrib = db.Distribution.manager.search(( \$orderEndDate > now && \$catalogId==contract.id), { limit:1});
-			view.nextDist = nextDistrib;
-		}
-		
-		//batch enable / disable products
+		// batch enable / disable products
 		if (args != null){
 			
 			if (args.disable != null){
@@ -187,7 +178,7 @@ class ContractAdmin extends Controller
 		//generate a token
 		checkToken();
 	}
-	
+		
 	
 	/**
 	 *  - hidden page -
