@@ -158,9 +158,16 @@ class ContractAdmin extends Controller
 	function doProducts(contract:db.Catalog,?args:{?enable:String,?disable:String}) {
 		view.nav.push("products");
 		sendNav(contract);
-
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
 		view.c = contract;
+		/**
+			Gestion affichage Stock restant
+		**/
+		if (c.hasStockManagement()) {
+			var now = Date.now();
+			var nextDistrib = db.Distribution.manager.search(( $orderEndDate > now && $catalogId==c.id), { limit:1});
+			view.nextDist = nextDistrib;
+		}
 		
 		//batch enable / disable products
 		if (args != null){

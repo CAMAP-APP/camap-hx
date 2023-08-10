@@ -107,30 +107,24 @@
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
 			::if c.hasStockManagement() ::
-				::if c.isConstantOrdersCatalog() ::
-					::if p.stock==null::
-						-
-					::else::
-						::if p.stock <= 10::
-							<span style="color:red;font-weight:bold;">							
-								::p.stock::
-							</span>
-						::else::
-							::p.stock::
-						::end::
+				::if p.stock!=null::
+					::set stock=p.stock::
+					::set actualOrders=db.UserOrder.manager.search($product==p && $distributionId==nextDist.id, true)::
+					::for (actualOrder in actualOrders)::
+						::stock -= actualOrder.quantity::
 					::end::
+				::else::
+					::set stock=null::
 				::end::
-				::if c.isVariableOrdersCatalog() ::
-					::if p.stock==null::
-						-
+				::if stock==null::
+					-
+				::else::
+					::if stock <= 10::
+						<span style="color:red;font-weight:bold;">							
+							::stock::
+						</span>
 					::else::
-						::if p.stock <= 10::
-							<span style="color:red;font-weight:bold;">							
-								::p.stock::
-							</span>
-						::else::
-							::p.stock::
-						::end::
+						::stock::
 					::end::
 				::end::
 			::end::
