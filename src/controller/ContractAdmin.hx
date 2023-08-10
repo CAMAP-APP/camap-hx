@@ -163,19 +163,21 @@ class ContractAdmin extends Controller
 			var now = Date.now();
 			var totOrdersQt : Float = 0;
 			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==contract.id),{orderBy:orderEndDate}).array();
-			// debug
-			var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-			App.current.session.addMessage(msg, true);
-			// end debug
-			for (product in contract.getProducts(false)){
-				var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
-				for (actualOrder in actualOrders) {
-					totOrdersQt += actualOrder.quantity;
-				}
-				// Stock dispo = stock - commandes en cours
-				if (product.stock != null)  {
-					var availableStock = product.stock - totOrdersQt;
-					product.stock = availableStock;
+			if (nextDistribs.length() > 0){
+				// debug
+				var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
+				App.current.session.addMessage(msg, true);
+				// end debug
+				for (product in contract.getProducts(false)){
+					var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
+					for (actualOrder in actualOrders) {
+						totOrdersQt += actualOrder.quantity;
+					}
+					// Stock dispo = stock - commandes en cours
+					if (product.stock != null)  {
+						var availableStock = product.stock - totOrdersQt;
+						product.stock = availableStock;
+					}
 				}
 			}
 		}
