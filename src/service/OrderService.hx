@@ -116,6 +116,7 @@ class OrderService
 				// debug
 				var msg = "Nombre de distributions ouvertes à date de commande: " +distLeft;
 				App.current.session.addMessage(msg, true);
+				// end debug
 								
 					// Calculer le stock de la distri concernée
 					// Commande en cours dans la distri

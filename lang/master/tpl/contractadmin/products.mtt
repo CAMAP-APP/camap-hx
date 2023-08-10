@@ -62,11 +62,7 @@
 			i.checked = !value;
 		}
 	}
-
-	var getStock = function(cat,prod){
-		return service.ProductService.calculateStock(cat,prod);
-	}
-		
+				
 	</script>
 	
 	<form method="GET" class="products">
