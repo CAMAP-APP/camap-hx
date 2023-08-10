@@ -61,9 +61,8 @@
 		for ( i of inputs ) {
 			i.checked = !value;
 		}
-		
 	}
-	
+		
 	</script>
 	
 	<form method="GET" class="products">
@@ -108,15 +107,30 @@
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
 			::if c.hasStockManagement() ::
-				::if p.stock==null::
-					-
-				::else::
-					::if p.stock <= 10::
-						<span style="color:red;font-weight:bold;">							
-							::p.stock::
-						</span>
+				::if c.isConstantOrdersCatalog() ::
+					::if p.stock==null::
+						-
 					::else::
-						::p.stock::
+						::if p.stock <= 10::
+							<span style="color:red;font-weight:bold;">							
+								::p.stock::
+							</span>
+						::else::
+							::p.stock::
+						::end::
+					::end::
+				::end::
+				::if c.isVariableOrdersCatalog() ::
+					::if p.stock==null::
+						-
+					::else::
+						::if p.stock <= 10::
+							<span style="color:red;font-weight:bold;">							
+								::p.stock::
+							</span>
+						::else::
+							::p.stock::
+						::end::
 					::end::
 				::end::
 			::end::

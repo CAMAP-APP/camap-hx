@@ -112,9 +112,9 @@ class ProductService{
 				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
 				// Si distri > 0
 				if (distLeft > 0) {
-					stock.label = "Stock par distribution (pour " +distLeft+ " distributions ouvertes)";				 
+					stock.label = "Stock par distribution ("+distLeft+ " distributions ouvertes)";				 
 					if(product.stock!=null){
-						stock.value = Math.floor( product.stock / distLeft );
+						stock.value = Math.floor( product.stock );
 					}
 				} 
 				// Sinon (pas distri planifiées)

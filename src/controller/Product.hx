@@ -33,18 +33,18 @@ class Product extends Controller
 
 			//manage stocks by distributions for CSA contracts
 			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				var now = Date.now();
-				var distribNum = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
-				//var distribNum = product.catalog.getDistribs(false).length;
-				//distribNum = distribNum == 0 ? 1 : distribNum;
-				product.stock = (f.getValueOf("stock"):Float) * distribNum;
+				
+				/* On arrête de calculer un stock total qui n'a pas de sens */
+				// var now = Date.now();
+				// var distribNum = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
+				// product.stock = (f.getValueOf("stock"):Float) * distribNum;
+				product.stock = (f.getValueOf("stock"):Float);
 			}
 			try{
 				ProductService.check(product);
 			}catch(e:tink.core.Error){
 				throw Error(sugoi.Web.getURI(),e.message);
 			}
-
 			app.event(EditProduct(product));
 			product.update();
 			throw Ok('/contractAdmin/products/'+product.catalog.id, t._("The product has been updated"));
