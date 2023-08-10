@@ -112,8 +112,7 @@
 			::if c.hasStockManagement() ::
 				::if p.stock!=null::
 					::set stock=p.stock::
-					::set actualOrders=getUserOrders(p)::
-					::for (actualOrder in actualOrders)::
+					::foreach actualOrder getUserOrders(p)::
 						::stock -= actualOrder.quantity::
 					::end::
 				::else::
