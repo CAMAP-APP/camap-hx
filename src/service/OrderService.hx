@@ -116,40 +116,7 @@ class OrderService
 				// debug
 				var msg = "Nombre de distributions ouvertes à date de commande: " +distLeft;
 				App.current.session.addMessage(msg, true);
-				/**
-					AMAP CLASSIQUE
-				**/
-				if (c.isConstantOrdersCatalog()) {
-					// si stock à 0 annuler commande
-					if (availableStockPerDistri == 0) {
-						if (App.current.session != null) {
-							App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
-						}
-						order.delete();					
-					} else if (availableStockPerDistri - quantity < 0) {
-					// si stock insuffisant, réduire et prévenir
-						var canceled = quantity - availableStockPerDistri;
-						order.quantity -= canceled;
-						order.update();
-						if (App.current.session != null) {
-							var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
-							App.current.session.addMessage(msg, true);
-						}
-						order.product.lock();
-						order.product.stock = 0;
-						order.product.update();
-					}else {
-					// si stock suffisant
-						order.product.lock();
-						order.product.stock -= quantity;
-						order.product.update();	
-					}
-				}
-				/**
-					AMAP VARIABLE
-				**/
-				if (c.isVariableOrdersCatalog()){
-					
+								
 					// Calculer le stock de la distri concernée
 					// Commande en cours dans la distri
 					var totOrdersQt :  Float = 0;
@@ -187,7 +154,7 @@ class OrderService
 						// order.product.stock -= quantity;
 						// order.product.update();	
 						//}
-				}
+				
 				
 				
 				
@@ -241,48 +208,7 @@ class OrderService
 			var c = order.product.catalog;
 			
 			if (c.hasStockManagement()) {
-				/**
-					AMAP CLASSIQUE
-				**/
-				if (c.isConstantOrdersCatalog()) {
-					if (newquantity < order.quantity) {
-
-						//on commande moins que prévu : incrément de stock						
-						order.product.lock();
-						order.product.stock +=  (order.quantity-newquantity);
-						e = StockMove({product:order.product, move:0 - (order.quantity-newquantity) });
-
-					}else {
-					
-						//on commande plus que prévu : décrément de stock
-						var addedquantity = newquantity - order.quantity;
-
-						if (order.product.stock - addedquantity < 0) {
-
-							//stock is not enough, reduce order
-							newquantity = order.quantity + order.product.stock;
-							if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);
-
-							e = StockMove({product:order.product, move: 0 - order.product.stock });
-
-							order.product.lock();
-							order.product.stock = 0;
-
-						}else{
-
-							//stock is big enough
-							order.product.lock();
-							order.product.stock -= addedquantity;
-
-							e = StockMove({ product:order.product, move: 0 - addedquantity });
-						}					
-					}
-					order.product.update();
-				}
-				/**
-					AMAP VARIABLE
-				**/
-				if (c.isVariableOrdersCatalog()){
+				
 					var totOrdersQt : Float = 0;
 					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 					for (actualOrder in actualOrders) {
@@ -320,7 +246,7 @@ class OrderService
 						}					
 					}
 					// order.product.update();	
-				}	
+					
 			}	
 		}
 
