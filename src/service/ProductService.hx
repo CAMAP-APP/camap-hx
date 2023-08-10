@@ -154,6 +154,7 @@ class ProductService{
 	/**
 		Calcul le stock disponible d'un produit pour une distribution
 	**/
+	/* DESACTIVEE CAR INUTILISEE 
 	public static function calculateStock(catalog:db.Catalog, product:db.Product):Float {
 		if (catalog.hasStockManagement()) {
 			var now = Date.now();
@@ -174,4 +175,5 @@ class ProductService{
 			return null;
 		}
 	}
+	*/
 }
