@@ -163,9 +163,9 @@ class ContractAdmin extends Controller
 		/**
 			Gestion affichage Stock restant
 		**/
-		if (c.hasStockManagement()) {
+		if (contract.hasStockManagement()) {
 			var now = Date.now();
-			var nextDistrib = db.Distribution.manager.search(( $orderEndDate > now && $catalogId==c.id), { limit:1});
+			var nextDistrib = db.Distribution.manager.search(( $orderEndDate > now && $catalogId==contract.id), { limit:1});
 			view.nextDist = nextDistrib;
 		}
 		
