@@ -159,6 +159,22 @@ class ContractAdmin extends Controller
 		view.nav.push("products");
 		sendNav(contract);
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
+		if (contract.hasStockManagement()) {
+			var now = Date.now();
+			var totOrdersQt : Float = 0;
+			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==contract.id),{orderBy:orderEndDate}).array();
+			for (product in contract.getProducts(false)){
+				var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
+				for (actualOrder in actualOrders) {
+					totOrdersQt += actualOrder.quantity;
+				}
+				// Stock dispo = stock - commandes en cours
+				if (product.stock != null)  {
+					var availableStock = product.stock - totOrdersQt;
+					product.stock = availableStock;
+				}
+			}
+		}
 		view.c = contract;
 		// batch enable / disable products
 		if (args != null){
