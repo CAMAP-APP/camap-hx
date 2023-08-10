@@ -150,28 +150,28 @@ class ProductService{
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
 		}
 	}
-}
 
-/**
-	Calcul le stock disponible d'un produit pour une distribution
-**/
-public static function calculateStock (catalog:db.Catalog, product;db.Product):Float {
-	if (catalog.hasStockManagement()) {
-		var now = Date.now();
-		var nextDistrib = db.Distribution.manager.search(( \$orderEndDate > now && \$catalogId==catalog.id), { limit:1});
-		var totOrdersQt : Float = 0;
-		var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==distribution.id, true);
-		for (actualOrder in actualOrders) {
-			totOrdersQt += actualOrder.quantity;
-		}
-		// Stock dispo = stock - commandes en cours
-		if (product.stock != null)  {
-			var availableStock = product.stock - totOrdersQt;
-			return availableStock;
+	/**
+		Calcul le stock disponible d'un produit pour une distribution
+	**/
+	public static function calculateStock (catalog:db.Catalog, product;db.Product):Float {
+		if (catalog.hasStockManagement()) {
+			var now = Date.now();
+			var nextDistrib = db.Distribution.manager.search(( \$orderEndDate > now && \$catalogId==catalog.id), { limit:1});
+			var totOrdersQt : Float = 0;
+			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==distribution.id, true);
+			for (actualOrder in actualOrders) {
+				totOrdersQt += actualOrder.quantity;
+			}
+			// Stock dispo = stock - commandes en cours
+			if (product.stock != null)  {
+				var availableStock = product.stock - totOrdersQt;
+				return availableStock;
+			} else {
+				return null;
+			}
 		} else {
 			return null;
 		}
-	} else {
-		return null;
 	}
 }
