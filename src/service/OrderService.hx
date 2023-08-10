@@ -283,8 +283,8 @@ class OrderService
 					AMAP VARIABLE
 				**/
 				if (c.isVariableOrdersCatalog()){
-					var totOrdersQt = 0;
-					var actualOrders = db.UserOrder.manager.search($product==product && $user!=user && $distributionId==distribId, true);
+					var totOrdersQt;
+					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
 					}
