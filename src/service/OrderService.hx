@@ -265,7 +265,7 @@ class OrderService
 		if(o.distribution==null) throw new Error( "cant record an order which is not linked to a distribution");
 		if(o.basket==null) throw new Error( "this order should have a basket" );
 
-		App.current.event(e);	
+		// App.current.event(e);	
 
 		return order;
 	}
