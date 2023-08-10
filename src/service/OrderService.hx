@@ -149,10 +149,17 @@ class OrderService
 					AMAP VARIABLE
 				**/
 				if (c.isVariableOrdersCatalog()){
+					
 					// Calculer le stock de la distri concernée
-					var actualOrders = db.UserOrder.manager.sum($product==product && $user!=user && $distributionId==distribId, true);
-					var availableStockPerDistri = order.product.stock - actualOrders;
-					// SELECT sum(quantity) FROM UserOrder where productId = 495 and distributionId = 885
+					// Commande en cours dans la distri
+					var totOrdersQt = 0;
+					var actualOrders = db.UserOrder.manager.search($product==product && $user!=user && $distributionId==distribId, true);
+					for (actualOrder in actualOrders) {
+						totOrdersQt += actualOrder.quantity;
+					}
+					// Stock dispo = stock - commandes en cours
+					var availableStockPerDistri = order.product.stock - totOrdersQt;
+					
 					// si stock à 0 annuler commande
 					if (availableStockPerDistri == 0) {
 						if (App.current.session != null) {
@@ -276,8 +283,13 @@ class OrderService
 					AMAP VARIABLE
 				**/
 				if (c.isVariableOrdersCatalog()){
-					var actualOrders = db.UserOrder.manager.sum($product==product && $user!=user && $distributionId==distribId, true);
-					var availableStockPerDistri = order.product.stock - actualOrders;
+					var totOrdersQt = 0;
+					var actualOrders = db.UserOrder.manager.search($product==product && $user!=user && $distributionId==distribId, true);
+					for (actualOrder in actualOrders) {
+						totOrdersQt += actualOrder.quantity;
+					}
+					// Stock dispo = stock - commandes en cours
+					var availableStockPerDistri = order.product.stock - totOrdersQt;
 					if (newquantity < order.quantity) {
 
 						//on commande moins que prévu
