@@ -157,8 +157,8 @@ class ProductService{
 	public static function calculateStock (catalog:db.Catalog, product:db.Product):Float {
 		if (catalog.hasStockManagement()) {
 			var now = Date.now();
-			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==catalog.id),{orderBy:orderEndDate}).array();
 			var totOrdersQt : Float = 0;
+			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==catalog.id),{orderBy:orderEndDate}).array();
 			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
 			for (actualOrder in actualOrders) {
 				totOrdersQt += actualOrder.quantity;
