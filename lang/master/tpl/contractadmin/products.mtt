@@ -108,10 +108,7 @@
 			<td>
 			::if c.hasStockManagement() ::
 				::if p.stock!=null::
-					::set stock=p.stock::
-					::foreach actualOrder db.UserOrder.manager.search($product==product && $distributionId==nextDist.id, true);::
-						::stock = stock - actualOrder.quantity::
-					::end::
+					::set stock=calculateStock (c,p)::
 				::else::
 					::set stock=null::
 				::end::
