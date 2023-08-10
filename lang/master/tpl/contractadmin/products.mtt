@@ -108,7 +108,7 @@
 			<td>
 			::if c.hasStockManagement() ::
 				::if p.stock!=null::
-					::set stock=ProductService.calculateStock (c,p)::
+					::set stock=service.ProductService.calculateStock (c,p)::
 				::else::
 					::set stock=null::
 				::end::
