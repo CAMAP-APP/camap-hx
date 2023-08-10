@@ -62,6 +62,10 @@
 			i.checked = !value;
 		}
 	}
+
+	var getStock = function(cat,prod){
+		return service.ProductService.calculateStock(cat,prod);
+	}
 		
 	</script>
 	
@@ -108,7 +112,7 @@
 			<td>
 			::if c.hasStockManagement() ::
 				::if p.stock!=null::
-					::set stock=service.ProductService.calculateStock(c,p)::
+					::set stock=getStock(c,p)::
 				::else::
 					::set stock=null::
 				::end::
