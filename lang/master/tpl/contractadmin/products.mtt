@@ -62,7 +62,10 @@
 			i.checked = !value;
 		}
 	}
-		
+	var getUserOrders = function(product){
+		return db.UserOrder.manager.search($product==product && $distributionId==nextDist.id, true);
+	}
+	
 	</script>
 	
 	<form method="GET" class="products">
@@ -109,7 +112,7 @@
 			::if c.hasStockManagement() ::
 				::if p.stock!=null::
 					::set stock=p.stock::
-					::set actualOrders=db.UserOrder.manager.search($product==p && $distributionId==nextDist.id, true)::
+					::set actualOrders=getUserOrders(p)::
 					::for (actualOrder in actualOrders)::
 						::stock -= actualOrder.quantity::
 					::end::
