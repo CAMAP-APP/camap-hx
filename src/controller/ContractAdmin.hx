@@ -165,7 +165,7 @@ class ContractAdmin extends Controller
 		**/
 		if (contract.hasStockManagement()) {
 			var now = Date.now();
-			var nextDistrib = db.Distribution.manager.search(( $orderEndDate > now && $catalogId==contract.id), { limit:1});
+			var nextDistrib = db.Distribution.manager.search(( \$orderEndDate > now && \$catalogId==contract.id), { limit:1});
 			view.nextDist = nextDistrib;
 		}
 		
