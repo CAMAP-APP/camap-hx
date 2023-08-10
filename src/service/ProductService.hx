@@ -159,7 +159,7 @@ class ProductService{
 			var now = Date.now();
 			var nextDistrib = db.Distribution.manager.search(( $orderEndDate > now && $catalogId==catalog.id), { limit:1});
 			var totOrdersQt : Float = 0;
-			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==distribution.id, true);
+			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistrib.id, true);
 			for (actualOrder in actualOrders) {
 				totOrdersQt += actualOrder.quantity;
 			}
