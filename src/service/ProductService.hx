@@ -154,7 +154,7 @@ class ProductService{
 	/**
 		Calcul le stock disponible d'un produit pour une distribution
 	**/
-	public static function calculateStock (catalog:db.Catalog, product;db.Product):Float {
+	public static function calculateStock (catalog:db.Catalog, product:db.Product):Float {
 		if (catalog.hasStockManagement()) {
 			var now = Date.now();
 			var nextDistrib = db.Distribution.manager.search(( \$orderEndDate > now && \$catalogId==catalog.id), { limit:1});
