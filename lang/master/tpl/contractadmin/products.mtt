@@ -113,7 +113,7 @@
 				::if p.stock!=null::
 					::set stock=p.stock::
 					::foreach actualOrder getUserOrders(p)::
-						::stock -= actualOrder.quantity::
+						::stock = stock - actualOrder.quantity::
 					::end::
 				::else::
 					::set stock=null::
