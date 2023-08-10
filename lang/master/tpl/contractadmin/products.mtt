@@ -87,6 +87,7 @@
 		::else::
 		::set opacity=1::
 		::end::
+		
 		<tr style="opacity: ::opacity::" onclick="/*clickRow(this)*/">
 			<td>
 				<input type="checkbox" name="checkbox" value="::p.id::" />
@@ -111,20 +112,15 @@
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
 			::if c.hasStockManagement() ::
-				::if p.stock!=null::
-					::set stock=getStock(c,p)::
-				::else::
-					::set stock=null::
-				::end::
-				::if stock==null::
+				::if p.stock==null::
 					-
 				::else::
-					::if stock <= 10::
+					::if p.stock <= 10::
 						<span style="color:red;font-weight:bold;">							
-							::stock::
+							::p.stock::
 						</span>
 					::else::
-						::stock::
+						::p.stock::
 					::end::
 				::end::
 			::end::
