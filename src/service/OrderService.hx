@@ -197,7 +197,7 @@ class OrderService
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, reduce order
 							newquantity = order.quantity + availableStock;
-							throw new Error(sugoi.Web.getURI(),t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}));
+							throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
 							if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);		
 					}
 			}	
