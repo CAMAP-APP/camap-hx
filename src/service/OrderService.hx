@@ -188,7 +188,7 @@ class OrderService
 			
 			if (c.hasStockManagement()) {
 					var totOrdersQt : Float = 0;
-					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
+					var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $user!=order.user && $distributionId==order.distribution.id, true);
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
 					}
@@ -197,6 +197,7 @@ class OrderService
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, reduce order
 							newquantity = order.quantity + availableStock;
+							throw Error(sugoi.Web.getURI(),t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}));
 							if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);		
 					}
 			}	
