@@ -3,7 +3,6 @@ import Common;
 import db.MultiDistrib;
 import db.Basket;
 import db.Basket.BasketStatus;
-import sugoi.form.Form;
 import tink.core.Error;
 
 
@@ -130,12 +129,16 @@ class OrderService
 						// throw new Error( 'Erreur: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');
 						// App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					// }
-					order.delete();
-					throw  Error( sugoi.Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
+					order.quantity = 0;
+					order.update();
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
+					var canceled = quantity - availableStock;
+					order.quantity -= canceled;
+					order.update();
 					// order.delete();
-					throw new Error( sugoi.Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 					// var canceled = quantity - availableStock;
 					// order.quantity -= canceled;
 					// order.update();
