@@ -129,11 +129,11 @@ class OrderService
 						// App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					// }
 					order.delete();
-					throw new Error(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}));
+					throw new Error( 'Erreur: ${dateToString(order.distribution.date)}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
 					order.delete();
-					throw new Error( 'Erreur: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
+					throw new Error( 'Erreur: ${dateToString(order.distribution.date)}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 					// var canceled = quantity - availableStock;
 					// order.quantity -= canceled;
 					// order.update();
