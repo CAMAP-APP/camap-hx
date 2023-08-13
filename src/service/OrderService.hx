@@ -199,8 +199,8 @@ class OrderService
 					var availableStock = order.product.stock - totOrdersQt;
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, cancel
-							throw new Error( 'Erreur: le stock de "${order.product.name}" n\'est pas suffisant, vous ne pouvez commander plus de "${availableStock}" "${order.product.name}"');
-							newquantity = order.quantity + availableStock;
+							throw new Error( 'Erreur: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');
+							// newquantity = order.quantity + availableStock;
 							// throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
 							// throw Ok(Web.getURI(), t._("The group has been updated."));
 							// if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);		
