@@ -124,21 +124,24 @@ class OrderService
 				
 				// si stock à 0 annuler commande
 				if (availableStock == 0) {
-					if (App.current.session != null) {
-						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
-						throw t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name});
-					}
-					order.delete();					
+					//if (App.current.session != null) {
+						// throw new Error( 'Erreur: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');
+						// App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
+					// }
+					order.delete();
+					throw new Error(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}));
 				} else if (availableStock - quantity < 0) {
-				// si stock insuffisant, réduire commande
-					var canceled = quantity - availableStock;
-					order.quantity -= canceled;
-					order.update();
-					if (App.current.session != null) {
-						var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
-						App.current.session.addMessage(msg, true);
-						throw msg;
-					}
+				// si stock insuffisant, cancel
+					order.delete();
+					throw new Error( 'Erreur: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
+					// var canceled = quantity - availableStock;
+					// order.quantity -= canceled;
+					// order.update();
+					// if (App.current.session != null) {
+					//	var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
+					//	App.current.session.addMessage(msg, true);
+					//	throw msg;
+					//}
 				}
 			}	
 		}
