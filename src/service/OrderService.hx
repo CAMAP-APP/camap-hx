@@ -210,6 +210,9 @@ class OrderService
 					var availableStock = order.product.stock - totOrdersQt;
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, cancel
+							newquantity = order.quantity + availableStock;
+							order.quantity = newquantity;
+							order.update();
 							Web.redirect(Web.getURI()+"?reload=1");
 							throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 							// newquantity = order.quantity + availableStock;
