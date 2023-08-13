@@ -131,7 +131,7 @@ class OrderService
 						// App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
 					// }
 					order.delete();
-					throw new Error( sugoi.Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
+					throw  Error( sugoi.Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
 					// order.delete();
