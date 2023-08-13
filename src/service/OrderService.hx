@@ -126,6 +126,7 @@ class OrderService
 				if (availableStock == 0) {
 					if (App.current.session != null) {
 						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
+						throw t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name});
 					}
 					order.delete();					
 				} else if (availableStock - quantity < 0) {
@@ -136,6 +137,7 @@ class OrderService
 					if (App.current.session != null) {
 						var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
 						App.current.session.addMessage(msg, true);
+						throw msg;
 					}
 				}
 			}	
@@ -188,10 +190,11 @@ class OrderService
 			
 			if (c.hasStockManagement()) {
 					var totOrdersQt : Float = 0;
-					var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $user!=order.user && $distributionId==order.distribution.id, true);
+					var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $distributionId==order.distribution.id, true);
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
 					}
+					totOrdersQt -= order.quantity;
 					// Stock dispo = stock - commandes en cours
 					var availableStock = order.product.stock - totOrdersQt;
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
