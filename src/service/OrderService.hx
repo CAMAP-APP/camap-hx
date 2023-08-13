@@ -4,6 +4,7 @@ import db.MultiDistrib;
 import db.Basket;
 import db.Basket.BasketStatus;
 import tink.core.Error;
+import sugoi.Web;
 
 /**
  * Order Service 
@@ -200,7 +201,8 @@ class OrderService
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, reduce order
 							newquantity = order.quantity + availableStock;
-							throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
+							// throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
+							throw Ok(Web.getURI(), t._("The group has been updated."));
 							if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);		
 					}
 			}	
