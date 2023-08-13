@@ -131,6 +131,7 @@ class OrderService
 					// }
 					order.quantity = 0;
 					order.update();
+					Web.redirect(Web.getURI()+"?reload=1");
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
@@ -207,7 +208,7 @@ class OrderService
 					var availableStock = order.product.stock - totOrdersQt;
 					if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 							//stock is not enough, cancel
-							throw new Error( 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');
+							throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 							// newquantity = order.quantity + availableStock;
 							// throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
 							// throw Ok(Web.getURI(), t._("The group has been updated."));
