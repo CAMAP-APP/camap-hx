@@ -5,7 +5,7 @@ import db.Basket;
 import db.Basket.BasketStatus;
 import tink.core.Error;
 import sugoi.Web;
-import controller;
+import controller.Main;
 
 
 /**
@@ -216,7 +216,7 @@ class OrderService
 							order.update();
 							Web.redirect(Web.getURI()+"?reload=1");
 							// throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
-							controller.throw Error(Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+							controller.Main.throw Error(Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 							// newquantity = order.quantity + availableStock;
 							// throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
 							// throw Ok(Web.getURI(), t._("The group has been updated."));
