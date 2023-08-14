@@ -163,6 +163,7 @@ class ContractAdmin extends Controller
 			var now = Date.now();
 			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==contract.id),{orderBy:orderEndDate}).array();
 			if (nextDistribs[0] != null){
+				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
 				// debug
 				var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
 				App.current.session.addMessage(msg, true);
