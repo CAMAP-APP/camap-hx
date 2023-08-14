@@ -747,6 +747,7 @@ class OrderService
 				// Edit existing order
 				try {
 					var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
+					if ( updatedOrder != null ) orders.push( updatedOrder );
 				} catch (e: tink.core.Error) {
 					var msg = e.message;
 					App.current.session.addMessage(msg, true);	
