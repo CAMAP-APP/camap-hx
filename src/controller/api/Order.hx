@@ -93,8 +93,7 @@ class Order extends Controller
 		try {
 			OrderService.createOrUpdateOrders( user, multiDistrib, catalog, ordersData );
 		} catch(e:tink.core.Error) {
-			var msg = e.message;
-			App.current.session.addMessage(msg, true);
+			throw e;
 		}	
 		Sys.print( Json.stringify( { success : true, orders : ordersData } ) );
 
