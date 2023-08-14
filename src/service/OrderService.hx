@@ -5,9 +5,6 @@ import db.Basket;
 import db.Basket.BasketStatus;
 import tink.core.Error;
 import sugoi.Web;
-import controller.Api;
-import haxe.Json;
-import neko.Web;
 
 
 /**
@@ -135,7 +132,7 @@ class OrderService
 					// }
 					order.quantity = 0;
 					order.update();
-					Web.redirect(Web.getURI()+"?reload=1");
+					// Web.redirect(Web.getURI()+"?reload=1");
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
@@ -143,7 +140,7 @@ class OrderService
 					order.quantity -= canceled;
 					order.update();
 					// order.delete();
-					Web.redirect(Web.getURI()+"?reload=1");
+					// Web.redirect(Web.getURI()+"?reload=1");
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 					// var canceled = quantity - availableStock;
 					// order.quantity -= canceled;
@@ -216,9 +213,9 @@ class OrderService
 							newquantity = order.quantity + availableStock;
 							order.quantity = newquantity;
 							order.update();
-							Web.redirect(Web.getURI()+"?reload=1");
-							// throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
-							throw Error(Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+							// Web.redirect(Web.getURI()+"?reload=1");
+							throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+							// throw Error(Web.getURI(),'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 							// newquantity = order.quantity + availableStock;
 							// throw t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity});
 							// throw Ok(Web.getURI(), t._("The group has been updated."));
