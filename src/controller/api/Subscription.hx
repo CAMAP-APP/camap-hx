@@ -75,8 +75,9 @@ class Subscription extends Controller
                         try {
 							OrderService.make( sub.user, order.qty, p , d.id , null, sub );
 						} catch(e:tink.core.Error) {
-							var msg = e.message;
-							App.current.session.addMessage(msg, true);	
+							// var msg = e.message;
+							// App.current.session.addMessage(msg, true);	
+							throw e;
 						}	
                     }else{
                         if(p.multiWeight){
@@ -85,8 +86,9 @@ class Subscription extends Controller
                             try {
 								OrderService.edit( prevOrder, order.qty );
 							} catch(e:tink.core.Error) {
-								var msg = e.message;
-								App.current.session.addMessage(msg, true);	
+								// var msg = e.message;
+								// App.current.session.addMessage(msg, true);	
+								throw e;
 							}
                         }
                     }
