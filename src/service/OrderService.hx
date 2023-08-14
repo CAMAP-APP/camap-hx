@@ -745,7 +745,12 @@ class OrderService
 			if ( existingOrder != null ) {
 
 				// Edit existing order
-				var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
+				try {
+					var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
+				} catch (e: tink.core.Error) {
+					var msg = e.message;
+					App.current.session.addMessage(msg, true);	
+				}
 				if ( updatedOrder != null ) orders.push( updatedOrder );
 			} else {
 
@@ -765,7 +770,12 @@ class OrderService
 				}
 				if ( subscription == null ) { throw new Error('Il n\'y a pas de souscription pour cette personne. Vous devez d\'abord créer une souscription avant de commander.'); }
 
-				newOrder =  OrderService.make( user, order.qt , product, distrib == null ? null : distrib.id, order.paid, subscription );
+				try {
+					newOrder =  OrderService.make( user, order.qt , product, distrib == null ? null : distrib.id, order.paid, subscription );
+				} catch (e: tink.core.Error) {
+					var msg = e.message;
+					App.current.session.addMessage(msg, true);	
+				}
 
 				if ( catalog == null && subscriptions.find( x -> x.id == subscription.id ) == null ) {
 					subscriptions.push( subscription );
