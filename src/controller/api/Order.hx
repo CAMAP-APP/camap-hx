@@ -90,11 +90,8 @@ class Order extends Controller
 		} else {
 			ordersData = haxe.Json.parse(raw).orders;
 		}
-		try {
-			OrderService.createOrUpdateOrders( user, multiDistrib, catalog, ordersData );
-		} catch(e:tink.core.Error) {
-			throw e;
-		}	
+		OrderService.createOrUpdateOrders( user, multiDistrib, catalog, ordersData );
+		
 		Sys.print( Json.stringify( { success : true, orders : ordersData } ) );
 
 	}
