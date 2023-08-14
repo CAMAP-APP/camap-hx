@@ -94,7 +94,8 @@ class Order extends Controller
 			OrderService.createOrUpdateOrders( user, multiDistrib, catalog, ordersData );
 		} catch(e:tink.core.Error) {
 			var msg = e.message;
-			App.current.session.addMessage(msg, true);	
+			// App.current.session.addMessage(msg, true);
+			throw Error(sugoi.Web.getURI(),msg);
 		}	
 		Sys.print( Json.stringify( { success : true, orders : ordersData } ) );
 
