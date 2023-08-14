@@ -72,12 +72,22 @@ class Subscription extends Controller
                     
                     var prevOrder = db.UserOrder.manager.select($product==p && $user==sub.user && $distributionId==d.id, true);
                     if(prevOrder==null){
-                        OrderService.make( sub.user, order.qty, p , d.id , null, sub );
+                        try {
+							OrderService.make( sub.user, order.qty, p , d.id , null, sub );
+						} catch(e:tink.core.Error) {
+							var msg = e.message;
+							App.current.session.addMessage(msg, true);	
+						}	
                     }else{
                         if(p.multiWeight){
                             OrderService.editMultiWeight( prevOrder, order.qty );
                         }else{
-                            OrderService.edit( prevOrder, order.qty );
+                            try {
+								OrderService.edit( prevOrder, order.qty );
+							} catch(e:tink.core.Error) {
+								var msg = e.message;
+								App.current.session.addMessage(msg, true);	
+							}
                         }
                     }
                 }
