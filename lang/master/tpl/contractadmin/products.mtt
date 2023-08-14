@@ -73,7 +73,11 @@
 			<th>::_("Product ID||id or reference of a product")::</th>
 			<th>::_("Name")::</th>			
 			<th>::_("Price")::</th>			
-			<th>::if c.hasStockManagement():: ::_("Stock"):: ::end::</th>
+			<th>
+				::if c.hasStockManagement()::
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock"):: 
+				::end::
+			</th>
 			<th></th>
 		</tr>
 		::foreach p c.getProducts(false)::
