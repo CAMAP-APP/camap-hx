@@ -128,7 +128,7 @@ class OrderService
 				if (availableStock == 0) {
 					order.quantity = 0;
 					order.update();
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
 				} else if (availableStock - quantity < 0) {
 				// si stock insuffisant, cancel
 					var canceled = quantity - availableStock;
@@ -193,9 +193,9 @@ class OrderService
 				totOrdersQt -= order.quantity;
 				// Stock dispo = stock - commandes en cours
 				var availableStock = order.product.stock - totOrdersQt;
-				if (availableStock == 0) {
+				if (availableStock == 0 && newquantity != 0) {
 					newquantity = 0;
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé, vous ne pouvez en commander');	
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
 				} else if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 						//stock is not enough, cancel
 						newquantity = availableStock;
