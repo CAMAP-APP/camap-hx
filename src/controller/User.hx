@@ -283,9 +283,9 @@ class User extends Controller
 		var catalogs = db.Catalog.getActiveContracts (group, true);
 		if (catalogs != null) {
 			for (catalog in catalogs){
-				var distribs = db.Distribution.manager.search($catalogId = catalog.id);
+				var distribs = catalog.getDistribs(true);
 				for (d in distribs) {
-					var userOrders = db.Catalog.getUserOrders(user,d,true);
+					var userOrders = catalog.getUserOrders(user,d,true);
 					if (userOrders.length() > 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 				}
 			}
