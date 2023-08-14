@@ -165,8 +165,8 @@ class ContractAdmin extends Controller
 			if (nextDistribs[0] != null){
 				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
 				// debug
-				var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-				App.current.session.addMessage(msg, true);
+				// var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
+				// App.current.session.addMessage(msg, true);
 				// end debug
 				for (product in contract.getProducts(false)){
 					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
