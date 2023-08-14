@@ -286,7 +286,7 @@ class User extends Controller
 				var distribs = catalog.getDistribs(true);
 				for (d in distribs) {
 					var userOrders = catalog.getUserOrders(user,d,true);
-					if (userOrders.length() > 0){
+					if (userOrders.length > 0){
 						throw Error("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 					}
 				}
@@ -322,7 +322,7 @@ class User extends Controller
 				var distribs = catalog.getDistribs(true);
 				for (d in distribs) {
 					var userOrders = catalog.getUserOrders(app.user,d,true);
-					if (userOrders.length() > 0){
+					if (userOrders.length > 0){
 						throw Error("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 					}
 				}
