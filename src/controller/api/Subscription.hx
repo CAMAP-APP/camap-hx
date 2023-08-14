@@ -88,7 +88,7 @@ class Subscription extends Controller
 							} catch(e:tink.core.Error) {
 								// var msg = e.message;
 								// App.current.session.addMessage(msg, true);	
-								throw Error(msg);
+								throw Error(sugoi.Web.getURI(),msg);
 							}
                         }
                     }
