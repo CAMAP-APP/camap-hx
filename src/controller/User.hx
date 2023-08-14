@@ -9,6 +9,7 @@ import sugoi.form.elements.IntInput;
 import sugoi.form.elements.StringInput;
 import sugoi.form.validators.EmailValidator;
 import ufront.mail.*;
+import db.Catalog;
 
 class User extends Controller
 {
@@ -278,11 +279,11 @@ class User extends Controller
 		// chercher les catalogs actifs du groupe (y compris terminés depuis moins d'un mois)
 		// chercher les distributions de ces catalogues 
 		// puis vérifier si l'utilisateur a des commandes dans ces distribs
-		var catalogs = getActiveContracts (group, true);
+		var catalogs = db.Catalog.getActiveContracts (group, true);
 		var cids = Lambda.map(contracts, function(p) return p.id);
 		var distribs = db.Distribution.manager.search($catalogId in cids);
 		for (d in distribs) {
-			var userOrders = getUserOrders(user,d,true);
+			var userOrders = Distribution.getUserOrders(user,d,true);
 			if (userOrders.length() > 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 		}
 		var userGroup = db.UserGroup.get(user, group);
