@@ -291,6 +291,8 @@ class User extends Controller
 					}
 				}
 			}
+		} else {
+			throw Error("/","catalogs is null");
 		}
 		var userGroup = db.UserGroup.get(user, group);
 		if (userGroup.balance < 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car votre solde est négatif.\nVeuillez contacter un responsable du groupe pour plus d'information.");
