@@ -280,10 +280,10 @@ class User extends Controller
 		// chercher les distributions de ces catalogues 
 		// puis vérifier si l'utilisateur a des commandes dans ces distribs
 		var catalogs = db.Catalog.getActiveContracts (group, true);
-		var cids = Lambda.map(contracts, function(p) return p.id);
+		var cids = Lambda.map(catalogs, function(p) return p.id);
 		var distribs = db.Distribution.manager.search($catalogId in cids);
 		for (d in distribs) {
-			var userOrders = Distribution.getUserOrders(user,d,true);
+			var userOrders = db.Distribution.getUserOrders(user,d,true);
 			if (userOrders.length() > 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 		}
 		var userGroup = db.UserGroup.get(user, group);
