@@ -748,11 +748,11 @@ class OrderService
 				try {
 					var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
 					if ( updatedOrder != null ) orders.push( updatedOrder );
-				} catch (e: tink.core.Error) {
+				} catch(e:tink.core.Error) {
 					var msg = e.message;
 					App.current.session.addMessage(msg, true);	
 				}
-				if ( updatedOrder != null ) orders.push( updatedOrder );
+				// if ( updatedOrder != null ) orders.push( updatedOrder );
 			} else {
 
 				// Insert new order
@@ -773,7 +773,7 @@ class OrderService
 
 				try {
 					newOrder =  OrderService.make( user, order.qt , product, distrib == null ? null : distrib.id, order.paid, subscription );
-				} catch (e: tink.core.Error) {
+				} catch(e:tink.core.Error) {
 					var msg = e.message;
 					App.current.session.addMessage(msg, true);	
 				}
