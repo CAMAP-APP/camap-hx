@@ -161,7 +161,7 @@ class ContractAdmin extends Controller
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
 		if (contract.hasStockManagement()) {
 			var now = Date.now();
-			var nextDistribs = db.Distribution.manager.search( ($orderEndDate => now && $catalogId==contract.id),{orderBy: date}).array();
+			var nextDistribs = db.Distribution.manager.search( ($orderEndDate >= now && $catalogId==contract.id),{orderBy: date}).array();
 			
 			if (nextDistribs[0] != null){
 				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
