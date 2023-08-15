@@ -123,8 +123,8 @@ class OrderService
 				}
 				// Stock dispo = stock - commandes en cours
 				availableStock -= totOrdersQt;
-				var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
-				App.current.session.addMessage (msg,true);
+				// var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
+				// App.current.session.addMessage (msg,true);
 				// si stock à 0 annuler commande
 				if (availableStock == 0) {
 					order.quantity = 0;
