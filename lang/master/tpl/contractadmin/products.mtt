@@ -111,7 +111,7 @@
 			</td>			
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
-			::if c.hasStockManagement() ::
+			::if (c.hasStockManagement() && stockDate != null)::
 				::if p.stock==null::
 					-
 				::else::
