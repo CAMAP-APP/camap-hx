@@ -116,22 +116,22 @@ class OrderService
 									
 				// Calculer le stock de la distri concernée
 				// Commande en cours dans la distri
-				var totOrdersQt :  Float = 0;
+				var totOrdersQt : Float = 0;
 				var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
 				}
 				// Stock dispo = stock - commandes en cours
-				var availableStock = order.product.stock - totOrdersQt;
-				
+				availableStock -= totOrdersQt;
+				App.current.session.addMessage ("stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock+, true);
 				// si stock à 0 annuler commande
 				if (availableStock == 0) {
 					order.quantity = 0;
 					order.update();
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
-				} else if (availableStock - quantity < 0) {
+				} else if (availableStock - order.quantity < 0) {
 				// si stock insuffisant, cancel
-					var canceled = quantity - availableStock;
+					var canceled = order.quantity - availableStock;
 					order.quantity -= canceled;
 					order.update();
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
