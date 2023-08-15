@@ -107,23 +107,22 @@ class ProductService{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			var now = Date.now();
-			// if(product.stock!=null){
-				//Nbre de distri ouvertes
-				var distLeft = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
-				// Si distri > 0
-				if (distLeft > 0) {
-					stock.label = "Stock par distribution ("+distLeft+ " distributions ouvertes)";				 
-					if(product.stock!=null){
-						stock.value = Math.floor( product.stock );
-					}
-				} 
-				// Sinon (pas distri planifiées)
-				else {
-				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
-				product.stock = null;
-				stock.value = product.stock;
-			    }
-			// }
+			//Nbre de distri restantes
+			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
+			// Si distri > 0
+			if (distLeft > 0) {
+				stock.label = "Stock par distribution ("+distLeft+ " distributions restantes)";				 
+				if(product.stock!=null){
+					stock.value = Math.floor( product.stock );
+				}
+			} 
+			// Sinon (pas distri planifiées)
+			else {
+			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
+			product.stock = null;
+			stock.value = product.stock;
+			}
+			
 		}
 			
 			

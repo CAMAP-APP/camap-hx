@@ -74,7 +74,7 @@
 			<th>::_("Name")::</th>			
 			<th>::_("Price")::</th>			
 			<th>
-				::if c.hasStockManagement()::
+				::if (c.hasStockManagement() && stockDate != null)::
 				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock"):: 
 				::end::
 			</th>
