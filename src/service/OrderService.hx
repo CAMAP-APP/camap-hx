@@ -133,7 +133,7 @@ class OrderService
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
 					if (App.config.DEBUG){
-						var msg='Commandes précédentes: ' +totOrdersQt+ 'pour l'utilisateur' +user.id;
+						var msg='Commandes précédentes: ' +totOrdersQt+ 'pour l\'utilisateur' +user.id;
 						App.current.session.addMessage (msg);
 					}
 				}
