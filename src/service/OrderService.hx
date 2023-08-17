@@ -122,9 +122,9 @@ class OrderService
 				// n'est pas cummulée dans la quantité totale (quantity), le controle de stock est donc inopérant
 				// il faut inclure les commande précédente du user
 				if (order.product.multiWeight) {
-					var actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
+					actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
 				} else {
-					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
+					actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 				}
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
