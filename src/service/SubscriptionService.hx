@@ -982,7 +982,7 @@ class SubscriptionService
 		try {
 			createRecurrentOrders( subscription, defaultOrders );
 		}catch(e:tink.core.Error) {
-			throw (e);
+			throw Error(sugoi.Web.getURI(),e.message);
 		}
 
 		//check if default Orders meet the catalog requirements
