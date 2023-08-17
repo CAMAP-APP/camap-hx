@@ -53,7 +53,12 @@ class OrderService
 			if ( !tools.FloatTool.isInt( quantity ) ) throw new Error( t._("multi-weighing products should be ordered only with integer quantities") );
 			var newOrder = null;
 			for ( i in 0...Math.round(quantity) ) {
-				newOrder = make( user, 1, product, distribId, paid, subscription, user2, invert, basket);
+				try{
+					newOrder = make( user, 1, product, distribId, paid, subscription, user2, invert, basket);
+				} catch(e:tink.core.Error) {
+					throw (e);
+				}
+			
 			}
 			return newOrder;
 		}
@@ -122,20 +127,20 @@ class OrderService
 				// n'est pas cummulée dans la quantité totale (quantity), le controle de stock est donc inopérant
 				// il faut inclure les commandes précédentes du user
 				if (order.product.multiWeight) {
-					if (App.config.DEBUG){
-						var msg="Multiweight";
-						App.current.session.addMessage (msg);
-					}
+					//if (App.config.DEBUG){
+					//	var msg="Multiweight";
+					//	App.current.session.addMessage (msg);
+					//}
 					actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
 				} else {
 					actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
 				}
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
-					if (App.config.DEBUG){
-						var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes présentes : ' +totOrdersQt+ ' ' +order.product.name+ 'pour l\'utilisateur' +user.id;
-						App.current.session.addMessage (msg);
-					}
+					//if (App.config.DEBUG){
+					//	var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes présentes : ' +totOrdersQt+ ' ' +order.product.name+ 'pour l\'utilisateur' +user.id;
+					//	App.current.session.addMessage (msg);
+					//}
 				}
 				// Stock dispo = stock - commandes en cours
 				if (order.product.multiWeight){
@@ -144,10 +149,12 @@ class OrderService
 				} else {
 					availableStock -= totOrdersQt;
 				}
-				if (App.config.DEBUG){
-					var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
-					App.current.session.addMessage (msg,true);
-				}
+				
+				//if (App.config.DEBUG){
+				//	var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
+				//	App.current.session.addMessage (msg,true);
+				//}
+
 				// si stock à 0 annuler commande
 				if (availableStock == 0) {
 					order.quantity = 0;
@@ -273,7 +280,11 @@ class OrderService
 						// orders.remove( orders[i] );
 					}
 				} else if ( quantityDiff > 0 ) {
-					make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
+					try {
+						make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
+					} catch(e:tink.core.Error) {
+						throw (e);
+					}
 					// for ( i in 0...quantityDiff ) {
 					// 	orders.push( make( order.user, 1, order.product, order.distribution.id, null, order.subscription ) );
 					// }
