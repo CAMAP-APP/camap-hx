@@ -113,6 +113,7 @@ class OrderService
 				var orderDate = order.distribution.date;
 				var now = Date.now();
 				var availableStock = order.product.stock;
+				var actualOrders : UserOrder;
 									
 				// Calculer le stock de la distri concernée
 				// Commande en cours dans la distri
