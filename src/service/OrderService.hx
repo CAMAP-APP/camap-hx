@@ -47,12 +47,11 @@ class OrderService
 		}
 		
 		//multiweight : make one row per product
+		
 		if ( product.multiWeight && quantity > 1.0 ) {
 
 			if ( !tools.FloatTool.isInt( quantity ) ) throw new Error( t._("multi-weighing products should be ordered only with integer quantities") );
-			
 			var newOrder = null;
-
 			for ( i in 0...Math.round(quantity) ) {
 				newOrder = make( user, 1, product, distribId, paid, subscription, user2, invert, basket);
 			}
@@ -107,6 +106,7 @@ class OrderService
 		order.insert();
 		
 		//Stocks
+
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			if (c.hasStockManagement()) {
@@ -117,7 +117,14 @@ class OrderService
 				// Calculer le stock de la distri concernée
 				// Commande en cours dans la distri
 				var totOrdersQt : Float = 0;
-				var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
+				// Attention: si multiweight, la quantité des commandes existantes de l'utilisateur
+				// n'est pas cummulée dans la quantité totale (quantity), le controle de stock est donc inopérant
+				// il faut inclure les commande précédente du user
+				if (order.product.multiWeight) {
+					var actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
+				} else {
+					var actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
+				}
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
 				}
