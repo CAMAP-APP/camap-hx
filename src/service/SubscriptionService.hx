@@ -914,8 +914,11 @@ class SubscriptionService
 						
 						invert = order.invertSharedOrder;
 					}
-					
-					var newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					try {
+						var newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					}catch(e:tink.core.Error) {
+						throw (e);
+					}
 					if ( newOrder != null ) orders.push( newOrder );
 				}
 			}
@@ -975,7 +978,11 @@ class SubscriptionService
 			}
 		}
 		
-		createRecurrentOrders( subscription, defaultOrders );
+		try {
+			createRecurrentOrders( subscription, defaultOrders );
+		}catch(e:tink.core.Error) {
+			throw (e);
+		}
 
 		//check if default Orders meet the catalog requirements
 		if( subscription.catalog.isVariableOrdersCatalog()){			
