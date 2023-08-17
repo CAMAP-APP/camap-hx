@@ -987,7 +987,7 @@ class SubscriptionService
 		try {
 			createRecurrentOrders( subscription, defaultOrders );
 		}catch(e:tink.core.Error) {
-			throw typedError.typed(e.message,OtherError);
+			throw TypedError.typed(e.message,OtherError);
 		}
 
 		//check if default Orders meet the catalog requirements
