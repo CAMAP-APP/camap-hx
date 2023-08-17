@@ -41,8 +41,11 @@ class Subscription extends Controller
 			}
 
             var ss = new SubscriptionService();
-            sub = ss.createSubscription(user,catalog,newSubData.defaultOrder,newSubData.absentDistribIds);
-            
+            try {
+				sub = ss.createSubscription(user,catalog,newSubData.defaultOrder,newSubData.absentDistribIds);
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
         }    
 
         getSubscription(sub);
