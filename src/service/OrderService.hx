@@ -280,10 +280,12 @@ class OrderService
 						// orders.remove( orders[i] );
 					}
 				} else if ( quantityDiff > 0 ) {
-					try {
-						make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
-					} catch(e:tink.core.Error) {
-						throw (e);
+					for ( i in 0...Math.round(quantity) ) {
+						try {
+							make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
+						} catch(e:tink.core.Error) {
+							throw (e);
+						}
 					}
 					// for ( i in 0...quantityDiff ) {
 					// 	orders.push( make( order.user, 1, order.product, order.distribution.id, null, order.subscription ) );
