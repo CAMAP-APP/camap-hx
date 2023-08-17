@@ -81,7 +81,11 @@ class Subscription extends Controller
 						}	
                     }else{
                         if(p.multiWeight){
-                            OrderService.editMultiWeight( prevOrder, order.qty );
+                           try {
+							OrderService.editMultiWeight( prevOrder, order.qty );
+						   } catch(e:tink.core.Error) {
+								throw e;
+							}	 
                         }else{
                             try {
 								OrderService.edit( prevOrder, order.qty );
