@@ -914,8 +914,9 @@ class SubscriptionService
 						
 						invert = order.invertSharedOrder;
 					}
+					var newOrder=null;
 					try {
-						var newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
 					}catch(e:tink.core.Error) {
 						throw (e);
 					}
