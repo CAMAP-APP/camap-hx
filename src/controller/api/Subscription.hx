@@ -149,7 +149,13 @@ class Subscription extends Controller
             //build ordersByDistrib
             var distribs = db.Distribution.manager.search( $catalog == catalog && $date >= SubscriptionService.getNewSubscriptionStartDate( catalog ) );
             var ordersByDistrib = new Map<db.Distribution,Array<CSAOrder>>();
-            for( d in distribs) ordersByDistrib.set(d,defaultOrder);
+            for( d in distribs){
+				try{
+					ordersByDistrib.set(d,defaultOrder);
+				}catch(e:tink.core.Error) {
+					throw (e);
+				}
+			}
 
             if(SubscriptionService.checkVarOrders(ordersByDistrib)){
                 json({defaultOrderCheck:true});
