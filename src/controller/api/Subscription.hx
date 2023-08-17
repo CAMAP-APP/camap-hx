@@ -81,15 +81,15 @@ class Subscription extends Controller
 						}	
                     }else{
                         if(p.multiWeight){
-                           try {
-							OrderService.editMultiWeight( prevOrder, order.qty );
-						   } catch(e:tink.core.Error) {
+                        	try{
+								OrderService.editMultiWeight( prevOrder, order.qty );
+						    }catch(e:tink.core.Error) {
 								throw e;
 							}	 
                         }else{
                             try {
 								OrderService.edit( prevOrder, order.qty );
-							} catch(e:tink.core.Error) {
+							}catch(e:tink.core.Error) {
 								// var msg = e.message;
 								// App.current.session.addMessage(msg, true);	
 								throw e;
@@ -119,7 +119,11 @@ class Subscription extends Controller
             }
 
             var ss = new SubscriptionService();
-            ss.updateDefaultOrders(sub, updateDefaultOrderData);
+            try {
+				ss.updateDefaultOrders(sub, updateDefaultOrderData);
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
             
         }    
 

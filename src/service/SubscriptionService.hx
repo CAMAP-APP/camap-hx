@@ -658,7 +658,11 @@ class SubscriptionService
 
 		if(catalog.hasDefaultOrdersManagement()){	
 			//default orders is used only in constant orders, or variable orders with distribMinOrdersTotal
-			this.updateDefaultOrders( subscription, ordersData );
+			try {
+				this.updateDefaultOrders( subscription, ordersData );
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
 		}
 		
 		//Email notification
@@ -918,7 +922,7 @@ class SubscriptionService
 					try {
 						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
 					}catch(e:tink.core.Error) {
-						throw (e);
+						throw new Error(e.message);
 					}
 					if ( newOrder != null ) orders.push( newOrder );
 				}
@@ -982,7 +986,7 @@ class SubscriptionService
 		try {
 			createRecurrentOrders( subscription, defaultOrders );
 		}catch(e:tink.core.Error) {
-			throw TypedError.typed(sugoi.Web.getURI(),e.message);
+			throw new Error(e.message);
 		}
 
 		//check if default Orders meet the catalog requirements
