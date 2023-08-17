@@ -17,6 +17,7 @@ enum SubscriptionServiceError {
 	OverlappingSubscription;
 	InvalidParameters;
 	CatalogRequirementsNotMet;
+	OtherError;
 }
 
 typedef CSAOrder = { productId:Int, productPrice:Float, quantity:Float, ?userId2:Int, ?invertSharedOrder:Bool }
@@ -986,7 +987,7 @@ class SubscriptionService
 		try {
 			createRecurrentOrders( subscription, defaultOrders );
 		}catch(e:tink.core.Error) {
-			throw new Error(e.message);
+			throw typedError(e.message,OtherError);
 		}
 
 		//check if default Orders meet the catalog requirements
