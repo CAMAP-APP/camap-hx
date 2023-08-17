@@ -133,12 +133,17 @@ class OrderService
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
 					if (App.config.DEBUG){
-						var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes précédentes du: ' +totOrdersQt+ 'pour l\'utilisateur' +user.id;
+						var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes présentes : ' +totOrdersQt+ ' ' +order.product.name+ 'pour l\'utilisateur' +user.id;
 						App.current.session.addMessage (msg);
 					}
 				}
 				// Stock dispo = stock - commandes en cours
-				availableStock -= totOrdersQt;
+				if (order.product.multiWeight){
+					totOrdersQt -= quantity;
+					availableStock -= totOrdersQt;
+				} else {
+					availableStock -= totOrdersQt;
+				}
 				if (App.config.DEBUG){
 					var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
 					App.current.session.addMessage (msg,true);
