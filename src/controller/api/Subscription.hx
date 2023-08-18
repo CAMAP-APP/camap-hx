@@ -129,7 +129,7 @@ class Subscription extends Controller
 				ss.updateDefaultOrders(sub, updateDefaultOrderData);
 			}catch(e:tink.core.Error) {
 				//throw (e);
-				throw TypedError.typed (e.message,SubscriptionServiceError.InvalidParameters)
+				throw TypedError.typed (e.message,SubscriptionServiceError.InvalidParameters);
 			}
             
         }    
