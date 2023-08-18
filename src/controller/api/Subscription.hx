@@ -80,14 +80,16 @@ class Subscription extends Controller
 						} catch(e:tink.core.Error) {
 							// var msg = e.message;
 							// App.current.session.addMessage(msg, true);	
-							throw e;
+							throw new Error(500,"e.message");
+							//throw e;
 						}	
                     }else{
                         if(p.multiWeight){
                         	try{
 								OrderService.editMultiWeight( prevOrder, order.qty );
 						    }catch(e:tink.core.Error) {
-								throw e;
+								throw new Error(500,"e.message");
+								//throw e;
 							}	 
                         }else{
                             try {
@@ -95,7 +97,8 @@ class Subscription extends Controller
 							}catch(e:tink.core.Error) {
 								// var msg = e.message;
 								// App.current.session.addMessage(msg, true);	
-								throw e;
+								throw new Error(500,"e.message");
+								//throw e;
 							}
                         }
                     }
