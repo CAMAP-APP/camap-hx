@@ -80,7 +80,7 @@ class Subscription extends Controller
 						} catch(e:tink.core.Error) {
 							// var msg = e.message;
 							// App.current.session.addMessage(msg, true);	
-							throw new Error(500,"e.message");
+							throw new Error(e.message);
 							//throw e;
 						}	
                     }else{
@@ -88,7 +88,7 @@ class Subscription extends Controller
                         	try{
 								OrderService.editMultiWeight( prevOrder, order.qty );
 						    }catch(e:tink.core.Error) {
-								throw new Error(500,"e.message");
+								throw new Error(e.message);
 								//throw e;
 							}	 
                         }else{
@@ -97,7 +97,7 @@ class Subscription extends Controller
 							}catch(e:tink.core.Error) {
 								// var msg = e.message;
 								// App.current.session.addMessage(msg, true);	
-								throw new Error(500,"e.message");
+								throw new Error(e.message);
 								//throw e;
 							}
                         }
@@ -128,7 +128,8 @@ class Subscription extends Controller
             try {
 				ss.updateDefaultOrders(sub, updateDefaultOrderData);
 			}catch(e:tink.core.Error) {
-				throw (e);
+				//throw (e);
+				throw TypedError.typed (e.message,SubscriptionServiceError.InvalidParameters)
 			}
             
         }    
