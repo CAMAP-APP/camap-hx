@@ -16,6 +16,13 @@ $$browserDetection()
 	</div>
 	::end::
 
+	<!--display only on sm and xs screens-->
+	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
+		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
+		</a>
+	</div>
+	
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
 
@@ -46,12 +53,7 @@ $$browserDetection()
 	</div>
 	::else::
 
-	<!--display only on sm and xs screens-->
-	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
-			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
-		</a>
-	</div>
+
 
 
 	::foreach md distribs::
@@ -305,17 +307,15 @@ $$browserDetection()
 		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
 		::end::
-
+		<div class="block hidden-sm hidden-xs">
+			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
+			</a>
+		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
 		::end::
 
-	</div>
-
-	<div class="block hidden-sm hidden-xs">
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
-			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
-		</a>
 	</div>
 
 	<div class="block" ::cond visibleDocuments.length !=0::>

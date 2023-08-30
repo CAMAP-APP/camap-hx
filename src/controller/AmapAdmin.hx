@@ -285,7 +285,7 @@ class AmapAdmin extends Controller
 		// }
 		// f.addElement( new sugoi.form.elements.StringInput("checkOrder", t._("Make the check payable to"), app.user.getGroup().checkOrder, false)); 
 		f.addElement( new sugoi.form.elements.StringInput("IBAN", t._("IBAN of your bank account for transfers"), app.user.getGroup().IBAN, false)); 
-		f.addElement( new sugoi.form.elements.Checkbox("allowMoneyPotWithNegativeBalance", t._("Allow money pots with negative balance"), app.user.getGroup().allowMoneyPotWithNegativeBalance));
+		//f.addElement( new sugoi.form.elements.Checkbox("allowMoneyPotWithNegativeBalance", t._("Allow money pots with negative balance"), app.user.getGroup().allowMoneyPotWithNegativeBalance));
 		//avoid modifiying another group
 		var groupId = new sugoi.form.elements.IntInput("groupId","groupId",group.id);
 		groupId.inputType = InputType.ITHidden;
@@ -311,7 +311,7 @@ class AmapAdmin extends Controller
 			group.setAllowedPaymentTypes(paymentTypes);
 			// group.checkOrder = f.getValueOf("checkOrder");
 			group.IBAN = f.getValueOf("IBAN");
-			group.allowMoneyPotWithNegativeBalance = f.getValueOf("allowMoneyPotWithNegativeBalance");
+			// group.allowMoneyPotWithNegativeBalance = f.getValueOf("allowMoneyPotWithNegativeBalance");
 			group.update();
 			
 			throw Ok("/amapadmin/payments", t._("Payment options updated"));

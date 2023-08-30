@@ -9,6 +9,8 @@ import sugoi.form.elements.IntInput;
 import sugoi.form.elements.StringInput;
 import sugoi.form.validators.EmailValidator;
 import ufront.mail.*;
+import db.Catalog;
+import service.OrderService;
 
 class User extends Controller
 {
@@ -275,6 +277,25 @@ class User extends Controller
 				throw Error("/","Lien invalide");
 			}
 		}
+		// chercher les catalogs actifs du groupe (y compris terminés depuis moins d'un mois)
+		// chercher les distributions de ces catalogues 
+		// puis vérifier si l'utilisateur a des commandes dans ces distribs
+		var catalogs = db.Catalog.getActiveContracts (group, true);
+		if (catalogs != null) {
+			for (catalog in catalogs){
+				var distribs = catalog.getDistribs(true);
+				for (d in distribs) {
+					var userOrders = catalog.getUserOrders(user,d,true);
+					if (userOrders.length > 0){
+						throw Error("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
+					}
+				}
+			}
+		} else {
+			throw Error("/","catalogs is null");
+		}
+		var userGroup = db.UserGroup.get(user, group);
+		if (userGroup.balance < 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car votre solde est négatif.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 
 		view.groupId = group.id;
 		view.userId = user.id;
@@ -294,7 +315,23 @@ class User extends Controller
 		if (haxe.crypto.Sha1.encode(App.config.KEY+group.id) != key){
 			throw Error("/","Lien invalide");
 		}
-
+		// chercher les catalogs actifs du groupe (y compris terminés depuis moins d'un mois)
+		// chercher les distributions de ces catalogues 
+		// puis vérifier si l'utilisateur a des commandes dans ces distribs
+		var catalogs = db.Catalog.getActiveContracts (group, true);
+		if (catalogs != null) {
+			for (catalog in catalogs){
+				var distribs = catalog.getDistribs(true);
+				for (d in distribs) {
+					var userOrders = catalog.getUserOrders(app.user,d,true);
+					if (userOrders.length > 0){
+						throw Error("/","Vous ne pouvez pas quitter ce groupe car vous avez des commandes en cours.\nVeuillez contacter un responsable du groupe pour plus d'information.");
+					}
+				}
+			}
+		}
+		var userGroup = db.UserGroup.get(app.user, group);
+		if (userGroup.balance < 0) throw Error ("/","Vous ne pouvez pas quitter ce groupe car votre solde est négatif.\nVeuillez contacter un responsable du groupe pour plus d'information.");
 		view.groupId = group.id;
 		if (app.user!=null) {
 			view.userId = app.user.id;

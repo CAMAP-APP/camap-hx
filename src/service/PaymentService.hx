@@ -260,7 +260,7 @@ class PaymentService {
 					new payment.Cash(),
 					new payment.Check(),
 					new payment.Transfer(),	
-					new payment.MoneyPot(),
+					//new payment.MoneyPot(),
 					new payment.OnTheSpotPayment(),
 					new payment.OnTheSpotCardTerminal()						
 				];
@@ -343,7 +343,11 @@ class PaymentService {
 	public static function updateUserBalance(user:db.User, group:db.Group) {
 		var ua = db.UserGroup.getOrCreate(user, group);
 		//do not count pending payments
-		var b = sys.db.Manager.cnx.request('SELECT SUM(amount) FROM Operation WHERE userId=${user.id} and groupId=${group.id} and !(type=2 and pending=1)').getFloatResult(0);
+		//var b = sys.db.Manager.cnx.request('SELECT SUM(amount) FROM Operation WHERE userId=${user.id} and groupId=${group.id} and !(type=2 and pending=1)').getFloatResult(0);
+		/**
+		* Rectification des soldes: Suppressions de toutes les opérations dont subscription.endDate < 1 janvier 2021	
+		**/
+		var b = sys.db.Manager.cnx.request('SELECT SUM(Operation.amount) FROM Operation, Subscription WHERE Operation.userId=${user.id} and Operation.groupId=${group.id} and Operation.subscriptionId = Subscription.id and year(Subscription.startDate) > 2022').getFloatResult(0);
 		b = Math.round(b * 100) / 100;
 		ua.balance = b;
 		ua.update();

@@ -658,7 +658,11 @@ class SubscriptionService
 
 		if(catalog.hasDefaultOrdersManagement()){	
 			//default orders is used only in constant orders, or variable orders with distribMinOrdersTotal
-			this.updateDefaultOrders( subscription, ordersData );
+			try {
+				this.updateDefaultOrders( subscription, ordersData );
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
 		}
 		
 		//Email notification
@@ -914,8 +918,13 @@ class SubscriptionService
 						
 						invert = order.invertSharedOrder;
 					}
-					
-					var newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					var newOrder=null;
+					try {
+						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					}catch(e:tink.core.Error) {
+						//throw new Error(e.message);
+						throw TypedError.typed( e.message, CatalogRequirementsNotMet );
+					}
 					if ( newOrder != null ) orders.push( newOrder );
 				}
 			}
@@ -975,7 +984,11 @@ class SubscriptionService
 			}
 		}
 		
-		createRecurrentOrders( subscription, defaultOrders );
+		try {
+			createRecurrentOrders( subscription, defaultOrders );
+		}catch(e:tink.core.Error) {
+			throw TypedError.typed( e.message, CatalogRequirementsNotMet );
+		}
 
 		//check if default Orders meet the catalog requirements
 		if( subscription.catalog.isVariableOrdersCatalog()){			

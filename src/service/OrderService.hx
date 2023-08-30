@@ -4,6 +4,8 @@ import db.MultiDistrib;
 import db.Basket;
 import db.Basket.BasketStatus;
 import tink.core.Error;
+import sugoi.Web;
+
 
 /**
  * Order Service 
@@ -22,6 +24,7 @@ class OrderService
 	 * 
 	 * @param	quantity
 	 * @param	productId
+	 *
 	 */
 	public static function make(user:db.User, quantity:Float, product:db.Product, distribId:Int, ?paid:Bool, ?subscription : db.Subscription, ?user2:db.User, ?invert:Bool, ?basket:db.Basket ) : Null<db.UserOrder> {
 		
@@ -44,14 +47,18 @@ class OrderService
 		}
 		
 		//multiweight : make one row per product
+		
 		if ( product.multiWeight && quantity > 1.0 ) {
 
 			if ( !tools.FloatTool.isInt( quantity ) ) throw new Error( t._("multi-weighing products should be ordered only with integer quantities") );
-			
 			var newOrder = null;
-
 			for ( i in 0...Math.round(quantity) ) {
-				newOrder = make( user, 1, product, distribId, paid, subscription, user2, invert, basket);
+				try{
+					newOrder = make( user, 1, product, distribId, paid, subscription, user2, invert, basket);
+				} catch(e:tink.core.Error) {
+					throw (e);
+				}
+			
 			}
 			return newOrder;
 		}
@@ -104,36 +111,61 @@ class OrderService
 		order.insert();
 		
 		//Stocks
+
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			if (c.hasStockManagement()) {
+				var orderDate = order.distribution.date;
+				var now = Date.now();
+				var availableStock = order.product.stock;
+				var actualOrders;
+									
+				// Calculer le stock de la distri concernée
+				// Commande en cours dans la distri
+				var totOrdersQt : Float = 0;
+				// Attention: si multiweight, la quantité des commandes existantes de l'utilisateur
+				// n'est pas cummulée dans la quantité totale (quantity), le controle de stock est donc inopérant
+				// il faut inclure les commandes précédentes du user
+				if (order.product.multiWeight) {
+					//if (App.config.DEBUG){
+					//	var msg="Multiweight";
+					//	App.current.session.addMessage (msg);
+					//}
+					actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
+				} else {
+					actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
+				}
+				for (actualOrder in actualOrders) {
+					totOrdersQt += actualOrder.quantity;
+					//if (App.config.DEBUG){
+					//	var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes présentes : ' +totOrdersQt+ ' ' +order.product.name+ 'pour l\'utilisateur' +user.id;
+					//	App.current.session.addMessage (msg);
+					//}
+				}
+				// Stock dispo = stock - commandes en cours
+				if (order.product.multiWeight){
+					totOrdersQt -= quantity;
+					availableStock -= totOrdersQt;
+				} else {
+					availableStock -= totOrdersQt;
+				}
 				
-				if (order.product.stock == 0) {
-					if (App.current.session != null) {
-						App.current.session.addMessage(t._("There is no more '::productName::' in stock, we removed it from your order", {productName:order.product.name}), true);
-					}
-					order.quantity -= quantity;
-					if ( order.quantity <= 0 ) {
-						order.delete();
-						return null;	
-					}
-				}else if (order.product.stock - quantity < 0) {
-					var canceled = quantity - order.product.stock;
+				//if (App.config.DEBUG){
+				//	var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
+				//	App.current.session.addMessage (msg,true);
+				//}
+
+				// si stock à 0 annuler commande
+				if (availableStock == 0) {
+					order.quantity = 0;
+					order.update();
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
+				} else if (availableStock - order.quantity < 0) {
+				// si stock insuffisant, cancel
+					var canceled = order.quantity - availableStock;
 					order.quantity -= canceled;
 					order.update();
-					
-					if (App.current.session != null) {
-						var msg = t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:order.quantity});
-						App.current.session.addMessage(msg, true);
-					}
-					order.product.lock();
-					order.product.stock = 0;
-					order.product.update();
-					
-				}else {
-					order.product.lock();
-					order.product.stock -= quantity;
-					order.product.update();	
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 				}
 			}	
 		}
@@ -179,49 +211,33 @@ class OrderService
 		}
 
 		//stocks
-		var e : Event = null;
+		
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			
 			if (c.hasStockManagement()) {
-				
-				if (newquantity < order.quantity) {
-
-					//on commande moins que prévu : incrément de stock						
-					order.product.lock();
-					order.product.stock +=  (order.quantity-newquantity);
-					e = StockMove({product:order.product, move:0 - (order.quantity-newquantity) });
-					
-				}else {
-				
-					//on commande plus que prévu : décrément de stock
-					var addedquantity = newquantity - order.quantity;
-					
-					if (order.product.stock - addedquantity < 0) {
-						
-						//stock is not enough, reduce order
-						newquantity = order.quantity + order.product.stock;
-						if( App.current.session!=null) App.current.session.addMessage(t._("We reduced your order of '::productName::' to quantity ::oQuantity:: because there is no available products anymore", {productName:order.product.name, oQuantity:newquantity}), true);
-						
-						e = StockMove({product:order.product, move: 0 - order.product.stock });
-						
-						order.product.lock();
-						order.product.stock = 0;
-						
-					}else{
-						
-						//stock is big enough
-						order.product.lock();
-						order.product.stock -= addedquantity;
-						
-						e = StockMove({ product:order.product, move: 0 - addedquantity });
-					}					
+				var totOrdersQt : Float = 0;
+				var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $distributionId==order.distribution.id, true);
+				for (actualOrder in actualOrders) {
+					totOrdersQt += actualOrder.quantity;
 				}
-				order.product.update();
+				totOrdersQt -= order.quantity;
+				// Stock dispo = stock - commandes en cours
+				var availableStock = order.product.stock - totOrdersQt;
+				if (availableStock == 0 && newquantity != 0) {
+					newquantity = 0;
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
+				} else if (newquantity >= order.quantity && availableStock - newquantity < 0) {
+						//stock is not enough, cancel
+						newquantity = availableStock;
+						order.quantity = newquantity;
+						order.update();
+						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+				}
 			}	
 		}
-
-		//update order
+		
+		//mise à jour de la commande
 		if (newquantity == 0) {
 			order.quantity = 0;			
 			order.paid = true;
@@ -235,8 +251,6 @@ class OrderService
 		var o = order;
 		if(o.distribution==null) throw new Error( "cant record an order which is not linked to a distribution");
 		if(o.basket==null) throw new Error( "this order should have a basket" );
-
-		App.current.event(e);	
 
 		return order;
 	}
@@ -266,7 +280,13 @@ class OrderService
 						// orders.remove( orders[i] );
 					}
 				} else if ( quantityDiff > 0 ) {
-					make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
+					for ( i in 0...Math.round(quantityDiff) ){
+						try {
+							make( order.user, 1, order.product, order.distribution.id, null, order.subscription );
+						} catch(e:tink.core.Error) {
+							throw (e);
+						}
+					}
 					// for ( i in 0...quantityDiff ) {
 					// 	orders.push( make( order.user, 1, order.product, order.distribution.id, null, order.subscription ) );
 					// }
@@ -303,13 +323,14 @@ class OrderService
 			var product = order.product;
 
 			//stock mgmt
+			/*
 			if (contract.hasStockManagement() && product.stock!=null && order.quantity!=null) {
 				//re-increment stock
 				product.lock();
 				product.stock +=  order.quantity;
 				product.update();
 			}
-
+			*/
 			order.delete();
 			service.SubscriptionService.createOrUpdateTotalOperation( order.subscription );
 	
@@ -690,6 +711,7 @@ class OrderService
 
 	/**
 		Create or update orders for variable catalogs
+		20230723 Adapter Stock ??
 	**/ 
 	public static function createOrUpdateOrders( user:db.User, multiDistrib:db.MultiDistrib, catalog:db.Catalog, ordersData:Array<{id:Int, productId:Int, qt:Float, paid:Bool}> ) : Array<db.UserOrder> {
 
@@ -742,8 +764,14 @@ class OrderService
 			if ( existingOrder != null ) {
 
 				// Edit existing order
-				var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
-				if ( updatedOrder != null ) orders.push( updatedOrder );
+				try {
+					var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
+					if ( updatedOrder != null ) orders.push( updatedOrder );
+				} catch(e:tink.core.Error) {
+					var msg = e.message;
+					App.current.session.addMessage(msg, true);	
+				}
+				// if ( updatedOrder != null ) orders.push( updatedOrder );
 			} else {
 
 				// Insert new order
@@ -762,7 +790,12 @@ class OrderService
 				}
 				if ( subscription == null ) { throw new Error('Il n\'y a pas de souscription pour cette personne. Vous devez d\'abord créer une souscription avant de commander.'); }
 
-				newOrder =  OrderService.make( user, order.qt , product, distrib == null ? null : distrib.id, order.paid, subscription );
+				try {
+					newOrder =  OrderService.make( user, order.qt , product, distrib == null ? null : distrib.id, order.paid, subscription );
+				} catch(e:tink.core.Error) {
+					var msg = e.message;
+					App.current.session.addMessage(msg, true);	
+				}
 
 				if ( catalog == null && subscriptions.find( x -> x.id == subscription.id ) == null ) {
 					subscriptions.push( subscription );
