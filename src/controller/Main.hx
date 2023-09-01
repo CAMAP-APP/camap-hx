@@ -139,6 +139,15 @@ class Main extends Controller {
 		if (attMessage != "" && attMessage != null) {
 			App.current.session.addMessage(attMessage);
 		}
+		
+		var ug = app.user.getUserGroup(app.getCurrentGroup());
+		if(ug.getRights().length>0 || app.user.isAdmin()){
+			var attMessageAdmins = Variable.get("attMessageAdmins");
+			if (attMessageAdmins != "" && attMessageAdmins != null) {
+				App.current.session.addMessage(attMessageAdmins);
+			}
+		}
+
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}

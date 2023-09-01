@@ -151,10 +151,10 @@ class Admin extends Controller {
 
 		if (f.isValid()) {
 			Variable.set("homeMessage", f.getValueOf("homeMessage"));			
-			throw Ok("/admin/", "Message mis à jour");
+			throw Ok("/admin/", "Message Général mis à jour");
 		}
 
-		view.title = "Message";
+		view.title = "Message Général";
 		view.form = f;
 	}
 
@@ -170,13 +170,31 @@ class Admin extends Controller {
 
 		if (f.isValid()) {
 			Variable.set("attMessage", f.getValueOf("attMessage"));			
-			throw Ok("/admin/", "Alerte mise à jour");
+			throw Ok("/admin/", "Message Groupe mis à jour");
 		}
 
-		view.title = "Alerte";
+		view.title = "Message Groupe";
 		view.form = f;
 	}
 
+	/**
+		edit alert message on group's page
+	**/
+	@tpl('form.mtt')
+	function doAttentionAdmins() {
+		var attMessageAdmins = Variable.get("attMessageAdmins");
+
+		var f = new sugoi.form.Form("msg");
+		f.addElement(new sugoi.form.elements.TextArea("attMessageAdmins", "Message d'alerte à afficher aux admins sur tous les groupes", attMessageAdmins));
+
+		if (f.isValid()) {
+			Variable.set("attMessageAdmins", f.getValueOf("attMessageAdmins"));			
+			throw Ok("/admin/", "Message Admins Groupes mis à jour");
+		}
+
+		view.title = "Message Admins Groupes";
+		view.form = f;
+	}
 	
 	@tpl('admin/superadmins.mtt')
 	function doSuperadmins() {
