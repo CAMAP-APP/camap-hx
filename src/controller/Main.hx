@@ -138,7 +138,10 @@ class Main extends Controller {
 		var ug = app.user.getUserGroup(app.getCurrentGroup());
 		if(ug.getRights().length>0 || app.user.isAdmin()){
 			var attMessageAdmins = Variable.get("attMessageAdmins");
-			var msgAlert = Variable.get("attMessageAdminsAlert");
+			var msgAlert = false;
+			if (Variable.get("attMessageAdminsAlert")){
+			var msgAlert = true;
+			} 
 			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
 				if (msgAlert) {
 					App.current.session.addMessage(attMessageAdmins,true);
