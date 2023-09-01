@@ -144,7 +144,7 @@ class Main extends Controller {
 		if(ug.getRights().length>0 || app.user.isAdmin()){
 			var attMessageAdmins = Variable.get("attMessageAdmins");
 			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
-				App.current.session.addMessage(attMessageAdmins);
+				App.current.session.addMessage(attMessageAdmins,true);
 			}
 		}
 
