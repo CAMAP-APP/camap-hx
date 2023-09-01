@@ -2,6 +2,7 @@ package controller.admin;
 
 import haxe.Json;
 import sugoi.form.elements.TextArea;
+import sugoi.form.elements.Checkbox;
 import Common;
 import db.BufferedJsonMail;
 import db.Catalog;
@@ -178,17 +179,18 @@ class Admin extends Controller {
 	}
 
 	/**
-		edit alert message on group's page
+		edit admins alert message on group's page
 	**/
 	@tpl('form.mtt')
 	function doAttentionAdmins() {
 		var attMessageAdmins = Variable.get("attMessageAdmins");
-
+		var alert = Variable.get("attMessageAdminsAlert");
 		var f = new sugoi.form.Form("msg");
 		f.addElement(new sugoi.form.elements.TextArea("attMessageAdmins", "Message d'alerte à afficher aux admins sur tous les groupes", attMessageAdmins));
-
+		f.addElement(new sugoi.form.elements.Checkbox("alert", "Message de type alerte ? (fond rouge)", false));
 		if (f.isValid()) {
-			Variable.set("attMessageAdmins", f.getValueOf("attMessageAdmins"));			
+			Variable.set("attMessageAdmins", f.getValueOf("attMessageAdmins"));
+			Variable.set("attMessageAdminsAlert", f.getValueOf("alert"));			
 			throw Ok("/admin/", "Message Admins Groupes mis à jour");
 		}
 
