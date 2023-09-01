@@ -136,14 +136,14 @@ class Main extends Controller {
 
 	
 		var attMessage = Variable.get("attMessage");
-		if (attMessage != "" && attMessage != null) {
+		if (attMessage != "" && attMessage != null && attMessage != "null") {
 			App.current.session.addMessage(attMessage);
 		}
 		
 		var ug = app.user.getUserGroup(app.getCurrentGroup());
 		if(ug.getRights().length>0 || app.user.isAdmin()){
 			var attMessageAdmins = Variable.get("attMessageAdmins");
-			if (attMessageAdmins != "" && attMessageAdmins != null) {
+			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
 				App.current.session.addMessage(attMessageAdmins);
 			}
 		}
