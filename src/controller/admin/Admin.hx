@@ -2,6 +2,7 @@ package controller.admin;
 
 import haxe.Json;
 import sugoi.form.elements.TextArea;
+import sugoi.form.elements.Checkbox;
 import Common;
 import db.BufferedJsonMail;
 import db.Catalog;
@@ -151,10 +152,10 @@ class Admin extends Controller {
 
 		if (f.isValid()) {
 			Variable.set("homeMessage", f.getValueOf("homeMessage"));			
-			throw Ok("/admin/", "Message mis à jour");
+			throw Ok("/admin/", "Message Général mis à jour");
 		}
 
-		view.title = "Message";
+		view.title = "Message Général";
 		view.form = f;
 	}
 
@@ -170,13 +171,37 @@ class Admin extends Controller {
 
 		if (f.isValid()) {
 			Variable.set("attMessage", f.getValueOf("attMessage"));			
-			throw Ok("/admin/", "Alerte mise à jour");
+			throw Ok("/admin/", "Message Groupe mis à jour");
 		}
 
-		view.title = "Alerte";
+		view.title = "Message Groupe";
 		view.form = f;
 	}
 
+	/**
+		edit admins alert message on group's page
+	**/
+	@tpl('form.mtt')
+	function doAttentionAdmins() {
+		var attMessageAdmins = Variable.get("attMessageAdmins");
+		var msgAlert = Variable.get("attMessageAdminsAlert");
+		var f = new sugoi.form.Form("msg");
+		f.addElement(new sugoi.form.elements.TextArea("attMessageAdmins", "Message d'alerte à afficher aux admins sur tous les groupes", attMessageAdmins));
+		if (msgAlert == "true"){
+			f.addElement(new sugoi.form.elements.Checkbox("msgAlert", "Message de type alerte ? (fond rouge)", true));
+		} else {
+			f.addElement(new sugoi.form.elements.Checkbox("msgAlert", "Message de type alerte ? (fond rouge)", false));
+		}
+		
+		if (f.isValid()) {
+			Variable.set("attMessageAdmins", f.getValueOf("attMessageAdmins"));
+			Variable.set("attMessageAdminsAlert", f.getValueOf("msgAlert"));			
+			throw Ok("/admin/", "Message Admins Groupes mis à jour");
+		}
+
+		view.title = "Message Admins Groupes";
+		view.form = f;
+	}
 	
 	@tpl('admin/superadmins.mtt')
 	function doSuperadmins() {

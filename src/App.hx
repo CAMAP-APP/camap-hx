@@ -100,7 +100,7 @@ class App extends sugoi.BaseApp {
                        '
             },
             email:{
-                senderEmail : 'noreply@camap.amap44.org',
+                senderEmail : 'noreply@amap44.org',
                 brandedEmailLayoutFooter:  '<p>InterAMAP44, 1 Boulevard Boulay-Paty – 44100 Nantes</p>
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <a href="https://www.amap44.org" target="_blank" rel="noreferrer noopener notrack" class="bold-green" style="text-decoration:none !important; padding: 8px; display: flex; align-items: center;">

@@ -134,11 +134,29 @@ class Main extends Controller {
 			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
 		}
 
+		// Message aux admins
+		var ug = app.user.getUserGroup(app.getCurrentGroup());
+		if(ug.getRights().length>0 || app.user.isAdmin()){
+			var attMessageAdmins = Variable.get("attMessageAdmins");
+			var msgAlert = "false";
+			if (Variable.get("attMessageAdminsAlert") == "true"){
+			msgAlert = "true";
+			} 
+			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
+				if (msgAlert == "true") {
+					App.current.session.addMessage(attMessageAdmins,true);
+				} else {
+					App.current.session.addMessage(attMessageAdmins);
+				}
+			}
+		}
 	
+		// Message à tous les membres
 		var attMessage = Variable.get("attMessage");
-		if (attMessage != "" && attMessage != null) {
+		if (attMessage != "" && attMessage != null && attMessage != "null") {
 			App.current.session.addMessage(attMessage);
 		}
+		
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}
