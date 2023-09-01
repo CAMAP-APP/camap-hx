@@ -184,10 +184,10 @@ class Admin extends Controller {
 	@tpl('form.mtt')
 	function doAttentionAdmins() {
 		var attMessageAdmins = Variable.get("attMessageAdmins");
-		var msgAlert = Variable.get("attMessageAdminsAlert");
+		var msgAlert: Bool = Variable.get("attMessageAdminsAlert");
 		var f = new sugoi.form.Form("msg");
 		f.addElement(new sugoi.form.elements.TextArea("attMessageAdmins", "Message d'alerte à afficher aux admins sur tous les groupes", attMessageAdmins));
-		f.addElement(new sugoi.form.elements.Checkbox("msgAlert", "Message de type alerte ? (fond rouge)", false));
+		f.addElement(new sugoi.form.elements.Checkbox("msgAlert", "Message de type alerte ? (fond rouge)", msgAlert));
 		if (f.isValid()) {
 			Variable.set("attMessageAdmins", f.getValueOf("attMessageAdmins"));
 			Variable.set("attMessageAdminsAlert", f.getValueOf("msgAlert"));			
