@@ -139,7 +139,7 @@ class Main extends Controller {
 		if(ug.getRights().length>0 || app.user.isAdmin()){
 			var attMessageAdmins = Variable.get("attMessageAdmins");
 			var msgAlert = false;
-			if (Variable.get("attMessageAdminsAlert")){
+			if (Variable.get("attMessageAdminsAlert") == 1){
 			var msgAlert = true;
 			} 
 			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
