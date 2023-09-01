@@ -140,7 +140,7 @@ class Main extends Controller {
 			var attMessageAdmins = Variable.get("attMessageAdmins");
 			var msgAlert = "false";
 			if (Variable.get("attMessageAdminsAlert") == "true"){
-			var msgAlert = "true";
+			msgAlert = "true";
 			} 
 			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
 				if (msgAlert == "true") {
