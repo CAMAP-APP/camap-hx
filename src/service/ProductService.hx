@@ -98,6 +98,11 @@ class ProductService{
 		f.getElement("variablePrice").description = "Comme au marché, le prix final sera calculé en fonction du poids réel après pesée.";
 		f.getElement("multiWeight").description = "Permet de peser séparément chaque produit. Idéal pour la volaille par exemple.";
 
+		if (product.catalog.isConstantOrdersCatalog()){
+			f.removeElementByName ('bulk');
+			f.removeElementByName ('multiWeight');
+		}
+
 		//stock mgmt ?
 		if (!product.catalog.hasStockManagement()){
 			f.removeElementByName('stock');	
