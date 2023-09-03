@@ -100,7 +100,7 @@ class ProductService{
 
 		if (product.catalog.isConstantOrdersCatalog()){
 			f.removeElementByName ('bulk');
-			f.removeElementByName ('multiWeight');
+			f.removeElementByName ('variablePrice');
 		}
 
 		//stock mgmt ?
