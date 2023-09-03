@@ -18,12 +18,11 @@ $$browserDetection()
 
 	<!--display only on sm and xs screens-->
 	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
+		<!-- VOLUNTEERS CALENDAR -->
 		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 		</a>
-	</div>
-	<!-- JOIN GROUP BLOCK -->
-	<div class="homeBlock text-center hidden-md hidden-lg" ::cond(registerWithoutOrdering==true)::>
+		<!-- JOIN GROUP BLOCK -->
 		::if (user==null)::		
 		<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 			<span class="glyphicon glyphicon-plus"></span>
@@ -36,6 +35,7 @@ $$browserDetection()
 		</a>
 		::end::
 	</div>
+	
 	
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
