@@ -22,6 +22,20 @@ $$browserDetection()
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 		</a>
 	</div>
+	<!-- JOIN GROUP BLOCK -->
+	<div class="homeBlock text-center hidden-md hidden-lg" ::cond(registerWithoutOrdering==true)::>
+		::if (user==null)::		
+		<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+			<span class="glyphicon glyphicon-plus"></span>
+			M'inscrire à ce groupe
+		</a>
+		::else::
+		<a href="/user/joingroup" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus"></span>
+			M'inscrire à ce groupe
+		</a>
+		::end::
+	</div>
 	
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
@@ -270,6 +284,7 @@ $$browserDetection()
 	</div>
 
 	<!-- JOIN GROUP BLOCK -->
+	<!-- DEPLACEMENT AC 03/09/2023 Mantis #109
 	<div class="homeBlock text-center" ::cond(registerWithoutOrdering==true)::>
 		<p>
 			Inscrivez-vous à ce groupe, <br />
@@ -292,6 +307,7 @@ $$browserDetection()
 
 
 </div>
+-->
 
 
 <!-- RIGHT COLUMN -->
@@ -307,6 +323,28 @@ $$browserDetection()
 		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
 		::end::
+		
+		<!-- JOIN GROUP BLOCK -->
+		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
+			<p>
+				Inscrivez-vous à ce groupe, <br />
+				vous recevrez un email pour l'ouverture des prochaines commandes <br />
+				ainsi que des nouvelles des producteurs !
+			</p>
+
+			::if (user==null)::		
+			<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+				<span class="glyphicon glyphicon-plus"></span>
+				M'inscrire à ce groupe
+			</a>
+			::else::
+			<a href="/user/joingroup" class="btn btn-default">
+				<span class="glyphicon glyphicon-plus"></span>
+				M'inscrire à ce groupe
+			</a>
+			::end::
+		</div>
+		
 		<div class="block hidden-sm hidden-xs">
 			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
