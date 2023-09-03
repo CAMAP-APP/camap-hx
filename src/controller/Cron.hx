@@ -523,11 +523,11 @@ class Cron extends Controller
 		 * Group distribs by group.
 		 * Map key is $groupId
 		*/
-		var data = new Map <Int, distributions:Array<db.Distribution>>();
+		var data = new Map <Int, {distributions:Array<db.Distribution>}>();
 		
 		for (d in distribs) {			
 			var x = data.get(d.catalog.group.id);
-			if (x == null) x = distributions:[];
+			if (x == null) x = {distributions:[]};
 			x.distributions.push(d);
 			data.set(d.catalog.group.id, x);						
 		}
