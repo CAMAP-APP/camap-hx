@@ -523,16 +523,13 @@ class Cron extends Controller
 		 * Group distribs by group.
 		 * Map key is $groupId
 		*/
-		// var data = new Map <Int,{distributions:Array<db.Distribution>,vendors:Array<db.Vendor>}>();
-		var data = new Map <Int,{distributions:Array<db.Distribution>,catalogs:Array<db.Catalog>}>();
-
+		var data = new Map <Int,{distributions:Array<db.Distribution>,vendors:Array<db.Vendor>}>();
+		
 		for (d in distribs) {			
 			var x = data.get(d.catalog.group.id);
-			// if (x == null) x = {distributions:[],vendors:[]};
-			if (x == null) x = {distributions:[],catalogs:[]};
+			if (x == null) x = {distributions:[],vendors:[]};
 			x.distributions.push(d);
-			// x.vendors.push(d.catalog.vendor);
-			x.catalogs.push(d.catalog);
+			x.vendors.push(d.catalog.vendor);			
 			data.set(d.catalog.group.id, x);						
 		}
 		/*
@@ -558,8 +555,8 @@ class Cron extends Controller
 						text += "<br/>";
 						text += t._("The following suppliers are involved :");
 						text += "<br/><ul>";
-						for ( c in g.catalogs) {
-							text += "<li>" + c.vendor.name + " (" + c.vendor.peopleName + ")<br>Catalogue: " + c.name + " <br>Commandes ouvertes jusqu'au: " + view.hDate(c.distribution.orderEndDate) + " </li>";
+						for ( d in g.distributions) {
+							text += "<li>" + d.catalog.vendor.name + " (" + d.catalog.vendor.peopleName + ")<br>Catalogue: " + d.catalog.name + " <br>Commandes ouvertes jusqu'au: " + view.hDate(d.orderEndDate) + " </li>";
 						}
 						text += "</ul>";						
 						task.log(text);
