@@ -135,18 +135,20 @@ class Main extends Controller {
 		}
 
 		// Message aux admins
-		var ug = app.user.getUserGroup(app.getCurrentGroup());
-		if(ug.getRights().length>0 || app.user.isAdmin()){
-			var attMessageAdmins = Variable.get("attMessageAdmins");
-			var msgAlert = "false";
-			if (Variable.get("attMessageAdminsAlert") == "true"){
-			msgAlert = "true";
-			} 
-			if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
-				if (msgAlert == "true") {
-					App.current.session.addMessage(attMessageAdmins,true);
-				} else {
-					App.current.session.addMessage(attMessageAdmins);
+		if (app.user != null && isMemberOfGroup) {
+			var ug = app.user.getUserGroup(app.getCurrentGroup());
+			if(ug.getRights().length>0 || app.user.isAdmin()){
+				var attMessageAdmins = Variable.get("attMessageAdmins");
+				var msgAlert = "false";
+				if (Variable.get("attMessageAdminsAlert") == "true"){
+				msgAlert = "true";
+				} 
+				if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
+					if (msgAlert == "true") {
+						App.current.session.addMessage(attMessageAdmins,true);
+					} else {
+						App.current.session.addMessage(attMessageAdmins);
+					}
 				}
 			}
 		}
