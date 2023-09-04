@@ -32,7 +32,30 @@
 				::_("E-mail"):: : <a href="mailto: ::member.email2::">::member.email2::</a><br/>
 			::end::
 		</p>
+        
+		<h3>::_("Balance")::</h3>
+		<div  class="article">	
+			<span style="font-size:1.3em;">
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">&nbsp;</i>	
+				::if userGroup.balance<0:: 
+				::set color = "C00"::
+				::else::
+					::set color = "0C0"::
+				::end::
+				<span style="color:#::color::;">
+					::formatNum(userGroup.balance):: ::currency()::
+				</span>
+			</span>
 		
+			<span style="margin-left:30px;">
+
+				<a href="/member/payments/::member.id::" class="btn btn-default btn-small">
+					<i class="fa fa-credit-card" aria-hidden="true"></i>
+					::_("Payments details")::
+				</a>
+			</span>
+		
+	</div>
 		
 		<div class="panel panel-default ">
 			<div class="panel-heading">Notifications</div>
@@ -135,30 +158,7 @@
 
 
 <div class="col-md-4">
-	<h3>::_("Balance")::</h3>
-	<div  class="article">
-		
-		<span style="font-size:1.3em;">
-			
-			::if userGroup.balance<0:: 
-			::set color = "C00"::
-			::else::
-				::set color = "0C0"::
-			::end::
-			<span style="color:#::color::;">
-				::formatNum(userGroup.balance):: ::currency()::
-			</span>
-		</span>
-		
-		<span style="margin-left:30px;">
-
-			<a href="/member/payments/::member.id::" class="btn btn-default btn-small">
-				<i class="fa fa-credit-card" aria-hidden="true"></i>
-				::_("Payments details")::
-			</a>
-		</span>
-		
-	</div>
+	
 </div>
 
 ::set rights = userGroup.getRights()::

@@ -19,12 +19,13 @@
                     <i>Exemple : Julie reçoit un panier de légumes à 15 € chaque semaine.</i>
                 </p>
                 <p>
-                    Options disponibles : 
+                    <u>Options disponibles:</u> 
                     <ul>
                         <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
                     </ul>
                     <u>Attention:</u> Si les poids varient d'une distribution à l'autre (option "Prix variable selon pesée") vous devez obligatoirement choisir un contrat AMAP variable
                 </p>
+				<i class="icon icon-info">&nbsp;</i><a href="https://wiki.amap44.org/fr/app/admin-contrat-classique" target="_blank">Plus d'info sur le contrat AMAP Classique</a>
                 <br/>
             </div>
 
@@ -45,16 +46,30 @@
             <div>
                 <p>
                     Avec ce type de contrat les membres peuvent faire des commandes différentes pour chaque distribution.<br/>
-                    <i>Exemple : Jean fait une commande de miel pour 10 € pour une distribution, puis rien à la prochaine, puis une autre commande pour 20 € etc.</i>
+                    <i>Exemples: 
+						<ul>
+							<li>Joe fait une commande de miel pour 10€ pour une distribution, puis rien à la prochaine, puis une autre commande pour 20€ etc.</li>
+							<li>William commande 1 pain de seigle la semaine 1, puis 1 pain aux céréales la semaine 2 etc.</li>
+						</ul>
+					</i>
                 </p>
                 <p>
-                    Options disponibles : 
+                    <u>Options disponibles:</u>
                     <ul>
-                        <li>Montant minimum de commande par distribution (rend la commande obligatoire à chaque distribution)</li>
-                        <li>Montant minimum de commande sur la durée du contrat</li>
-                        <li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
+                        <li>Montant minimum de commande par distribution: 
+							<ul>
+								<li>Rend la commande obligatoire à chaque distribution mais le contenu de la commande peut varier. Une commande par défaut doit être saisie.</li>
+								<li>Possibilité de définir une période pendant laquelle les membres peuvent déclarer des absences.</li>
+							</ul>
+						</li>
+                        <li>Montant minimum de commande sur la durée du contrat:
+								<ul>
+									<li>Pas d'obligation de commandes à chaque distribution: permet un fonctionnement de type cagnotte.</li>
+								</ul>
+						</li>
                     </ul>
                 </p>
+				<i class="icon icon-info">&nbsp;</i><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable" target="_blank">Plus d'info sur le contrat AMAP Variable</a>
             </div>
 
 		</div>

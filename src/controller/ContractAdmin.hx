@@ -158,11 +158,33 @@ class ContractAdmin extends Controller
 	function doProducts(contract:db.Catalog,?args:{?enable:String,?disable:String}) {
 		view.nav.push("products");
 		sendNav(contract);
-
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("Access forbidden") );
+		if (contract.hasStockManagement()) {
+			var now = Date.now();
+			var nextDistribs = db.Distribution.manager.search( ($orderEndDate >= now && $catalogId==contract.id),{orderBy: date}).array();
+			
+			if (nextDistribs[0] != null){
+				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
+				// debug
+				// var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
+				// App.current.session.addMessage(msg, true);
+				// end debug
+				for (product in contract.getProducts(false)){
+					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+					var totOrdersQt : Float = 0;
+					for (actualOrder in actualOrders) {
+						totOrdersQt += actualOrder.quantity;
+					}
+					// Stock dispo = stock - commandes en cours
+					if (product.stock != null)  {
+						var availableStock = product.stock - totOrdersQt;
+						product.stock = availableStock;
+					}
+				}
+			}
+		}
 		view.c = contract;
-		
-		//batch enable / disable products
+		// batch enable / disable products
 		if (args != null){
 			
 			if (args.disable != null){
@@ -180,7 +202,7 @@ class ContractAdmin extends Controller
 		//generate a token
 		checkToken();
 	}
-	
+		
 	
 	/**
 	 *  - hidden page -
@@ -880,7 +902,7 @@ class ContractAdmin extends Controller
 		var html = "<div class='alert alert-warning'><p><i class='icon icon-info'></i> 
 		Vous pouvez définir une période pendant laquelle les membres pourront choisir d'être absent.<br/>
 		<b>Saisissez la période d'absence uniquement après avoir défini votre planning de distribution définitif sur toute la durée du contrat.</b><br/>
-		<a href='https://wiki.amap44.org/fr/app/Administration-CAMAP#gestion-des-absences-en-amap' target='_blank'>Consulter la documentation.</a>
+		<a href='https://wiki.amap44.org/fr/app/admin-gestion-absences' target='_blank'>Consulter la documentation.</a>
 		</p></div>";
 		
 		form.addElement( new sugoi.form.elements.Html( 'absences', html, '' ) );

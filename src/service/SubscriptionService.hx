@@ -332,7 +332,7 @@ class SubscriptionService
 
 		//catalog must have the flag UsersCanOrder or user must have admin rights on catalog
 		
-		// if (!subscription.catalog.hasOpenOrders() && (!app.user.isContractManager() || !app.user.isAdmin() || !app.user.isGroupManager()))
+		//if (!subscription.catalog.hasOpenOrders() && (!app.user.isContractManager() || !app.user.isAdmin() || !app.user.isGroupManager()))
 		if (!subscription.catalog.hasOpenOrders() && !adminMode)
 			{
 				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
@@ -658,7 +658,11 @@ class SubscriptionService
 
 		if(catalog.hasDefaultOrdersManagement()){	
 			//default orders is used only in constant orders, or variable orders with distribMinOrdersTotal
-			this.updateDefaultOrders( subscription, ordersData );
+			try {
+				this.updateDefaultOrders( subscription, ordersData );
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
 		}
 		
 		//Email notification
@@ -673,7 +677,7 @@ class SubscriptionService
 		
 		html += "<p>";
 		var engagement = SubscriptionService.getSubscriptionConstraints(subscription);
-		html += 'Votre engagement : ${(engagement==null?"":engagement)}<br/>';
+		html += 'Votre engagement : ${(engagement==null?"Aucun":engagement)}<br/>';
 		html += 'Nombre de distributions : ${SubscriptionService.getSubscriptionDistribsNb(subscription)}<br/>';
 		if(catalog.isVariableOrdersCatalog() && catalog.distribMinOrdersTotal>0){
 			html += 'Votre commande par défaut est :<ul>';
@@ -700,13 +704,18 @@ class SubscriptionService
 
 		if(catalog.isVariableOrdersCatalog()){
 			if(catalog.distribMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque de provision correspondant au total de votre commande par défaut multiplié par le nombre de distribution, soit ${subscription.getTotalPrice()} €.<br/>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
+				html += '<p>Merci de préparer un/des chèque(s) de provision correspondant au total de votre commande par défaut multiplié par le nombre de distributions, soit ${subscription.getTotalPrice()} €. ';
 				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}else if(catalog.catalogMinOrdersTotal>0){
-				html += '<p>Merci de préparer un chèque de provision correspondant au minimum de commande, soit ${getCatalogMinOrdersTotal( catalog, subscription )} €.<br/>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à la compléter et à remettre le(s) chèque(s).</br>';	
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
+				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
+			}
+			else {
+				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';	
 			}
 			
 		}else{
@@ -909,8 +918,13 @@ class SubscriptionService
 						
 						invert = order.invertSharedOrder;
 					}
-					
-					var newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					var newOrder=null;
+					try {
+						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+					}catch(e:tink.core.Error) {
+						//throw new Error(e.message);
+						throw TypedError.typed( e.message, CatalogRequirementsNotMet );
+					}
 					if ( newOrder != null ) orders.push( newOrder );
 				}
 			}
@@ -970,7 +984,11 @@ class SubscriptionService
 			}
 		}
 		
-		createRecurrentOrders( subscription, defaultOrders );
+		try {
+			createRecurrentOrders( subscription, defaultOrders );
+		}catch(e:tink.core.Error) {
+			throw TypedError.typed( e.message, CatalogRequirementsNotMet );
+		}
 
 		//check if default Orders meet the catalog requirements
 		if( subscription.catalog.isVariableOrdersCatalog()){			

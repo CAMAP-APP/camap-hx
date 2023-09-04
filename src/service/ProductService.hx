@@ -98,23 +98,39 @@ class ProductService{
 		f.getElement("variablePrice").description = "Comme au marché, le prix final sera calculé en fonction du poids réel après pesée.";
 		f.getElement("multiWeight").description = "Permet de peser séparément chaque produit. Idéal pour la volaille par exemple.";
 
+		if (product.catalog.isConstantOrdersCatalog()){
+			f.removeElementByName ('bulk');
+			f.removeElementByName ('variablePrice');
+		}
+
 		//stock mgmt ?
 		if (!product.catalog.hasStockManagement()){
 			f.removeElementByName('stock');	
-		} else {
+		} 
+		else 
+		{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
-			stock.label = "Stock (par distribution)";				 
-            if(product.stock!=null){
-				var distLeft = product.catalog.getDistribs(false).length;
-				if (distLeft > 0) {
-					stock.value = Math.floor( product.stock / distLeft );
-			    } else {
-				stock.value = product.stock;
-			    }
+			var now = Date.now();
+			//Nbre de distri restantes
+			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
+			// Si distri > 0
+			if (distLeft > 0) {
+				stock.label = "Stock par distribution ("+distLeft+ " distributions restantes)";				 
+				if(product.stock!=null){
+					stock.value = Math.floor( product.stock );
+				}
+			} 
+			// Sinon (pas distri planifiées)
+			else {
+			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
+			product.stock = null;
+			stock.value = product.stock;
 			}
+			
 		}
-
+			
+			
 		var group = product.catalog.group;
 		
 		//VAT selector
@@ -138,4 +154,30 @@ class ProductService{
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
 		}
 	}
+
+	/**
+		Calcul le stock disponible d'un produit pour une distribution
+	**/
+	/* DESACTIVEE CAR INUTILISEE 
+	public static function calculateStock(catalog:db.Catalog, product:db.Product):Float {
+		if (catalog.hasStockManagement()) {
+			var now = Date.now();
+			var totOrdersQt : Float = 0;
+			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==catalog.id),{orderBy:orderEndDate}).array();
+			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
+			for (actualOrder in actualOrders) {
+				totOrdersQt += actualOrder.quantity;
+			}
+			// Stock dispo = stock - commandes en cours
+			if (product.stock != null)  {
+				var availableStock = product.stock - totOrdersQt;
+				return availableStock;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	*/
 }

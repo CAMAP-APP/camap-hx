@@ -35,10 +35,17 @@ class Subscription extends Controller
             if(!app.user.isAdmin() && !user.canManageContract(catalog) && app.user.id!=user.id){
                 throw new Error(403,"You're not allowed to create a subscription for this user");
             }
+			// Ajout Amaury blocage souscriptions sauvages
+			if (!catalog.hasOpenOrders() && (!user.canManageContract(catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
+				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+			}
 
             var ss = new SubscriptionService();
-            sub = ss.createSubscription(user,catalog,newSubData.defaultOrder,newSubData.absentDistribIds);
-            
+            try {
+				sub = ss.createSubscription(user,catalog,newSubData.defaultOrder,newSubData.absentDistribIds);
+			}catch(e:tink.core.Error) {
+				throw (e);
+			}
         }    
 
         getSubscription(sub);
@@ -57,6 +64,10 @@ class Subscription extends Controller
             if(!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id!=sub.user.id){
                 throw new Error(403,"You're not allowed to edit a subscription for this user");
             }
+			// Ajout Amaury blocage souscriptions sauvages
+			if (!sub.catalog.hasOpenOrders() && (!app.user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())){
+				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+			}
 
             for( d in updateOrdersData.distributions){
                 for( order in d.orders){
@@ -64,12 +75,31 @@ class Subscription extends Controller
                     
                     var prevOrder = db.UserOrder.manager.select($product==p && $user==sub.user && $distributionId==d.id, true);
                     if(prevOrder==null){
-                        OrderService.make( sub.user, order.qty, p , d.id , null, sub );
+                        try {
+							OrderService.make( sub.user, order.qty, p , d.id , null, sub );
+						} catch(e:tink.core.Error) {
+							// var msg = e.message;
+							// App.current.session.addMessage(msg, true);	
+							throw new Error(e.message);
+							//throw e;
+						}	
                     }else{
                         if(p.multiWeight){
-                            OrderService.editMultiWeight( prevOrder, order.qty );
+                        	try{
+								OrderService.editMultiWeight( prevOrder, order.qty );
+						    }catch(e:tink.core.Error) {
+								throw new Error(e.message);
+								//throw e;
+							}	 
                         }else{
-                            OrderService.edit( prevOrder, order.qty );
+                            try {
+								OrderService.edit( prevOrder, order.qty );
+							}catch(e:tink.core.Error) {
+								// var msg = e.message;
+								// App.current.session.addMessage(msg, true);	
+								throw new Error(e.message);
+								//throw e;
+							}
                         }
                     }
                 }
@@ -95,7 +125,12 @@ class Subscription extends Controller
             }
 
             var ss = new SubscriptionService();
-            ss.updateDefaultOrders(sub, updateDefaultOrderData);
+            try {
+				ss.updateDefaultOrders(sub, updateDefaultOrderData);
+			}catch(e:tink.core.Error) {
+				//throw (e);
+				throw TypedError.typed (e.message,SubscriptionServiceError.InvalidParameters);
+			}
             
         }    
 
@@ -118,7 +153,13 @@ class Subscription extends Controller
             //build ordersByDistrib
             var distribs = db.Distribution.manager.search( $catalog == catalog && $date >= SubscriptionService.getNewSubscriptionStartDate( catalog ) );
             var ordersByDistrib = new Map<db.Distribution,Array<CSAOrder>>();
-            for( d in distribs) ordersByDistrib.set(d,defaultOrder);
+            for( d in distribs){
+				try{
+					ordersByDistrib.set(d,defaultOrder);
+				}catch(e:tink.core.Error) {
+					throw (e);
+				}
+			}
 
             if(SubscriptionService.checkVarOrders(ordersByDistrib)){
                 json({defaultOrderCheck:true});

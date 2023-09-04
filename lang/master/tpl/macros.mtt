@@ -196,7 +196,7 @@
 
 				<div class="col-md-6">
 					<div class="panel panel-default subPanel">
-						<div class="panel-heading">Période d'engagement</div>
+						<div class="panel-heading">Période de Souscription</div>
 						<div class="panel-body">
 							du ::dDate(subscription.startDate)::<br/>
 							au ::dDate(subscription.endDate)::

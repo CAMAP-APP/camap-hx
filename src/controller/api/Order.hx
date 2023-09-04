@@ -90,8 +90,8 @@ class Order extends Controller
 		} else {
 			ordersData = haxe.Json.parse(raw).orders;
 		}
-
 		OrderService.createOrUpdateOrders( user, multiDistrib, catalog, ordersData );
+		
 		Sys.print( Json.stringify( { success : true, orders : ordersData } ) );
 
 	}

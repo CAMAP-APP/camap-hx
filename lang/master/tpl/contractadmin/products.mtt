@@ -61,9 +61,8 @@
 		for ( i of inputs ) {
 			i.checked = !value;
 		}
-		
 	}
-	
+				
 	</script>
 	
 	<form method="GET" class="products">
@@ -74,7 +73,11 @@
 			<th>::_("Product ID||id or reference of a product")::</th>
 			<th>::_("Name")::</th>			
 			<th>::_("Price")::</th>			
-			<th>::if c.hasStockManagement():: ::_("Stock"):: ::end::</th>
+			<th>
+				::if (c.hasStockManagement() && stockDate != null)::
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock"):: 
+				::end::
+			</th>
 			<th></th>
 		</tr>
 		::foreach p c.getProducts(false)::
@@ -84,6 +87,7 @@
 		::else::
 		::set opacity=1::
 		::end::
+		
 		<tr style="opacity: ::opacity::" onclick="/*clickRow(this)*/">
 			<td>
 				<input type="checkbox" name="checkbox" value="::p.id::" />
@@ -107,7 +111,7 @@
 			</td>			
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
-			::if c.hasStockManagement() ::
+			::if (c.hasStockManagement() && stockDate != null)::
 				::if p.stock==null::
 					-
 				::else::

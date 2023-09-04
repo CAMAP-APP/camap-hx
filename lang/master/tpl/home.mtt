@@ -16,6 +16,28 @@ $$browserDetection()
 	</div>
 	::end::
 
+	<!--display only on sm and xs screens-->
+	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
+		
+		<!-- JOIN GROUP BLOCK -->
+		::if (user==null)::		
+		<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+			<span class="glyphicon glyphicon-plus"></span>
+			M'inscrire à ce groupe
+		</a>
+		::else::
+		<a href="/user/joingroup" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-plus"></span>
+			M'inscrire à ce groupe
+		</a>
+		::end::
+		<!-- VOLUNTEERS CALENDAR -->
+		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
+		</a>
+	</div>
+	
+	
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
 
@@ -46,12 +68,7 @@ $$browserDetection()
 	</div>
 	::else::
 
-	<!--display only on sm and xs screens-->
-	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
-			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
-		</a>
-	</div>
+
 
 
 	::foreach md distribs::
@@ -268,6 +285,7 @@ $$browserDetection()
 	</div>
 
 	<!-- JOIN GROUP BLOCK -->
+	<!-- DEPLACEMENT AC 03/09/2023 Mantis #109
 	<div class="homeBlock text-center" ::cond(registerWithoutOrdering==true)::>
 		<p>
 			Inscrivez-vous à ce groupe, <br />
@@ -287,9 +305,10 @@ $$browserDetection()
 		</a>
 		::end::
 	</div>
-
+	-->
 
 </div>
+
 
 
 <!-- RIGHT COLUMN -->
@@ -305,17 +324,37 @@ $$browserDetection()
 		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
 		::end::
+		
+		<!-- JOIN GROUP BLOCK -->
+		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
+			<p>
+				Inscrivez-vous à ce groupe, <br />
+				vous recevrez un email pour l'ouverture des prochaines commandes <br />
+				ainsi que des nouvelles des producteurs !
+			</p>
 
+			::if (user==null)::		
+			<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+				<span class="glyphicon glyphicon-plus"></span>
+				M'inscrire à ce groupe
+			</a>
+			::else::
+			<a href="/user/joingroup" class="btn btn-default">
+				<span class="glyphicon glyphicon-plus"></span>
+				M'inscrire à ce groupe
+			</a>
+			::end::
+		</div>
+		
+		<div class="block hidden-sm hidden-xs">
+			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
+			</a>
+		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
 		::end::
 
-	</div>
-
-	<div class="block hidden-sm hidden-xs">
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
-			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
-		</a>
 	</div>
 
 	<div class="block" ::cond visibleDocuments.length !=0::>

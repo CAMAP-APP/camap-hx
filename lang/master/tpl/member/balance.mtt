@@ -1,7 +1,14 @@
 ::use 'design.mtt'::
 <div class="col-md-12">
 	<h2>::_("Balance of members")::</h2>	
+	<div class="alert alert-warning">
+		Pour tenter de remettre de l'ordre dans les soldes des membres qui 
+		n'étaient plus cohérents depuis la mise en place de la gestion des paiements 
+		par contrat, les soldes sont maintenant calculés en ne tenant compte que des souscriptions 
+		enregistrées à partir du 1er janvier 2023. 
+	</div>	
 </div>
+
 
 <div class="col-md-4">	
 	<div class="article">

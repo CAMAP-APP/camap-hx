@@ -21,7 +21,7 @@
 					::else::
 						::set background = "greenBg"::
 					::end::
-					<td style="vertical-align: middle;padding: 10px 0;color: white;font-weight:bold;" class="::background::">
+					<td style="vertical-align: middle;padding: 10px 0;font-weight:bold;" class="::background::">
 						::formatNum(balance)::&nbsp;::currency()::
 					</td>
 					::if balance > 0::

@@ -43,7 +43,7 @@
 			<!-- total -->
 			<tr style="font-size:1.3em;">
 				<td colspan="2"></td>
-				<td class="text-right">::_("Balance")::&nbsp;:</td>
+				<td class="text-right"><i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Le solde ne prend en compte que les souscriptions postérieures au 1/01/2023">&nbsp;</i>::_("Balance")::&nbsp;:</td>
 				::if balance<0:: 
 					::set color = "C00"::
 				::else::
