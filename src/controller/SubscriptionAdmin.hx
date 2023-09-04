@@ -364,7 +364,11 @@ class SubscriptionAdmin extends controller.Controller
 	public function doBalanceTransfer( subscription : db.Subscription ) {
 
 		if ( !app.user.canManageContract( subscription.catalog ) ) throw Error( '/', t._('Access forbidden') );
-		if ( subscription.getBalance() <= 0 ) throw Error( '/contractAdmin/subscriptions/payments/' + subscription.id, 'Le solde doit être positif pour pouvoir le transférer sur une autre souscription.' );
+		/** Permettre le transfert de souscriptions négatives 
+		*/
+		/*
+		 if ( subscription.getBalance() <= 0 ) throw Error( '/contractAdmin/subscriptions/payments/' + subscription.id, 'Le solde doit être positif pour pouvoir le transférer sur une autre souscription.' );
+		*/
 		var subscriptionsChoices = SubscriptionService.getUserVendorNotClosedSubscriptions( subscription );
 		if ( subscriptionsChoices.length == 0  ) throw Error( '/contractAdmin/subscriptions/payments/' + subscription.id, 'Ce membre n\'a pas d\'autre souscription. Veuillez en créer une nouvelle avec le même producteur.' );
 

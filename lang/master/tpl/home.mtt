@@ -25,7 +25,7 @@ $$browserDetection()
 
 		::foreach c openContracts::
 		<div class="col-md-4 col-sm-6">
-			<a href="/subscriptions/contract/::c.id::" class="clickable groupBlock" style="max-height:96px;height:unset;">
+			<a href="/subscriptions/contract/::c.id::" class="clickable groupBlock" style="height:unset;">
 				::set v = c._vendor::
 				::if v.imageId!=null::
 					<div style="background-image:url('::file(v.imageId)::');float:left;margin-right:12px;" class="productImg" />
@@ -276,12 +276,12 @@ $$browserDetection()
 		</p>
 
 		::if (user==null)::		
-		<a href="#" class="btn btn-primary" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+		<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 			<span class="glyphicon glyphicon-plus"></span>
 			M'inscrire à ce groupe
 		</a>
 		::else::
-		<a href="/user/joingroup" class="btn btn-primary">
+		<a href="/user/joingroup" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 			M'inscrire à ce groupe
 		</a>

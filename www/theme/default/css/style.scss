@@ -1,13 +1,935 @@
+//
+// Variables
+// --------------------------------------------------
+
+//Cagette vars
+$white-base:#ffffff;//Background
+//$darkBrown:#d1004e;//fuschia red<-Amaury!!!
+//$darkBrown:#00b0da;//new blue
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$gray-base:              #000;
+$gray-darker:            lighten($gray-base, 13.5%); // #222
+$gray-dark:              lighten($gray-base, 20%);   // #333
+$gray:                   lighten($gray-base, 33.5%); // #555
+$gray-midlight: 		lighten($gray-base, 40.1%);
+$gray-light:             lighten($gray-base, 46.7%); // #777
+$gray-lighter:           lighten($gray-base, 93.5%); // #eee
+
+
+$blue:    #007bff !default;
+$indigo:  #6610f2 !default;
+$purple:  #772953 !default;
+$pink:    #e83e8c !default;
+$red:     #df382c !default;
+$orange:  #e95420 !default;
+$yellow:  #efb73e !default;
+$green:   #38b44a !default;
+$teal:    #20c997 !default;
+$cyan:    #17a2b8 !default;
+
+$brand-primary:          #eb7334;  
+//orange  #e95420 ///  $orange bugs error evaluating function `darken` The first argument to darken must be a color index: 6181
+$brand-success:         #3db66c;
+$brand-info:            #5d1e4e; 
+$brand-warning:         #f1c44b;
+$brand-danger:          #e15339;
+
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               $white-base;
+//** Global text color on `<body>`.
+$text-color:            $gray-dark;
+
+//** Global textual link color.
+$link-color:            $brand-primary;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%);
+//** Link hover decoration.
+$link-hover-decoration: underline;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  Cabin, Helvetica, Arial, sans-serif;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif;
+//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:        $font-family-sans-serif;
+
+$font-size-base:          16px;
+$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
+
+$font-size-h1:            floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)); // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)); // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)); // ~18px
+$font-size-h5:            $font-size-base;
+$font-size-h6:            ceil(($font-size-base * 0.85)); // ~12px
+
+//** Unit-less `line-height` for use in components like buttons.
+$line-height-base:        1.428571429; // 20/14
+//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+$line-height-computed:    floor(($font-size-base * $line-height-base)); // ~20px
+
+//** By default, this inherits from the `<body>`.
+$headings-font-family:    inherit;
+$headings-font-weight:    700;
+$headings-line-height:    1.1;
+$headings-color:          inherit;
+
+
+//== Iconography
+//
+//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
+
+//** Load fonts from this directory.
+$icon-font-path: "../../../../css/fonts/";
+//** File name for all font files.
+$icon-font-name:          "glyphicons-halflings-regular";
+//** Element ID within SVG icon file.
+$icon-font-svg-id:        "glyphicons_halflingsregular";
+
+
+//== Components
+//
+//## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
+
+$padding-base-vertical:     6px;
+$padding-base-horizontal:   12px;
+
+$padding-large-vertical:    10px;
+$padding-large-horizontal:  16px;
+
+$padding-small-vertical:    5px;
+$padding-small-horizontal:  10px;
+
+$padding-xs-vertical:       1px;
+$padding-xs-horizontal:     5px;
+
+$line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
+$line-height-small:         1.5;
+
+$border-radius-base:        4px;
+$border-radius-large:       6px;
+$border-radius-small:       3px;
+
+//** Global color for active items (e.g., navs or dropdowns).
+$component-active-color:    #fff;
+//** Global background color for active items (e.g., navs or dropdowns).
+$component-active-bg:       $brand-primary;
+
+//** Width of the `border` for generating carets that indicate dropdowns.
+$caret-width-base:          4px;
+//** Carets increase slightly in size for larger components.
+$caret-width-large:         5px;
+
+
+//== Tables
+//
+//## Customizes the `.table` component with basic values, each used across all table variations.
+
+//** Padding for `<th>`s and `<td>`s.
+$table-cell-padding:            8px;
+//** Padding for cells in `.table-condensed`.
+$table-condensed-cell-padding:  5px;
+
+//** Default background color used for all tables.
+$table-bg:                      transparent;
+//** Background color used for `.table-striped`.
+$table-bg-accent:               #f9f9f9;
+//** Background color used for `.table-hover`.
+$table-bg-hover:                #f5f5f5;
+$table-bg-active:               $table-bg-hover;
+
+//** Border color for table and cell borders.
+$table-border-color:            #ddd;
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+
+$btn-font-weight:                normal;
+
+$btn-default-color:              $white-base;
+$btn-default-bg:                 $brand-primary;
+$btn-default-border:             darken($brand-primary, 8%);
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             darken($btn-primary-bg, 5%);
+
+$btn-success-color:              #FFF;
+$btn-success-bg:                 $brand-success;
+$btn-success-border:             darken($btn-success-bg, 5%);
+
+$btn-info-color:                 #FFF;
+$btn-info-bg:                     lighten( $brand-info, 20%);
+$btn-info-border:                darken($btn-info-bg, 5%);
+
+$btn-warning-color:              #fff;
+$btn-warning-bg:                 $brand-warning;
+$btn-warning-border:             darken($btn-warning-bg, 10%);
+
+$btn-danger-color:               #fff;
+$btn-danger-bg:                  $brand-danger;
+$btn-danger-border:              darken($btn-danger-bg, 5%);
+
+$btn-link-disabled-color:        $gray-light;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base;
+$btn-border-radius-large:        $border-radius-large;
+$btn-border-radius-small:        $border-radius-small;
+
+
+//== Forms
+//
+//##
+
+//** `<input>` background color
+$input-bg:                       #fff;
+//** `<input disabled>` background color
+$input-bg-disabled:              $gray-lighter;
+
+//** Text color for `<input>`s
+$input-color:                    $gray;
+//** `<input>` border color
+$input-border:                   #ccc;
+
+// TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
+//** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
+$input-border-radius:            $border-radius-base;
+//** Large `.form-control` border radius
+$input-border-radius-large:      $border-radius-large;
+//** Small `.form-control` border radius
+$input-border-radius-small:      $border-radius-small;
+
+//** Border color for inputs on focus
+$input-border-focus:             #00b0da;
+
+//** Placeholder text color
+$input-color-placeholder:        #999;
+
+//** Default `.form-control` height
+$input-height-base:              ($line-height-computed + ($padding-base-vertical * 2) + 2);
+//** Large `.form-control` height
+$input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2);
+//** Small `.form-control` height
+$input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2);
+
+//** `.form-group` margin
+$form-group-margin-bottom:       15px;
+
+$legend-color:                   $gray-dark;
+$legend-border-color:            #e5e5e5;
+
+//** Background color for textual input addons
+$input-group-addon-bg:           $gray-lighter;
+//** Border color for textual input addons
+$input-group-addon-border-color: $input-border;
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                not-allowed;
+
+
+//== Dropdowns
+//
+//## Dropdown menu container and contents.
+
+//** Background for the dropdown menu.
+$dropdown-bg:                    #fff;
+//** Dropdown menu `border-color`.
+$dropdown-border:                rgba(0,0,0,.15);
+//** Dropdown menu `border-color` **for IE8**.
+$dropdown-fallback-border:       #ccc;
+//** Divider color for between dropdown items.
+$dropdown-divider-bg:            #e5e5e5;
+
+//** Dropdown link text color.
+$dropdown-link-color:            $gray-dark;
+//** Hover color for dropdown links.
+$dropdown-link-hover-color:      darken($gray-dark, 5%);
+//** Hover background for dropdown links.
+$dropdown-link-hover-bg:         #f5f5f5;
+
+//** Active dropdown menu item text color.
+$dropdown-link-active-color:     $component-active-color;
+//** Active dropdown menu item background color.
+$dropdown-link-active-bg:        $component-active-bg;
+
+//** Disabled dropdown menu item background color.
+$dropdown-link-disabled-color:   $gray-light;
+
+//** Text color for headers within dropdown menus.
+$dropdown-header-color:          $gray-light;
+
+//** Deprecated `$dropdown-caret-color` as of v3.1.0
+$dropdown-caret-color:           #000;
+
+
+//-- Z-index master list
+//
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+//
+// Note: These variables are not generated into the Customizer.
+
+$zindex-navbar:            1000;
+$zindex-dropdown:          1000;
+$zindex-popover:           1060;
+$zindex-tooltip:           1070;
+$zindex-navbar-fixed:      1030;
+$zindex-modal-background:  1040;
+$zindex-modal:             1050;
+
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Extra small screen / phone
+//** Deprecated `$screen-xs` as of v3.0.1
+$screen-xs:                  480px;
+//** Deprecated `$screen-xs-min` as of v3.2.0
+$screen-xs-min:              $screen-xs;
+//** Deprecated `$screen-phone` as of v3.0.1
+$screen-phone:               $screen-xs-min;
+
+// Small screen / tablet
+//** Deprecated `$screen-sm` as of v3.0.1
+$screen-sm:                  768px;
+$screen-sm-min:              $screen-sm;
+//** Deprecated `$screen-tablet` as of v3.0.1
+$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+//** Deprecated `$screen-md` as of v3.0.1
+$screen-md:                  992px;
+$screen-md-min:              $screen-md;
+//** Deprecated `$screen-desktop` as of v3.0.1
+$screen-desktop:             $screen-md-min;
+
+// Large screen / wide desktop
+//** Deprecated `$screen-lg` as of v3.0.1
+$screen-lg:                  1200px;
+$screen-lg-min:              $screen-lg;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-lg-desktop:          $screen-lg-min;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-xs-max:              ($screen-sm-min - 1);
+$screen-sm-max:              ($screen-md-min - 1);
+$screen-md-max:              ($screen-lg-min - 1);
+
+
+//== Grid system
+//
+//## Define your custom responsive grid.
+
+//** Number of columns in the grid.
+$grid-columns:              12;
+//** Padding between columns. Gets divided in half for the left and right.
+$grid-gutter-width:         30px;
+// Navbar collapse
+//** Point at which the navbar becomes uncollapsed.
+$grid-float-breakpoint:     $screen-sm-min;
+//** Point at which the navbar begins collapsing.
+$grid-float-breakpoint-max: ($grid-float-breakpoint - 1);
+
+
+//== Container sizes
+//
+//## Define the maximum width of `.container` for different screen sizes.
+
+// Small screen / tablet
+$container-tablet:             (720px + $grid-gutter-width);
+//** For `$screen-sm-min` and up.
+$container-sm:                 $container-tablet;
+
+// Medium screen / desktop
+$container-desktop:            (940px + $grid-gutter-width);
+//** For `$screen-md-min` and up.
+$container-md:                 $container-desktop;
+
+// Large screen / wide desktop
+$container-large-desktop:      (1140px + $grid-gutter-width);
+//** For `$screen-lg-min` and up.
+$container-lg:                 $container-large-desktop;
+
+
+//== Navbar
+//
+//##
+
+// Basics of a navbar
+$navbar-height:                    50px;
+$navbar-margin-bottom:             $line-height-computed;
+$navbar-border-radius:             $border-radius-base;
+$navbar-padding-horizontal:        floor(($grid-gutter-width / 2));
+$navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2);
+$navbar-collapse-max-height:       340px;
+
+$navbar-default-color:             #777;
+$navbar-default-bg:                #f8f8f8;
+$navbar-default-border:            darken($navbar-default-bg, 6.5%);
+
+// Navbar links
+$navbar-default-link-color:                #777;
+$navbar-default-link-hover-color:          #333;
+$navbar-default-link-hover-bg:             transparent;
+$navbar-default-link-active-color:         rgb(0, 175, 219);
+$navbar-default-link-active-bg:            $white-base;
+$navbar-default-link-disabled-color:       #ccc;
+$navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+$navbar-default-brand-color:               $navbar-default-link-color;
+$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%);
+$navbar-default-brand-hover-bg:            transparent;
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           #ddd;
+$navbar-default-toggle-icon-bar-bg:        #888;
+$navbar-default-toggle-border-color:       #ddd;
+
+
+//=== Inverted navbar
+// Reset inverted navbar basics
+$navbar-inverse-color:                      lighten($gray-light, 15%);
+$navbar-inverse-bg:                         #222;
+$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%);
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 lighten($gray-light, 15%);
+$navbar-inverse-link-hover-color:           #fff;
+$navbar-inverse-link-hover-bg:              transparent;
+$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color;
+$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%);
+$navbar-inverse-link-disabled-color:        #444;
+$navbar-inverse-link-disabled-bg:           transparent;
+
+// Inverted navbar brand label
+$navbar-inverse-brand-color:                $navbar-inverse-link-color;
+$navbar-inverse-brand-hover-color:          #fff;
+$navbar-inverse-brand-hover-bg:             transparent;
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            #333;
+$navbar-inverse-toggle-icon-bar-bg:         #fff;
+$navbar-inverse-toggle-border-color:        #333;
+
+
+//== Navs
+//
+//##
+
+//=== Shared nav styles
+$nav-link-padding:                          10px 15px;
+$nav-link-hover-bg:                         $gray-lighter;
+
+$nav-disabled-link-color:                   $gray-light;
+$nav-disabled-link-hover-color:             $gray-light;
+
+//== Tabs
+$nav-tabs-border-color:                     #ddd;
+
+$nav-tabs-link-hover-border-color:          $gray-lighter;
+
+$nav-tabs-active-link-hover-bg:             $body-bg;
+$nav-tabs-active-link-hover-color:          $gray;
+$nav-tabs-active-link-hover-border-color:   #ddd;
+
+$nav-tabs-justified-link-border-color:            #ddd;
+$nav-tabs-justified-active-link-border-color:     $body-bg;
+
+//== Pills
+$nav-pills-border-radius:                   $border-radius-base;
+$nav-pills-active-link-hover-bg:            $component-active-bg;
+$nav-pills-active-link-hover-color:         $component-active-color;
+
+
+//== Pagination
+//
+//##
+
+$pagination-color:                     $link-color;
+$pagination-bg:                        #fff;
+$pagination-border:                    #ddd;
+
+$pagination-hover-color:               $link-hover-color;
+$pagination-hover-bg:                  $gray-lighter;
+$pagination-hover-border:              #ddd;
+
+$pagination-active-color:              #fff;
+$pagination-active-bg:                 $brand-primary;
+$pagination-active-border:             $brand-primary;
+
+$pagination-disabled-color:            $gray-light;
+$pagination-disabled-bg:               #fff;
+$pagination-disabled-border:           #ddd;
+
+
+//== Pager
+//
+//##
+
+$pager-bg:                             $pagination-bg;
+$pager-border:                         $pagination-border;
+$pager-border-radius:                  15px;
+
+$pager-hover-bg:                       $pagination-hover-bg;
+
+$pager-active-bg:                      $pagination-active-bg;
+$pager-active-color:                   $pagination-active-color;
+
+$pager-disabled-color:                 $pagination-disabled-color;
+
+
+//== Jumbotron
+//
+//##
+
+$jumbotron-padding:              30px;
+$jumbotron-color:                inherit;
+$jumbotron-bg:                   $gray-lighter;
+$jumbotron-heading-color:        inherit;
+$jumbotron-font-size:            ceil(($font-size-base * 1.5));
+$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5));
+
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+$state-primary-text:             darken($brand-primary, 10%);
+$state-primary-bg:              lighten($brand-primary, 49%);
+$state-primary-bg-alpha:            lighten($brand-primary, 42%);
+
+$state-success-text:             $brand-success;
+$state-success-bg:              lighten($brand-success, 49%);
+//$state-success-border:            darken(spin($brand-success, -10), 5%);
+$state-success-border:            $brand-success;
+
+$state-info-text:                $brand-info;
+$state-info-bg:                  lighten($brand-info, 65%);
+$state-info-bg-alpha:            fade-out($brand-info, 0.9);
+
+//$state-info-border:              darken(spin($brand-info, -10), 7%);
+$state-info-border:               lighten($brand-info, 17%);
+
+$state-warning-text:             darken($brand-warning, 20%);
+$state-warning-bg:              lighten($brand-warning, 35%);
+//$state-warning-border:          darken(spin($brand-warning, -10), 5%);
+$state-warning-border:          $brand-warning;
+
+$state-danger-text:              $brand-danger;
+$state-danger-bg:                lighten($brand-danger, 35%);
+//$state-danger-border:            darken(spin($brand-danger, -10), 5%);
+$state-danger-border:            $brand-danger;
+
+
+//== Tooltips
+//
+//##
+
+//** Tooltip max width
+$tooltip-max-width:           200px;
+//** Tooltip text color
+$tooltip-color:               #fff;
+//** Tooltip background color
+$tooltip-bg:                  #000;
+$tooltip-opacity:             .9;
+
+//** Tooltip arrow width
+$tooltip-arrow-width:         5px;
+//** Tooltip arrow color
+$tooltip-arrow-color:         $tooltip-bg;
+
+
+//== Popovers
+//
+//##
+
+//** Popover body background color
+$popover-bg:                          $brand-primary;
+//** Popover maximum width
+$popover-max-width:                   276px;
+//** Popover border color
+$popover-border-color:                rgba(0,0,0,.2);
+//** Popover fallback border color
+$popover-fallback-border-color:       #ccc;
+
+//** Popover title background color
+$popover-title-bg:                    darken($popover-bg, 3%);
+
+//** Popover arrow width
+$popover-arrow-width:                 10px;
+//** Popover arrow color
+$popover-arrow-color:                 $popover-bg;
+
+//** Popover outer arrow width
+$popover-arrow-outer-width:           ($popover-arrow-width + 1);
+//** Popover outer arrow color
+$popover-arrow-outer-color:           fadein($popover-border-color, 5%);
+//** Popover outer arrow fallback color
+$popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%);
+
+
+//== Labels
+//
+//##
+
+//** Default label background color
+$label-default-bg:            $gray-light;
+//** Primary label background color
+$label-primary-bg:            $brand-primary;
+//** Success label background color
+$label-success-bg:            $brand-success;
+//** Info label background color
+$label-info-bg:               $brand-info;
+//** Warning label background color
+$label-warning-bg:            $brand-warning;
+//** Danger label background color
+$label-danger-bg:             $brand-danger;
+
+//** Default label text color
+$label-color:                 #fff;
+//** Default text color of a linked label
+$label-link-hover-color:      #fff;
+
+
+//== Modals
+//
+//##
+
+//** Padding applied to the modal body
+$modal-inner-padding:         15px;
+
+//** Padding applied to the modal title
+$modal-title-padding:         15px;
+//** Modal title line-height
+$modal-title-line-height:     $line-height-base;
+
+//** Background color of modal content area
+$modal-content-bg:                             #fff;
+//** Modal content border color
+$modal-content-border-color:                   rgba(0,0,0,.2);
+//** Modal content border color **for IE8**
+$modal-content-fallback-border-color:          #999;
+
+//** Modal backdrop background color
+$modal-backdrop-bg:           #000;
+//** Modal backdrop opacity
+$modal-backdrop-opacity:      .5;
+//** Modal header border color
+$modal-header-border-color:   #e5e5e5;
+//** Modal footer border color
+$modal-footer-border-color:   $modal-header-border-color;
+
+$modal-lg:                    900px;
+$modal-md:                    600px;
+$modal-sm:                    300px;
+
+
+//== Alerts
+//
+//## Define alert colors, border radius, and padding.
+
+$alert-padding:               15px;
+$alert-border-radius:         $border-radius-base;
+$alert-link-font-weight:      bold;
+
+$alert-success-bg:            $state-success-bg;
+$alert-success-text:          $state-success-text;
+$alert-success-border:        $state-success-border;
+
+$alert-info-bg:               $state-info-bg;
+$alert-info-text:             $state-info-text;
+$alert-info-border:           $state-info-border;
+
+$alert-warning-bg:            $state-warning-bg;
+$alert-warning-text:          $state-warning-text;
+$alert-warning-border:        $state-warning-border;
+
+$alert-danger-bg:             $state-danger-bg;
+$alert-danger-text:           $state-danger-text;
+$alert-danger-border:         $state-danger-border;
+
+
+//== Progress bars
+//
+//##
+
+//** Background color of the whole progress component
+$progress-bg:                 #f5f5f5;
+//** Progress bar text color
+$progress-bar-color:          #fff;
+//** Variable for setting rounded corners on progress bar.
+$progress-border-radius:      $border-radius-base;
+
+//** Default progress bar color
+$progress-bar-bg:             $brand-primary;
+//** Success progress bar color
+$progress-bar-success-bg:     $brand-success;
+//** Warning progress bar color
+$progress-bar-warning-bg:     $brand-warning;
+//** Danger progress bar color
+$progress-bar-danger-bg:      $brand-danger;
+//** Info progress bar color
+$progress-bar-info-bg:        $brand-info;
+
+
+//== List group
+//
+//##
+
+//** Background color on `.list-group-item`
+$list-group-bg:                 #fff;
+//** `.list-group-item` border color
+$list-group-border:             #ddd;
+//** List group border radius
+$list-group-border-radius:      $border-radius-base;
+
+//** Background color of single list items on hover
+$list-group-hover-bg:           #f5f5f5;
+//** Text color of active list items
+$list-group-active-color:       $component-active-color;
+//** Background color of active list items
+$list-group-active-bg:          $component-active-bg;
+//** Border color of active list elements
+$list-group-active-border:      $list-group-active-bg;
+//** Text color for content within active list items
+$list-group-active-text-color:  lighten($list-group-active-bg, 40%);
+
+//** Text color of disabled list items
+$list-group-disabled-color:      $gray-light;
+//** Background color of disabled list items
+$list-group-disabled-bg:         $gray-lighter;
+//** Text color for content within disabled list items
+$list-group-disabled-text-color: $list-group-disabled-color;
+
+$list-group-link-color:         #555;
+$list-group-link-hover-color:   $list-group-link-color;
+$list-group-link-heading-color: #333;
+
+
+//== Panels
+//
+//##
+
+$panel-bg:                    #fff;
+$panel-body-padding:          15px;
+$panel-heading-padding:       10px 15px;
+$panel-footer-padding:        $panel-heading-padding;
+$panel-border-radius:         $border-radius-base;
+
+//** Border color for elements within panels
+$panel-inner-border:          #ddd;
+$panel-footer-bg:             #f5f5f5;
+
+$panel-default-text:          $gray-dark;
+$panel-default-border:        #ddd;
+$panel-default-heading-bg:    #f5f5f5;
+
+$panel-primary-text:          #fff;
+$panel-primary-border:        $brand-primary;
+$panel-primary-heading-bg:    $brand-primary;
+
+$panel-success-text:          $state-success-text;
+$panel-success-border:        $state-success-border;
+$panel-success-heading-bg:    $state-success-bg;
+
+$panel-info-text:             $state-info-text;
+$panel-info-border:           $state-info-border;
+$panel-info-heading-bg:       $state-info-bg;
+
+$panel-warning-text:          $state-warning-text;
+$panel-warning-border:        $state-warning-border;
+$panel-warning-heading-bg:    $state-warning-bg;
+
+$panel-danger-text:           $state-danger-text;
+$panel-danger-border:         $state-danger-border;
+$panel-danger-heading-bg:     $state-danger-bg;
+
+
+//== Thumbnails
+//
+//##
+
+//** Padding around the thumbnail image
+$thumbnail-padding:           4px;
+//** Thumbnail background color
+$thumbnail-bg:                $body-bg;
+//** Thumbnail border color
+$thumbnail-border:            #ddd;
+//** Thumbnail border radius
+$thumbnail-border-radius:     $border-radius-base;
+
+//** Custom text color for thumbnail captions
+$thumbnail-caption-color:     $text-color;
+//** Padding around the thumbnail caption
+$thumbnail-caption-padding:   9px;
+
+
+//== Wells
+//
+//##
+
+$well-bg:                     #f5f5f5;
+$well-border:                 darken($well-bg, 7%);
+
+
+//== Badges
+//
+//##
+
+$badge-color:                 #fff;
+//** Linked badge text color on hover
+$badge-link-hover-color:      #fff;
+$badge-bg:                    $gray-light;
+
+//** Badge text color in active nav link
+$badge-active-color:          $link-color;
+//** Badge background color in active nav link
+$badge-active-bg:             #fff;
+
+$badge-font-weight:           bold;
+$badge-line-height:           1;
+$badge-border-radius:         10px;
+
+
+//== Breadcrumbs
+//
+//##
+
+$breadcrumb-padding-vertical:   8px;
+$breadcrumb-padding-horizontal: 15px;
+//** Breadcrumb background color
+$breadcrumb-bg:                 #f5f5f5;
+//** Breadcrumb text color
+$breadcrumb-color:              #ccc;
+//** Text color of current page in the breadcrumb
+$breadcrumb-active-color:       $gray-light;
+//** Textual separator for between breadcrumb elements
+$breadcrumb-separator:          "/";
+
+
+//== Carousel
+//
+//##
+
+$carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6);
+
+$carousel-control-color:                      #fff;
+$carousel-control-width:                      15%;
+$carousel-control-opacity:                    .2;
+$carousel-control-font-size:                  20px;
+
+$carousel-indicator-active-bg:                #fff;
+$carousel-indicator-border-color:             #fff;
+
+$carousel-caption-color:                      #fff;
+
+
+//== Close
+//
+//##
+
+$close-font-weight:           bold;
+$close-color:                 #000;
+$close-text-shadow:           0 1px 0 #fff;
+
+
+//== Code
+//
+//##
+
+$code-color:                  #d1004e; //HEX
+$code-bg:                     #f9f2f4; //HEX
+
+$kbd-color:                   #fff;
+$kbd-bg:                      #333;
+
+$pre-bg:                      #f5f5f5; //HEX
+$pre-color:                   $gray-dark;
+$pre-border-color:            #ccc;
+$pre-scrollable-max-height:   340px;
+
+
+//== Type
+//
+//##
+
+//** Horizontal offset for forms and lists.
+$component-offset-horizontal: 180px;
+//** Text muted color
+$text-muted:                  $gray-light;
+//** Abbreviations and acronyms border color
+$abbr-border-color:           $gray-light;
+//** Headings small color
+$headings-small-color:        $gray-light;
+//** Blockquote small color
+$blockquote-small-color:      $gray-light;
+//** Blockquote font size
+$blockquote-font-size:        ($font-size-base * 1.25);
+//** Blockquote border color
+$blockquote-border-color:     $gray-lighter;
+//** Page header border color
+$page-header-border-color:    $gray-lighter;
+//** Width of horizontal description list titles
+$dl-horizontal-offset:        $component-offset-horizontal;
+//** Point at which .dl-horizontal becomes horizontal
+$dl-horizontal-breakpoint:    $grid-float-breakpoint;
+//** Horizontal line color.
+$hr-border:                   $gray-lighter;
+
+/* feuille vide pour surcharge */
 /*
-	CAMAP SASS stylesheet
+	Cagette.net SASS stylesheet
 	Use it with with bootstrap 3
 */
-@import url("https://fonts.googleapis.com/css?family=Cabin:400,500,700");
+// $import url("https://fonts.googleapis.com/css?family=Cabin:400,500,700");
 
-$primaryColor: #10654e;
-$mediumGrey: #666;
-$lightGrey: #aaa;
-$danger: #d32f2f;
+
+/*
+//$camapColor: $brand-primary; 
+$mediumGreen: darken($brand-success, 10%);//Medium green 
+*/
+
+//Neutralized
+//$camapBtnColor: #6faf1d; //Green 
+//$secondaryColor: #6faf1d !default; //primary buttons color 
+//## Gray for use across Bootstrap.
+//$darkGrey: #333; //1 occurence
+//$mediumGrey: #666; // 1 occurence
+//$lightGrey: #aaa; //0 occurence
+
+//
+//$farmer: $white-base; // white 3 occurrence
+//$farmerPro: $brand-success; 
+//$farmerDanger: $brand-danger;//Magenta 5 occurence
+
+/*
+Green #6faf1d | $camapBtnColor 0 $secondaryColor 0 occurrence $farmerPro 3 occurence $brand-success 4 occurence #6faf1d 9 occurence 
+XXX Medium green #3c763d | $mediumGreen 3 occurence #3c763d 0 occurences
+Blue :  #00b0da |  $camapColor 11 occurence #00b0da 4 occurence
+Magenta #f74747; $farmerDanger 5 occurences
+white #ffffff||white||#fff // $farmer 3 occurrence
+*/
+
+
 
 html {
   //for rem units
@@ -17,16 +939,26 @@ html {
 body {
   //usefull when BS is not here
   font-family: Cabin, Arial, Helvetica, sans-serif;
-  color: "rgba(0,0,0,0.87)";
+   color: $gray-dark;
 }
+
+// h1,h2,h3,h4{
+// 	//margin-top: 4px !important;
+// 	//margin-bottom: 8px !important;
+// 	// font-style: italic;
+// }
 
 h1 {
   margin-bottom: 8px !important;
   margin-top: 4px !important;
+  img {
+	  padding: 0px;
+	  margin-right: 15px
+  }
 }
 
 a {
-  color: $primaryColor;
+  color: $link-color;
   cursor: pointer;
 }
 
@@ -35,12 +967,23 @@ ol.breadcrumb {
   margin: 0 0 8px 0px;
 
   li + li:before {
-    color: lighten(#8a6d3b, 40%);
+    color: $gray-midlight; 
   }
   a {
-    color: lighten(#8a6d3b, 15%);
+    color: lighten($gray-base, 15%);
   }
   background: none;
+}
+
+body.cpro {
+  ol.breadcrumb {
+    li + li:before {
+      color: lighten(darken($brand-success, 10%), 25%); 
+    }
+    a {
+      color: darken($brand-success, 10%);
+    }
+  }
 }
 
 //used in Js app.toggle()
@@ -48,25 +991,33 @@ ol.breadcrumb {
   display: none;
 }
 
+//informations before footer, maintenance ...
+div.footer-info {
+  color: $gray-base; 
+  margin: 24px 0;
+}
+
 .greenBg {
-  color:white;
-  background-color: #2e7d32;
+        color: $state-success-text;
+    background-color: $state-success-bg;
+    border-color: $state-success-border;
 }
 .greenColor {
-  color: #2e7d32 !important;
+  color: $brand-success;
 }
 .redBg {
-  color:white;
-  background-color: $danger;
+    color: $state-danger-text;
+    background-color: $state-danger-bg;
+    border-color: $state-danger-border; 
 }
 .redColor {
-  color: $danger !important;
+  color: $brand-danger;
 }
 
 //description in checkboxes ( sugoi form element )
 form {
   p.desc {
-    color: $mediumGrey;
+    color: $gray-midlight;
     font-size: 0.9em;
   }
 }
@@ -78,6 +1029,7 @@ form {
   z-index: 99;
 }
 
+
 /* buttons */
 
 /* bounce effect */
@@ -88,7 +1040,7 @@ form {
   animation-fill-mode: both;
 }
 
-/*@-webkit-keyframes bounce { 
+/*$-webkit-keyframes bounce { 
 	0%, 20%, 50%, 80%, 100% {-webkit-transform: translateY(0);} 
 	40% {-webkit-transform: translateY(-30px);} 
 	60% {-webkit-transform: translateY(-15px);} 
@@ -121,27 +1073,29 @@ form {
 
 .navbar {
   margin-bottom: 8px !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
 
 //admin buttons in navbar
 ul.nav {
   &.admin {
-    background-color: #eee;
+    background-color: $gray-lighter;
     li.active > a {
-      background-color: #e0e0e0 !important;
+      background-color: #e0e0e0 !important;  //HEX
+      
     }
   }
 
   li {
-    text-transform: uppercase;
-    font-size: 14px;
+//     text-transform: uppercase;
+    font-size: 1em;
     a {
-      color: #777;
+      color: $gray-light;
     }
 
     &.active > a {
-      background-color: #eee !important;
-      color: #e95216 !important;
+      background-color: #eee !important;  //HEX
+      color: $link-color !important;  //HEX
     }
   }
 }
@@ -155,17 +1109,33 @@ ul.nav {
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
+.alert-warning a {
+        color: $link-color; 
+}
+
+.alert-success {
+color: $state-success-text;  
+background-color: $state-success-bg;
+border-color: $state-success-border;
+}
+
+.alert-danger {
+    color: $state-danger-text;
+    background-color: $state-danger-bg;
+    border-color: $state-danger-border;
+}
 /* Page Footer */
 
 #footer {
-  background: $primaryColor;
+  background: $brand-primary;
   border-radius: 8px;
   padding: 20px;
   overflow: auto;
-  color: #fff;
+  color: $white-base;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 
   ul > li > a {
-    color: #fff;
+    color: $white-base;
     text-decoration: none;
   }
 
@@ -183,7 +1153,7 @@ ul.nav {
       display: inline-block;
       text-align: center;
       a {
-        color: #fff;
+        color: $white-base;
         font-size: 20px;
         min-width: 32px;
         height: 32px;
@@ -192,29 +1162,29 @@ ul.nav {
       }
 
       &.cagfb {
-        background-color: #4267b2;
+        background-color: #4267b2;  //HEX
       }
       &.cagtwitter {
-        background-color: #1da1f2;
+        background-color: #1da1f2;  //HEX
       }
       &.cagyoutube {
-        background-color: #ff0000;
+        background-color: #ff0000;  //HEX
       }
       &.caggithub {
-        background-color: #333333;
+        background-color: #fff333;  //HEX
       }
     }
   }
 }
 
 #subfooter {
-  /*background-color : #313131;
-	color : #fff;*/
+  /*background-color : #313131; //HEX
+	color : $white-base;*/
   text-align: center;
   font-size: 14px;
   padding: 15px 0 25px 0;
   span {
-    color: #979797;
+    color: #979797;  //HEX
     font-size: 11px;
   }
 }
@@ -222,14 +1192,14 @@ ul.nav {
 .sqlLog {
   margin-top: 24px;
   font-size: 10px;
-  background: #aaa;
+  background: #aaa;  //HEX
   a {
-    color: #666;
+    color: #666;  //HEX
   }
 }
 
 .contact {
-  border: 2px solid #ccc;
+  border: 2px solid #ccc;  //HEX
   border-radius: 8px;
   margin: 8px;
   padding: 8px;
@@ -239,7 +1209,7 @@ ul.nav {
 
 .homeBlock {
   margin-bottom: 32px;
-  background: #fff;
+  background: $white-base;
   border-radius: 8px;
   position: relative;
   padding: 8px;
@@ -250,14 +1220,14 @@ ul.nav {
 
 //pour les hauts de nav
 span.panel-title {
-  color: #966125 !important;
+  color: $gray-base !important; 
   font-size: 20px !important;
   font-weight: normal !important;
 }
 
 .article {
   margin-bottom: 16px;
-  background: #fff;
+  background: $white-base;
   border-radius: 8px;
   position: relative;
   padding: 8px;
@@ -265,19 +1235,20 @@ span.panel-title {
 
 .white {
   margin-bottom: 16px;
-  background: #fff;
+  background: $white-base;
   border-radius: 4px;
   position: relative;
 }
 
 .disabled {
-  opacity: 0.5;
+	color: $brand-info;
+  opacity: 0.8;
 }
 
 /* block marron */
 .block {
   margin-bottom: 12px;
-  background: #fff;
+  background: $white-base;
   border-radius: 8px;
   position: relative;
   padding: 8px;
@@ -286,11 +1257,11 @@ span.panel-title {
 /* block marron + contours */
 .block2 {
   margin-bottom: 32px;
-  background: #f0d277;
+  background: $brand-primary;
   border-radius: 8px;
   position: relative;
   padding: 8px;
-  border: 2px solid #c3a04c;
+  border: 2px solid $brand-primary;
 }
 
 /* product in shop */
@@ -306,7 +1277,7 @@ table.product {
 
   .desc {
     font-size: 90%;
-    color: #666;
+    color: #666;  //HEX
   }
 
   a.productName {
@@ -323,7 +1294,7 @@ table.table {
   tr.head > td,
   thead tr td,
   tr.head > th {
-    border-top: 3px solid #ddd;
+    border-top: 3px solid #ddd;  //HEX
     height: 30px;
     font-size: 120%;
     vertical-align: bottom;
@@ -331,7 +1302,7 @@ table.table {
 
   tr.darkhead > td,
   tr.darkhead > th {
-    background-color: #777;
+    background-color: #777;  //HEX
     color: white;
     //links are white, but not for btn buttons
     a:not(.btn) {
@@ -344,7 +1315,7 @@ table.table {
 
   tr.greyhead > td,
   tr.greyhead > th {
-    background-color: #eee;
+    background-color: #eee;  //HEX
     vertical-align: middle;
     text-align: center;
     font-weight: bold;
@@ -352,7 +1323,7 @@ table.table {
 
   //sub-row, darker bg
   tr.subrow {
-    background-color: #eee;
+    background-color: #eee;  //HEX
   }
 
   /*tr.disabled td,tr.inactive td{
@@ -370,28 +1341,28 @@ table.listing tr td {
 // used in UserOrder react comp
 div.tableHeader {
   font-weight: bold;
-  color: #aaa;
-  border-bottom: 1px solid #ddd;
+  color: #aaa;  //HEX
+  border-bottom: 1px solid #ddd;  //HEX
   margin-bottom: 12px;
 }
 
 div.reportHeader {
-  background-color: #ddd;
+  background-color: #ddd;  //HEX
 }
 
 /* a product order in a table style */
 .productOrder {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;  //HEX
   margin-bottom: 6px;
 
   .infos {
-    color: #aaa;
+    color: #aaa; //HEX
     font-size: 0.8em;
   }
 }
 /* A product reference */
 .ref {
-  color: #666;
+  color: #666;  //HEX
   font-family: monospace;
   font-size: 0.9em;
 }
@@ -400,14 +1371,14 @@ div.reportHeader {
 .linkToShare {
   font-family: Monospace;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #ddd;  //HEX
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: #f5f5f5;  //HEX
 }
 
 .boxed {
   display: block;
-  border: 1px #ddd solid;
+  border: 1px #ddd solid; //HEX
   border-radius: 8px;
   color: inherit;
   background-color: white;
@@ -422,7 +1393,7 @@ div.reportHeader {
 /* make <a> like clickable divs  */
 .clickable {
   display: block;
-  border: 1px #ddd solid;
+  border: 1px #ddd solid; //HEX
   border-radius: 8px;
   color: inherit;
   background-color: white;
@@ -432,7 +1403,7 @@ div.reportHeader {
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(#8a6d3b, 50%);
+    background-color: lighten($gray-base, 70%);  
     //border-color:darken(#F0D277,10%);
     text-decoration: none;
     transition: all 0.15s ease;
@@ -440,8 +1411,8 @@ div.reportHeader {
 
   &:active {
     cursor: pointer;
-    background-color: #f0d277;
-    border-color: darken(#f0d277, 10%);
+    background-color: $link-color;  
+    border-color: darken($link-color, 10%);
     text-decoration: none;
     transform: scale(0.95);
   }
@@ -454,7 +1425,7 @@ div.reportHeader {
 
 /* big colored circle with white icon inside */
 .iconBadge {
-  background-color: #666;
+  background-color: #666;  //HEX
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -467,17 +1438,39 @@ div.reportHeader {
     font-size: 1.5em;
   }
 
-  &.danger {
-    color: $danger;
-    border-color: $danger;
+  &.farmer-pro {
+    color: $brand-success;
+    border-color: $brand-success;
     border: 3px solid;
-    background-color: #f2dede;
+    background-color: white;
+    i.icon {
+      margin-top: -6px; //corrige l'effet du border
+      color: $brand-success;
+    }
+  }
+
+  &.farmer {
+    color: $white-base;
+    border-color: $white-base;
+    border: 3px solid;
+    background-color: white;
+    i.icon {
+      margin-top: -6px; //corrige l'effet du border
+      color: $white-base;
+    }
+  }
+
+  &.danger {
+    color: $brand-danger;
+    border-color: $brand-danger;
+    border: 3px solid;
+    background-color: #f2dede;  //HEX
     i.icon {
       //bidouille pour que l'icone soit bien centrée
       margin-top: -5px;
       margin-left: 0px;
 
-      color: $danger;
+      color: $brand-danger;
     }
   }
 
@@ -490,7 +1483,7 @@ div.reportHeader {
 
 //icon badge within Clickables
 .blockIconBadge {
-  // color:darken(#bad096,20%);
+  // color:darken(#bad096,20%); //HEX
   // background-color:white;
   // padding:4px;
   position: absolute;
@@ -502,20 +1495,53 @@ div.reportHeader {
   width: 40px;
   height: 40px;
   text-align: center;
-  // border: 3px solid #bad096;
+  // border: 3px solid #bad096; //HEX
   // line-height: 20px;
 }
 
-/* a camap group block (use it with .clickable ) */
+/* a cagette group block (use it with .clickable ) */
 .groupBlock {
   height: 110px;
   overflow: hidden;
   vertical-align: top;
   position: relative;
-
+  border: solid 1px $state-info-border;
+font-size: 0.8em;
+box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+background-color: $state-info-bg-alpha;
   .address {
     font-size: 0.9em;
   }
+  .distance {
+    font-weight: bold;
+    color: $brand-success;
+    font-size: 1.2em;
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+  }
+}
+
+/* a cagette pro block (use it with .clickable ) */
+.proBlock {
+  height: 110px;
+  overflow: hidden;
+  vertical-align: top;
+  position: relative;
+  background: #bad096;  //HEX
+  &:hover {
+    background: darken(#bad096, 10%); //HEX
+  }
+  /*span.cpro{
+		position: absolute;
+		right:0px;
+		top:0px;
+		background:darken(#bad096,30%); //HEX
+		color:yellow;
+		height: 12px;
+		padding:4px;
+		font-weight: bold;
+	}*/
 }
 
 .header {
@@ -525,8 +1551,17 @@ div.reportHeader {
       margin-top: 16px;
     }
     a {
-      color: #777;
+      color: $gray-base;
     }
+    i.icon {
+	    color: $brand-primary;
+    }
+    .btn-default {
+	background-color: $btn-default-bg;
+	}
+	.css-wkfemu {
+		background-color: $brand-primary
+	}
   }
 }
 
@@ -535,7 +1570,7 @@ div.reportHeader {
 */
 .shop {
   .header {
-    background-color: #749e3c;
+    background-color: #749e3c;  //HEX
     display: inline-block;
     width: 100%;
 
@@ -564,8 +1599,8 @@ div.reportHeader {
     .catHeader {
       font-weight: bold;
       font-size: 1.2em;
-      color: #583816;
-      border-bottom: 1px solid #ccc;
+      color: #583816; //HEX
+      border-bottom: 1px solid #ccc;  //HEX
       width: 100%;
     }
   }
@@ -579,7 +1614,7 @@ div.reportHeader {
 
     .warning {
       font-size: 11px;
-      color: #900;
+      color: #900;  //HEX
       font-weight: bold;
     }
   }
@@ -591,12 +1626,12 @@ div.reportHeader {
 }
 
 .vat {
-  color: #999999;
+  color: #999999;  //HEX
   //font-size:80%;
 }
 
 .detail {
-  color: #999999;
+  color: #999999;  //HEX
   font-size: 90%;
 }
 
@@ -609,7 +1644,7 @@ div.reportHeader {
 
 .cartDiv {
   margin-bottom: 16px;
-  background: #007700;
+  background: #007700;  //HEX
   border-radius: 8px;
   position: relative;
   padding: 8px;
@@ -639,29 +1674,29 @@ div.reportHeader {
       //font-weight:bold;
       margin-bottom: 12px;
       margin-top: 12px;
-      border-top: 1px solid #fff;
+      border-top: 1px solid $white-base;
     }
   }
 }
 
 .place {
-  color: #666;
+  color: #666; //HEX
   font-weight: bold;
   margin-top: 13px;
   padding: 8px;
   font-size: 13px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ccc; //HEX
 }
 
 .distribMessage {
-  color: #fff;
+  color: $white-base;
   font-weight: bold;
   padding: 4px;
   margin-top: 13px;
 
   font-size: 13px;
-  background-color: #080;
-  /*border-top:1px solid #333 ;*/
+  background-color: #6faf1d;  //HEX
+  /*border-top:1px solid $white-base ;*/
 }
 
 .dateBoxOffset {
@@ -672,8 +1707,8 @@ div.reportHeader {
 }
 .dateBox {
   border-radius: 8px;
-  background-color: #c59654;
-  color: #fff;
+  background-color: lighten($brand-primary,1%);
+  color: $white-base;
   font-size: 13px;
   line-height: 13px;
 
@@ -682,26 +1717,32 @@ div.reportHeader {
 
   width: 90px;
   margin: 0;
-  padding: 4px;
-  box-shadow: 4px 4px 0px #292929;
+  padding: 2px;
+  box-shadow: 2px 2px 0px lighten($brand-primary, 40%); //HEX
 
   .box {
     line-height: 22px;
-    background-color: #ffffff;
-    color: #666;
+    background-color: $white-base;
+    color: $gray-dark; 
     font-size: 14px;
-    font-weight: bold;
+//     font-weight: bold;
     text-align: center;
     margin: 0px;
     border-radius: 4px;
+    
+    .date-calendar{
+	    color: $brand-info;
+	    font-size:28px;
+	    font-weight: bold;
+    }
   }
 
   /* place link */
   a {
-    color: #ffffff !important;
+    color: $white-base !important;
   }
   a:hover {
-    color: #ffffff !important;
+    color: $white-base !important; 
   }
 }
 
@@ -710,7 +1751,7 @@ div.reportHeader {
   color: white;
   font-size: 80%;
   padding: 4px;
-  background-color: #666666;
+  background-color: #666666;  //HEX
   border-radius: 4px;
   line-height: 30px;
   text-align: center;
@@ -729,11 +1770,11 @@ div.reportHeader {
   font-size: 1.7em;
   width: 48px;
   height: 48px;
-  color: #e6cb9c;
+  color: #e6cb9c;  //HEX
   padding: 4px;
   background-color: white;
   border-radius: 4px;
-  border: 1px solid #e6cb9c;
+  border: 1px solid #e6cb9c;  //HEX
   // line-height: 48px;
   text-align: center;
 }
@@ -744,24 +1785,73 @@ div.reportHeader {
   line-height: 45px;
 }
 
+/**
+	Popovers for help and tutorials
+**/
+/*.popover{
+
+	color:white;
+	font-size:14px;
+	
+	h3.popover-title{
+		//padding: 4px;
+		color:#BB9931 !important; //HEX
+		//border-bottom:1px solid #BB9931 !important; //HEX
+		//background-color:none;
+		font-weight:normal;
+		font-size: 20px;
+	}
+	
+	.popover-content{
+		font-size: 16px;
+		b{ 
+			color:#FC0; //HEX
+			font-weight:normal;
+		}
+		a{ 
+			color:#FC0; //HEX
+			font-weight:normal;
+			text-decoration:underline; 
+		}
+	}
+	
+	.footer{
+		//border-top: 1px solid #BB9931; //HEX
+		height: 45px;
+		padding: 12px 0;
+		
+		.pull-left .btn{
+			background-color:#583816; //HEX
+			color:#BB9931; //HEX
+			border:1px solid #BB9931; //HEX
+		}
+		
+		.pull-right .btn{
+			background-color:#FC0; //HEX
+			color:#583816;
+			border:1px solid #583816; //HEX
+		}
+	}
+}*/
+
 /* skin a modal like a tuto popover */
 .modal.help {
   .modal-header {
     font-size: 1.3em;
-    color: #bb9931 !important;
-    border-bottom: 1px solid #bb9931 !important;
+    color: #bb9931 !important;  //HEX
+    border-bottom: 1px solid #bb9931 !important;  //HEX
     font-weight: bold !important;
     //font-family:'Arial','sans-serif' !important;
-    background-color: #583816 !important;
+    background-color: #583816 !important;  //HEX
   }
 
   .modal-content {
-    background-color: #583816 !important;
+    background-color: #583816 !important;  //HEX
     color: white;
   }
 
   .modal-footer {
-    border-top: 1px solid #bb9931 !important;
+    border-top: 1px solid #bb9931 !important;  //HEX
   }
 }
 /* hightlight a zone for tutos */
@@ -780,45 +1870,56 @@ div.reportHeader {
     overflow: hidden;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    color: #fff;
-    background-color: #b2823f;
+    border: 2px solid $brand-primary;
+    color: $brand-info;
+    background-color: $state-primary-bg-alpha;
     // vertical-align:middle;
     margin: 0;
     padding: 6px 6px 6px 90px;
     min-height: 70px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 
     &.disabled {
-      background-color: #999;
+      background-color: #999;  //HEX
       opacity: 1;
     }
     &.orders {
-      background-color: #b2823f;
+//       background-color: lighten($brand-primary,45%);
     }
     &.active {
-      background-color: #85b14d;
+      background-color: $brand-success; 
     }
-
+	i.icon{
+		color: $brand-info;
+	}
     .info {
       font-size: 16px;
       line-height: 27px;
+      padding: 0;
+      border: 0px solid transparent;
+      margin-bottom : 0px;
+      color : $brand-info;
+      background-color: transparent;
       /* place link */
       a {
-        color: #ffffff !important;
+        color: $brand-primary !important;
         &:hover {
-          color: #ffffff !important;
+          color: $white-base !important;
+          background-color: $brand-primary;
+          text-decoration: none;
         }
       }
     }
 
     .date {
       line-height: 23px;
-      background-color: #ffffff;
-      color: #666;
+      background-color: $white-base;
+      color: #666; //HEX
       font-size: 14px;
       text-align: center;
       margin: 0 8px 0 0;
       border-radius: 6px;
-      border: 4px solid #c6c6c6;
+      border: 2px solid #c6c6c6;  //HEX
     }
 
     .address,
@@ -831,37 +1932,43 @@ div.reportHeader {
 
   .content {
     padding: 12px;
-    background-color: white;
+//     background-color: white;
 
     //used in home.mtt
     &.myorder {
-      background: #eee;
-      color: #999;
+//       background: lighten($brand-info, 60%); 
+      border-bottom: 1px solid lighten($brand-info, 40%);
+      background-color: $state-info-bg-alpha;
+      color: $brand-info;
       padding: 8px 8px 8px 20px;
       font-weight: bold;
     }
 
     &.disabled {
-      //background:#AAA;
+      //background:#AAA; //HEX
       opacity: 1;
     }
 
     &.orders {
-      background: #fff;
+      background: $white-base;
       padding-left: 50px;
     }
-
-    .alert {
-      margin-bottom: 0;
+    .alert-warning a {
+ 		color: $btn-default-color;
+	  }
+    .alert-danger {
+    color: $state-danger-text;
+    background-color: $state-danger-bg;
+    border-color: $state-danger-border; 
     }
 
     //footer of orders : attendance list, subscription balance
     .orderFooter {
-      color: #999;
+      color: #999;  //HEX
       // height: 22px;
       margin: 10px 0;
       a {
-        color: #999;
+        color: #999;  //HEX
         margin-right: 12px;
       }
     }
@@ -872,8 +1979,49 @@ div.reportHeader {
     // font-size:0.9em;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    background: #fff;
+    background: $white-base;
   }
+}
+
+.content.orders a {
+    color: $brand-info;
+}
+.btn {
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+	}
+ 
+
+.btn-primary {
+	color: $btn-default-color;
+	background-color: $btn-default-bg;
+	border-color: $btn-default-border;
+	}
+/*
+.btn-default:hover {
+    color: $btn-default-bg;
+    background-color: darken($btn-default-color, 10%);
+    border-color: $btn-default-border;
+}
+*/
+
+
+.btn-group{
+	.btn-default {
+    padding: 2px 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: $btn-default-color;
+    background-color: $btn-default-bg;
+    border-color: $btn-default-border;
+    margin: 2px;
+    &.disabled {
+	    color: $brand-info;
+		background-color: $white-base;
+		opacity: 1;
+    }
+    }
+    
 }
 
 div.groupImg {
@@ -888,14 +2036,15 @@ div.groupImg {
 **/
 div.productImg {
   display: inline-block;
-  border: solid 2px #f8f4e5;
-  background: no-repeat center;
-  background-size: cover;
+//   border: solid 1px $brand-primary;
+  background: transparent no-repeat center;
+  background-size: 50px 50px;
   margin: 4px;
   //default size is medium
   width: 70px;
   height: 70px;
-  border-radius: 8px;
+  border-radius: 16px;
+  font-size: 0.9em;
 
   &.extra-small,
   &.xs {
@@ -943,11 +2092,11 @@ div.productSelect {
 		cursor: pointer;
 
 		&.active{
-			background-color: #007700;
+			background-color: #007700; //HEX
 		}
 
 		&:hover{
-			background-color: #00AA00;
+			background-color: #00AA00; //HEX
 		}
 	}*/
 
@@ -956,42 +2105,97 @@ div.productSelect {
   }
 }
 
+// Cagette Pro Catalogs
+div.productBox {
+  div.productImg {
+    background-size: cover;
+    height: 220px;
+    width: 220px;
+    background-position: center center;
+    border-radius: 6px;
+  }
+
+  div.productName {
+    display: block;
+    font-weight: bold;
+    color: #967820;  //HEX
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 4px;
+  }
+
+  .price {
+    font-weight: bold;
+    text-align: right;
+  }
+}
+
 // typeahead ( autocomplete js lib )
 .tt-menu {
-  background-color: #f5e3ac;
+  background-color: $white-base;
 }
 
 .tt-suggestion {
-  background-color: #f5e3ac;
+  background-color: $white-base;
   padding: 8px;
-  border-top: 1px solid #ccc;
-  color: darken(#f5e3ac, 60%);
+  border-top: 1px solid #ccc;  //HEX
+  color: darken($white-base, 60%);
   cursor: pointer;
   font-style: italic;
   &:hover {
-    background-color: darken(#f5e3ac, 10%);
+    background-color: darken($white-base, 10%);
   }
 }
+
+//txp product input
+#pInput {
+  .txpProduct {
+    color: #aaa;  //HEX
+    font-weight: bold;
+    font-size: 0.8em;
+    margin: 4px 0;
+  }
+
+  img {
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
+//Product composer
+/*
+div.ProductComp{
+	margin:8px 0;
+	padding:8px 0;
+	border-bottom:solid 1px #CCC; //HEX
+}
+
+.ComposerApp{
+	.add-button{
+		vertical-align:top !important;
+	}
+}
+*/
 
 //basket
 div.basketNumber {
   display: inline-block;
-  background-color: #333;
+  background-color: $white-base;
   border-radius: 10px;
   padding: 6px;
 
   font-weight: bold;
-  color: #ccc;
+  color: #ccc;  //HEX
 }
 
 tr.success td div.basketNumber {
-  background-color: #2e7d32;
-  color: white;
+  background-color: $brand-success;
+  color: white;  //HEX
 }
 
 tr.danger td div.basketNumber {
-  background-color: #d32f2f;
-  color: white;
+  background-color: $brand-danger;
+  color: white;  //HEX
 }
 
 /* fixed bar on bottom for buttons */
@@ -999,11 +2203,11 @@ tr.danger td div.basketNumber {
   position: fixed;
   bottom: 0;
   left: 0;
-  background: white;
+  background: white;  //HEX
   width: 100%;
   margin: 0;
   padding: 8px;
-  border-top: 3px solid #ccc;
+  border-top: 3px solid #ccc; //HEX
   z-index: 99;
 }
 
@@ -1029,9 +2233,9 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
 }
 
 a.btn-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: lighten(#8a6d3b, 10%);
+  color: $white-base;
+  background-color: $brand-warning; 
+//   border-color: $white-base;
 }
 
 i.icon {
@@ -1047,7 +2251,7 @@ i.icon {
 
 //sub panel like in subscription macro
 .subPanel {
-  border-color: #eee !important;
+  border-color: $gray-lighter !important;
   border-width: 3px !important;
   text-align: center;
   .panel-body {
@@ -1060,3 +2264,4 @@ i.icon {
     font-weight: bold;
   }
 }
+

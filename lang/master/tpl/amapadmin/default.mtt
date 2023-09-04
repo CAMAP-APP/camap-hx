@@ -28,8 +28,8 @@
 			
 			<p class="linkToShare">
 				<i class="icon icon-link"></i>
-				<a href="http://::HOST::/group/::user.getGroup().id::">
-					http://::HOST::/group/::user.getGroup().id::				
+				<a href="https://::HOST::/group/::user.getGroup().id::">
+					https://::HOST::/group/::user.getGroup().id::				
 				</a>
 			</p>
 			
@@ -42,12 +42,12 @@
 				::if(visibleOnMap)::
 				<div class="alert alert-success">
 					$$check(true) Votre groupe est visible sur la carte.
-					<br/><a href="https://wiki.cagette.net/admin:admin_carte" target="_blank">Documentation</a>
+					<br/><a href="https://wiki.amap44.org/fr/app/Administration-CAMAP#apparaitre-sur-la-carte-des-groupes-camap" target="_blank">Documentation</a>
 				</div>
 				::else::
 				<div class="alert alert-danger">
 					$$check(false) Votre groupe n'est pas visible sur la carte, pour les raisons suivantes : ::visibleOnMapText::
-					<br/><a href="https://wiki.cagette.net/admin:admin_carte" target="_blank">Documentation</a>
+					<br/><a href="https://wiki.amap44.org/fr/app/Administration-CAMAP#apparaitre-sur-la-carte-des-groupes-camap" target="_blank">Documentation</a>
 				</div>
 				::end::
 			</p>
