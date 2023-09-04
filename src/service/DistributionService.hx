@@ -430,6 +430,15 @@ class DistributionService
 		d.orderEndDate = newMd.orderEndDate;
 		d.update();
 
+		/**
+			TODO: (https://mantisbt.amap44.org/view.php?id=43)
+			Supprimer les roles de permanences attachés au catalogue de la distribution reportées
+			Identifier l'id du catalog de d (distribution reportée)
+			Identifier les VolunteersRoles associés
+			Supprimer ces roles de oldMd
+		**/
+
+
 		/* 
 		FORBID THIS WITH CREDIT CARD PAYMENTS 
 		because it would make the order and payment ops out of sync
