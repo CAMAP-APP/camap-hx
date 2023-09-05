@@ -11,6 +11,7 @@ import sugoi.form.validators.EmailValidator;
 import ufront.mail.*;
 import db.Catalog;
 import service.OrderService;
+import db.Group;
 
 class User extends Controller
 {
