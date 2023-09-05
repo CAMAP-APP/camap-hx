@@ -248,8 +248,12 @@ class User extends Controller
 		user.update();*/
 		db.UserGroup.getOrCreate(app.user,group);
 
+		if (app.user.isMemberOfGroup(group)){
+			throw Ok("/", t._("You are already member of this group."));
+		}
+
 		//warn manager by mail
-		if(group.contact!=null){
+		if(group.contact!=null && !app.user.isMemberOfGroup(group)){
 			var url = "http://" + App.config.HOST + "/member/view/" + app.user.id;
 			var text = t._("A new member joined the group without ordering : <br/><strong>::newMember::</strong><br/> <a href='::url::'>See contact details</a>",{newMember:app.user.getCoupleName(),url:url});
 			App.quickMail(
