@@ -673,7 +673,7 @@ class ContractAdmin extends Controller
 				} else {
 					var ua = db.UserGroup.get(app.user, catalog.group);
 					ua.giveRight(ContractAdmin(nc.id));
-					nc.contact = app.user.id;
+					nc.contact = app.user;
 					nc.update();
 				}
 			}
