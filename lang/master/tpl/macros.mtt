@@ -551,7 +551,7 @@
             contentContainer.classList.add("browser-detection-content-root");
             var content = document.createElement("p");
             content.classList.add("browser-detection-content");
-            content.textContent = "Votre navigateur Internet est trop ancien pour afficher ce site. \n Cela peut entraîner des problèmes d'affichage. \n Nous vous conseillons fortement de télécharger un navigateur plus récent, comme Firefox ou Brave.";
+            content.textContent = "CAMAP est un outil libre (license GPLv2) de gestion dédié aux AMAP hébergé par l'InterAMAP44.\n Camap permet la gestion des membres, des contrats, des commandes, des paiements etc. Tous les outils pour faciliter le fonctionnement d'une AMAP au quotidien.";
             contentContainer.append(content);
             box.append(contentContainer);
 
