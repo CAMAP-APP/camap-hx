@@ -11,7 +11,6 @@ import sugoi.form.validators.EmailValidator;
 import ufront.mail.*;
 import db.Catalog;
 import service.OrderService;
-import db.Group;
 
 class User extends Controller
 {
@@ -249,12 +248,12 @@ class User extends Controller
 		user.update();*/
 		db.UserGroup.getOrCreate(app.user,group);
 
-		if (app.user.isMemberOfGroup(group)){
+		if (app.user.isMemberOf(group)){
 			throw Ok("/", t._("You are already member of this group."));
 		}
 
 		//warn manager by mail
-		if(group.contact!=null && !app.user.isMemberOfGroup(group)){
+		if(group.contact!=null && !app.user.isMemberOf(group)){
 			var url = "http://" + App.config.HOST + "/member/view/" + app.user.id;
 			var text = t._("A new member joined the group without ordering : <br/><strong>::newMember::</strong><br/> <a href='::url::'>See contact details</a>",{newMember:app.user.getCoupleName(),url:url});
 			App.quickMail(
