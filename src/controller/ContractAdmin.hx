@@ -668,7 +668,11 @@ class ContractAdmin extends Controller
 			//give rights to this contract
 			if(catalog.contact!=null){
 				var ua = db.UserGroup.get(catalog.contact, catalog.group);				
-				ua.giveRight(ContractAdmin(nc.id));
+				if (ua != null) {
+					ua.giveRight(ContractAdmin(nc.id));
+				} else {
+					catalog.contact = null;
+				}
 			}
 
 			if(catalog.contact==null || app.user.id!=catalog.contact.id){
