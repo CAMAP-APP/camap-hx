@@ -98,7 +98,7 @@ class ProductService{
 		f.getElement("bulk").docLink = "https://wiki.amap44.org/fr/app/admin-gestion-produits#option-vrac-uniquement-contrat-variable";
 		f.getElement("variablePrice").description = "Le prix final sera calculé en fonction du poids/volume réel après pesée.";
 		f.getElement("variablePrice").docLink = "https://wiki.amap44.org/fr/app/admin-gestion-produits#option-prix-variable-selon-pes%C3%A9e-uniquement-contrat-variable";
-		f.getElement("multiWeight").description = "Permet d'avoir une ligne de commande par exemplaire du produit commandé pour les produits au poids/volume(sans cumul).";
+		f.getElement("multiWeight").description = "Permet d'avoir une ligne de commande par exemplaire du produit commandé (sans cumul).";
 		f.getElement("multiWeight").docLink = "https://wiki.amap44.org/fr/app/admin-gestion-produits#option-multi-pes%C3%A9e";
 
 		if (product.catalog.isConstantOrdersCatalog()){
