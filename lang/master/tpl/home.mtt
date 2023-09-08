@@ -310,9 +310,6 @@ $$browserDetection()
   			init();
 		</script>
 		<div class="panel panel-default">
-			<div class="panel-heading">
-			Partager
-			</div>
 			<div class="panel-body">
 				<center><div class="shareon" data-url="https://::HOST::/group/::amap.id::">
 						<a class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
