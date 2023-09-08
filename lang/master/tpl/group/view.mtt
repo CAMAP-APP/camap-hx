@@ -42,19 +42,20 @@
 					const closeButton = document.querySelector('.close-button');
 
 					shareButton.addEventListener('click', event => {
-  					if (navigator.share) { 
-   					navigator.share({
-      				title: '::group.name::',
-      				url: 'https://::HOST::/group/::group.id::'
-    				}).then(() => {
-      					console.log('Thanks for sharing!');
-    				})
-    				.catch(console.error);
-    				} else {
-        				shareDialog.classList.add('is-open');
-    				}
+  						if (navigator.share) { 
+   						navigator.share({
+      					title: '::group.name::',
+      					url: 'https://::HOST::/group/::group.id::'
+    					}).then(() => {
+      						console.log('Thanks for sharing!');
+    					})
+    					.catch(console.error);
+    					} else {
+        					shareDialog.classList.add('is-open');
+    					}
+					});
 					</script>
-});
+
 
 closeButton.addEventListener('click', event => {
   shareDialog.classList.remove('is-open');
