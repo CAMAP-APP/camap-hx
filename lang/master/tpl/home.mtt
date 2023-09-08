@@ -379,7 +379,7 @@ $$browserDetection()
 				<!-- Your share button code -->
 				<div class="fb-share-button" 
 					data-href="https://::HOST::/group/::amap.id::" 
-					data-layout="button_count">
+					data-layout="button">
 				</div>
 			
 		</div>
