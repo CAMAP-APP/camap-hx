@@ -46,7 +46,7 @@ $$browserDetection()
 			}(document, 'script', 'facebook-jssdk'));</script>
 
 			<!-- Your share button code -->
-			<div class="btn btn-sm btn-info fb-share-button" 
+			<div class="btn btn-sm fb-share-button" 
 				data-href="https://::HOST::/group/::amap.id::" 
 				data-layout="button_count">
 			</div>
@@ -375,10 +375,9 @@ $$browserDetection()
 					fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));</script>
 
-				<!-- Your share button code -->
-				<div class="btn btn-sm btn-info fb-share-button" 
+				<div class="btn btn-sm fb-share-button" 
 					data-href="https://::HOST::/group/::amap.id::" 
-					data-layout="button">
+					data-layout="button"><
 				</div>
 			
 		</div>
