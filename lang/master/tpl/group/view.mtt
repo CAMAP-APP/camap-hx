@@ -36,12 +36,13 @@
 
 					::end::
 					</p>
+					
 					<script type="text/javascript">
 					const shareButton = document.querySelector('.share-button');
 					const shareDialog = document.querySelector('.share-dialog');
 					const closeButton = document.querySelector('.close-button');
 
-					shareButton.addEventListener('click', event => {
+					shareButton.addEventListener('click', function(event) {
   						if (navigator.share) { 
    						navigator.share({
       					title: '::group.name::',
@@ -54,7 +55,7 @@
         					shareDialog.classList.add('is-open');
     					}
 					});
-					closeButton.addEventListener('click', event => {
+					closeButton.addEventListener('click', function(event) {
   						shareDialog.classList.remove('is-open');
 					});
 					</script>
