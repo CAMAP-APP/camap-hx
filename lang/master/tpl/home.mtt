@@ -50,7 +50,7 @@ $$browserDetection()
 				data-href="https://::HOST::/group/::amap.id::" 
 				data-layout="button_count">
 			</div>
-		</div>
+		
 	</div>
 	
 	<!-- AMAP style order forms -->
@@ -381,7 +381,7 @@ $$browserDetection()
 					data-href="https://::HOST::/group/::amap.id::" 
 					data-layout="button_count">
 				</div>
-		</div>
+			
 		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
