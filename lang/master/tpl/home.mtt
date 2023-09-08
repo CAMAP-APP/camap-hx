@@ -332,7 +332,7 @@ $$browserDetection()
 				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name:: utilise Camap">Facebook</button>
 				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
 				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
-			</div>
+			
 		</div>
 
 		<!-- JOIN GROUP BLOCK -->
