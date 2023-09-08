@@ -316,7 +316,7 @@ $$browserDetection()
   						<a class="facebook" data-title="::amap.name:: utilise Camap" data-hashtags="#Camap"></a>
   						<a class="telegram" data-text="::amap.name:: utilise Camap"></a>
   						<a class="tumblr" data-hashtags="nice,buttons" data-text="These are some nice buttons" data-via="myblog"></a>
-  						<a class="twitter" data-via="@::user.name::::" data-hashtags="Camap,::amap.name::"></a>
+  						<a class="twitter" data-via="@::user.name::" data-hashtags="Camap,::amap.name::"></a>
   						<a class="whatsapp">Envoyer</a>
 					</div>	
 				</div>
