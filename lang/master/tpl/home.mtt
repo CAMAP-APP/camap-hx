@@ -51,7 +51,7 @@ $$browserDetection()
 				data-layout="button_count">
 			</div>
 		</div>
-	
+	</div>
 	
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
@@ -362,9 +362,26 @@ $$browserDetection()
 		</div>
 		
 		<div class="block hidden-sm hidden-xs">
+			<!-- VOLUNTEERS CALENDAR -->
 			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 			</a>
+			<!-- BOUTON PARTAGER FACEBOOK -->
+			<div id="fb-root"></div>
+				<script>(function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) return;
+					js = d.createElement(s); js.id = id;
+					js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));</script>
+
+				<!-- Your share button code -->
+				<div class="fb-share-button" 
+					data-href="https://::HOST::/group/::amap.id::" 
+					data-layout="button_count">
+				</div>
+		</div>
 		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
