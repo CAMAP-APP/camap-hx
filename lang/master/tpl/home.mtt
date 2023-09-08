@@ -323,10 +323,13 @@ $$browserDetection()
   			href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css"
   			rel="stylesheet"
 		/>
-		<script src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js" defer>Shareon.init();</script>
+		<script src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js" defer></script>
 		<div class="panel panel-default subPanel">
 			<div class="panel-heading">Partager via</div>
 				<div class="panel-body">
+					<script>
+							 Shareon.init();
+					</script>
 					<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
   						<a class="facebook" data-title="::amap.name:: utilise Camap" data-hashtags="#Camap"></a>
   						<a class="telegram" data-text="::amap.name:: utilise Camap"></a>
