@@ -30,7 +30,7 @@ class Group extends controller.Controller
 
 			if (app.session.data == null) app.session.data = {};
 			app.session.data.amapId = group.id;
-			throw Redirect("/");
+			throw Redirect("/group/"+group.id);
 		}
 		
 		view.group = group;
