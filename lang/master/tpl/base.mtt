@@ -12,10 +12,10 @@
             ::theme.name::
         ::end::
     </title>
-	<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44.">
-	<meta property="og:url"           content="::HOST::" />
-	<meta property="og:type"          content="website" />
-	<meta property="og:title"         content="Camap" />
+	<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
+	<meta property="og:url" content="::HOST::" />
+	<meta property="og:type"content="website" />
+	<meta property="og:title" content="Camap" />
 	<meta property="og:description"   content="L'application libre de gestion d'AMAP" />
 	<meta property="og:image"         content="::HOST::/theme/default/logo3.png" />
 
