@@ -305,9 +305,9 @@ $$browserDetection()
 		
 		<!-- https://github.com/kytta/shareon -->
 		<link href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css" rel="stylesheet" type="text/css" />
-		<script src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js" defer></script>
-		<script>
-  			Shareon.init();
+		<script type="module">
+ 			import { init } from "https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.es.js";
+  			init();
 		</script>
 		<div class="panel panel-default subPanel">
 			<div class="panel-heading">
