@@ -317,7 +317,7 @@ $$browserDetection()
 				<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
   					<a class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
   					<a class="telegram" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
-  					<a class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::">Tweet</a>
+  					<a class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a><br/>
   					<a class="whatsapp" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
 					<a class="copy-url">Copier</a>
 					<a class="web-share"></a>
