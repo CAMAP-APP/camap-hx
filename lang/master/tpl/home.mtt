@@ -325,7 +325,15 @@ $$browserDetection()
 				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
 				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
 		</div>
-				
+		<div class="panel panel-default subPanel">
+			<div class="panel-heading">Partager via</div>
+				<div class="panel-body">
+				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Facebook</button>
+				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
+				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
+			</div>
+		</div>
+
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
 			<p>
