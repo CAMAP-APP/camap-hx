@@ -35,8 +35,9 @@ $$browserDetection()
 		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 		</a>
-		<!-- BOUTON PARTAGER FACEBOOK -->
-		
+			
+			<!-- BOUTON PARTAGER FACEBOOK -->
+			<!--
 			<script>(function(d, s, id) {
 				var js, fjs = d.getElementsByTagName(s)[0];
 				if (d.getElementById(id)) return;
@@ -44,13 +45,11 @@ $$browserDetection()
 				js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));</script>
-
-			<!-- Your share button code -->
 			<div class="btn btn-sm fb-share-button" 
 				data-href="https://::HOST::/group/::amap.id::" 
 				data-layout="button_count">
 			</div>
-		
+			-->
 	</div>
 	
 	<!-- AMAP style order forms -->
@@ -300,28 +299,7 @@ $$browserDetection()
 	</div>
 
 	<!-- JOIN GROUP BLOCK -->
-	<!-- DEPLACEMENT AC 03/09/2023 Mantis #109
-	<div class="homeBlock text-center" ::cond(registerWithoutOrdering==true)::>
-		<p>
-			Inscrivez-vous à ce groupe, <br />
-			vous recevrez un email pour l'ouverture des prochaines commandes <br />
-			ainsi que des nouvelles des producteurs !
-		</p>
-
-		::if (user==null)::		
-		<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
-			<span class="glyphicon glyphicon-plus"></span>
-			M'inscrire à ce groupe
-		</a>
-		::else::
-		<a href="/user/joingroup" class="btn btn-default">
-			<span class="glyphicon glyphicon-plus"></span>
-			M'inscrire à ce groupe
-		</a>
-		::end::
-	</div>
-	-->
-
+	
 </div>
 
 
@@ -367,6 +345,7 @@ $$browserDetection()
 				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 			</a>
 			<!-- BOUTON PARTAGER FACEBOOK -->
+			<!--
 				<script>(function(d, s, id) {
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id)) return;
@@ -374,12 +353,11 @@ $$browserDetection()
 					js.src = "https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v3.0";
 					fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));</script>
-
 				<div class="btn btn-sm fb-share-button" 
 					data-href="https://::HOST::/group/::amap.id::" 
 					data-layout="button">
 				</div>
-			
+			-->
 		</div>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
