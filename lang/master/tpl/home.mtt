@@ -310,27 +310,47 @@ $$browserDetection()
 	<div class="block">
 
 		::if amap.imageId!=null::
-		::if amap.extUrl!=null && amap.extUrl!=""::
-		<a href="::amap.extUrl::"><img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;"
-				class="thumbnail" /><br /></a>
-		::else::
-		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
+			::if amap.extUrl!=null && amap.extUrl!=""::
+				<a href="::amap.extUrl::"><img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;"
+					class="thumbnail" /><br /></a>
+			::else::
+				<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
+			::end::
 		::end::
-		::end::
-
-		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-		<div class="groupBlock">
-				Partager via <br/>
-				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Facebook</button>
-				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
-				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
-		</div>
+		
+		<!-- https://github.com/kytta/shareon -->
+		<link
+  			href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css"
+  			rel="stylesheet"
+		/>
+		<script
+  			src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js"
+  			defer
+			init
+		></script>
 		<div class="panel panel-default subPanel">
 			<div class="panel-heading">Partager via</div>
 				<div class="panel-body">
-				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Facebook</button>
-				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
-				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
+					<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
+  						<a class="facebook" data-title="::amap.name:: utilise Camap" data-hashtags="#Camap"></a>
+  						<a class="telegram" data-text="::amap.name:: utilise Camap"></a>
+  						<a class="tumblr" data-hashtags="nice,buttons" data-text="These are some nice buttons" data-via="myblog"></a>
+  						<a class="twitter" data-via="@::user.name::::" data-hashtags="Camap,::amap.name::"></a>
+  						<a class="whatsapp">Envoyer</a>
+					</div>	
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- https://ellisonleao.github.io/sharer.js/#twitter -->
+		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+		<div class="panel panel-default subPanel">
+			<div class="panel-heading">Partager via</div>
+				<div class="panel-body">
+				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name:: utilise Camap">Facebook</button>
+				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
+				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
 			</div>
 		</div>
 
