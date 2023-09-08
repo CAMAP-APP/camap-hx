@@ -311,19 +311,19 @@ $$browserDetection()
 		</script>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Partager
+				<h3 class="pannel-title">Partager</h3>
 			</div>
 			<div class="panel-body">
+				::before::
 				<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
-  					<center>
 						<a class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
   						<a class="telegram" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
   						<a class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a>
   						<a class="whatsapp" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a><br/>
 						<a class="copy-url">Copier</a>
 						<a class="web-share"></a>
-					</center>
 				</div>	
+				::after::
 			</div>
 		</div>
 		
