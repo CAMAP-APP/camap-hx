@@ -318,8 +318,13 @@ $$browserDetection()
 		::end::
 		::end::
 
+		<p>
 		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-		<button class="btn btn-sm button" data-sharer="facebook" data-hashtag="hashtag" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Partager sur Facebook</button>
+		Partager: </br>
+		<button class="btn btn-sm" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Facebook</button>
+		<button class="btn btn-sm" data-sharer="email" data-title="Lien Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::" data-subject="::amap.name::">Email</button>
+		<button class="btn btn-sm" data-sharer="whatsapp" data-title="Lien Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
+		</p>
 		
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
