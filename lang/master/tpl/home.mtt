@@ -323,11 +323,7 @@ $$browserDetection()
   			href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css"
   			rel="stylesheet"
 		/>
-		<script
-  			src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js"
-  			defer
-			init
-		></script>
+		<script src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js" defer>Shareon.init();</script>
 		<div class="panel panel-default subPanel">
 			<div class="panel-heading">Partager via</div>
 				<div class="panel-body">
