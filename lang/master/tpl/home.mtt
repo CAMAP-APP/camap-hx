@@ -307,33 +307,38 @@ $$browserDetection()
 		<link href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css" rel="stylesheet" type="text/css" />
 		<script src="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.iife.js"></script>
 		<div class="panel panel-default subPanel">
-			<div class="panel-heading">Partager via</div>
-				<div class="panel-body">
-					<script>
-							 Shareon.init();
-					</script>
-					<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
-  						<a class="facebook" data-title="::amap.name:: utilise Camap" data-hashtags="#Camap"></a>
-  						<a class="telegram" data-text="::amap.name:: utilise Camap"></a>
-  						<a class="tumblr" data-hashtags="nice,buttons" data-text="These are some nice buttons" data-via="myblog"></a>
-  						<a class="twitter" data-via="@::user.name::" data-hashtags="Camap,::amap.name::"></a>
-  						<a class="whatsapp">Envoyer</a>
-					</div>	
-				</div>
+			<div class="panel-heading">
+				Partager via
+			</div>
+			<div class="panel-body">
+				<script>
+						 Shareon.init();
+				</script>
+				<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
+  					<a class="facebook" data-title="::amap.name:: utilise Camap" data-hashtags="#Camap"></a>
+  					<a class="telegram" data-text="::amap.name:: utilise Camap"></a>
+  					<a class="tumblr" data-hashtags="nice,buttons" data-text="These are some nice buttons" data-via="myblog"></a>
+  					<a class="twitter" data-via="@::user.name::" data-hashtags="Camap,::amap.name::"></a>
+  					<a class="whatsapp"></a>
+				</div>	
 			</div>
 		</div>
 		
 		
 		<!-- https://ellisonleao.github.io/sharer.js/#twitter -->
+		<!--
 		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
 		<div class="panel panel-default subPanel">
-			<div class="panel-heading">Partager via</div>
-				<div class="panel-body">
+			<div class="panel-heading">
+				Partager via
+			</div>
+			<div class="panel-body">
 				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name:: utilise Camap">Facebook</button>
 				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
 				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
-			
+			</div>
 		</div>
+		-->
 
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
