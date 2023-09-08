@@ -319,13 +319,11 @@ $$browserDetection()
 		::end::
 
 		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-		<div class="dashBoardBlock">
-			<div class="status" style="font-size:0.9em;">
+		<div class="groupBlock">
 				Partager via <br/>
 				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Facebook</button>
 				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
 				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="Camap de ::amap.name::" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
-			</div>
 		</div>
 				
 		<!-- JOIN GROUP BLOCK -->
