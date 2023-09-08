@@ -312,12 +312,12 @@ $$browserDetection()
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<center><div class="shareon" data-url="https://::HOST::/group/::amap.id::">
-						<a class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
-  						<a class="telegram" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
-  						<a class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a>
-  						<a class="whatsapp" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a><br/>
-						<a class="copy-url">Copier</a>
-						<a class="web-share"></a>
+						<button class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
+  						<button class="telegram" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
+  						<button class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a>
+  						<button class="whatsapp" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a><br/>
+						<button class="copy-url">Copier</a>
+						<button class="web-share"></a>
 				</div></center>	
 			</div>
 		</div>
