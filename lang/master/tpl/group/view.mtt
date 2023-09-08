@@ -47,14 +47,7 @@
    						navigator.share({
       					title: '::group.name::',
       					url: "https://::HOST::/group/::group.id::"
-    					}).then(() => {
-      						console.log('Thanks for sharing!');
-    					})
-    					.catch(console.error);
-    					} else {
-        					shareDialog.classList.add('is-open');
-    					}
-					});
+    					});
 					closeButton.addEventListener('click', function(event) {
   						shareDialog.classList.remove('is-open');
 					});
