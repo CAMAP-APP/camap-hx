@@ -317,6 +317,9 @@ $$browserDetection()
 		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
 		::end::
+
+		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+		<button class="btn btn-sm button" data-sharer="facebook" data-hashtag="hashtag" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name::">Partager sur Facebook</button>
 		
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
