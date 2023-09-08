@@ -17,8 +17,7 @@ $$browserDetection()
 	::end::
 
 	<!--display only on sm and xs screens-->
-	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
-		
+	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;" ::cond(registerWithoutOrdering==true)::>
 		<!-- JOIN GROUP BLOCK -->
 		::if (user==null)::		
 		<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
@@ -31,6 +30,8 @@ $$browserDetection()
 			M'inscrire à ce groupe
 		</a>
 		::end::
+	</div>
+	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
 		<!-- VOLUNTEERS CALENDAR -->
 		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
@@ -323,21 +324,6 @@ $$browserDetection()
 		</div>
 		
 		
-		<!-- https://ellisonleao.github.io/sharer.js/#twitter -->
-		<!--
-		<script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
-		<div class="panel panel-default subPanel">
-			<div class="panel-heading">
-				Partager via
-			</div>
-			<div class="panel-body">
-				<button class="btn btn-sm btn-link" data-sharer="facebook" data-url="https://::HOST::/group/::amap.id::" data-title="::amap.name:: utilise Camap">Facebook</button>
-				<button class="btn btn-sm btn-link" data-sharer="telegram" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Telegram</button>
-				<button class="btn btn-sm btn-link" data-sharer="whatsapp" data-title="::amap.name:: utilise Camap" data-url="https://::HOST::/group/::amap.id::">Whatsapp</button>
-			</div>
-		</div>
-		-->
-
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
 			<p>
