@@ -359,6 +359,21 @@ $$browserDetection()
 				</div>
 			-->
 		</div>
+		<script type="text/javascript">
+					const shareButton = document.querySelector('.share-button');
+					const shareDialog = document.querySelector('.share-dialog');
+					const closeButton = document.querySelector('.close-button');
+
+					shareButton.addEventListener('click', function(event) {
+  						if (navigator.share) { 
+   						navigator.share({
+      					title: '::group.name::',
+      					url: "https://::HOST::/group/::group.id::"
+    					});
+					closeButton.addEventListener('click', function(event) {
+  						shareDialog.classList.remove('is-open');
+					});
+		</script>
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		::raw nl2br(amap.txtHome)::
 		::end::
