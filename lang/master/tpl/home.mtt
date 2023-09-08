@@ -309,7 +309,7 @@ $$browserDetection()
  			import { init } from "https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.es.js";
   			init();
 		</script>
-		<div class="panel panel-default subPanel">
+		<div class="panel panel-default">
 			<div class="panel-heading">
 			</div>
 			<div class="panel-body">
