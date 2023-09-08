@@ -311,7 +311,6 @@ $$browserDetection()
 		</script>
 		<div class="panel panel-default subPanel">
 			<div class="panel-heading">
-				Partager via
 			</div>
 			<div class="panel-body">
 				<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
