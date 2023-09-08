@@ -45,7 +45,7 @@
   						if (navigator.share) { 
    						navigator.share({
       					title: '::group.name::',
-      					url: 'https://::HOST::/group/::group.id::'
+      					url: "https://::HOST::/group/::group.id::"
     					}).then(() => {
       						console.log('Thanks for sharing!');
     					})
@@ -54,12 +54,13 @@
         					shareDialog.classList.add('is-open');
     					}
 					});
+					closeButton.addEventListener('click', event => {
+  						shareDialog.classList.remove('is-open');
+					});
 					</script>
 
 
-closeButton.addEventListener('click', event => {
-  shareDialog.classList.remove('is-open');
-});
+
 					<p>
 						
 					::if isMember::
