@@ -367,8 +367,8 @@ $$browserDetection()
 					shareButton.addEventListener('click', function(event) {
   						if (navigator.share) { 
    						navigator.share({
-      					title: '::group.name::',
-      					url: "https://::HOST::/group/::group.id::"
+      					title: '::amap.name::',
+      					url: "https://::HOST::/group/::amap.id::"
     					});
 					closeButton.addEventListener('click', function(event) {
   						shareDialog.classList.remove('is-open');
