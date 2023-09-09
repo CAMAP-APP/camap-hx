@@ -1,5 +1,11 @@
 ::use 'base.mtt'::
 
+<meta property="og:type"content="website" />
+<meta property="og:url" content="https://::HOST::/group/::group.id::" />
+<meta property="og:title" content="::group.name::" />
+<meta property="og:description" content="::group.txtIntro::" />
+<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />	
+
 	
 	<div class="col-md-8 col-md-offset-2" style="margin-top:12px;">
 
@@ -38,11 +44,6 @@
 					</p>
 					
 					<p>
-					<meta property="og:type"content="website" />
-					<meta property="og:url" content="https://::HOST::/group/::group.id::" />
-					<meta property="og:title" content="::group.name::" />
-					<meta property="og:description" content="::group.txtIntro::" />
-					<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />	
 					::if isMember::
 						<!-- connected and member of the group-->
 						<a href="/user/choose?group=::group.id::" class="btn btn-default">
