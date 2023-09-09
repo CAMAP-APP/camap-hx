@@ -17,7 +17,7 @@
     $$favicons()
 	
 	
-	::if amap==null::
+	::if group==null::
 		<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
 	::end::
 
