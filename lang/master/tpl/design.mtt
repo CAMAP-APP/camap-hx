@@ -17,7 +17,7 @@
 				::else::
 					<div style="margin-bottom:22px;" >
 						<h1><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>&nbsp;CAMAP</h1><br/>
-						<h4>L'application web de gestion d'AMAP</h4>
+						<h4>L'application libre de gestion d'AMAP</h4>
 					</div>
 				::end::
 			</div>
