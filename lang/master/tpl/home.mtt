@@ -1,5 +1,11 @@
 ::use 'design.mtt'::
 
+<meta property="og:type"content="website" />
+<meta property="og:url" content="https://::HOST::/group/::amap.id::" />
+<meta property="og:title" content="::amap.name::" />
+<meta property="og:description" content="::amap.txtIntro::" />
+<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
+
 $$browserDetection()
 <div style="margin-top:12px;"></div>
 

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" xml:lang="::LANG::" lang="::LANG::"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-	<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
+	
     <title>
         ::if pageTitle!=null::
             ::pageTitle::
@@ -16,17 +16,9 @@
 
     $$favicons()
 	
-	<meta property="og:type"content="website" />
-	::if amap==null::
-		<meta property="og:url" content="https://::HOST::" />
-		<meta property="og:title" content="Camap" />
-		<meta property="og:description"   content="L'application libre de gestion d'AMAP" />
-		<meta property="og:image"         content="https://::HOST::/theme/default/logo3.png" />
-	::else::
-		<meta property="og:url" content="https://::HOST::/group/::amap.id::" />
-		<meta property="og:title" content="::amap.name::" />
-		<meta property="og:description" content="::amap.txtIntro::" />
-		<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
+	
+	::if group==null && amap==null ::
+		<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
 	::end::
 
 	
