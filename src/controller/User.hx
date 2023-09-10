@@ -248,9 +248,11 @@ class User extends Controller
 		user.update();*/
 		db.UserGroup.getOrCreate(app.user,group);
 
+		/*
 		if (app.user.isMemberOf(group)){
 			throw Ok("/", t._("You are already member of this group."));
 		}
+		*/
 
 		//warn manager by mail
 		if(group.contact!=null && !app.user.isMemberOf(group)){

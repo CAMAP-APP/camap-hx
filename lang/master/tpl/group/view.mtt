@@ -107,7 +107,7 @@
 								<a href="/user/joingroup" class="btn btn-default btn-sm">
 									<span class="glyphicon glyphicon-plus"></span>
 									M'inscrire à ce groupe
-								</a>;
+								</a>
 							::end::
 
 						::case::
