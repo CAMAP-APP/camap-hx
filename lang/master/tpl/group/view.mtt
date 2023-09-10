@@ -96,12 +96,20 @@
 							::end::
 							
 						::case::
+							::if user==null::
 							<p>
-								<a href="/group/register/::group.id::"  class="btn btn-default">
-									<i class="icon icon-chevron-right"></i>
+								<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+								<span class="glyphicon glyphicon-plus"></span>
 									::_("Free subscription")::
 								</a>
 							</p>
+							::else::
+								<a href="/user/joingroup" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-plus"></span>
+									M'inscrire à ce groupe
+								</a>
+							::end::
+
 						::case::
 							<p>
 								::_("This group is full and do not accept any more subscription.")::
