@@ -1,5 +1,11 @@
 ::use 'base.mtt'::
 
+<meta property="og:type"content="website" />
+<meta property="og:url" content="https://::HOST::/group/::group.id::" />
+<meta property="og:title" content="::group.name::" />
+<meta property="og:description" content="::group.txtIntro::" />
+<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />	
+
 	
 	<div class="col-md-8 col-md-offset-2" style="margin-top:12px;">
 
@@ -38,7 +44,6 @@
 					</p>
 					
 					<p>
-						
 					::if isMember::
 						<!-- connected and member of the group-->
 						<a href="/user/choose?group=::group.id::" class="btn btn-default">
@@ -47,7 +52,7 @@
 						</a>
 					
 					::else::
-					
+						
 						<h4>Inscriptions :</h4>
 						::switch group._regOption::
 						
@@ -91,12 +96,20 @@
 							::end::
 							
 						::case::
+							::if user==null::
 							<p>
-								<a href="/group/register/::group.id::"  class="btn btn-default">
-									<i class="icon icon-chevron-right"></i>
+								<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+								<span class="glyphicon glyphicon-plus"></span>
 									::_("Free subscription")::
 								</a>
 							</p>
+							::else::
+								<a href="/user/joingroup" class="btn btn-default btn-sm">
+									<span class="glyphicon glyphicon-plus"></span>
+									M'inscrire à ce groupe
+								</a>
+							::end::
+
 						::case::
 							<p>
 								::_("This group is full and do not accept any more subscription.")::

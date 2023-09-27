@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" xml:lang="::LANG::" lang="::LANG::"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
+	
     <title>
         ::if pageTitle!=null::
             ::pageTitle::
@@ -14,6 +15,13 @@
     </title>
 
     $$favicons()
+	
+	
+	::if group==null && amap==null ::
+		<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
+	::end::
+
+	
 
     $$googleTagManager(::getVariable("googleTagManagerId")::)
 
@@ -60,7 +68,7 @@
     <div style="position: fixed;background: #666;padding: 8px;left: 0;bottom:0;color:#FF0;">DEBUG</div>
     ::end::
 
-    ::if ( HOST.indexOf(".dev.",null)!=-1 )::
+    ::if ( HOST.indexOf("dev",null)!=-1 )::
     <div style="position: fixed;background: #600;padding: 8px;left:0;bottom:0;color: #FA0;width: 100%;z-index: 99;text-align: center;">
         <i class="icon icon-alert"></i> 
         <b>Ce site est une instance de test.</b> Ne l'utilisez pas pour prendre de vraies commandes.
@@ -112,8 +120,8 @@
         })
 
     </script>
-
-    ::foreach script getNeoModuleScripts()::
+	
+	::foreach script getNeoModuleScripts()::
     <script src="::script::"></script>
     ::end::
 
