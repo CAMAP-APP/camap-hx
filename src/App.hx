@@ -86,7 +86,7 @@ class App extends sugoi.BaseApp {
                             </li>
                         </ul>',
                 bloc3: 'CAMAP est hébergé <br>
-                        par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv2<br>
+                        par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv3<br>
                         <ul>
                             <li>
                                Contacter le Support: <u>support@amap44.org</u>
