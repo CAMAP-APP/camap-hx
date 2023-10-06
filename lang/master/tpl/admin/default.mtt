@@ -26,7 +26,7 @@
 
 <p>
 	<a href="/admin/theme" class="btn btn-default btn-sm"><i class="icon icon-cog"></i> Thème</a>
-	<a href="/admin/?reloadSettings=1" class="btn btn-default btn-sm"><i class="icon icon-refresh"></i> Recharger les paramètres et le thème</a>
+	<a href="/admin/?reloadSettings=1" class="btn btn-default btn-sm"><i class="icon icon-refresh"></i> Recharger le thème</a>
 	<a href="/admin/superadmins" class="btn btn-default btn-sm"><i class="icon icon-user"></i> Superadmins</a>
 </p>
 
