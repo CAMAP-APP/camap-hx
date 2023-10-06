@@ -13,10 +13,11 @@
 			<div class="col-md-8">
 				::set groupName = getCurrentGroup()::
 				::if groupName!=null && noGroup!=true::
-					<h1><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>::groupName::</h1>
+					<h2><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>&nbsp;::groupName::</h2>
 				::else::
 					<div style="margin-bottom:22px;" >
-						<h1><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>CAMAP</h1>
+						<h1><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>&nbsp;CAMAP</h1><br/>
+						<h4>L'application libre de gestion d'AMAP</h4>
 					</div>
 				::end::
 			</div>

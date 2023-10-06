@@ -146,9 +146,11 @@ class Product extends Object
 		price = Formatting.roundTo(price,2);
 
 		//Only Integers are allowed for consumers and float for coordinators
+		/* Permettre la multipesée seule
 		if( this.multiWeight ) {
 			this.variablePrice = true;
 		}
+		*/
 	}
 
 	override public function update(){

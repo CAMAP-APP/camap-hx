@@ -14,9 +14,9 @@ abstract CGColors(String) to String {
 
 	var White = "#FFFFFF";
 
-	var Bg1 = White; // "#E5D3BF"; //light greyed-pink-purple
-	var Bg2 = White; // "#F8F4E5"; //same but lighter
-	var Bg3 = White; // "#F2EBD9"; //used for active category BG
+	var Bg1 = "#FFFFFF"; // "#E5D3BF"; //light greyed-pink-purple
+	var Bg2 = "#FFFFFF"; // "#F8F4E5"; //same but lighter
+	var Bg3 = "#FFFFFF"; // "#F2EBD9"; //used for active category BG
 
 	var DarkGrey = "#404040";//ex first font
 	var MediumGrey = "#7F7F7F";//ex second font
