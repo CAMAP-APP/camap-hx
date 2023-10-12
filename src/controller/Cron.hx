@@ -289,20 +289,21 @@ class Cron extends Controller
 		});
 		task.execute(false);
 
-		/*
-		*	Envoyer une recap au producteurs lors de la fermeture des commandes
-		*/
-		var task = new TransactionWrappedTask( 'Send orders list to vendor for closing orderings' );
-		task.setTask( function() {
-			task.title ("Send orders list to vendor for closing orderings");
-			sendOrdersLists(task);
-		});
-		task.execute(!App.config.DEBUG);
+		
 
 		/**
 			orders notif in cpro, should be sent AFTER default automated orders
 		**/
 		app.event(HourlyCron(this.now));
+
+		/*
+		*	Envoyer une recap au producteurs lors de la fermeture des commandes
+		*/
+		var task = new TransactionWrappedTask( 'Send orders list to vendor for closing orderings' );
+		task.setTask( function() {
+			sendOrdersLists(task);
+		});
+		task.execute(!App.config.DEBUG);
 	}
 
 	/**
@@ -610,6 +611,7 @@ class Cron extends Controller
 	
 	/* trouver toutes les distributions dont les commandes variables viennent de fermer  */
 	var range = tools.DateTool.getLastHourRange( now );
+	task.log('Commandes fermant entre ${range.from} et ${range.to}');
 	var distribs = db.Distribution.manager.unsafeObjects(
 	'SELECT Distribution.* 
 	FROM Distribution INNER JOIN Catalog
@@ -625,7 +627,7 @@ class Cron extends Controller
 		var vendeur = contrat.vendor;
 		var amap = contrat.group;
 		var dest = vendeur.email;
-		var sujet = "Liste des commandes pour la distributions du " +distri.date+ " - groupe " +amap.name;
+		var sujet = 'Liste des commandes pour la distributions du ${distri.date} - groupe ${amap.name}';
 		/* var html_body = ContractAdmin.doOrdersByProductList (contrat, distri) */
 		var orders = service.ReportService.getOrdersByProduct(distri,false);
 		if (dest != null) {
