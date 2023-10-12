@@ -634,7 +634,7 @@ class Cron extends Controller
 			var m = new Mail();
 			m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 			if(amap.contact!=null) m.setReplyTo(amap.contact.email, amap.name);
-			m.addRecipient(dest, vendeur.getName());
+			m.addRecipient(dest, vendeur.name);
 			m.setSubject(sujet);
 			/* 
 			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProduct.mtt", { 
