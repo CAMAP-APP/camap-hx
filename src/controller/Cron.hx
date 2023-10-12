@@ -636,13 +636,24 @@ class Cron extends Controller
 			if(amap.contact!=null) m.setReplyTo(amap.contact.email, amap.name);
 			m.addRecipient(dest, vendeur.name);
 			m.setSubject(sujet);
+			/* 
 			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProduct.mtt", { 
 				orders:orders,
 				distribution:distri,
 				c:contrat,
 				formatNum:Formatting.formatNum,
 				currency:App.current.view.currency,
-				hDate:Formatting.hDate
+				hDate:Formatting.hDate,
+				nav:
+			}));	
+			*/
+			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProductList.mtt", {
+				group:amap,
+				distribution:distri,
+				c:contrat,
+				orders:orders,
+				formatNum:Formatting.formatNum,
+				currency:App.current.view.currency
 			}));
 			App.sendMail(m , amap);	
 			task.log(sujet);
