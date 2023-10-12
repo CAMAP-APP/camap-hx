@@ -639,7 +639,10 @@ class Cron extends Controller
 			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProduct.mtt", { 
 				orders:orders,
 				distribution:distri,
-				c:contrat
+				c:contrat,
+				formatNum:Formatting.formatNum,
+				currency:App.current.view.currency,
+				hDate:Formatting.hDate
 			}));
 			App.sendMail(m , amap);	
 			task.log(sujet);
