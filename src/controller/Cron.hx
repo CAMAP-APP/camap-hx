@@ -621,9 +621,10 @@ class Cron extends Controller
 	/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
 	for (distri in distribs){
 		/* Générer le bon de commande et l'envoyer par mail au vendeur */
-		var contrat = distri.catalogId;
-		var vendeur = contrat.vendorId;
-		var amap = contrat.groupId;
+		var contrat = db.Distribution.manager.search( $catalog == distri.catalog, false );
+		
+		var vendeur = contrat.vendor;
+		var amap = contrat.group;
 		var dest = vendeur.email;
 		var sujet = "Liste des commandes pour la distributions du " +distri.date+ " - groupe " +amap.name;
 		/* var html_body = ContractAdmin.doOrdersByProductList (contrat, distri) */
@@ -640,9 +641,10 @@ class Cron extends Controller
 				c:contrat
 			}));
 			App.sendMail(m , amap);	
+			task.log(sujet);
+			task.log(m.getHtmlBody());
 		}
-		task.log(sujet);
-		task.log(m.getHtmlBody());
+		
 		}
 	}
 	
