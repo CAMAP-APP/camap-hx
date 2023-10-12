@@ -294,7 +294,7 @@ class Cron extends Controller
 		*/
 		var task = new TransactionWrappedTask( 'Send orders list to vendor for closing orderings' );
 		task.setTask( function() {
-			task.title ("Send orders list to vendor for closing orderings")
+			task.title ("Send orders list to vendor for closing orderings");
 			sendOrdersLists(task);
 		});
 		task.execute(!App.config.DEBUG);
