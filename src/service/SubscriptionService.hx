@@ -723,7 +723,7 @@ class SubscriptionService
 		}
 		
 		var m = new sugoi.mail.Mail();
-		m.addRecipient(subscription.user.email , subscription.user.getName(),user.id);
+		m.addRecipient(subscription.user.email , subscription.user.getName(),subscription.user.id);
 		m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 		if(catalog.contact.email!=null) m.setReplyTo(catalog.contact.email, catalog.contact.getName());
 		m.setSubject('Souscription au contrat "${catalog.name}"');
