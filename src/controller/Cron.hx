@@ -627,14 +627,14 @@ class Cron extends Controller
 		var vendeur = contrat.vendor;
 		var amap = contrat.group;
 		var dest = vendeur.email;
-		var sujet = 'Liste des commandes pour la distributions du ${distri.date} - groupe ${amap.name}';
+		var sujet = '[${amap.name}] Commandes distribution du ${Formatting.dDate(distri.date)}';
 		/* var html_body = ContractAdmin.doOrdersByProductList (contrat, distri) */
-		var orders = service.ReportService.getOrdersByProduct(distri,false);
+		var orders = service.ReportService.getOrdersByProduct(distri);
 		if (dest != null) {
 			var m = new Mail();
 			m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 			if(amap.contact!=null) m.setReplyTo(amap.contact.email, amap.name);
-			m.addRecipient(dest, vendeur.name);
+			m.addRecipient(dest, vendeur.getName());
 			m.setSubject(sujet);
 			/* 
 			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProduct.mtt", { 
@@ -647,14 +647,18 @@ class Cron extends Controller
 				nav:
 			}));	
 			*/
-			m.setHtmlBody( app.processTemplate("contractadmin/ordersByProductList.mtt", {
-				group:amap,
+			var html = App.current.processTemplate("mail/ordersByProduct.mtt", { 
+				contract:contrat,
 				distribution:distri,
-				c:contrat,
 				orders:orders,
 				formatNum:Formatting.formatNum,
-				currency:App.current.view.currency
-			}));
+				currency:App.current.view.currency,
+				dDate:Formatting.dDate,
+				hHour:Formatting.hHour,
+				group:amap
+			} );
+			
+			m.setHtmlBody(html);
 			App.sendMail(m , amap);	
 			task.log(sujet);
 			task.log(m.getHtmlBody());
