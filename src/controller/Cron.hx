@@ -289,6 +289,16 @@ class Cron extends Controller
 		});
 		task.execute(false);
 
+		/*
+		*	Envoyer une recap au producteurs lors de la fermeture des commandes
+		*/
+		var task = new TransactionWrappedTask( 'Send orders list to vendor for closing orderings' );
+		task.setTask( function() {
+			task.title ("Send orders list to vendor for closing orderings")
+			sendOrdersLists(task);
+		});
+		task.execute(!App.config.DEBUG);
+
 		/**
 			orders notif in cpro, should be sent AFTER default automated orders
 		**/
@@ -595,6 +605,46 @@ class Cron extends Controller
 		}
 	}
 	
+	
+	function sendOrdersLists(task:TransactionWrappedTask) {
+	
+	/* trouver toutes les distributions dont les commandes variables viennent de fermer  */
+	var range = tools.DateTool.getLastHourRange( now );
+	var distribs = db.Distribution.manager.unsafeObjects(
+	'SELECT Distribution.* 
+	FROM Distribution INNER JOIN Catalog
+	ON Distribution.catalogId = Catalog.id
+	WHERE Catalog.type = 1
+	AND Distribution.orderEndDate >= \'${range.from}\'
+	AND Distribution.orderEndDate < \'${range.to}\';', false );
+	
+	/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
+	for (distri in distribs){
+		/* Générer le bon de commande et l'envoyer par mail au vendeur */
+		var contrat = distri.catalogId;
+		var vendeur = contrat.vendorId;
+		var amap = contrat.groupId;
+		var dest = vendeur.email;
+		var sujet = "Liste des commandes pour la distributions du " +distri.date+ " - groupe " +amap.name;
+		/* var html_body = ContractAdmin.doOrdersByProductList (contrat, distri) */
+		var orders = service.ReportService.getOrdersByProduct(distri,false);
+		if (dest != null) {
+			var m = new Mail();
+			m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+			if(amap.contact!=null) m.setReplyTo(amap.contact.email, amap.name);
+			m.addRecipient(dest, vendeur.name);
+			m.setSubject(sujet);
+			m.setHtmlBody( app.processTemplate("contractadmin/oredersByProduct.mtt", { 
+				orders:orders,
+				distribution:distri,
+				c:contrat
+			}));
+			App.sendMail(m , amap);	
+		}
+		task.log(sujet);
+		task.log(m.getHtmlBody());
+		}
+	}
 	
 	public static function print(text:Dynamic){
 		var text = Std.string(text);
