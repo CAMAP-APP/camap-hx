@@ -621,7 +621,7 @@ class Cron extends Controller
 	/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
 	for (distri in distribs){
 		/* Générer le bon de commande et l'envoyer par mail au vendeur */
-		var contrat = db.Catalog.manager.search( $catalog == distri.catalog, false );
+		var contrat = db.Catalog.manager.search( $id == distri.catalog, false );
 		
 		var vendeur = contrat.vendor;
 		var amap = contrat.group;
