@@ -551,6 +551,7 @@ class OrderService
 			m.addRecipient(user.email , user.getName(),user.id);
 			if(user.email2!=null) m.addRecipient(user.email2 , user.getName(),user.id);
 			m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+			if(d.catalog.contact.email!=null) m.setReplyTo(d.catalog.contact.email, d.catalog.contact.getName());
 			m.setSubject(title);
 			var orders = prepare(d.catalog.getUserOrders(user,d));
 

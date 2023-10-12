@@ -722,7 +722,15 @@ class SubscriptionService
 			html += '<p>Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s) pour un total de ${subscription.getTotalPrice()} €.</p>';
 		}
 		
-		App.quickMail(subscription.user.email,'Souscription au contrat "${catalog.name}"',html,catalog.group);
+		var m = new sugoi.mail.Mail();
+		m.addRecipient(subscription.user.email , subscription.user.getName(),user.id);
+		m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+		if(catalog.contact.email!=null) m.setReplyTo(catalog.contact.email, catalog.contact.getName());
+		m.setSubject('Souscription au contrat "${catalog.name}"');
+		m.setHtmlBody(html);
+		App.sendMail(m, catalog.group);
+
+		/*App.quickMail(subscription.user.email,'Souscription au contrat "${catalog.name}"',html,catalog.group);*/
 	}
 
 	public static function checkUser2(ordersData:Array<CSAOrder>):Int{
