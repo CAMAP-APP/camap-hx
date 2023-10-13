@@ -6,6 +6,7 @@ import db.Group.RegOption;
 import db.Operation.OperationType;
 import db.Subscription;
 import tink.core.Error;
+import service.PaymentService;
 
 using Lambda;
 using tools.DateTool;
@@ -667,7 +668,7 @@ class SubscriptionService
 		
 		//Email notification
 		sendSubscriptionCreatedEmail(subscription);
-		
+		updateUserBalance(user,catalog.group);
 		return subscription;
 	}
 
