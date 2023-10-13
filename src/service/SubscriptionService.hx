@@ -668,7 +668,7 @@ class SubscriptionService
 		
 		//Email notification
 		sendSubscriptionCreatedEmail(subscription);
-		updateUserBalance(user,catalog.group);
+		PaymentService.updateUserBalance(user,catalog.group);
 		return subscription;
 	}
 

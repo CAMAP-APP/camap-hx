@@ -28,7 +28,7 @@ class History extends Controller
 		
 		var ua = db.UserGroup.get(app.user, app.user.getGroup());
 		if (ua == null) throw Error("/", t._("You are not a member of this group"));
-		updateUserBalance(app.user, app.user.getGroup());
+		PaymentService.updateUserBalance(app.user, app.user.getGroup());
 		
 		var varOrders = new Map<String,Array<db.UserOrder>>();
 		
