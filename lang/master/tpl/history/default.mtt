@@ -76,6 +76,7 @@
 			</span>
 		</span>
 		
+		::if user.canAccessMembership()::
 		<span style="margin-left:30px;">
 
 			<a href="/member/payments/::user.id::" class="btn btn-default btn-small">
@@ -83,6 +84,7 @@
 				::_("Payments details")::
 			</a>
 		</span>
+		::end::
 		
 	</div>
 	::end::
