@@ -1778,7 +1778,7 @@ msgstr "Paiements"
 #: ../lang/master/tpl/member/payments.mtt:1160
 #: ../lang/master/tpl/member/view.mtt:3344
 msgid "Balance"
-msgstr "Solde"
+msgstr "Solde global"
 
 #. short version for quantity
 #: ../lang/master/tpl/history/basket.mtt:333
