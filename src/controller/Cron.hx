@@ -289,10 +289,21 @@ class Cron extends Controller
 		});
 		task.execute(false);
 
+		
+
 		/**
 			orders notif in cpro, should be sent AFTER default automated orders
 		**/
 		app.event(HourlyCron(this.now));
+
+		/*
+		*	Envoyer une recap au producteurs lors de la fermeture des commandes
+		*/
+		var task = new TransactionWrappedTask( 'Send orders list to vendor for closing orderings' );
+		task.setTask( function() {
+			sendOrdersLists(task);
+		});
+		task.execute(false);
 	}
 
 	/**
@@ -595,6 +606,55 @@ class Cron extends Controller
 		}
 	}
 	
+	
+	function sendOrdersLists(task:TransactionWrappedTask) {
+	
+		/* trouver toutes les distributions dont les commandes variables viennent de fermer  */
+		var range = tools.DateTool.getLastHourRange( now );
+		task.log('Commandes fermant entre ${range.from} et ${range.to}');
+		var distribs = db.Distribution.manager.unsafeObjects(
+		'SELECT Distribution.* 
+		FROM Distribution INNER JOIN Catalog
+		ON Distribution.catalogId = Catalog.id
+		WHERE Catalog.type = 1
+		AND Distribution.orderEndDate >= \'${range.from}\'
+		AND Distribution.orderEndDate < \'${range.to}\';', false );
+			
+		/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
+		for (distri in distribs){
+			/* Générer le bon de commande et l'envoyer par mail au vendeur */
+			var contrat = distri.catalog;
+			var vendeur = contrat.vendor;
+			var amap = contrat.group;
+			var dest = vendeur.email;
+			var sujet = '[${amap.name}] Commandes ${contrat.name} distribution du ${Formatting.dDate(distri.date)}';
+			var orders = service.ReportService.getOrdersByProduct(distri);
+			if (dest != null) {
+				var m = new Mail();
+				m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+				if(amap.contact!=null) m.setReplyTo(amap.contact.email, amap.name);
+				m.addRecipient(dest, vendeur.name);
+				m.setSubject(sujet);
+				
+				var html = App.current.processTemplate("mail/ordersByProduct.mtt", { 
+					contract:contrat,
+					distribution:distri,
+					orders:orders,
+					formatNum:Formatting.formatNum,
+					currency:App.current.view.currency,
+					dDate:Formatting.dDate,
+					hHour:Formatting.hHour,
+					group:amap
+				} );
+				
+				m.setHtmlBody(html);
+				App.sendMail(m , amap);	
+				task.log(sujet);
+				task.log(m.getHtmlBody());
+			}
+			
+		}
+	}
 	
 	public static function print(text:Dynamic){
 		var text = Std.string(text);

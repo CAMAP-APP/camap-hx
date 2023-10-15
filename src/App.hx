@@ -19,7 +19,7 @@ class App extends sugoi.BaseApp {
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
 	 */ 
-	public static var VERSION = ([1,0,2,4]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	public static var VERSION = ([1,0,4]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 	
 	public function new(){
 		super();
@@ -86,7 +86,7 @@ class App extends sugoi.BaseApp {
                             </li>
                         </ul>',
                 bloc3: 'CAMAP est hébergé <br>
-                        par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv2<br>
+                        par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv3<br>
                         <ul>
                             <li>
                                Contacter le Support: <u>support@amap44.org</u>
@@ -100,7 +100,7 @@ class App extends sugoi.BaseApp {
                        '
             },
             email:{
-                senderEmail : 'noreply@amap44.org',
+                senderEmail : 'noreply@camap.amap44.org',
                 brandedEmailLayoutFooter:  '<p>InterAMAP44, 1 Boulevard Boulay-Paty – 44100 Nantes</p>
                 <div style="display: flex; justify-content: center; align-items: center;">
                     <a href="https://www.amap44.org" target="_blank" rel="noreferrer noopener notrack" class="bold-green" style="text-decoration:none !important; padding: 8px; display: flex; align-items: center;">

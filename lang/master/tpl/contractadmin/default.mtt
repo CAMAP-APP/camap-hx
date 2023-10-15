@@ -46,8 +46,8 @@
 						</a>							
 					</td>
 					<td style="font-size:0.9em;">
-						du ::hDate(c.startDate)::<br/>
-						au ::hDate(c.endDate)::
+						du ::dDate(c.startDate)::<br/>
+						au ::dDate(c.endDate)::
 					</td>
 					<td>
 						<div class="btn-group" role="group">
