@@ -3,7 +3,7 @@
    	<h3>Récapitulatif de commande par produits</h3>
 
     <p>
-		Les commandes du catalogue <b>::contract.name::</b> dont vous êtes coordinateur ont fermé le <b>::hDate(distribution.orderEndDate)::</b>.
+		Les commandes du catalogue <b>::contract.name::</b> ont fermé le <b>::hDate(distribution.orderEndDate)::</b>.
 	</p>
 
    <table class="table table-striped">

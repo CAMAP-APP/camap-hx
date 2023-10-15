@@ -5,6 +5,7 @@ import db.Operation;
 import db.Subscription;
 import service.OrderService;
 import service.SubscriptionService;
+import service.PaymentService;
 import sugoi.form.Form;
 import sugoi.form.elements.StringSelect;
 
@@ -27,6 +28,7 @@ class History extends Controller
 		
 		var ua = db.UserGroup.get(app.user, app.user.getGroup());
 		if (ua == null) throw Error("/", t._("You are not a member of this group"));
+		PaymentService.updateUserBalance(app.user, app.user.getGroup());
 		
 		var varOrders = new Map<String,Array<db.UserOrder>>();
 		
