@@ -250,7 +250,7 @@ class User extends Controller
 
 
 
-		/*
+    /*
 		if (app.user.isMemberOf(group)){
 			throw Ok("/", t._("You are already member of this group."));
 		}

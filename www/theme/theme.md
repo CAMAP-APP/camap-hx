@@ -1,6 +1,6 @@
 # Warning !
 
-_style.css_, _style.css.map_, _style.min.css_, _style.min.css.map_, _bootstrap.min.css_ and _bootstrap.min.css.map_ are compiled files, you should never modify them directly. Instead, compile them as explain below.
+_style.css_, _style.css.map_, _style.min.css_, _style.min.css.map_, _bootstrap.min.css_ and _bootstrap.min.css.map_ are compiled files, you should never modify them directly. Instead, compile them as explained below.
 
 # Compile SASS
 
