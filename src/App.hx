@@ -119,7 +119,10 @@ class App extends sugoi.BaseApp {
             }
 
         }
-        App.theme = defaultTheme;
+				
+				var res = this.cnx.request("SELECT value FROM Variable WHERE name='whiteLabel'").results();
+				var whiteLabelStringified = res.first()==null ? null : res.first().value;
+				App.theme = whiteLabelStringified != null ? haxe.Json.parse(whiteLabelStringified) : defaultTheme;
     }
 
 	/**
