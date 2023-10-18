@@ -175,16 +175,16 @@ msgid "Marketplace"
 msgstr "Place du marché"
 
 #: ../src/controller/Install.hx:1515
-msgid "Place Jules Verne"
-msgstr "Place Jules Verne"
+msgid "4 Place de Bretagne"
+msgstr "4 Place de Bretagne"
 
 #: ../src/controller/Install.hx:1585
-msgid "St Martin de la Cagette"
-msgstr "St Martin de la Cagette"
+msgid "Nantes"
+msgstr "Nantes"
 
 #: ../src/controller/Install.hx:1690
-msgid "Jean Martin EURL"
-msgstr "Jean Martin EURL"
+msgid "Harry Covert"
+msgstr "Harry Covert"
 
 #: ../src/controller/Install.hx:1896
 msgid "Vegetables Contract Example"
@@ -200,10 +200,10 @@ msgstr "Petit panier de légumes"
 
 #: ../src/controller/Install.hx:2610
 msgid ""
-"Group and user 'admin' created. Your email is 'admin@camap.tld' and your "
+"Group and user 'admin' created. Your email is 'admin@camap.localdomain' and your "
 "password is 'admin'"
 msgstr ""
-"Groupe et utilisateur « admin » créé. Votre courriel est « admin@camap.tld » "
+"Groupe et utilisateur « admin » créé. Votre courriel est « admin@camap.localdomain » "
 "et votre mot de passe est « admin »"
 
 #: ../src/controller/api/Order.hx:1439 ../src/controller/ContractAdmin.hx:17593
