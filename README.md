@@ -5,7 +5,7 @@ camap-hx est la partie Haxe du logiciel CAMAP
 ## Framework et librairies
 
 camap-hx tourne sous le framework MVC 
-[Sugoï](https://github.com/CagetteNet/sugoi).
+[Sugoï](https://github.com/AliloSCOP/sugoi).
 
 Il est codé en [Haxe 4.05](https://www.haxe.org) et est exécuté par une VM [Neko](https://nekovm.org) ( avec Apache via mod_neko )
 
