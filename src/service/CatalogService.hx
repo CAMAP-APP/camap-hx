@@ -60,6 +60,8 @@ class CatalogService{
 		}
 		
 		
+		/** v1.0.5 Suppression de la valeur par défaut lors de la création du catalogue afin d'appliquer par défaut les valeurs définies dans le cycle de distribution **/
+		/*
 		if ( catalog.id == null ) {
 			//if catalog is new
 			if ( catalog.type == Catalog.TYPE_VARORDER ) {
@@ -67,6 +69,7 @@ class CatalogService{
 			}
 			form.getElement("orderEndHoursBeforeDistrib").value = 24;
 		} 
+		*/
 
 			//For all types and modes
 		if ( catalog.id != null ) {
