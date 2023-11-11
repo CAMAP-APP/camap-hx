@@ -632,7 +632,14 @@ class ContractAdmin extends Controller
 		var catalogTypes = [ { label : 'Contrat AMAP classique', value : 0 }, { label : 'Contrat AMAP variable', value : 1 } ];
 		form.addElement( new sugoi.form.elements.IntSelect( 'catalogtype', 'Type de catalogue', catalogTypes, catalog.type, true ) );
 		form.addElement(new Checkbox("copyProducts", t._("Copy products"),true));
-		form.addElement(new Checkbox("copyDeliveries", t._("Copy deliveries"),true));
+		/* Pour superadmin seulement, décoché par défaut v1.0.5 */
+		if (app.user.isAdmin()){
+			
+			form.addElement(new Checkbox("copyDeliveries", t._("Copy deliveries"),false));
+		}
+		
+		
+		/* Création des roles de volontaires pour la copie v1.0.5 */
 		
 		if (form.checkToken()) {
 
