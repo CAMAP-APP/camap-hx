@@ -178,15 +178,15 @@ msgid "Marketplace"
 msgstr ""
 
 #: ../src/controller/Install.hx:1515
-msgid "Place Jules Verne"
+msgid "4 Place de Bretagne"
 msgstr ""
 
 #: ../src/controller/Install.hx:1585
-msgid "St Martin de la Cagette"
+msgid "Nantes"
 msgstr ""
 
 #: ../src/controller/Install.hx:1690
-msgid "Jean Martin EURL"
+msgid "Harry Covert"
 msgstr ""
 
 #: ../src/controller/Install.hx:1896
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../src/controller/Install.hx:2610
 msgid ""
-"Group and user 'admin' created. Your email is 'admin@camap.tld' and your "
+"Group and user 'admin' created. Your email is 'admin@camap.localdomain' and your "
 "password is 'admin'"
 msgstr ""
 

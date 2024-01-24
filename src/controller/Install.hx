@@ -33,7 +33,7 @@ class Install extends controller.Controller
 			var user = new db.User();
 			user.firstName = f.getValueOf("userFirstName");
 			user.lastName = f.getValueOf("userLastName");
-			user.email = "admin@camap.tld";
+			user.email = "admin@camap.localdomain";
 			user.setPass("admin");
 			user.rights.set(Admin);
 			user.insert();
@@ -57,16 +57,16 @@ class Install extends controller.Controller
 			var place = new db.Place();
 			place.name = t._("Marketplace");
 			place.group = amap;
-			place.address1 = t._("Place Jules Verne");
-			place.zipCode = "00000";
-			place.city = t._("St Martin de la Cagette");
+			place.address1 = t._("4 Place de Bretagne");
+			place.zipCode = "44000";
+			place.city = t._("Nantes");
 			place.insert();
 			
 			var vendor = new db.Vendor();
-			vendor.name = t._("Jean Martin EURL");
-			vendor.email = "jean.martin@camap.tld";
-			vendor.zipCode = "00000";
-			vendor.city = "Martignac";
+			vendor.name = t._("Harry Covert");
+			vendor.email = "harry.covert@camap.localdomain";
+			vendor.zipCode = "44670";
+			vendor.city = "Juigné-les-Moutiers";
 			vendor.insert();
 			
 			var contract = new db.Catalog();
@@ -82,7 +82,7 @@ class Install extends controller.Controller
 			
 			var p = new db.Product();
 			p.name = t._("Big basket of vegetables");
-			p.price = 15;
+			p.price = 20;
 			p.vat = 5;
 			p.catalog = contract;
 			p.insert();
@@ -97,7 +97,7 @@ class Install extends controller.Controller
 			App.current.user = null;
 			// App.current.session.data.amapId  = amap.id;
 			
-			throw Ok("/", t._("Group and user 'admin' created. Your email is 'admin@camap.tld' and your password is 'admin'"));
+			throw Ok("/", t._("Group and user 'admin' created. Your email is 'admin@camap.localdomain' and your password is 'admin'"));
 		}	
 		
 		view.form = f;
