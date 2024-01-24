@@ -54,7 +54,7 @@ class Catalog extends Object
 		super();
 		flags = cast 0;
 		distributorNum = 0;	
-		orderEndHoursBeforeDistrib = 24;	
+		// orderEndHoursBeforeDistrib = 24;	 //v1.0.5
 		flags.set(UsersCanOrder);		
 	}	
 	

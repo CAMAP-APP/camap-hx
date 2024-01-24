@@ -52,3 +52,11 @@ from /bootstrap-3.4.1/dist/css to /theme/default/css
 More infos :
 
 https://getbootstrap.com/docs/3.3/getting-started/#grunt
+
+# Version InterAMAP44 de Camap - default style
+
+Dans le style par défaut développé par InterAMAP44, la configuration a été déplacée de style.scss vers bootswatch.scss et variable.less afin d'être d'avantage compatible avec bootstrap. Le fichier style.scss est recréé par ce script à partir de bootswatch.scss et variable.less.
+
+Les fichiers à modifier sont donc /www/theme/default/css/variable.less et /www/theme/default/css/bootswatch.scss
+
+Ensuite le fichier /www/theme/default/css_compile.sh génère les fichiers de style avec bootstrap et les replaces dans le répertoire /www/theme/default/css/

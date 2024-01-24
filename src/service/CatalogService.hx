@@ -40,7 +40,7 @@ class CatalogService{
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {
 			//VAR
 			form.addElement( new sugoi.form.elements.Html( 'constraints', '<h4>Engagement</h4>', '' ), 10 );
-			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat. <br/><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
+			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat (0 = pas d\'engagement). <br/><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
 
 			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#ouverture-et-fermeture-de-commande";
 			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#ouverture-et-fermeture-de-commande";				
@@ -60,6 +60,8 @@ class CatalogService{
 		}
 		
 		
+		/** v1.0.5 Suppression de la valeur par défaut lors de la création du catalogue afin d'appliquer par défaut les valeurs définies dans le cycle de distribution **/
+		/*
 		if ( catalog.id == null ) {
 			//if catalog is new
 			if ( catalog.type == Catalog.TYPE_VARORDER ) {
@@ -67,6 +69,7 @@ class CatalogService{
 			}
 			form.getElement("orderEndHoursBeforeDistrib").value = 24;
 		} 
+		*/
 
 			//For all types and modes
 		if ( catalog.id != null ) {

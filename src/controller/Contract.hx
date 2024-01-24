@@ -105,7 +105,7 @@ class Contract extends Controller
 	}
 
 	/**
-		Select CSA Variable / CSA Constant Contract
+		3- Select CSA Variable / CSA Constant Contract
 	**/
 	@tpl("contract/insertChoose.mtt")
 	function doInsertChoose(vendor:db.Vendor) {
