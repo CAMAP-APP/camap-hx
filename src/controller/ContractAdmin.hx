@@ -632,8 +632,8 @@ class ContractAdmin extends Controller
 		var catalogTypes = [ { label : 'Contrat AMAP classique', value : 0 }, { label : 'Contrat AMAP variable', value : 1 } ];
 		form.addElement( new sugoi.form.elements.IntSelect( 'catalogtype', 'Type de catalogue', catalogTypes, catalog.type, true ) );
 		form.addElement(new Checkbox("copyProducts", t._("Copy products"),true));
-		/* Pour superadmin seulement, décoché par défaut v1.0.5 */
-		if (app.user.isAdmin()){
+		/* Pour superadmin et admin groupe seulement, décoché par défaut v1.0.5 */
+		if (app.user.isAdmin() || app.user.isGroupManager()){
 			
 			form.addElement(new Checkbox("copyDeliveries", t._("Copy deliveries"),false));
 		}
@@ -699,17 +699,19 @@ class ContractAdmin extends Controller
 				}
 			}
 			
-			if (form.getValueOf("copyDeliveries") == true) {
-				for ( ds in catalog.getDistribs()) {
-					var d = new db.Distribution();
-					d.catalog = nc;
-					d.date = ds.date;
-					d.multiDistrib = ds.multiDistrib;
-					d.orderStartDate = ds.orderStartDate;
-					d.orderEndDate = ds.orderEndDate;
-					d.end = ds.end;
-					d.place = ds.place;
-					d.insert();
+			if (app.user.isAdmin() || app.user.isGroupManager()){
+				if (form.getValueOf("copyDeliveries") == true) {
+					for ( ds in catalog.getDistribs()) {
+						var d = new db.Distribution();
+						d.catalog = nc;
+						d.date = ds.date;
+						d.multiDistrib = ds.multiDistrib;
+						d.orderStartDate = ds.orderStartDate;
+						d.orderEndDate = ds.orderEndDate;
+						d.end = ds.end;
+						d.place = ds.place;
+						d.insert();
+					}
 				}
 			}
 			
