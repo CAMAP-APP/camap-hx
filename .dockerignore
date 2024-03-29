@@ -5,3 +5,7 @@
 **/README.md
 **/Dockerfile
 www/index.n \*_/_~
+**/.dockerignore
+.git
+.gitattributes
+.gitignore
