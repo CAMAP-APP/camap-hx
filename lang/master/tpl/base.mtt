@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" xml:lang="::LANG::" lang="::LANG::"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-	
+
     <title>
         ::if pageTitle!=null::
             ::pageTitle::
@@ -15,13 +15,13 @@
     </title>
 
     $$favicons()
-	
-	
+
+
 	::if group==null && amap==null ::
 		<meta name="description" content="Camap est une solution de gestion d'AMAP libre et gratuite hébergée par l'InterAMAP44."/>
 	::end::
 
-	
+
 
     $$googleTagManager(::getVariable("googleTagManagerId")::)
 
@@ -52,11 +52,7 @@
     <!-- Haxe JS + libs bundled with browserify -->
     <script type="text/javascript" src="/js/::getVariable('js')::/fetch.umd.js"></script>
 
-    ::if(DEBUG)::
-    <script type="text/javascript" src="/js/::getVariable('js')::/libs.dev.js"></script>
-    ::else::
     <script type="text/javascript" src="/js/::getVariable('js')::/libs.prod.js"></script>
-    ::end::
     <script type="text/javascript" src="/js/::getVariable('js')::/app.js"></script>
 </head>
 
@@ -70,7 +66,7 @@
 
     ::if ( HOST.indexOf("dev",null)!=-1 )::
     <div style="position: fixed;background: #600;padding: 8px;left:0;bottom:0;color: #FA0;width: 100%;z-index: 99;text-align: center;">
-        <i class="icon icon-alert"></i> 
+        <i class="icon icon-alert"></i>
         <b>Ce site est une instance de test.</b> Ne l'utilisez pas pour prendre de vraies commandes.
     </div>
     ::end::
@@ -107,7 +103,7 @@
             name: "::theme.name::",
             supportEmail: "::theme.supportEmail::"
         }
-        
+
         document.addEventListener("DOMContentLoaded", function (event) {
             //init vars in js App
             _Camap.lang = "::session.lang::";
@@ -120,7 +116,7 @@
         })
 
     </script>
-	
+
 	::foreach script getNeoModuleScripts()::
     <script src="::script::"></script>
     ::end::
