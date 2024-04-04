@@ -1,6 +1,9 @@
+import js.html.Console;
+import js.lib.Promise;
 import bootstrap.Modal;
 import js.Browser;
 import Common;
+import utils.HttpUtil;
 // import thx.semver.Version;
 
 //React lib
@@ -136,6 +139,56 @@ class App {
 				</MuiThemeProvider>
 			</ReduxProvider>
 		'), node );
+	}
+
+	public function updateUserOrderQuantity(userId:Int, multiDistribId:Int, catalogId:Int, userOrderId: Int, basketId: Int, productQt:Float, nextQtInput:String, lastQt: String) : Promise<Void> {
+		var inputId = userOrderId + "_qt";
+		var input : js.html.InputElement = cast js.Browser.document.getElementById(inputId);
+		input.style.color = 'gray';
+		if (nextQtInput == lastQt) {
+			return Promise.resolve();
+		}
+		var nextQt = Std.parseFloat(StringTools.replace(nextQtInput, ',','.')) / productQt; // divide by productQt to get the decimal userOrder.qt
+		if (Math.isNaN(nextQt)) {
+			Console.log(nextQtInput);
+			var input : js.html.InputElement = cast js.Browser.document.getElementById(inputId);
+			input.style.color = 'red';
+			return Promise.resolve();
+		}
+
+		var args = "";
+		if ( multiDistribId != null ) {
+			args +=  "?multiDistrib=" + multiDistribId;
+			if( catalogId != null ) {
+				args +=  "&catalog=" + catalogId;
+			}
+		}
+		else if ( catalogId != null ) {
+			args +=  "?catalog=" + catalogId;
+		}
+
+		return HttpUtil.fetch( "/api/order/updateOrderQuantity/" + userId + args, POST, { id: userOrderId, qt: nextQt }, JSON )
+		.then( function( data : Dynamic ) {
+			// var data : { success: Bool, subTotal: String, total: String, fees: String, basketTotal: String } = tink.Json.parse(data);
+
+			var input : js.html.InputElement = cast js.Browser.document.getElementById(inputId);
+			var basketTotalInput = js.Browser.document.getElementById("basket_" + basketId + "_total");
+			input.style.color = 'initial';
+			var currency = basketTotalInput.innerHTML.substr(-1, 1);
+			js.Browser.document.getElementById(userOrderId + "_subTotal").innerHTML = data.subTotal + "&nbsp;" + currency;
+			js.Browser.document.getElementById(userOrderId + "_total").innerHTML = data.total + "&nbsp;" + currency;
+			js.Browser.document.getElementById(userOrderId + "_fees").innerHTML = data.fees == "" ? "" : data.fees + "&nbsp;" + currency;
+			js.Browser.document.getElementById("basket_" + basketId + "_total").innerHTML = data.basketTotal + "&nbsp;" + currency;
+		})
+		.catchError( function(data) {
+			var data = Std.string(data);
+			if( data.substr(0,1) == "{" ) { //json error from server
+				var data : ErrorInfos = haxe.Json.parse(data);                
+				Browser.alert( data.error.message );
+			} else { //js error
+				Browser.alert( data );
+			}
+		});
 	}
 
 	private function createOrderBoxReduxStore() {
