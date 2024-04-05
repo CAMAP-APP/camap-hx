@@ -120,7 +120,14 @@ class Order extends Controller
 		
 		var updated = OrderService.updateOrderQuantity( user, multiDistrib, catalog, order );
 
-		Sys.print( Json.stringify( { success : true, subTotal: updated.subTotal, total: updated.total, fees: updated.fees, basketTotal: updated.basketTotal } ) );
+		Sys.print( Json.stringify( { 
+			success : true,
+			 subTotal: updated.subTotal,
+			 total: updated.total,
+			 fees: updated.fees,
+			 basketTotal: updated.basketTotal,
+			 nextQt: updated.nextQt 
+		} ) );
 
 	}
 	

@@ -825,7 +825,12 @@ class OrderService
 		return existingUserOrders;
 	}
 
-	public static function updateOrderQuantity( user:db.User, multiDistrib:db.MultiDistrib, catalog:db.Catalog, userOrder:{id:Int, qt:Float} ) : { subTotal: String, total: String, fees: String, basketTotal: String } {
+	public static function updateOrderQuantity( 
+		user:db.User,
+		multiDistrib:db.MultiDistrib, 
+		catalog:db.Catalog, 
+		userOrder:{id:Int, qt:Float} 
+	) : { subTotal: String, total: String, fees: String, basketTotal: String, nextQt: String } {
 
 		if ( multiDistrib == null && catalog == null ) {
 			throw new Error('You should provide at least a catalog or a multiDistrib');
@@ -886,6 +891,12 @@ class OrderService
 			total += fees;
 		}
 
-		return { subTotal: Formatting.formatNum(subTotal), total: Formatting.formatNum(total), fees: fees == 0 ? '' : Formatting.formatNum(fees), basketTotal: Formatting.formatNum(updatedUserOrder.basket.total) };
+		return { 
+			subTotal: Formatting.formatNum(subTotal), 
+			total: Formatting.formatNum(total), 
+			fees: fees == 0 ? '' : Formatting.formatNum(fees), 
+			basketTotal: Formatting.formatNum(updatedUserOrder.basket.total),
+			nextQt: Formatting.formatNum(updatedUserOrder.quantity * updatedUserOrder.product.qt)
+		 };
 	}
 }
