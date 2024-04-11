@@ -45,6 +45,17 @@
 			"statusBarItem.remoteBackground": "#4f4e11",
 			"statusBarItem.remoteForeground": "#e7e7e7"
 		},
-		"peacock.color": "#4f4e11"
+		"peacock.color": "#4f4e11",
+		"haxe.executable": {
+			"path": "auto"
+		},
+		"haxe.configurations": [
+			[
+				"build.hxml"
+			],
+			[
+				"potGeneration.hxml"
+			]
+		],
 	}
 }
