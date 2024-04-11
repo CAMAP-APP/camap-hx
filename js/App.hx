@@ -181,6 +181,11 @@ class App {
 			} catch (e:Dynamic) {js.Browser.console.error(e);}
 			try {	
 				input.value = data.nextQt;
+				var qtTxt = js.Browser.document.getElementById(inputId + "_txt");
+				var unitArr = qtTxt.innerHTML.split("&nbsp;");
+				var unit = "";
+				if (unitArr.length > 1) unit = unitArr[1];
+				qtTxt.innerHTML = data.nextQt + "&nbsp;" + unit;
 			} catch (e:Dynamic) {js.Browser.console.error(e);}
 			try {	
 				js.Browser.document.getElementById(userOrderId + "_subTotal").innerHTML = data.subTotal + "&nbsp;" + currency;
