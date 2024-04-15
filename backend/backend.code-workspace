@@ -54,6 +54,9 @@
 				"build.hxml"
 			],
 			[
+				"build.hxml", "-D", "i18n_generation"
+			],
+			[
 				"potGeneration.hxml"
 			]
 		],
