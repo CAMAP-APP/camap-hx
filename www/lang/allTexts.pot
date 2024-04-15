@@ -360,7 +360,7 @@ msgstr ""
 msgid "Your products to collect :"
 msgstr ""
 
-#: ../src/controller/Cron.hx:18260 ../lang/master/tpl/contractadmin/orders.mtt:4958
+#: ../src/controller/Cron.hx:18260 ../lang/master/tpl/contractadmin/orders.mtt:5568
 msgid "alternated with"
 msgstr ""
 
@@ -823,7 +823,7 @@ msgstr ""
 msgid "This supplier has been updated"
 msgstr ""
 
-#: ../src/db/Basket.hx:5560
+#: ../src/db/Basket.hx:5557
 msgid ""
 "You need to select manually the type of pending payments on the spot to be "
 "able to validate this distribution."
@@ -1290,7 +1290,7 @@ msgstr ""
 msgid "Deletion not possible: quantity is not zero."
 msgstr ""
 
-#: ../src/service/OrderService.hx:12590 ../lang/master/tpl/contractadmin/orders.mtt:4069 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3402 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:2216 ../lang/master/tpl/distribution/list.mtt:2781 ../lang/master/tpl/distribution/listByDate.mtt:2046 ../lang/master/tpl/distribution/listByDateOnePage.mtt:2412 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:2889 ../lang/master/tpl/distribution/listByDateShort.mtt:1842 ../lang/master/tpl/home.mtt:4684 ../lang/master/tpl/home.mtt:7343
+#: ../src/service/OrderService.hx:12590 ../lang/master/tpl/contractadmin/orders.mtt:4333 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3402 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:2216 ../lang/master/tpl/distribution/list.mtt:2781 ../lang/master/tpl/distribution/listByDate.mtt:2046 ../lang/master/tpl/distribution/listByDateOnePage.mtt:2412 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:2889 ../lang/master/tpl/distribution/listByDateShort.mtt:1842 ../lang/master/tpl/home.mtt:4684 ../lang/master/tpl/home.mtt:7343
 msgid "Canceled"
 msgstr ""
 
@@ -1517,7 +1517,7 @@ msgstr ""
 msgid "Delete ?"
 msgstr ""
 
-#: ../lang/master/tpl/amap/default.mtt:595 ../lang/master/tpl/amapadmin/places.mtt:399 ../lang/master/tpl/amapadmin/volunteers/default.mtt:629 ../lang/master/tpl/contractadmin/documents.mtt:3309 ../lang/master/tpl/contractadmin/documents.mtt:3659 ../lang/master/tpl/contractadmin/orders.mtt:3103 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2699 ../lang/master/tpl/contractadmin/products.mtt:3762 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6757 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:2007 ../lang/master/tpl/contractadmin/view.mtt:937 ../lang/master/tpl/member/view.mtt:2757
+#: ../lang/master/tpl/amap/default.mtt:595 ../lang/master/tpl/amapadmin/places.mtt:399 ../lang/master/tpl/amapadmin/volunteers/default.mtt:629 ../lang/master/tpl/contractadmin/documents.mtt:3309 ../lang/master/tpl/contractadmin/documents.mtt:3659 ../lang/master/tpl/contractadmin/orders.mtt:3367 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2699 ../lang/master/tpl/contractadmin/products.mtt:3762 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6757 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:2007 ../lang/master/tpl/contractadmin/view.mtt:937 ../lang/master/tpl/member/view.mtt:2757
 msgid "Edit"
 msgstr ""
 
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Volunteer Role"
 msgstr ""
 
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:700 ../lang/master/tpl/contractadmin/documents.mtt:3479 ../lang/master/tpl/contractadmin/documents.mtt:3810 ../lang/master/tpl/contractadmin/orders.mtt:6076 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270 ../lang/master/tpl/distribution/default.mtt:12241
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:700 ../lang/master/tpl/contractadmin/documents.mtt:3479 ../lang/master/tpl/contractadmin/documents.mtt:3810 ../lang/master/tpl/contractadmin/orders.mtt:6686 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270 ../lang/master/tpl/distribution/default.mtt:12241
 msgid "Delete"
 msgstr ""
 
@@ -1627,7 +1627,7 @@ msgid ""
 "as the order could be closed for some suppliers"
 msgstr ""
 
-#: ../lang/master/tpl/contract/editVarOrders.mtt:603 ../lang/master/tpl/contractadmin/orders.mtt:3305 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2864 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:647 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1611 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1681 ../lang/master/tpl/contractadmin/stats.mtt:833 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:783 ../lang/master/tpl/distribution/list.mtt:2456 ../lang/master/tpl/distribution/listByDate.mtt:709 ../lang/master/tpl/distribution/listByDateOnePage.mtt:524 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:554 ../lang/master/tpl/distribution/listByDateShort.mtt:552 ../lang/master/tpl/history/basket.mtt:406 ../lang/master/tpl/history/csaorders.mtt:774 ../lang/master/tpl/member/invoice.mtt:1505
+#: ../lang/master/tpl/contract/editVarOrders.mtt:603 ../lang/master/tpl/contractadmin/orders.mtt:3569 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2864 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:647 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1611 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1681 ../lang/master/tpl/contractadmin/stats.mtt:833 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:783 ../lang/master/tpl/distribution/list.mtt:2456 ../lang/master/tpl/distribution/listByDate.mtt:709 ../lang/master/tpl/distribution/listByDateOnePage.mtt:524 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:554 ../lang/master/tpl/distribution/listByDateShort.mtt:552 ../lang/master/tpl/history/basket.mtt:406 ../lang/master/tpl/history/csaorders.mtt:774 ../lang/master/tpl/member/invoice.mtt:1505
 msgid "Product"
 msgstr ""
 
@@ -1639,11 +1639,11 @@ msgstr ""
 msgid "Sub-total"
 msgstr ""
 
-#: ../lang/master/tpl/contract/editVarOrders.mtt:698 ../lang/master/tpl/contractadmin/orders.mtt:3571 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3059 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1876 ../lang/master/tpl/distribution/list.mtt:2554 ../lang/master/tpl/distribution/listByDate.mtt:770 ../lang/master/tpl/distribution/listByDateOnePage.mtt:579 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:609 ../lang/master/tpl/history/basket.mtt:645 ../lang/master/tpl/history/csaorders.mtt:1061
+#: ../lang/master/tpl/contract/editVarOrders.mtt:698 ../lang/master/tpl/contractadmin/orders.mtt:3835 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3059 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1876 ../lang/master/tpl/distribution/list.mtt:2554 ../lang/master/tpl/distribution/listByDate.mtt:770 ../lang/master/tpl/distribution/listByDateOnePage.mtt:579 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:609 ../lang/master/tpl/history/basket.mtt:645 ../lang/master/tpl/history/csaorders.mtt:1061
 msgid "Fees"
 msgstr ""
 
-#: ../lang/master/tpl/contract/editVarOrders.mtt:727 ../lang/master/tpl/contractadmin/orders.mtt:3617 ../lang/master/tpl/contractadmin/orders.mtt:6223 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:2258 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1906 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:1592 ../lang/master/tpl/distribution/list.mtt:2584 ../lang/master/tpl/distribution/listByDate.mtt:799 ../lang/master/tpl/distribution/listByDateOnePage.mtt:605 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:635 ../lang/master/tpl/history/basket.mtt:677 ../lang/master/tpl/history/csaorders.mtt:1109
+#: ../lang/master/tpl/contract/editVarOrders.mtt:727 ../lang/master/tpl/contractadmin/orders.mtt:3881 ../lang/master/tpl/contractadmin/orders.mtt:6833 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:2258 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1906 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:1592 ../lang/master/tpl/distribution/list.mtt:2584 ../lang/master/tpl/distribution/listByDate.mtt:799 ../lang/master/tpl/distribution/listByDateOnePage.mtt:605 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:635 ../lang/master/tpl/history/basket.mtt:677 ../lang/master/tpl/history/csaorders.mtt:1109
 msgid "Total"
 msgstr ""
 
@@ -1791,30 +1791,34 @@ msgstr ""
 msgid "By Product-User"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:1630
+#: ../lang/master/tpl/contractadmin/orders.mtt:1788
+msgid "Set weights after weighing"
+msgstr "Saisie des poids après pesée"
+
+#: ../lang/master/tpl/contractadmin/orders.mtt:1894
 msgid ""
 "Be careful, there are <b>::disabledProducts::</b> order(s) containing <b>disabled "
 "products</b>."
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:3204
+#: ../lang/master/tpl/contractadmin/orders.mtt:3468
 msgid "Prod. ID"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:3254 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2806 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1623 ../lang/master/tpl/distribution/list.mtt:2398 ../lang/master/tpl/distribution/listByDate.mtt:681 ../lang/master/tpl/distribution/listByDateOnePage.mtt:499 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:529 ../lang/master/tpl/distribution/listByDateShort.mtt:524 ../lang/master/tpl/history/basket.mtt:347 ../lang/master/tpl/history/csaorders.mtt:699 ../lang/master/tpl/member/invoice.mtt:1430
+#: ../lang/master/tpl/contractadmin/orders.mtt:3518 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2806 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1623 ../lang/master/tpl/distribution/list.mtt:2398 ../lang/master/tpl/distribution/listByDate.mtt:681 ../lang/master/tpl/distribution/listByDateOnePage.mtt:499 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:529 ../lang/master/tpl/distribution/listByDateShort.mtt:524 ../lang/master/tpl/history/basket.mtt:347 ../lang/master/tpl/history/csaorders.mtt:699 ../lang/master/tpl/member/invoice.mtt:1430
 msgid "Qty"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:3416
+#: ../lang/master/tpl/contractadmin/orders.mtt:3680
 msgid "Unit price including taxes"
 msgstr ""
 
 #. price per unit
-#: ../lang/master/tpl/contractadmin/orders.mtt:3453 ../lang/master/tpl/history/basket.mtt:540 ../lang/master/tpl/history/csaorders.mtt:924
+#: ../lang/master/tpl/contractadmin/orders.mtt:3717 ../lang/master/tpl/history/basket.mtt:540 ../lang/master/tpl/history/csaorders.mtt:924
 msgid "U.P"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:5869
+#: ../lang/master/tpl/contractadmin/orders.mtt:6479
 msgid ""
 "Do you really want to delete this order row for the product \"::o.productName::\" "
 "?"
