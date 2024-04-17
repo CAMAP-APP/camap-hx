@@ -44,7 +44,7 @@
 
 		<button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button"
 			onclick="toggleQtInput()">
-			<i class="icon icon-balance"></i> ::_("Set weights after weighing")::
+			<i class="icon icon-balance"></i> <span class="orderQtInput">::_("Set weights after weighing")::</span><span class="orderQtText hidden">::_("Stop editing weights")::</span>
 		</button>
 	</div>
 
