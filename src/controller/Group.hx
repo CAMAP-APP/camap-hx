@@ -35,8 +35,9 @@ class Group extends controller.Controller
 			*/
 		}
 		
-		view.group = group;
 		var activeCatalogs = group.getActiveContracts();
+		view.md = db.MultiDistrib.getNextMultiDistrib(group);
+		view.group = group;
 		view.contracts = activeCatalogs;
 		view.pageTitle = group.name;
 		group.getMainPlace(); //just to update cache

@@ -1,5 +1,7 @@
 ::use 'base.mtt'::
 
+$$browserDetection()
+
 <meta property="og:type"content="website" />
 <meta property="og:url" content="https://::HOST::/group/::group.id::" />
 <meta property="og:title" content="::group.name::" />
@@ -7,11 +9,38 @@
 <meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
 
 <style>
+	@media (max-width: 991px){
+		.groupColumns {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: column;
+		}
+		.groupColumns .side {
+			order:1;
+			flex-shrink: 0;
+		}
+	}
 	.mapBox {
+		position: relative;
 		width: 100%;
-		aspect-ratio: 1;
+		height: 441px;
 		border-radius: 8px;
 		border: 1px solid #EB7334;
+		overflow: hidden;
+	}
+	.mapBoxContainer {
+		z-index: 1;
+	}
+	.nextDelivery {
+		line-height: 42px;
+		padding-left: 64px;
+		vertical-align: center;
+		background: rgba(255, 255, 255, 90%);
+		color: #666666;
+		position: absolute;
+		z-index: 1000;
+		width: 100%;
+		font-weight: 700;
 	}
 	.imageList {
 		width: 100%;
@@ -33,20 +62,80 @@
 		border-radius: 8px;
 		margin-top: 16px;
 	}
+
+	.titleAndContact {
+		width: auto;
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 48px;
+		align-items: center;
+		align-content: space-between;
+	}
+	.titleAndContact h2 {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 16px;
+		align-items: center;
+		align-content: space-between;
+		flex-grow: 1;
+	}
+	.titleAndContact * {
+		margin: 0;
+	}
+	.groupContact {
+		max-width: 275px;
+		flex-shrink: 0;
+		background-color: #F8F8F8;
+		border-radius: 8px 8px 0 0;
+		padding: 8px;
+	}
+	.groupContactItem {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 16px;
+		align-items: center;
+		text-align: left;
+	}
+	.groupContactItem :first-child {
+		width: 16px;
+		flex-shrink: 0;
+		text-align: center;
+	}
+	.logo {
+		height:64px;
+		display:inline;
+	}
 </style>
 
 <div class="row">
-	<div class="col-md-12" style="margin-top:12px;">
+	<div class="col-md-12" style="margin-top:12px;margin-bottom:12px;">
 		<ol class="breadcrumb">
 			<li><a href="/user/choose"><span style="font-family: monospace;padding-right:12px;font-size:20px;">&lt;</span> ::_("Back")::</a></li>
 		</ol>
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md-5" style="margin-top:12px;border: 1px solid #0d4f3d">
-		<div class="mapBox">
-			<center>TheMap</center>
+<div class="row groupColumns">
+	<div class="col-md-5 side">
+		<div id="mapBox" class="mapBox" ::cond md!=null::>
+			::set place = md.getPlace()::
+			::set start = md.getDate()::
+			::set s = getDate(start)::
+			::set e = getDate(md.getEndDate())::
+			::set startHour = s.h+":"+s.i::
+			::set endHour = e.h+":"+e.i::
+			<div class="nextDelivery">
+				::raw __("Next Delivery on ::date::",{date:hDate(start)})::
+			</div>
+			<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					neo.createNeoModule('::place.id::', 'place', { placeId: ::place.id:: })
+				});
+			</script>
+			<span id="::place.id::"  class="mapBoxContainer"></span>
 		</div>
 		<div class="imageList">
 			<img src="https://placehold.co/200" alt=""/>
@@ -143,118 +232,105 @@
 			::end::
 		</div>
 	</div>
-	<div class="col-md-7" style="margin-top:12px;;border: 1px solid #1da1f2">
+	<div class="col-md-7">
 		<div class="titleAndContact">
-		<h2 class="h1">
-			::if group.imageId!=null::
-			<img src="::file(group.imageId)::" class="img-responsive" style="height:64px;display:inline;" alt="" />&nbsp;
-			::end::
-			::group.name::
-		</h2>
-			<div class="contact">
-				<i class="icon-user"></i>
-				<b>::group._contact.firstName:: ::group._contact.lastName::</b><br/>
-				<span ::cond group._contact.email!=null::>
-						<span class="glyphicon glyphicon-envelope"></span>
-						<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a><br/>
-					</span>
-				<span ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
-						<span class="glyphicon glyphicon-phone-alt"></span>  ::group._contact.phone::<br/>
-					</span>
-				<span ::cond group.extUrl!=null::>
-						<span class="glyphicon glyphicon-link"></span>  <a href="::group.extUrl::">::group.extUrl::</a><br/>
-					</span>
+			<h2 class="h1">
+				::if group.imageId!=null::
+				<img src="::file(group.imageId)::" class="logo" alt="" />
+				::end::
+				::group.name::
+			</h2>
+			<div class="groupContact">
+				<div class="groupContactItem">
+					<span class="glyphicon glyphicon-user"></span>
+					<b>::group._contact.firstName:: ::group._contact.lastName::</b>
+				</div>
+				<div class="groupContactItem" ::cond group.extUrl!=null::>
+					<span class="glyphicon glyphicon-share"></span>
+					<a href="::group.extUrl::" target="_blank">::group.extUrl::</a>
+				</div>
+				<div class="groupContactItem" ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
+					<span class="glyphicon glyphicon-earphone"></span>
+					<span>::group._contact.phone::</span>
+				</div>
+				<div class="groupContactItem" ::cond group._contact.email!=null::>
+					<span class="glyphicon glyphicon-envelope"></span>
+					<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a>
+				</div>
 			</div>
 		</div>
 		tabs<br/>
-		content<br/>
-	</div>
-</div>
+		<div class="col-md-12" style="margin-top:12px;">
 
-<div class="row">
-	<div class="col-md-12" style="margin-top:12px;">
-		footer
-	</div>
-</div>
-
-	<div class="col-md-12" style="margin-top:12px;">
-
-		<!-- Notifications -->
-		<div class="row">
-			<div id="content" class="col-md-12">
-				::foreach notification getMessages()::
-				<div class="alert ::if notification.error:: alert-danger ::else:: alert-success ::end::" ::cond notification::>
-					::if notification.error::
-					<span class="glyphicon glyphicon-exclamation-sign"></span>
-					::else::
-					<i class="icon icon-check"></i>
-					::end::
-
-					::raw notification.text::
-				</div>
-				::end::
-			</div>
-		</div>
-
-		<div class="article">
-
+			<!-- Notifications -->
 			<div class="row">
-				<div class="col-md-2">
-
-				</div>
-				<div class="col-md-8">
-
-					<p>
-						::if group.txtIntro!=null && group.txtIntro!=""::
-							::raw nl2br(group.txtIntro)::
+				<div id="content" class="col-md-12">
+					::foreach notification getMessages()::
+					<div class="alert ::if notification.error:: alert-danger ::else:: alert-success ::end::" ::cond notification::>
+						::if notification.error::
+						<span class="glyphicon glyphicon-exclamation-sign"></span>
+						::else::
+						<i class="icon icon-check"></i>
 						::end::
-					</p>
+
+						::raw notification.text::
+					</div>
+					::end::
+				</div>
+			</div>
+
+			<div class="article">
+						<p>
+							::if group.txtIntro!=null && group.txtIntro!=""::
+							::raw nl2br(group.txtIntro)::
+							::end::
+						</p>
 
 
-					<p>
+						<p>
 						<h3> ::_("Next deliveries")::</h3>
 
 						::foreach d group.getDeliveries(4)::
 
-							<div style="display:inline-block;margin-right:8px;vertical-align:top;">
+						<div style="display:inline-block;margin-right:8px;vertical-align:top;">
 							::set s = getDate( d.date )::
 							::if isToday(d.date)::
-								$$today(::s.dow::,::s.d::,::s.m::,::s.y::,::s.h::,::d._place::)
+							$$today(::s.dow::,::s.d::,::s.m::,::s.y::,::s.h::,::d._place::)
 							::else::
-								$$date(::s.dow::,::s.d::,::s.m::,::s.y::,::d._place::)
+							$$date(::s.dow::,::s.d::,::s.m::,::s.y::,::d._place::)
 							::end::
-							</div>
+						</div>
 
 						::end::
-					</p>
+						</p>
 
-					<hr/>
+						<hr/>
 
-					<p ::cond group._contact!=null::>
-						<i class="icon-user"></i>
- 						<b>::group._contact.firstName:: ::group._contact.lastName::</b><br/>
- 						<span ::cond group._contact.email!=null::>
+						<p ::cond group._contact!=null::>
+							<i class="icon-user"></i>
+							<b>::group._contact.firstName:: ::group._contact.lastName::</b><br/>
+							<span ::cond group._contact.email!=null::>
  							<span class="glyphicon glyphicon-envelope"></span>
 							<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a><br/>
  						</span>
- 						<span ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
+							<span ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
  							<span class="glyphicon glyphicon-phone-alt"></span>  ::group._contact.phone::<br/>
  						</span>
-					</p>
+						</p>
 
-					<hr/>
+						<hr/>
 
-					<p ::cond visibleGroupDocuments.length != 0::>
+						<p ::cond visibleGroupDocuments.length != 0::>
 						<h3>Documents</h3>
 						<div>
 							::foreach doc visibleGroupDocuments::
-								<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
+							<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
 							::end::
 						</div>
 						<hr/>
-					</p>
+						</p>
 
-					<p>
+						<p>
 						<h3>::_("Suppliers and products")::</h3>
 						<p>
 							::_("Non-complete extract of available products:")::
@@ -265,45 +341,33 @@
 							<b>::catalog._vendor.name::</b> <br/>
 							$$nullSafe(::catalog._vendor.city::)<br/>
 
-							<div class="row">
-								::foreach p catalog.getProductsPreview(6)::
-								<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >
-									<div style="background-image:url('::p.getImage()::')" class="productImg"/>
-								</div>
+						<div class="row">
+							::foreach p catalog.getProductsPreview(6)::
+							<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >
+								<div style="background-image:url('::p.getImage()::')" class="productImg"/>
+							</div>
+							::end::
+						</div>
+						<div class="row">
+							<div style="padding-left:15px;">
+								::foreach doc visibleCatalogsDocuments.get( catalog.id )::
+								<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
 								::end::
 							</div>
-							<div class="row">
-								<div style="padding-left:15px;">
-									::foreach doc visibleCatalogsDocuments.get( catalog.id )::
-										<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
-									::end::
-								</div>
-							</div>
+						</div>
 						</p>
 						<br/>
 						::end::
 
-					</p>
-
-				</div>
+						</p>
 			</div>
-
-
-
-
-
-			<div class="col-md-4">
-
-			</div>
-
 
 		</div>
-
 	</div>
+</div>
 
-	<div class="col-md-12">
-
-		$$footer()
-	</div>
+<div class="col-md-12">
+	$$footer()
+</div>
 
 ::end::
