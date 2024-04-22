@@ -567,7 +567,8 @@ class Cron extends Controller
 						text += "<br/><ul>";
 						
 						for ( d in g.distributions) {
-							text += "<li>" + d.catalog.vendor.name + " (" + d.catalog.vendor.peopleName + ")<br>Catalogue: " + d.catalog.name + " <br>Commandes ouvertes jusqu'au: " + view.hDate(d.orderEndDate) + " </li>";
+							var peopleName = d.catalog.vendor.peopleName != null ? d.catalog.vendor.peopleName : "";
+							text += "<li>" + d.catalog.vendor.name + " (" + peopleName + ")<br>Catalogue: " + d.catalog.name + " <br>Commandes ouvertes jusqu'au: " + view.hDate(d.orderEndDate) + " </li>";
 						}
 						text += "</ul>";						
 						task.log(text);
