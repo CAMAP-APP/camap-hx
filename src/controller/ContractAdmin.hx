@@ -632,6 +632,7 @@ class ContractAdmin extends Controller
 		var catalogTypes = [ { label : 'Contrat AMAP classique', value : 0 }, { label : 'Contrat AMAP variable', value : 1 } ];
 		form.addElement( new sugoi.form.elements.IntSelect( 'catalogtype', 'Type de catalogue', catalogTypes, catalog.type, true ) );
 		form.addElement(new Checkbox("copyProducts", t._("Copy products"),true));
+		form.addElement(new Checkbox("onlyActiveProducts", t._("Copy only active products"),false));
 		/* Pour superadmin et admin groupe seulement, décoché par défaut v1.0.5 */
 		if (app.user.isAdmin() || app.user.isGroupManager()){
 			
@@ -691,7 +692,11 @@ class ContractAdmin extends Controller
 			}
 			
 			if (form.getValueOf("copyProducts") == true) {
-				var prods = catalog.getProducts();
+				if (form.getValueOf("onlyActiveProducts") == true){
+					var prods = catalog.getProducts(false);
+				} else {
+					var prods = catalog.getProducts();
+				}
 				for ( source_p in prods) {
 					var p = ProductService.duplicate(source_p);
 					p.catalog = nc;
