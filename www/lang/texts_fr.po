@@ -1176,7 +1176,7 @@ msgstr "Autoriser les quantités non entières"
 
 #: ../src/db/Product.hx:4795
 msgid "Available"
-msgstr "Disponible"
+msgstr "Activé"
 
 #: ../src/db/Product.hx:4836 ../lang/master/tpl/shop/productInfo.mtt:1287
 msgid "Organic agriculture"
