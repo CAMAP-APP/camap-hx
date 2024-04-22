@@ -693,14 +693,14 @@ class ContractAdmin extends Controller
 			
 			if (form.getValueOf("copyProducts") == true) {
 				if (form.getValueOf("onlyActiveProducts") == true){
-					var prods = catalog.getProducts(false);
+					var prods = catalog.getProducts(true);
 					for ( source_p in prods) {
 						var p = ProductService.duplicate(source_p);
 						p.catalog = nc;
 						p.update();
 					}
 				} else {
-					var prods = catalog.getProducts();
+					var prods = catalog.getProducts(false);
 					for ( source_p in prods) {
 						var p = ProductService.duplicate(source_p);
 						p.catalog = nc;
