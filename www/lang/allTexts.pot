@@ -44,7 +44,7 @@ msgstr ""
 msgid "Related catalog"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:3562 ../src/controller/amapadmin/Volunteers.hx:4692 ../lang/master/tpl/amapadmin/volunteers/default.mtt:531
+#: ../src/controller/amapadmin/Volunteers.hx:3562 ../src/controller/amapadmin/Volunteers.hx:4692 ../src/controller/ContractAdmin.hx:21280 ../lang/master/tpl/amapadmin/volunteers/default.mtt:531
 msgid "None"
 msgstr ""
 
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Payment options updated"
 msgstr ""
 
-#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:25642 ../src/controller/ContractAdmin.hx:33129 ../src/controller/Product.hx:613 ../src/controller/Product.hx:2491 ../src/controller/Product.hx:3155 ../src/controller/Vendor.hx:280
+#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:25892 ../src/controller/ContractAdmin.hx:33379 ../src/controller/Product.hx:613 ../src/controller/Product.hx:2491 ../src/controller/Product.hx:3155 ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "You do not have the authorization to manage this catalog"
 msgstr ""
 
-#: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337 ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2725 ../src/controller/ContractAdmin.hx:30880 ../src/controller/Distribution.hx:7108 ../src/controller/Distribution.hx:7702 ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1766
+#: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337 ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2725 ../src/controller/ContractAdmin.hx:31130 ../src/controller/Distribution.hx:7108 ../src/controller/Distribution.hx:7702 ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1766
 msgid "Forbidden action"
 msgstr ""
 
@@ -284,7 +284,7 @@ msgstr ""
 msgid "Orders from the ::fromDate:: to the ::toDate:: per supplier.csv"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:17833 ../src/controller/ContractAdmin.hx:19775 ../src/controller/ContractAdmin.hx:24748 ../src/controller/ContractAdmin.hx:26250 ../src/controller/ContractAdmin.hx:27888 ../src/controller/ContractAdmin.hx:28427 ../src/controller/Distribution.hx:1666
+#: ../src/controller/ContractAdmin.hx:17833 ../src/controller/ContractAdmin.hx:19775 ../src/controller/ContractAdmin.hx:24998 ../src/controller/ContractAdmin.hx:26500 ../src/controller/ContractAdmin.hx:28138 ../src/controller/ContractAdmin.hx:28677 ../src/controller/Distribution.hx:1666
 msgid "You do not have the authorization to manage this contract"
 msgstr ""
 
@@ -308,39 +308,43 @@ msgstr ""
 msgid "Name of the new catalog"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21207
+#: ../src/controller/ContractAdmin.hx:21229
 msgid "Copy products"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21290
-msgid "Copy only active products"
+#: ../src/controller/ContractAdmin.hx:21320
+msgid "All Products"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21523
+#: ../src/controller/ContractAdmin.hx:21383
+msgid "Only active products"
+msgstr ""
+
+#: ../src/controller/ContractAdmin.hx:21622
 msgid "Copy deliveries"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:24407
+#: ../src/controller/ContractAdmin.hx:24657
 msgid "The catalog has been duplicated"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:25119
+#: ../src/controller/ContractAdmin.hx:25369
 msgid "There is no delivery in this catalog, please create at least one distribution."
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:27615
+#: ../src/controller/ContractAdmin.hx:27865
 msgid "Distribution date added"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:33510
+#: ../src/controller/ContractAdmin.hx:33760
 msgid "You cannot delete this catalog because some orders are linked to it."
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:33922
+#: ../src/controller/ContractAdmin.hx:34172
 msgid "Catalog deleted"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:33989 ../src/controller/Documents.hx:3241 ../src/controller/Product.hx:2984 ../src/controller/SubscriptionAdmin.hx:2031
+#: ../src/controller/ContractAdmin.hx:34239 ../src/controller/Documents.hx:3241 ../src/controller/Product.hx:2984 ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
 msgstr ""
 

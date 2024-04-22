@@ -63,6 +63,7 @@ msgstr "Catalogue correspondant"
 
 #: ../src/controller/amapadmin/Volunteers.hx:3562
 #: ../src/controller/amapadmin/Volunteers.hx:4692
+#: ../src/controller/ContractAdmin.hx:21280
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:531
 msgid "None"
 msgstr "Aucun"
@@ -202,8 +203,8 @@ msgstr "Autoriser les cagnottes négatives"
 msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
-#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:25642
-#: ../src/controller/ContractAdmin.hx:33129 ../src/controller/Product.hx:613
+#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:25892
+#: ../src/controller/ContractAdmin.hx:33379 ../src/controller/Product.hx:613
 #: ../src/controller/Product.hx:2491 ../src/controller/Product.hx:3155
 #: ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
@@ -215,7 +216,7 @@ msgstr "Vous n'avez pas le droit de gérer ce catalogue"
 
 #: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337
 #: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2725
-#: ../src/controller/ContractAdmin.hx:30880
+#: ../src/controller/ContractAdmin.hx:31130
 #: ../src/controller/Distribution.hx:7108
 #: ../src/controller/Distribution.hx:7702
 #: ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1766
@@ -340,10 +341,10 @@ msgstr "Commandes du ::fromDate:: au ::toDate:: par producteur.csv\")"
 
 #: ../src/controller/ContractAdmin.hx:17833
 #: ../src/controller/ContractAdmin.hx:19775
-#: ../src/controller/ContractAdmin.hx:24748
-#: ../src/controller/ContractAdmin.hx:26250
-#: ../src/controller/ContractAdmin.hx:27888
-#: ../src/controller/ContractAdmin.hx:28427
+#: ../src/controller/ContractAdmin.hx:24998
+#: ../src/controller/ContractAdmin.hx:26500
+#: ../src/controller/ContractAdmin.hx:28138
+#: ../src/controller/ContractAdmin.hx:28677
 #: ../src/controller/Distribution.hx:1666
 msgid "You do not have the authorization to manage this contract"
 msgstr "Vous n'avez pas le droit de gérer ce contrat"
@@ -371,23 +372,27 @@ msgstr "Prix mis à jour à leur valeur actuelle."
 msgid "Name of the new catalog"
 msgstr "Nom du nouveau catalogue"
 
-#: ../src/controller/ContractAdmin.hx:21207
+#: ../src/controller/ContractAdmin.hx:21229
 msgid "Copy products"
 msgstr "Copier les produits"
 
-#: ../src/controller/ContractAdmin.hx:21290
-msgid "Copy only active products"
-msgstr "Copier uniquement les produits activés"
+#: ../src/controller/ContractAdmin.hx:21320
+msgid "All Products"
+msgstr "Tous les produits"
 
-#: ../src/controller/ContractAdmin.hx:21523
+#: ../src/controller/ContractAdmin.hx:21383
+msgid "Only active products"
+msgstr "Uniquement les produits activés"
+
+#: ../src/controller/ContractAdmin.hx:21622
 msgid "Copy deliveries"
 msgstr "Copier les distributions"
 
-#: ../src/controller/ContractAdmin.hx:24407
+#: ../src/controller/ContractAdmin.hx:24657
 msgid "The catalog has been duplicated"
 msgstr "Le catalogue a été dupliqué"
 
-#: ../src/controller/ContractAdmin.hx:25119
+#: ../src/controller/ContractAdmin.hx:25369
 msgid ""
 "There is no delivery in this catalog, please create at least one "
 "distribution."
@@ -395,21 +400,21 @@ msgstr ""
 "Il n'y a pas de distribution dans ce catalogue, créez au moins une "
 "distribution."
 
-#: ../src/controller/ContractAdmin.hx:27615
+#: ../src/controller/ContractAdmin.hx:27865
 msgid "Distribution date added"
 msgstr "Date de distribution ajoutée"
 
-#: ../src/controller/ContractAdmin.hx:33510
+#: ../src/controller/ContractAdmin.hx:33760
 msgid "You cannot delete this catalog because some orders are linked to it."
 msgstr ""
 "Vous ne pouvez pas effacer ce catalogue car il y a des commandes rattachées "
 "à ce catalogue."
 
-#: ../src/controller/ContractAdmin.hx:33922
+#: ../src/controller/ContractAdmin.hx:34172
 msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
-#: ../src/controller/ContractAdmin.hx:33989 ../src/controller/Documents.hx:3241
+#: ../src/controller/ContractAdmin.hx:34239 ../src/controller/Documents.hx:3241
 #: ../src/controller/Product.hx:2984
 #: ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
