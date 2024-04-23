@@ -9,20 +9,45 @@ $$browserDetection()
 <meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
 
 <style>
+	@media (min-width: 1440px) {
+		.container {
+			width: 1400px;
+		}
+	}
+	.layout {
+		display: flex;
+		flex-direction: row;
+	}
+	.side {
+		width: 471px;
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.main {
+		width: 100%;
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
 	@media (max-width: 991px){
-		.groupColumns {
-			display: flex;
-			flex-wrap: wrap;
+		.layout {
 			flex-direction: column;
 		}
-		.groupColumns .side {
+		.layout .side {
+			width: 100%;
 			order:1;
 			flex-shrink: 0;
 		}
 	}
+	nav {
+		margin: 24px;
+	}
 	.mapBox {
 		position: relative;
-		width: 100%;
+		width: 441px;
 		height: 441px;
 		border-radius: 8px;
 		border: 1px solid #EB7334;
@@ -51,8 +76,9 @@ $$browserDetection()
 		margin-top: 16px;
 	}
 	.imageList img {
-		width: 78px;
-		aspect-ratio: 1;
+		width: 75px;
+		height: 78px;
+		object-fit: cover;
 		border-radius: 8px;
 	}
 	.subscriptionPanel {
@@ -74,15 +100,20 @@ $$browserDetection()
 	}
 	.titleAndContact h2 {
 		display: flex;
+		flex-grow: 1;
 		flex-wrap: nowrap;
 		flex-direction: row;
 		gap: 16px;
 		align-items: center;
 		align-content: space-between;
-		flex-grow: 1;
+		line-height: 2.3rem;
 	}
 	.titleAndContact * {
 		margin: 0;
+	}
+	.titleAndContact img {
+		width: 64px;
+		height: auto;
 	}
 	.groupContact {
 		max-width: 275px;
@@ -104,22 +135,37 @@ $$browserDetection()
 		flex-shrink: 0;
 		text-align: center;
 	}
+	.groupContactItem a {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 	.logo {
 		height:64px;
 		display:inline;
 	}
+	.tabs {
+		background-color: #F8F8F8;
+		border-radius: 8px 0px 8px 8px;
+		width: 100%;
+		height: 64px;
+		display: flex;
+	}
+	.tabs button {
+		padding: 20px 24px;
+	}
+	.description {
+		padding: 24px;
+	}
 </style>
 
-<div class="row">
-	<div class="col-md-12" style="margin-top:12px;margin-bottom:12px;">
+	<nav>
 		<ol class="breadcrumb">
 			<li><a href="/user/choose"><span style="font-family: monospace;padding-right:12px;font-size:20px;">&lt;</span> ::_("Back")::</a></li>
 		</ol>
-	</div>
-</div>
+	</nav>
 
-<div class="row groupColumns">
-	<div class="col-md-5 side">
+<div class="layout">
+	<div class="side">
 		<div id="mapBox" class="mapBox" ::cond md!=null::>
 			::set place = md.getPlace()::
 			::set start = md.getDate()::
@@ -232,7 +278,7 @@ $$browserDetection()
 			::end::
 		</div>
 	</div>
-	<div class="col-md-7">
+	<div class="main">
 		<div class="titleAndContact">
 			<h2 class="h1">
 				::if group.imageId!=null::
@@ -259,9 +305,33 @@ $$browserDetection()
 				</div>
 			</div>
 		</div>
-		tabs<br/>
-		<div class="col-md-12" style="margin-top:12px;">
-
+		<div class="tabs" role="tablist" aria-label="Onglets de navigation">
+			<button
+				role="tab"
+				aria-selected="true"
+				aria-controls="panel-1"
+				id="tab-1"
+				tabindex="0">
+				First Tab
+			</button>
+			<button
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-2"
+				id="tab-2"
+				tabindex="-1">
+				Second Tab
+			</button>
+			<button
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-3"
+				id="tab-3"
+				tabindex="-1">
+				Third Tab
+			</button>
+		</div>
+		<div class="description">
 			<!-- Notifications -->
 			<div class="row">
 				<div id="content" class="col-md-12">
@@ -279,7 +349,7 @@ $$browserDetection()
 				</div>
 			</div>
 
-			<div class="article">
+			<div>
 						<p>
 							::if group.txtIntro!=null && group.txtIntro!=""::
 							::raw nl2br(group.txtIntro)::
