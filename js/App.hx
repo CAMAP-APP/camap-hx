@@ -431,6 +431,8 @@ class App {
     }
 
 
+    // implemention ported from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
+    // + add url control as window.location.search
     public function handleAriaTabEvents() {
         js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
             var tabs = Browser.document.querySelectorAll('[role="tab"]');
@@ -505,7 +507,7 @@ class App {
         var grandparent = parent.parentElement;
         selectTab(target, parent, grandparent);
         var urlUpdated:String = Browser.window.location.protocol + "//" + Browser.window.location.host + Browser.window.location.pathname + '?' + target.getAttribute('id');
-        Browser.window.history.pushState({path: urlUpdated}, '', urlUpdated);
+        Browser.window.history.replaceState({path: urlUpdated}, '', urlUpdated);
     }
 }
 
