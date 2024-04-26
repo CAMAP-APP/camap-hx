@@ -35,7 +35,16 @@ class Group extends controller.Controller
 			*/
 		}
 		
-		var activeCatalogs = group.getActiveContracts();
+		var activeCatalogs = group.getActiveContracts().array();
+		var subCountPerCatalog = new Map<db.Catalog, Int>();
+		for (catalog in activeCatalogs) {
+			subCountPerCatalog[catalog] = db.Subscription.manager.count($catalogId == catalog.id);
+		};
+		activeCatalogs.sort(function (a,b) {
+			var bCount = subCountPerCatalog.exists(b) ? subCountPerCatalog[b] : 0;
+			var aCount = subCountPerCatalog.exists(a) ? subCountPerCatalog[a] : 0;
+			return bCount - aCount;
+		});
 		view.md = db.MultiDistrib.getNextMultiDistrib(group);
 		view.group = group;
 		view.contracts = activeCatalogs;
