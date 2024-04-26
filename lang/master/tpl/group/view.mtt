@@ -249,6 +249,65 @@ $$browserDetection()
 	.dateBox:not(:first-child) .deliveryPlace a {
 		color: #333333 !important;
 	}
+
+	.groupProductList{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.groupProductCard {
+		width: 169px;
+		min-height: 234px;
+		display: flex;
+		flex-direction: column;
+		background: #F8F8F8;
+		border: none;
+		border-radius: 8px;
+		padding:0;
+		margin:0;
+		overflow: hidden;
+		align-items: center;
+	}
+
+	.groupProductCard img {
+		width: 169px;
+		height: 169px;
+		object-fit: cover;
+	}
+	.groupProductCard_text {
+		display: flex;
+		flex-direction: column;
+		font-size: 13px;
+		line-height: 13px;
+		margin:16px 8px;
+		gap: 4px;
+		justify-items: center;
+		align-items: center;
+		flex-grow: 1;
+		justify-content: center;
+	}
+	.groupProductCard_price {
+		font-size: 16px;
+		line-height: 18px;
+	}
+
+	.productModal {
+		align-content: center;
+		justify-content: center;
+		justify-items: center
+	}
+
+	.productModalDialog {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		pointer-events: none;
+	}
+
+	*[data-toggle="modal"] {
+		cursor: pointer;
+	}
 </style>
 '::
 <nav>
@@ -274,13 +333,38 @@ $$browserDetection()
 			</script>
 			<span id="::place.id::"  class="mapBoxContainer"></span>
 		</div>
-		<div class="imageList">
-			<img src="https://placehold.co/200" alt=""/>
-			<img src="https://placehold.co/200" alt=""/>
-			<img src="https://placehold.co/200" alt=""/>
-			<img src="https://placehold.co/200" alt=""/>
-			<img src="https://placehold.co/200" alt=""/>
+		<!--<div class="imageList">
+			<img data-toggle="modal" data-target="#imggroup-1" src="https://placehold.co/200" alt=""/>
+			<img data-toggle="modal" data-target="#imggroup-2" src="https://placehold.co/201" alt=""/>
+			<img data-toggle="modal" data-target="#imggroup-3" src="https://placehold.co/202" alt=""/>
+			<img data-toggle="modal" data-target="#imggroup-4" src="https://placehold.co/203" alt=""/>
+			<img data-toggle="modal" data-target="#imggroup-5" src="https://placehold.co/204" alt=""/>
 		</div>
+		<div class="modal productModal" id="imggroup-1" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog productModalDialog">
+				<img src="https://placehold.co/200" alt="" />
+			</div>
+		</div>
+		<div class="modal productModal" id="imggroup-2" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog productModalDialog">
+				<img src="https://placehold.co/201" alt="" />
+			</div>
+		</div>
+		<div class="modal productModal" id="imggroup-3" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog productModalDialog">
+				<img src="https://placehold.co/202" alt="" />
+			</div>
+		</div>
+		<div class="modal productModal" id="imggroup-4" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog productModalDialog">
+				<img src="https://placehold.co/203" alt="" />
+			</div>
+		</div>
+		<div class="modal productModal" id="imggroup-5" tabindex="-1" aria-hidden="true">
+			<div class="modal-dialog productModalDialog">
+				<img src="https://placehold.co/204" alt="" />
+			</div>
+		</div>-->
 		<div class="subscriptionPanel">
 				::if isMember::
 				<!-- connected and member of the group-->
@@ -481,13 +565,27 @@ $$browserDetection()
 				<b>::catalog._vendor.name::</b> <br/>
 				$$nullSafe(::catalog._vendor.city::)<br/>
 
-			<div class="row">
-				::foreach p catalog.getProductsPreview(6)::
-				<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >
-					<div style="background-image:url('::p.getImage()::')" class="productImg"/>
-				</div>
+				::set productsPreview = catalog.getProductsPreview(6)::
+			<div class="groupProductList">
+				::foreach p productsPreview::
+				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
+					<img src="::p.getImage()::" alt="" />
+					<div class="groupProductCard_text">
+						<div id="imglabel-::p.id::">::p.name::</div>
+						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt!=null::>
+							::raw pricePerUnit(p.price,p.qt,p._unitType)::
+						</div>
+					</div>
+				</button>
 				::end::
 			</div>
+			::foreach p productsPreview::
+			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
+				<div class="modal-dialog productModalDialog">
+					<img src="::p.getImage()::" alt="" />
+				</div>
+			</div>
+			::end::
 			<div class="row">
 				<div style="padding-left:15px;">
 					::foreach doc visibleCatalogsDocuments.get( catalog.id )::
