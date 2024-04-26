@@ -679,6 +679,14 @@ msgstr "Nom du nouveau catalogue"
 msgid "Copy products"
 msgstr "Copier les produits"
 
+#: ../src/controller/ContractAdmin.hx:21320
+msgid "All Products"
+msgstr "Tous les produits"
+
+#: ../src/controller/ContractAdmin.hx:21383
+msgid "Only active products"
+msgstr "Uniquement les produits actifs"
+
 #: ../src/controller/ContractAdmin.hx:18252
 msgid "Copy deliveries"
 msgstr "Copier les distributions"
@@ -2581,6 +2589,10 @@ msgstr "Ce groupe est complet et n'accepte plus de nouvelles inscriptions."
 #: ../lang/master/tpl/group/view.mtt:3316
 msgid "Already member? Log in:"
 msgstr "Déjà membre ?<br/>Connectez-vous :"
+
+#: ../lang/master/tpl/group/view.mtt:12678
+msgid "Documents"
+msgstr "Documents"
 
 #: ../lang/master/tpl/group/view.mtt:3935
 msgid "Next deliveries"
