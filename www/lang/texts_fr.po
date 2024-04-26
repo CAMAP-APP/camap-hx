@@ -1697,7 +1697,7 @@ msgstr "Description technique de l'erreur"
 
 #: ../lang/master/tpl/group/view.mtt:2830
 msgid "Next Delivery on ::date::"
-msgstr "Prochaine livraison le ::date::"
+msgstr "Prochaine distribution le ::date::"
 
 #: ../lang/master/tpl/place/view.mtt:648 ../lang/master/tpl/vendor/addimage.mtt:327
 #: ../lang/master/tpl/macros.mtt:12809
@@ -2580,7 +2580,7 @@ msgstr "Ce groupe est complet et n'accepte plus de nouvelles inscriptions."
 
 #: ../lang/master/tpl/group/view.mtt:3316
 msgid "Already member? Log in:"
-msgstr "Déjà membre ? Connectez-vous :"
+msgstr "Déjà membre ?<br/>Connectez-vous :"
 
 #: ../lang/master/tpl/group/view.mtt:3935
 msgid "Next deliveries"

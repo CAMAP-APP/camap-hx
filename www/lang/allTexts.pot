@@ -2178,7 +2178,7 @@ msgstr ""
 
 #: ../lang/master/tpl/group/view.mtt:2830
 msgid "Next Delivery on ::date::"
-msgstr "Prochaine livraison le ::date::"
+msgstr "Prochaine distribution le ::date::"
 
 #: ../lang/master/tpl/group/view.mtt:3662
 msgid "Go to my account"

@@ -8,6 +8,7 @@ $$browserDetection()
 <meta property="og:description" content="::group.txtIntro::" />
 <meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
 
+::raw '
 <style>
 	@media (min-width: 1440px) {
 		.container {
@@ -84,9 +85,31 @@ $$browserDetection()
 	.subscriptionPanel {
 		background-color: #5D1E4E;
 		color: white;
-		padding: 12px;
+		padding: 32px;
 		border-radius: 8px;
 		margin-top: 16px;
+		margin-bottom: 16px;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		gap: 16px;
+	}
+
+	.subscriptionPanel > * {
+		margin: 0;
+	}
+
+	.subscriptionPanel .btn-default {
+		min-width: 218px;
+		display: flex;
+		justify-items: center;
+		justify-content: center;
+	}
+	.subscriptionPanel .btn-default * {
+		flex-grow: 1;
+	}
+	.subscriptionPanel .btn-default :first-child {
+		flex-grow: 0;
 	}
 
 	.titleAndContact {
@@ -98,7 +121,7 @@ $$browserDetection()
 		align-items: center;
 		align-content: space-between;
 	}
-	.titleAndContact h2 {
+	.titleAndContact > h2 {
 		display: flex;
 		flex-grow: 1;
 		flex-wrap: nowrap;
@@ -108,7 +131,7 @@ $$browserDetection()
 		align-content: space-between;
 		line-height: 2.3rem;
 	}
-	.titleAndContact * {
+	.titleAndContact > * {
 		margin: 0;
 	}
 	.titleAndContact img {
@@ -121,6 +144,7 @@ $$browserDetection()
 		background-color: #F8F8F8;
 		border-radius: 8px 8px 0 0;
 		padding: 8px;
+		min-height: 64px;
 	}
 	.groupContactItem {
 		display: flex;
@@ -130,12 +154,12 @@ $$browserDetection()
 		align-items: center;
 		text-align: left;
 	}
-	.groupContactItem :first-child {
+	.groupContactItem > :first-child {
 		width: 16px;
 		flex-shrink: 0;
 		text-align: center;
 	}
-	.groupContactItem a {
+	.groupContactItem > a {
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
@@ -147,20 +171,73 @@ $$browserDetection()
 		background-color: #F8F8F8;
 		border-radius: 8px 0px 8px 8px;
 		width: 100%;
-		height: 64px;
 		display: flex;
+		flex-wrap: wrap;
 	}
-	.tabs button {
-		padding: 20px 24px;
+
+	.tabButton {
+		padding: 8px 24px;
+		border: 0;
+		border-radius: 8px;
+		background-color: #F8F8F8;
+		display: flex;
+		gap:8px;
+		align-items: center;
+		height: 64px;
 	}
-	.description {
+
+	.tabButton[aria-selected="true"] {
+		background-color: #E8E8E8;
+		color: #EB7334;
+	}
+
+	.panel {
 		padding: 24px;
 	}
-</style>
 
+	.charIcon {
+		font-family: monospace;
+		padding-right: 12px;
+		font-size: 20px;
+		line-height: 20px;
+	}
+
+	.deliveries:not([hidden]) {
+		padding: 24px 8px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.deliveryCatalogs {
+		flex-shrink: 0;
+		flex-grow: 1;
+		background-color: rgba(255,255,255,20%);
+		color: #333333;
+		border-radius: 8px;
+		padding: 8px;
+	}
+	.deliveryCatalogs ul {
+		text-align: left;
+		padding-left: 16px;
+		margin:0px;
+	}
+	.deliveryCatalogs ul > li {
+		padding:0px;
+		margin:0px;
+	}
+	.deliveryPlace {
+		flex-shrink: 0;
+		flex-grow: 0;
+		line-height: 13px;
+		font-size: 13px;
+		padding: 8px;
+	}
+</style>
+'::
 	<nav>
 		<ol class="breadcrumb">
-			<li><a href="/user/choose"><span style="font-family: monospace;padding-right:12px;font-size:20px;">&lt;</span> ::_("Back")::</a></li>
+			<li><a href="/user/choose"><span class="charIcon">&lt;</span> ::_("Back")::</a></li>
 		</ol>
 	</nav>
 
@@ -171,8 +248,6 @@ $$browserDetection()
 			::set start = md.getDate()::
 			::set s = getDate(start)::
 			::set e = getDate(md.getEndDate())::
-			::set startHour = s.h+":"+s.i::
-			::set endHour = e.h+":"+e.i::
 			<div class="nextDelivery">
 				::raw __("Next Delivery on ::date::",{date:hDate(start)})::
 			</div>
@@ -191,16 +266,14 @@ $$browserDetection()
 			<img src="https://placehold.co/200" alt=""/>
 		</div>
 		<div class="subscriptionPanel">
-			<p>
 				::if isMember::
 				<!-- connected and member of the group-->
 				<a href="/user/choose?group=::group.id::" class="btn btn-default">
-					<i class="icon icon-chevron-right"></i>
+					<span class="charIcon">&gt;</span>
 					::_("Go to my account")::
 				</a>
 
 				::else::
-
 			<h4>Inscriptions :</h4>
 			::switch group._regOption::
 
@@ -209,9 +282,9 @@ $$browserDetection()
 				::_("Contact the person in charge in order to subscribe to this group and get to know membership conditions.")::
 			</p>
 			<p ::cond group._contact!=null::>
-				<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::"  class="btn btn-default">
-				<span class="glyphicon glyphicon-envelope"></span>
-				::_("Membership request")::
+				<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::" class="btn btn-default">
+				<span class="charIcon">&gt;</span>
+				<span>::_("Membership request")::</span>
 				</a>
 			</p>
 			::case::
@@ -229,14 +302,14 @@ $$browserDetection()
 			::if user==null::
 			<p>
 				<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/group/list/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
-					<i class="icon icon-chevron-right"></i>
+					<span class="charIcon">&gt;</span>
 					::_("Subscription on waiting list")::
 				</a>
 			</p>
 			::else::
 			<p>
 				<a href="/group/list/::group.id::"  class="btn btn-default">
-					<i class="icon icon-chevron-right"></i>
+					<span class="charIcon">&gt;</span>
 					::_("Subscription on waiting list")::
 				</a>
 			</p>
@@ -246,15 +319,15 @@ $$browserDetection()
 			::case::
 			::if user==null::
 			<p>
-				<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
-					<span class="glyphicon glyphicon-plus"></span>
-					::_("Free subscription")::
+				<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+					<span class="charIcon">&gt;</span>
+					<span>::_("Free subscription")::</span>
 				</a>
 			</p>
 			::else::
-			<a href="/user/joingroup" class="btn btn-default btn-sm">
-				<span class="glyphicon glyphicon-plus"></span>
-				M'inscrire à ce groupe
+			<a href="/user/joingroup" class="btn btn-default">
+				<span class="charIcon">&gt;</span>
+				<span>M'inscrire à ce groupe</span>
 			</a>
 			::end::
 
@@ -266,14 +339,13 @@ $$browserDetection()
 
 			::end::
 
-
-			</p>
-
 			::if user==null::
-			<hr />
-			<h4>::_("Already member? Log in:")::</h4>
+			<h4>::raw _("Already member? Log in:")::</h4>
 			<div class="text-center">
-				<a href="#" onclick="_Camap.loginBox('/group/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-user"></span> ::_("Log in")::</a>
+				<a href="#" onclick="_Camap.loginBox('/group/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)" class="btn btn-default">
+					<span class="charIcon">&gt;</span>
+					<span>::_("Log in")::</span>
+				</a>
 			</div>
 			::end::
 		</div>
@@ -307,131 +379,109 @@ $$browserDetection()
 		</div>
 		<div class="tabs" role="tablist" aria-label="Onglets de navigation">
 			<button
+				class="tabButton"
 				role="tab"
 				aria-selected="true"
-				aria-controls="panel-1"
-				id="tab-1"
-				tabindex="0">
-				First Tab
+				aria-controls="panel-description"
+				id="tab-description"
+				tabindex="0"
+				::cond group.txtIntro!=null && group.txtIntro!=""::
+			>
+				<span class="glyphicon glyphicon-info-sign"></span><span>::_("Description")::</span>
 			</button>
 			<button
+				class="tabButton"
 				role="tab"
 				aria-selected="false"
-				aria-controls="panel-2"
-				id="tab-2"
+				aria-controls="panel-nextDeliveries"
+				id="tab-nextDeliveries"
 				tabindex="-1">
-				Second Tab
+				<span class="glyphicon glyphicon-time"></span><span>::_("Next deliveries")::</span>
 			</button>
 			<button
+				class="tabButton"
 				role="tab"
 				aria-selected="false"
-				aria-controls="panel-3"
-				id="tab-3"
+				aria-controls="panel-documents"
+				id="tab-documents"
+				tabindex="-1"
+				::cond visibleGroupDocuments.length != 0::
+			>
+				<span class="glyphicon glyphicon-file"></span><span>::_("Documents")::</span>
+			</button>
+			<button
+				class="tabButton"
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-suppliersAndProducts"
+				id="tab-suppliersAndProducts"
 				tabindex="-1">
-				Third Tab
+				<span class="glyphicon glyphicon-user"></span><span>::_("Suppliers and products")::</span>
 			</button>
 		</div>
-		<div class="description">
-			<!-- Notifications -->
-			<div class="row">
-				<div id="content" class="col-md-12">
-					::foreach notification getMessages()::
-					<div class="alert ::if notification.error:: alert-danger ::else:: alert-success ::end::" ::cond notification::>
-						::if notification.error::
-						<span class="glyphicon glyphicon-exclamation-sign"></span>
-						::else::
-						<i class="icon icon-check"></i>
-						::end::
-
-						::raw notification.text::
+		<div id="panel-description" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-description" ::cond group.txtIntro!=null && group.txtIntro!=""::>
+			::raw nl2br(group.txtIntro)::
+		</div>
+		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" hidden="hidden">
+			::foreach del group.getDeliveries(4)::
+			::set d = del._multiDistrib::
+			<div class="dateBox">
+				::if isToday(d.distribStartDate)::
+				$$today(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				::else::
+				$$date(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				::end::
+				<div class="deliveryCatalogs">
+					<ul>
+					::foreach e d.getDistributions(null)::
+					<li>::e._catalog.name::</li>
+					::end::
+					</ul>
+				</div>
+				::if d._place!=null::
+				<div class="deliveryPlace">
+					<i class="icon icon-map-marker"></i>
+					<a onclick="neo.createNeoModule('mapid-::d.id::', 'place-dialog', {placeId: ::d._place.id::})">::d._place::</a>
+					<div style="width: 0px; height: 0px; overflow: hidden">
+						<span id="mapid-::d.id::"></span>
 					</div>
+				</div>
+				::end::
+			</div>
+			::end::
+		</div>
+		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" hidden="hidden" ::cond visibleGroupDocuments.length != 0::>
+			::foreach doc visibleGroupDocuments::
+			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
+			::end::
+		</div>
+		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" hidden="hidden">
+			<p>
+				::_("Non-complete extract of available products:")::
+			</p>
+
+			::foreach catalog contracts::
+			<p>
+				<b>::catalog._vendor.name::</b> <br/>
+				$$nullSafe(::catalog._vendor.city::)<br/>
+
+			<div class="row">
+				::foreach p catalog.getProductsPreview(6)::
+				<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >
+					<div style="background-image:url('::p.getImage()::')" class="productImg"/>
+				</div>
+				::end::
+			</div>
+			<div class="row">
+				<div style="padding-left:15px;">
+					::foreach doc visibleCatalogsDocuments.get( catalog.id )::
+					<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
 					::end::
 				</div>
 			</div>
-
-			<div>
-						<p>
-							::if group.txtIntro!=null && group.txtIntro!=""::
-							::raw nl2br(group.txtIntro)::
-							::end::
-						</p>
-
-
-						<p>
-						<h3> ::_("Next deliveries")::</h3>
-
-						::foreach d group.getDeliveries(4)::
-
-						<div style="display:inline-block;margin-right:8px;vertical-align:top;">
-							::set s = getDate( d.date )::
-							::if isToday(d.date)::
-							$$today(::s.dow::,::s.d::,::s.m::,::s.y::,::s.h::,::d._place::)
-							::else::
-							$$date(::s.dow::,::s.d::,::s.m::,::s.y::,::d._place::)
-							::end::
-						</div>
-
-						::end::
-						</p>
-
-						<hr/>
-
-						<p ::cond group._contact!=null::>
-							<i class="icon-user"></i>
-							<b>::group._contact.firstName:: ::group._contact.lastName::</b><br/>
-							<span ::cond group._contact.email!=null::>
- 							<span class="glyphicon glyphicon-envelope"></span>
-							<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a><br/>
- 						</span>
-							<span ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
- 							<span class="glyphicon glyphicon-phone-alt"></span>  ::group._contact.phone::<br/>
- 						</span>
-						</p>
-
-						<hr/>
-
-						<p ::cond visibleGroupDocuments.length != 0::>
-						<h3>Documents</h3>
-						<div>
-							::foreach doc visibleGroupDocuments::
-							<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
-							::end::
-						</div>
-						<hr/>
-						</p>
-
-						<p>
-						<h3>::_("Suppliers and products")::</h3>
-						<p>
-							::_("Non-complete extract of available products:")::
-						</p>
-
-						::foreach catalog contracts::
-						<p>
-							<b>::catalog._vendor.name::</b> <br/>
-							$$nullSafe(::catalog._vendor.city::)<br/>
-
-						<div class="row">
-							::foreach p catalog.getProductsPreview(6)::
-							<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >
-								<div style="background-image:url('::p.getImage()::')" class="productImg"/>
-							</div>
-							::end::
-						</div>
-						<div class="row">
-							<div style="padding-left:15px;">
-								::foreach doc visibleCatalogsDocuments.get( catalog.id )::
-								<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
-								::end::
-							</div>
-						</div>
-						</p>
-						<br/>
-						::end::
-
-						</p>
-			</div>
-
+			</p>
+			<br/>
+			::end::
 		</div>
 	</div>
 </div>
@@ -441,3 +491,4 @@ $$browserDetection()
 </div>
 
 ::end::
+<script src="https://::HOST::/js/tabsNavigation.js"></script>
