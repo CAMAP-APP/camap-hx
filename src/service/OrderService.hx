@@ -724,28 +724,14 @@ class OrderService
 			throw new Error('Il n\'y a pas de commandes définies.');
 		}
 
-		var orders : Array<db.UserOrder> = [];
-		
-		// Find existing orders
-		var existingOrders = [];
-		if ( catalog == null ) {
-			// Edit a whole multidistrib
-			existingOrders = multiDistrib.getUserOrders( user );
-		} else {
-
-			// Edit a single catalog
-			var distrib = null;
-			if( multiDistrib != null ) {
-				distrib = multiDistrib.getDistributionForContract( catalog );
-			}
-			existingOrders = catalog.getUserOrders( user, distrib );			
-		}
-
 		var group : db.Group = multiDistrib != null ? multiDistrib.group : catalog.group;
 		if ( group == null ) { throw new Error('Impossible de déterminer le groupe.'); }
-		var subscriptions = new Array< db.Subscription >();
-		if( catalog != null ) {
 
+		var orders : Array<db.UserOrder> = [];
+		var existingUserOrders = findExistingUserOrders(user, multiDistrib, catalog);
+
+		var subscriptions = new Array< db.Subscription >();
+		if ( catalog != null ) {
 			var subscription = db.Subscription.manager.select( $user == user && $catalog == catalog && $startDate <= multiDistrib.distribStartDate && multiDistrib.distribEndDate <= $endDate );
 			if ( subscription == null ) { 
 				throw new Error('Il n\'y a pas de souscription pour cette personne. Vous devez d\'abord créer une souscription avant de commander.');
@@ -759,20 +745,20 @@ class OrderService
 			var product = db.Product.manager.get( order.productId, false );
 			
 			// Find existing order				
-			var existingOrder = Lambda.find( existingOrders, function(x) return x.id == order.id );
+			var existingUserOrder = Lambda.find( existingUserOrders, function(x) return x.id == order.id );
 			
 			// Save order
-			if ( existingOrder != null ) {
+			if ( existingUserOrder != null ) {
 
 				// Edit existing order
 				try {
-					var updatedOrder = OrderService.edit( existingOrder, order.qt, order.paid );
-					if ( updatedOrder != null ) orders.push( updatedOrder );
+					var updatedUserOrder = OrderService.edit( existingUserOrder, order.qt, order.paid );
+					if ( updatedUserOrder != null ) orders.push( updatedUserOrder );
 				} catch(e:tink.core.Error) {
 					var msg = e.message;
 					App.current.session.addMessage(msg, true);	
 				}
-				// if ( updatedOrder != null ) orders.push( updatedOrder );
+				// if ( updatedUserOrder != null ) orders.push( updatedUserOrder );
 			} else {
 
 				// Insert new order
@@ -821,5 +807,96 @@ class OrderService
 		}
 		
 		return orders;
+	}
+
+	public static function findExistingUserOrders(user:db.User, multiDistrib:db.MultiDistrib, catalog:db.Catalog) : Array<db.UserOrder> {
+		var existingUserOrders = [];
+		if (catalog == null) {
+			// Edit a whole multidistrib
+			existingUserOrders = multiDistrib.getUserOrders( user );
+		} else {
+			// Edit a single catalog
+			var distrib = null;
+			if( multiDistrib != null ) {
+				distrib = multiDistrib.getDistributionForContract( catalog );
+			}
+			existingUserOrders = catalog.getUserOrders( user, distrib );			
+		}
+		return existingUserOrders;
+	}
+
+	public static function updateOrderQuantity( 
+		user:db.User,
+		multiDistrib:db.MultiDistrib, 
+		catalog:db.Catalog, 
+		userOrder:{id:Int, qt:Float} 
+	) : { subTotal: String, total: String, fees: String, basketTotal: String, nextQt: String } {
+
+		if ( multiDistrib == null && catalog == null ) {
+			throw new Error('You should provide at least a catalog or a multiDistrib');
+		}
+
+		if ( userOrder == null ) {
+			throw new Error('Il n\'y a pas de commande définie.');
+		}
+		
+		var group : db.Group = multiDistrib != null ? multiDistrib.group : catalog.group;
+		if ( group == null ) { throw new Error('Impossible de déterminer le groupe.'); }
+
+		var updatedUserOrder : db.UserOrder = null;
+		var existingUserOrders = findExistingUserOrders(user, multiDistrib, catalog);
+
+		var subscriptions = new Array< db.Subscription >();
+		if ( catalog != null ) {
+			var subscription = db.Subscription.manager.select( $user == user && $catalog == catalog && $startDate <= multiDistrib.distribStartDate && multiDistrib.distribEndDate <= $endDate );
+			if ( subscription == null ) { 
+				throw new Error('Il n\'y a pas de souscription pour cette personne. Vous devez d\'abord créer une souscription avant de commander.');
+			}			
+			subscriptions.push( subscription );
+		}
+				
+		var existingUserOrder = Lambda.find( existingUserOrders, function(x) return x.id == userOrder.id );
+		
+		// Save order
+		if ( existingUserOrder != null ) {
+			// Edit existing order
+			try {
+				updatedUserOrder = OrderService.edit( existingUserOrder, userOrder.qt, null );
+				App.current.event( MakeOrder( [updatedUserOrder] ) );
+			} catch(e:tink.core.Error) {
+				var msg = e.message;
+				App.current.session.addMessage(msg, true);	
+			}
+		} else {
+			throw new Error("Order not found.");
+		}
+
+		// Update basket total
+		if ( multiDistrib != null ) {
+			var b = db.Basket.get(user,multiDistrib,true);
+			b.total = b.getOrdersTotal();
+			b.update();
+		}
+
+		for ( subscription in subscriptions ) {
+			service.SubscriptionService.createOrUpdateTotalOperation( subscription );				
+		}
+
+		var subTotal = updatedUserOrder.product.price * updatedUserOrder.quantity;
+		var basketTotal = updatedUserOrder.basket.total;
+		var fees : Float = 0;
+		var total = subTotal;
+		if ( updatedUserOrder.feesRate!=0 ) {
+			fees = subTotal * (updatedUserOrder.feesRate/100);
+			total += fees;
+		}
+
+		return { 
+			subTotal: Formatting.formatNum(subTotal), 
+			total: Formatting.formatNum(total), 
+			fees: fees == 0 ? '' : Formatting.formatNum(fees), 
+			basketTotal: Formatting.formatNum(updatedUserOrder.basket.total),
+			nextQt: Formatting.formatNum(updatedUserOrder.quantity * updatedUserOrder.product.qt)
+		 };
 	}
 }

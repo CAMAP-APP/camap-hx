@@ -1,4 +1,31 @@
 {
-    "editor.detectIndentation": false,
+	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
+	"haxe.configurations": [
+		[
+			"backend/build.hxml",
+			"--cwd",
+			"backend",
+		],
+		[
+			"backend/potGeneration.hxml",
+			"--cwd",
+			"backend",
+		],
+		[
+			"backend/tests.hxml",
+			"--cwd",
+			"backend"
+		],
+		[
+			"frontend/build.hxml",
+			"--cwd",
+			"frontend"
+		],
+		[
+			"frontend/testsJS.hxml",
+			"--cwd",
+			"frontend"
+		]
+	],
 }

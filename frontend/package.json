@@ -5,34 +5,33 @@
   "license": "GPL-2.0",
   "homepage": "https://github.com/camap-app",
   "dependencies": {
-    "@material-ui/core": "4.9.0",
+    "@material-ui/core": "4.12.4",
     "@material-ui/icons": "4.11.3",
-    "bootstrap.native": "^2.0.27",
+    "bootstrap.native": "2.0.27",
     "haxe-modular": "^0.7.0",
     "prop-types": "^15.6.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "redux": "^4.0.0"
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-redux": "5.1.2",
+    "react-router": "4.3.1",
+    "react-router-dom": "4.3.1",
+    "redux": "4.2.1"
   },
   "devDependencies": {
-    "browserify": "^14.4.0",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "browserify": "^17.0.0",
     "cross-env": "^5.1.1",
     "envify": "^4.1.0",
     "npm-run-all": "^4.1.2",
-    "terser": "^4.4.0",
-    "uglifyify": "^5.0.2"
+    "rollup": "^2.79.1",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
     "build": "npm-run-all --parallel build:*",
     "build:js": "haxe build.hxml",
-    "build2": "babel src -d lib",
-    "libs:dev": "browserify libs/libs.js -o ../www/js/libs.dev.js -d",
-    "libs:prod__old": "cross-env NODE_ENV=production browserify libs/libs.js -o ../www/js/libs.js",
-    "libs:prod": "browserify libs/libs.js -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ../www/js/libs.prod.js",
-    "test": "haxe testsJS.hxml && node js/test/tests.js",
+    "libs:prod": "rollup -c libs/rollup.config.js",
     "prepush": "npm test"
   }
 }

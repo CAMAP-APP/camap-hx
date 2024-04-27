@@ -95,5 +95,40 @@ class Order extends Controller
 		Sys.print( Json.stringify( { success : true, orders : ordersData } ) );
 
 	}
+
+	/**
+	 * Update orders of a user ( from react OrderBox component )
+	 * @param	userId
+	 */
+	public function doUpdateOrderQuantity( user : db.User, args : { ?catalog : db.Catalog, ?multiDistrib : db.MultiDistrib} ) {
+
+		checkIsLogged();
+		var catalog = ( args != null && args.catalog != null ) ? args.catalog : null;
+		var multiDistrib = ( args != null && args.multiDistrib != null ) ? args.multiDistrib : null;
+		checkRights( user, catalog, multiDistrib );
+		
+		//POST payload
+		var order : { id:Int, qt:Float };
+		
+		var raw = StringTools.urlDecode( sugoi.Web.getPostData() );
+		
+		if ( raw == null ) {
+			throw new Error( 'Order datas are null' );
+		} else {
+			order = haxe.Json.parse(raw);
+		}
+		
+		var updated = OrderService.updateOrderQuantity( user, multiDistrib, catalog, order );
+
+		Sys.print( Json.stringify( { 
+			success : true,
+			 subTotal: updated.subTotal,
+			 total: updated.total,
+			 fees: updated.fees,
+			 basketTotal: updated.basketTotal,
+			 nextQt: updated.nextQt 
+		} ) );
+
+	}
 	
 }

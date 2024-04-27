@@ -1,21 +1,37 @@
 ::use 'contractadmin/design.mtt'::
-
+<script type="text/javascript">
+	function blurOnEnter(event) {
+		if (event.key === 'Enter') event.currentTarget.blur();
+	}
+	function toggleQtInput() {
+		const elements = document.querySelectorAll('.orderQtInput, .orderQtText');
+		for (let el of elements) {
+			el.classList.toggle('hidden');
+		}
+	}
+	document.addEventListener("DOMContentLoaded",function(){
+		const elements = document.querySelectorAll('.orderQtInput');
+		if (elements.length != 1) {
+			document.getElementById("setWeightsButton").classList.remove('hidden')
+		}
+	});
+</script>
 	<h3>::_("Orders")::</h3>
-	
+
 	::if distribution!=null::
 	::_("Delivery of the"):: <b>::hDate(distribution.date)::</b>
 	::end::
-	
-	<div style="margin:8px 0;">
-		
+
+	<div style="margin:8px 0;display: flex; gap:10px;flex-wrap: wrap;">
+
 		::if(!catalog.isConstantOrdersCatalog())::
 		<a class="btn btn-default btn-sm"
 			onclick="_Camap.initOrderBox(null,::multiDistribId::,::distribution._catalog.id::,::catalog.type::,'::escapeJS(hDate(distribution.date))::','::escapeJS(distribution._place.toString())::',null,'::user.getGroup().currency::', '/contractAdmin/orders/::catalog.id::?d=::distribution.id::', ::user.getGroup().id::)">
 			<i class="icon icon-plus"></i>
 			::_("New order")::
-		</a>							
+		</a>
 		::end::
-		
+
 		$$export(/contractAdmin/orders/::catalog.id::?csv=1&d=::distribution.id::)
 		<a href="/contractAdmin/ordersByProduct/::catalog.id::?d=::distribution.id::" class="btn btn-default btn-sm">
 			<i class="icon icon-products"></i>
@@ -26,18 +42,23 @@
 			<button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="icon icon-print"></i> ::_("Attendance sheet")::
 			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">					
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 				<li><a href="/distribution/csaList/::distribution.id::"> Liste d'émargement AMAP</a></li>
-				<li><a href="/distribution/listByProductUser/::distribution.id::"> ::_("By Product-User")::</a></li>			
+				<li><a href="/distribution/listByProductUser/::distribution.id::"> ::_("By Product-User")::</a></li>
 			</ul>
 		</div>
+
+		<button class="btn btn-default btn-sm dropdown-toggle btn-noAntiDoubleClick hidden" type="button"
+			onclick="toggleQtInput()" id="setWeightsButton">
+			<i class="icon icon-balance"></i> <span class="orderQtInput">::_("Set weights after weighing")::</span><span class="orderQtText hidden">::_("Stop editing weights")::</span>
+		</button>
 	</div>
 
 	::if disabledProducts > 0::
 	$$alert( ::raw __("Be careful, there are <b>::disabledProducts::</b> order(s) containing <b>disabled products</b>.",{disabledProducts:disabledProducts}):: )
 	::end::
 
-	<div id="ordersdialog-container"></div>	
+	<div id="ordersdialog-container"></div>
 
 	<style>
 	td.userRow{
@@ -46,20 +67,20 @@
 	}
 	td.userRow a{ color:white; }
 	</style>
-	
+
 		::foreach basket distribution._multiDistrib.getBaskets()::
 			::set total = 0::
 			::set distribOrders = prepare(basket.getDistributionOrders(distribution))::
 			::if (distribOrders.length > 0 )::
 			<table class="table table-bordered table-hover table-condensed"  style="width:100%;">
-				
+
 				<tr class="darkhead">
 					<td colspan="7">
 						<div class="basketNumber" ::cond basket!=null:: >
 							<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::basket.num::
 						</div>
-						
-						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a> 						
+
+						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a>
 					</td>
 					<td>
 						::if(!catalog.isConstantOrdersCatalog())::
@@ -73,15 +94,15 @@
 				</tr>
 				<tr>
 					<th class="col-md-1">::_("Prod. ID")::</th>
-					<th class="col-md-1">::_("Qty")::</th>						
+					<th class="col-md-2">::_("Qty")::</th>
 					<th class="col-md-4">::_("Product")::</th>
 					<th class="col-md-1"><a href="#" data-toggle="tooltip" data-placement="top" title="::_("Unit price including taxes")::">::_("U.P||price per unit")::</a></th>
-					<th class="col-md-1">Ss-total</th>
+					<th class="col-md-1 text-nowrap">Ss-total</th>
 					<th class="col-md-1">::_("Fees")::</th>
-					<th class="col-md-1">::_("Total")::</th>						
-					<th class="col-md-2"></th>
+					<th class="col-md-1">::_("Total")::</th>
+					<th class="col-md-1"></th>
 				</tr>
-				
+
 				::foreach o distribOrders::
 					::if o.product.active==false::
 					::set class="danger"::
@@ -90,17 +111,31 @@
 					::end::
 					<tr class="::class::">
 						<td class="ref">
-							$$nullSafe(::o.product.ref::)							
+							$$nullSafe(::o.product.ref::)
 						</td>
-						<td>
+						<td class="text-nowrap">
 							::if(o.quantity==0 && o.canceled)::
-								<span style="color:#AAA">::_("Canceled")::</span>						
+								<span style="color:#AAA">::_("Canceled")::</span>
 							::else::
-								::raw o.smartQt::
+								::if(o.product.multiWeight && o.product.variablePrice)::
+								<div class="orderQtInput hidden">
+									<input type="text" id="::o.id::_qt" value="::formatNum(o.quantity * o.productQt)::"
+										title="::unit(o.productUnit,o.quantity>0):: ::o.productName:: ::basket._user.getName()::"
+										style="width:70%;"
+										onchange="this.style.color = 'initial'"
+										onblur="_Camap.updateUserOrderQuantity(::basket.userId::,::multiDistribId::,::distribution._catalog.id::,::o.id::,::basket.num::,::o.productQt::,this.value,qt_::o.id::_lastVal);qt_::o.id::_lastVal = this.value;"
+									/>&nbsp;::unit(o.productUnit,o.quantity>0)::
+								</div>
+									<script>
+										let  qt_::o.id::_lastVal = '::formatNum(o.quantity * o.productQt)::';
+										document.getElementById("::o.id::_qt").addEventListener("keydown", blurOnEnter);
+									</script>
+								::end::
+								  <div id="::o.id::_qt_txt" class="::if(o.product.multiWeight && o.product.variablePrice)::orderQtText::end::">::raw o.smartQt::</div>
 							::end::
 						</td>
-						<td>												
-							::o.productName::						
+						<td>
+							::o.productName::
 							::if o.userName2!=null::
 								<span class="glyphicon glyphicon-refresh"></span> ::_("alternated with"):: ::o.userName2::
 							::end::
@@ -108,10 +143,10 @@
 						<td>
 							::formatNum(o.productPrice)::&nbsp;::currency()::
 						</td>
-						<td>
+						<td id="::o.id::_subTotal">
 							::formatNum(o.subTotal)::&nbsp;::currency()::
 						</td>
-						<td>
+						<td id="::o.id::_fees">
 							<!-- frais -->
 							::if o.percentageValue!=null::
 							<a href="#" data-toggle="tooltip" data-placement="top" title="::o.percentageName:: : ::o.percentageValue:: %">
@@ -119,7 +154,7 @@
 							</a>
 							::end::
 						</td>
-						<td>
+						<td  id="::o.id::_total">
 							<!-- total -->
 							::formatNum(o.total)::&nbsp;::currency()::
 							::set total = total + o.total::
@@ -135,10 +170,10 @@
 						</td>
 					</tr>
 				::end::
-				
+
 				<tr style="background:#DDD;">
 					<th colspan="6">::_("Total")::</th>
-					<th>::formatNum(total)::&nbsp;::currency()::</th>
+					<th id="basket_::basket.num::_total">::formatNum(total)::&nbsp;::currency()::</th>
 					<th></th>
 				</tr>
 			</table>

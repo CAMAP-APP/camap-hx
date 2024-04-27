@@ -84,7 +84,7 @@ class OrderBox extends react.ReactComponentOfPropsAndState<OrderBoxProps, OrderB
 		
 		for( catalogId in ordersByCatalogId.keys() ) {
 		
-			ordersByCatalog.push( jsx('<h4 key=$catalogId>${ordersByCatalogId[catalogId][0].catalogName}</h4>') );			
+			ordersByCatalog.push( jsx('<h4 key=$catalogId key="title">${ordersByCatalogId[catalogId][0].catalogName}</h4>') );			
 
 			for ( order in ordersByCatalogId[catalogId] ) {
 
@@ -119,7 +119,7 @@ class OrderBox extends react.ReactComponentOfPropsAndState<OrderBoxProps, OrderB
 			className4 = "col-md-2 text-center";
 		}		
 
-		ordersByCatalog.push(jsx('<div className="row">			
+		ordersByCatalog.push(jsx('<div className="row" key="total">			
 			<div className=${className1}></div>
 			<div className=${className2}><b>TOTAL</b></div>
 			<div className=${className3}><b>${Formatting.formatNum(totalPrice)}&nbsp;&euro;</b></div>
@@ -152,7 +152,7 @@ class OrderBox extends react.ReactComponentOfPropsAndState<OrderBoxProps, OrderB
 
 			if ( userId != null ) {
 
-				return jsx('<div onKeyPress=${onKeyPress}>
+				return jsx('<div key="orderBox" onKeyPress=${onKeyPress}>
 							<h3>Commandes de $userName</h3>
 							$delivery							
 							<hr/>
