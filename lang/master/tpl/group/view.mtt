@@ -358,12 +358,12 @@ $$browserDetection()
 		<div class="modal productModal" id="imggroup-4" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog productModalDialog">
 				<img src="https://placehold.co/203" alt="" />
+				</div>
 			</div>
-		</div>
 		<div class="modal productModal" id="imggroup-5" tabindex="-1" aria-hidden="true">
 			<div class="modal-dialog productModalDialog">
 				<img src="https://placehold.co/204" alt="" />
-			</div>
+		</div>
 		</div>-->
 		<div class="subscriptionPanel">
 				::if isMember::
@@ -572,8 +572,11 @@ $$browserDetection()
 					<img src="::p.getImage()::" alt="" />
 					<div class="groupProductCard_text">
 						<div id="imglabel-::p.id::">::p.name::</div>
-						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt!=null::>
+						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt!=null && catalog.displayPricesOnGroupPage()::>
 							::raw pricePerUnit(p.price,p.qt,p._unitType)::
+						</div>
+						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt==null && catalog.displayPricesOnGroupPage()::>
+							::raw pricePerUnit(p.price,1,p._unitType)::
 						</div>
 					</div>
 				</button>
@@ -586,13 +589,6 @@ $$browserDetection()
 				</div>
 			</div>
 			::end::
-			<div class="row">
-				<div style="padding-left:15px;">
-					::foreach doc visibleCatalogsDocuments.get( catalog.id )::
-					<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
-					::end::
-				</div>
-			</div>
 			</p>
 			<br/>
 			::end::

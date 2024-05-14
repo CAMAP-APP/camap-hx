@@ -848,54 +848,6 @@ div.reportHeader {
   line-height: 45px;
 }
 
-/**
-	Popovers for help and tutorials
-**/
-/*.popover{
-
-	color:white;
-	font-size:14px;
-
-	h3.popover-title{
-		//padding: 4px;
-		color:#BB9931 !important; //HEX
-		//border-bottom:1px solid #BB9931 !important; //HEX
-		//background-color:none;
-		font-weight:normal;
-		font-size: 20px;
-	}
-
-	.popover-content{
-		font-size: 16px;
-		b{ 
-			color:#FC0; //HEX
-			font-weight:normal;
-		}
-		a{ 
-			color:#FC0; //HEX
-			font-weight:normal;
-			text-decoration:underline; 
-		}
-	}
-
-	.footer{
-		//border-top: 1px solid #BB9931; //HEX
-		height: 45px;
-		padding: 12px 0;
-
-		.pull-left .btn{
-			background-color:#583816; //HEX
-			color:#BB9931; //HEX
-			border:1px solid #BB9931; //HEX
-		}
-
-		.pull-right .btn{
-			background-color:#FC0; //HEX
-			color:#583816;
-			border:1px solid #583816; //HEX
-		}
-	}
-}*/
 /* skin a modal like a tuto popover */
 .modal.help .modal-header {
   font-size: 1.3em;
@@ -910,6 +862,20 @@ div.reportHeader {
 }
 .modal.help .modal-footer {
   border-top: 1px solid #bb9931 !important;
+}
+
+.modal-image {
+  display: flex;
+  justify-content: center;
+  width: 100% !important;
+  height: calc(100% - 60px) !important;
+  pointer-events: none;
+  margin: 0;
+}
+
+.modal-image img {
+  width: calc(100% - 40px);
+  object-fit: contain;
 }
 
 /* hightlight a zone for tutos */
