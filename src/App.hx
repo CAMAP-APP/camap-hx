@@ -250,6 +250,7 @@ class App extends sugoi.BaseApp {
 		out.set("membershipPrice", "Adhésions : Coût de l'adhésion");
 		out.set("UsersCanOrder", "Les membres peuvent saisir leur commande en ligne");
 		out.set("StockManagement", "Gestion des stocks");
+		out.set("DisplayPricesOnGroupPage", "Afficher les prix des produits sur la page public du groupe");
 		out.set("contact", "Responsable");
 		out.set("PercentageOnOrders", "Ajouter des frais au pourcentage de la commande");
 		out.set("percentageValue", "Pourcentage des frais");

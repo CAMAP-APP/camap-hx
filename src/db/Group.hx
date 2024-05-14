@@ -368,14 +368,17 @@ class Group extends Object
 	}
 
 	public function getVisibleDocuments( isMemberOfGroup : Bool ) : List<sugoi.db.EntityFile> {
-
 		if ( isMemberOfGroup ) {
-
 			return sugoi.db.EntityFile.manager.search( $entityType == 'group' && $entityId == this.id && $documentType == 'document', false);
 		}
-		
 		return sugoi.db.EntityFile.manager.search( $entityType == 'group' && $entityId == this.id && $documentType == 'document' && $data == 'public', false);
+	}
 
+	public function getVisibleMedia( isMemberOfGroup : Bool ) : List<sugoi.db.EntityFile> {
+		if ( isMemberOfGroup ) {
+			return sugoi.db.EntityFile.manager.search( $entityType == 'group' && $entityId == this.id && $documentType == 'media', false);
+		}
+		return sugoi.db.EntityFile.manager.search( $entityType == 'group' && $entityId == this.id && $documentType == 'media' && $data == 'public', false);
 	}
 
 	public function infos(): GroupInfo {
