@@ -393,7 +393,7 @@ class Group extends Object
 		return [
 			"name" 			=> t._("Group name"),
 			"legalStatus" 	=> t._("Legal status"),
-			"txtIntro" 		=> t._("Short description"),
+			"txtIntro" 		=> t._("Public page description"),
 			"txtHome" 		=> t._("Homepage text"),
 			"txtDistrib" 	=> t._("Text for distribution lists"),
 			"extUrl" 		=> "URL de votre site web",
