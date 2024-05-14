@@ -874,8 +874,8 @@ div.reportHeader {
 }
 
 .modal-image img {
-  width: calc(100% - 40px);
-  object-fit: contain;
+  max-width: calc(100% - 40px);
+  object-fit: scale-down;
 }
 
 /* hightlight a zone for tutos */
