@@ -70,6 +70,11 @@ class Group extends controller.Controller
 			visibleCatalogsDocuments.set( catalog.id, catalog.getVisibleDocuments( app.user ) );
 		}
 		view.visibleCatalogsDocuments = visibleCatalogsDocuments;
+
+		// Media
+		var media : List<sugoi.db.EntityFile> = group.getVisibleMedia( isMemberOfGroup );
+		view.media = media;
+
 	}
 	
 	/**

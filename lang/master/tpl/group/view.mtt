@@ -77,11 +77,20 @@ $$browserDetection()
 		gap: 16px;
 		margin-top: 16px;
 	}
-	.imageList img {
+
+	.imageList-button {
 		width: 75px;
 		height: 78px;
-		object-fit: cover;
 		border-radius: 8px;
+		padding: 0;
+		border: 0;
+		overflow: hidden;
+	}
+
+	.imageList-thumb {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
 	}
 	.subscriptionPanel {
 		background-color: #5D1E4E;
@@ -298,13 +307,6 @@ $$browserDetection()
 		justify-items: center
 	}
 
-	.productModalDialog {
-		display: flex;
-		justify-content: center;
-		width: 100%;
-		pointer-events: none;
-	}
-
 	*[data-toggle="modal"] {
 		cursor: pointer;
 	}
@@ -333,38 +335,19 @@ $$browserDetection()
 			</script>
 			<span id="::place.id::"  class="mapBoxContainer"></span>
 		</div>
-		<!--<div class="imageList">
-			<img data-toggle="modal" data-target="#imggroup-1" src="https://placehold.co/200" alt=""/>
-			<img data-toggle="modal" data-target="#imggroup-2" src="https://placehold.co/201" alt=""/>
-			<img data-toggle="modal" data-target="#imggroup-3" src="https://placehold.co/202" alt=""/>
-			<img data-toggle="modal" data-target="#imggroup-4" src="https://placehold.co/203" alt=""/>
-			<img data-toggle="modal" data-target="#imggroup-5" src="https://placehold.co/204" alt=""/>
-		</div>
-		<div class="modal productModal" id="imggroup-1" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog productModalDialog">
-				<img src="https://placehold.co/200" alt="" />
-			</div>
-		</div>
-		<div class="modal productModal" id="imggroup-2" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog productModalDialog">
-				<img src="https://placehold.co/201" alt="" />
-			</div>
-		</div>
-		<div class="modal productModal" id="imggroup-3" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog productModalDialog">
-				<img src="https://placehold.co/202" alt="" />
-			</div>
-		</div>
-		<div class="modal productModal" id="imggroup-4" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog productModalDialog">
-				<img src="https://placehold.co/203" alt="" />
+		<div class="imageList">
+			::foreach m media::
+			<button class="imageList-button" type="button" data-toggle="modal" data-target="#img-::m.fileId::" title="::m._file.name::">
+				<img class="imageList-thumb" src="::file(m.fileId)::" alt="::m._file.name::" />
+			</button>
+			<div class="modal" id="img-::m.fileId::" tabindex="-1"
+					 aria-labelledby="imglabel-::m.fileId::" aria-hidden="true">
+				<div class="modal-dialog modal-image">
+					<img src="::file(m.fileId)::" alt="" />
 				</div>
 			</div>
-		<div class="modal productModal" id="imggroup-5" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog productModalDialog">
-				<img src="https://placehold.co/204" alt="" />
+			::end::
 		</div>
-		</div>-->
 		<div class="subscriptionPanel">
 				::if isMember::
 				<!-- connected and member of the group-->
@@ -584,7 +567,7 @@ $$browserDetection()
 			</div>
 			::foreach p productsPreview::
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
-				<div class="modal-dialog productModalDialog">
+				<div class="modal-dialog modal-image">
 					<img src="::p.getImage()::" alt="" />
 				</div>
 			</div>
