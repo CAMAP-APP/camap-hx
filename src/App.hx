@@ -94,9 +94,24 @@ class App extends sugoi.BaseApp {
                          </ul>
                         ',
                 bloc4: '
-                        <a href="http://www.amap44.org" target="_blank">
-                             <img src="/theme/default/logo_amap44.png" alt="CAMAP" style="width:145px;"/>
-                        </a>
+							<a href=\"http://www.amap44.org\" target=\"_blank\">
+								<img src=\"/theme/default/logo_amap44.png\" alt=\"CAMAP\" style=\"width:145px;\"/>
+							</a>
+							<br>
+							<table>
+								<caption style=\"color:white\">Camap est co-financé par:</caption>
+								<tr>
+									<td>
+										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo NM\" style=\"width:60px;\"/>&nbsp;
+									</td>
+									<td>
+										<img src=\"/theme/default/Logo_LA.png\" alt=\"Logo LA\" style=\"width:60px;\"/>&nbsp;
+									</td>
+									<td>
+										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo PDL\" style=\"width:60px;\"/>
+									</td>
+								</tr>
+							</table>
                        '
             },
             email:{
