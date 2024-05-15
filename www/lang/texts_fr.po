@@ -89,7 +89,7 @@ msgstr "Le rôle a bien été supprimé"
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
-#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10398
+#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10550
 msgid "Means of payment"
 msgstr "Moyens de paiement"
 
@@ -167,50 +167,50 @@ msgstr "Taux mis à jour"
 msgid "Edit VAT rates"
 msgstr "Editer les taux de TVA"
 
-#: ../src/controller/AmapAdmin.hx:7471
+#: ../src/controller/AmapAdmin.hx:7623
 msgid "Currency used by your group."
 msgstr "Monnaie utilisée par votre groupe."
 
-#: ../src/controller/AmapAdmin.hx:7616
+#: ../src/controller/AmapAdmin.hx:7768
 msgid "Currency symbol"
 msgstr "Symbole de votre monnaie"
 
-#: ../src/controller/AmapAdmin.hx:7745
+#: ../src/controller/AmapAdmin.hx:7897
 msgid "3 digit ISO code"
 msgstr "Code ISO à 3 lettres"
 
-#: ../src/controller/AmapAdmin.hx:8074
+#: ../src/controller/AmapAdmin.hx:8226
 msgid "Currency updated"
 msgstr "Monnaie mise à jour"
 
-#: ../src/controller/AmapAdmin.hx:8576
+#: ../src/controller/AmapAdmin.hx:8728
 msgid "Authorized payment types"
 msgstr "Types de paiements autorisés"
 
-#: ../src/controller/AmapAdmin.hx:8882
+#: ../src/controller/AmapAdmin.hx:9034
 msgid "Make the check payable to"
 msgstr "Ordre pour les chèques"
 
-#: ../src/controller/AmapAdmin.hx:9019
+#: ../src/controller/AmapAdmin.hx:9171
 msgid "IBAN of your bank account for transfers"
 msgstr "IBAN de votre compte bancaire pour les virements"
 
-#: ../src/controller/AmapAdmin.hx:9191
+#: ../src/controller/AmapAdmin.hx:9343
 msgid "Allow money pots with negative balance"
 msgstr "Autoriser les cagnottes négatives"
 
-#: ../src/controller/AmapAdmin.hx:10335
+#: ../src/controller/AmapAdmin.hx:10487
 msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
-#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:25892
+#: ../src/controller/api/Order.hx:1332 ../src/controller/ContractAdmin.hx:25892
 #: ../src/controller/ContractAdmin.hx:33379 ../src/controller/Product.hx:613
 #: ../src/controller/Product.hx:2491 ../src/controller/Product.hx:3155
 #: ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
 msgstr "Accès interdit"
 
-#: ../src/controller/api/Order.hx:1477 ../src/controller/ContractAdmin.hx:20618
+#: ../src/controller/api/Order.hx:1439 ../src/controller/ContractAdmin.hx:20618
 msgid "You do not have the authorization to manage this catalog"
 msgstr "Vous n'avez pas le droit de gérer ce catalogue"
 
@@ -296,12 +296,12 @@ msgstr "Effacer les produits existants (supprime toutes les commandes !)"
 msgid "Products copied from "
 msgstr "Produits copiés de "
 
-#: ../src/controller/ContractAdmin.hx:8835 ../src/db/Catalog.hx:11695
+#: ../src/controller/ContractAdmin.hx:8835 ../src/db/Catalog.hx:11890
 #: ../src/db/Subscription.hx:5654 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
 msgstr "Date de début"
 
-#: ../src/controller/ContractAdmin.hx:8990 ../src/db/Catalog.hx:11734
+#: ../src/controller/ContractAdmin.hx:8990 ../src/db/Catalog.hx:11929
 #: ../src/db/Subscription.hx:5693 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr "Date de fin"
@@ -355,12 +355,12 @@ msgid "The order has been deleted."
 msgstr "La commande a été effacée."
 
 #: ../src/controller/ContractAdmin.hx:19236
-#: ../src/service/OrderService.hx:21248
+#: ../src/service/OrderService.hx:20578
 msgid "Delivery ::contractName:: "
 msgstr "Distribution ::contractName::"
 
 #: ../src/controller/ContractAdmin.hx:19488
-#: ../src/service/OrderService.hx:21589
+#: ../src/service/OrderService.hx:20914
 msgid "Per member"
 msgstr "Par membre"
 
@@ -415,7 +415,7 @@ msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
 #: ../src/controller/ContractAdmin.hx:34239 ../src/controller/Documents.hx:3241
-#: ../src/controller/Product.hx:2984
+#: ../src/controller/Media.hx:2084 ../src/controller/Product.hx:2984
 #: ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
 msgstr "Erreur de token"
@@ -443,7 +443,7 @@ msgid "Your products to collect :"
 msgstr "Vos produits à récupérer :"
 
 #: ../src/controller/Cron.hx:18260
-#: ../lang/master/tpl/contractadmin/orders.mtt:6202
+#: ../lang/master/tpl/contractadmin/orders.mtt:6063
 msgid "alternated with"
 msgstr "alterné avec"
 
@@ -681,11 +681,11 @@ msgstr "Le prix de ::product:: a été ajusté à ::price:: dans les commandes."
 msgid "Change the price of a product in orders"
 msgstr "Changer le prix d'un produit dans les commandes"
 
-#: ../src/controller/Group.hx:2888
+#: ../src/controller/Group.hx:3012
 msgid "Leave a message"
 msgstr "Laissez un message"
 
-#: ../src/controller/Group.hx:3063
+#: ../src/controller/Group.hx:3187
 msgid ""
 "Your subscription to the waiting list has been recorded. You will receive an "
 "e-mail as soon as your request is processed."
@@ -693,21 +693,21 @@ msgstr ""
 "Votre demande d'enregistrement en liste d'attente a été prise en compte. "
 "Vous recevrez un courriel dès que votre demande sera traitée."
 
-#: ../src/controller/Group.hx:3317
+#: ../src/controller/Group.hx:3441
 msgid "Subscription to \"::groupeName::\" waiting list"
 msgstr "Inscription sur la liste d'attente de \"::groupeName::\""
 
-#: ../src/controller/Group.hx:3692
+#: ../src/controller/Group.hx:3816
 msgid "You've been removed from the waiting list"
 msgstr "Vous avez été retiré de la liste d'attente"
 
-#: ../src/controller/Group.hx:4297 ../src/controller/Place.hx:1002
+#: ../src/controller/Group.hx:4421 ../src/controller/Place.hx:1002
 #: ../src/controller/Place.hx:1752 ../src/db/Place.hx:1497
 #: ../src/service/VendorService.hx:2761
 msgid "Country"
 msgstr "Pays"
 
-#: ../src/controller/Group.hx:4402 ../src/controller/Install.hx:562
+#: ../src/controller/Group.hx:4526 ../src/controller/Install.hx:562
 msgid "Name of your group"
 msgstr "Nom de votre groupe"
 
@@ -999,36 +999,36 @@ msgstr "Envoyé"
 msgid "Queued"
 msgstr "Mis en file d'attente"
 
-#: ../src/db/Catalog.hx:11653
+#: ../src/db/Catalog.hx:11848
 msgid "Catalog name"
 msgstr "Nom du catalogue"
 
-#: ../src/db/Catalog.hx:11774 ../src/db/Product.hx:4588
-#: ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:12095
+#: ../src/db/Catalog.hx:11969 ../src/db/Product.hx:4588
+#: ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:11079
 msgid "Description"
 msgstr "Description"
 
-#: ../src/db/Catalog.hx:11819
+#: ../src/db/Catalog.hx:12014
 msgid "Number of required volunteers during a distribution"
 msgstr "Nbre de bénévoles nécéssaires pendant une distribution"
 
-#: ../src/db/Catalog.hx:11897 ../src/db/Group.hx:11626 ../src/db/User.hx:19056
+#: ../src/db/Catalog.hx:12092 ../src/db/Group.hx:12033 ../src/db/User.hx:19056
 msgid "Options"
 msgstr "Options"
 
-#: ../src/db/Catalog.hx:11939
+#: ../src/db/Catalog.hx:12134
 msgid "Fees percentage"
 msgstr "Pourcentage des frais"
 
-#: ../src/db/Catalog.hx:11988
+#: ../src/db/Catalog.hx:12183
 msgid "Fees label"
 msgstr "Libellé pour ces frais"
 
-#: ../src/db/Catalog.hx:12027
+#: ../src/db/Catalog.hx:12222
 msgid "Contact"
 msgstr "Contact"
 
-#: ../src/db/Catalog.hx:12062 ../lang/master/tpl/contractadmin/view.mtt:1746
+#: ../src/db/Catalog.hx:12257 ../lang/master/tpl/contractadmin/view.mtt:1746
 #: ../lang/master/tpl/distribution/list.mtt:833
 #: ../lang/master/tpl/distribution/listByProductUser.mtt:811
 msgid "Farmer"
@@ -1080,43 +1080,43 @@ msgstr "Ouverture de commande (nbre de jours avant distribution)"
 msgid "Fermeture de commande (nbre de jours avant distribution)"
 msgstr "Fermeture de commande (nbre de jours avant distribution)"
 
-#: ../src/db/Group.hx:11297
+#: ../src/db/Group.hx:11698
 msgid "Group name"
 msgstr "Nom du groupe"
 
-#: ../src/db/Group.hx:11338 ../src/db/Vendor.hx:4785
+#: ../src/db/Group.hx:11739 ../src/db/Vendor.hx:4785
 msgid "Legal status"
 msgstr "Statut légal"
 
-#: ../src/db/Group.hx:11379
+#: ../src/db/Group.hx:11780
 msgid "Public page description"
 msgstr "Texte de la page publique"
 
-#: ../src/db/Group.hx:11424
+#: ../src/db/Group.hx:11831
 msgid "Homepage text"
 msgstr "Texte sur la page d'accueil"
 
-#: ../src/db/Group.hx:11467
+#: ../src/db/Group.hx:11874
 msgid "Text for distribution lists"
 msgstr "Texte listes d'émargement"
 
-#: ../src/db/Group.hx:11577
+#: ../src/db/Group.hx:11984
 msgid "Membership renewal date"
 msgstr "Date de renouvellement d'adhésion"
 
-#: ../src/db/Group.hx:11662
+#: ../src/db/Group.hx:12069
 msgid "Nouvelles fonctionnalités"
 msgstr "Nouvelles fonctionnalités"
 
-#: ../src/db/Group.hx:11716
+#: ../src/db/Group.hx:12123
 msgid "Registration setting"
 msgstr "Réglage des inscriptions"
 
-#: ../src/db/Group.hx:11764 ../lang/master/tpl/amap/default.mtt:680
+#: ../src/db/Group.hx:12171 ../lang/master/tpl/amap/default.mtt:680
 msgid "Main contact"
 msgstr "Contact principal"
 
-#: ../src/db/Group.hx:11814
+#: ../src/db/Group.hx:12221
 msgid "Legal representative"
 msgstr "Représentant légal"
 
@@ -1467,27 +1467,27 @@ msgstr ""
 "La date de distribution doit être postérieure à la date de début du contrat "
 "(::contractBeginDate::)"
 
-#: ../src/service/OrderService.hx:1221
+#: ../src/service/OrderService.hx:1177
 msgid "Error : product \"::product::\" quantity should be integer"
 msgstr ""
 "Erreur : La quantité du produit \"::product::\" doit être un nombre entier"
 
-#: ../src/service/OrderService.hx:1491
+#: ../src/service/OrderService.hx:1439
 msgid "multi-weighing products should be ordered only with integer quantities"
 msgstr ""
 "Les produits avec multi-pesée doivent être commandés avec des quantités "
 "entières"
 
-#: ../src/service/OrderService.hx:10716
+#: ../src/service/OrderService.hx:10401
 msgid "This order has already been deleted."
 msgstr "La commande a déjà été effacée."
 
-#: ../src/service/OrderService.hx:11305
+#: ../src/service/OrderService.hx:10968
 msgid "Deletion not possible: quantity is not zero."
 msgstr "Effacement impossible : la quantité n'est pas égale à zéro."
 
-#: ../src/service/OrderService.hx:12590
-#: ../lang/master/tpl/contractadmin/orders.mtt:4949
+#: ../src/service/OrderService.hx:12208
+#: ../lang/master/tpl/contractadmin/orders.mtt:4832
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:3402
 #: ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:2216
 #: ../lang/master/tpl/distribution/list.mtt:2781
@@ -1751,7 +1751,7 @@ msgstr "Effacer ?"
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:629
 #: ../lang/master/tpl/contractadmin/documents.mtt:3309
 #: ../lang/master/tpl/contractadmin/documents.mtt:3659
-#: ../lang/master/tpl/contractadmin/orders.mtt:4006
+#: ../lang/master/tpl/contractadmin/orders.mtt:3917
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:2699
 #: ../lang/master/tpl/contractadmin/products.mtt:3762
 #: ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6757
@@ -1853,7 +1853,8 @@ msgstr "Rôle de bénévole"
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:700
 #: ../lang/master/tpl/contractadmin/documents.mtt:3479
 #: ../lang/master/tpl/contractadmin/documents.mtt:3810
-#: ../lang/master/tpl/contractadmin/orders.mtt:7320
+#: ../lang/master/tpl/contractadmin/media.mtt:2902
+#: ../lang/master/tpl/contractadmin/orders.mtt:7154
 #: ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270
 #: ../lang/master/tpl/distribution/default.mtt:12268
 msgid "Delete"
@@ -1867,7 +1868,7 @@ msgstr "Ajouter un rôle"
 msgid "Delays and messages"
 msgstr "Délais et messages"
 
-#: ../lang/master/tpl/base.mtt:3599
+#: ../lang/master/tpl/base.mtt:3512
 msgid "Close"
 msgstr "Fermer"
 
@@ -1887,7 +1888,7 @@ msgstr ""
 "peut être close pour certains fournisseurs"
 
 #: ../lang/master/tpl/contract/editVarOrders.mtt:603
-#: ../lang/master/tpl/contractadmin/orders.mtt:4202
+#: ../lang/master/tpl/contractadmin/orders.mtt:4105
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:2864
 #: ../lang/master/tpl/contractadmin/ordersByProduct.mtt:647
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1611
@@ -1925,7 +1926,7 @@ msgid "Sub-total"
 msgstr "Sous-total"
 
 #: ../lang/master/tpl/contract/editVarOrders.mtt:698
-#: ../lang/master/tpl/contractadmin/orders.mtt:4468
+#: ../lang/master/tpl/contractadmin/orders.mtt:4368
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:3059
 #: ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1876
 #: ../lang/master/tpl/distribution/list.mtt:2554
@@ -1938,8 +1939,8 @@ msgid "Fees"
 msgstr "Frais"
 
 #: ../lang/master/tpl/contract/editVarOrders.mtt:727
-#: ../lang/master/tpl/contractadmin/orders.mtt:4514
-#: ../lang/master/tpl/contractadmin/orders.mtt:7463
+#: ../lang/master/tpl/contractadmin/orders.mtt:4413
+#: ../lang/master/tpl/contractadmin/orders.mtt:7289
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089
 #: ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716
@@ -1980,6 +1981,7 @@ msgid "No planned distributions."
 msgstr "Pas de distribution planifiée."
 
 #: ../lang/master/tpl/contractadmin/adddocument.mtt:1367
+#: ../lang/master/tpl/contractadmin/addmedia.mtt:1075
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1999,7 +2001,7 @@ msgstr "Livraisons"
 #: ../lang/master/tpl/contractadmin/contract.mtt:313
 #: ../lang/master/tpl/contractadmin/design.mtt:1786
 #: ../lang/master/tpl/contractadmin/distributions.mtt:1685
-#: ../lang/master/tpl/contractadmin/orders.mtt:602
+#: ../lang/master/tpl/contractadmin/orders.mtt:584
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:87
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:712
 #: ../lang/master/tpl/distribution/default.mtt:7312
@@ -2109,7 +2111,7 @@ msgstr "Toutes les 3 semaines"
 msgid "One time distribution"
 msgstr "Distribution ponctuelle"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:655
+#: ../lang/master/tpl/contractadmin/orders.mtt:634
 #: ../lang/master/tpl/distribution/listByDateOnePage.mtt:371
 #: ../lang/master/tpl/distribution/listByDateOnePage.mtt:1963
 #: ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:371
@@ -2117,15 +2119,15 @@ msgstr "Distribution ponctuelle"
 msgid "Delivery of the"
 msgstr "Distribution du"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:1238
+#: ../lang/master/tpl/contractadmin/orders.mtt:1208
 msgid "New order"
 msgstr "Nouvelle commande"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:1512
+#: ../lang/master/tpl/contractadmin/orders.mtt:1475
 msgid "Summary by products"
 msgstr "Récapitulatif par produits"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:1825
+#: ../lang/master/tpl/contractadmin/orders.mtt:1783
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:725
 #: ../lang/master/tpl/distribution/list.mtt:80
 #: ../lang/master/tpl/distribution/listByDate.mtt:80
@@ -2136,19 +2138,19 @@ msgstr "Récapitulatif par produits"
 msgid "Attendance sheet"
 msgstr "Liste d'émargement"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:2095
+#: ../lang/master/tpl/contractadmin/orders.mtt:2049
 msgid "By Product-User"
 msgstr "Par produit-membre"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:2370
+#: ../lang/master/tpl/contractadmin/orders.mtt:2318
 msgid "Set weights after weighing"
 msgstr "Saisie des poids après pesée"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:2445
+#: ../lang/master/tpl/contractadmin/orders.mtt:2393
 msgid "Stop editing weights"
 msgstr "Terminer la saisie"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:2552
+#: ../lang/master/tpl/contractadmin/orders.mtt:2495
 msgid ""
 "Be careful, there are <b>::disabledProducts::</b> order(s) containing "
 "<b>disabled products</b>."
@@ -2156,11 +2158,11 @@ msgstr ""
 "Attention, il y a <b>::disabledProducts::</b> commande(s) qui contiennent "
 "<b>des produits désactivés</b>."
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:4107
+#: ../lang/master/tpl/contractadmin/orders.mtt:4012
 msgid "Prod. ID"
 msgstr "Réf."
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:4157
+#: ../lang/master/tpl/contractadmin/orders.mtt:4061
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:2806
 #: ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1623
 #: ../lang/master/tpl/distribution/list.mtt:2398
@@ -2174,18 +2176,18 @@ msgstr "Réf."
 msgid "Qty"
 msgstr "Qté"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:4313
+#: ../lang/master/tpl/contractadmin/orders.mtt:4215
 msgid "Unit price including taxes"
 msgstr "Prix unitaire TTC"
 
 #. price per unit
-#: ../lang/master/tpl/contractadmin/orders.mtt:4350
+#: ../lang/master/tpl/contractadmin/orders.mtt:4252
 #: ../lang/master/tpl/history/basket.mtt:540
 #: ../lang/master/tpl/history/csaorders.mtt:924
 msgid "U.P"
 msgstr "P.U"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:7113
+#: ../lang/master/tpl/contractadmin/orders.mtt:6949
 #, fuzzy
 #| msgid ""
 #| "Do you really want to delete this order row for the product \"::"
@@ -2574,7 +2576,7 @@ msgid "Duty periods done / to do"
 msgstr "Permanences faites / à faire"
 
 #: ../lang/master/tpl/distribution/volunteersParticipation.mtt:1737
-#: ../lang/master/tpl/group/view.mtt:5714 ../lang/master/tpl/macros.mtt:12477
+#: ../lang/master/tpl/group/view.mtt:5712 ../lang/master/tpl/macros.mtt:12477
 #: ../lang/master/tpl/place/view.mtt:669
 #: ../lang/master/tpl/vendor/addimage.mtt:336
 msgid "Back"
@@ -2603,15 +2605,15 @@ msgstr ""
 msgid "Technical description of the error"
 msgstr "Description technique de l'erreur"
 
-#: ../lang/master/tpl/group/view.mtt:6032
+#: ../lang/master/tpl/group/view.mtt:6030
 msgid "Next Delivery on ::date::"
 msgstr "Prochaine distribution le ::date::"
 
-#: ../lang/master/tpl/group/view.mtt:8123
+#: ../lang/master/tpl/group/view.mtt:7107
 msgid "Go to my account"
 msgstr "Accéder à mon compte"
 
-#: ../lang/master/tpl/group/view.mtt:8263
+#: ../lang/master/tpl/group/view.mtt:7247
 msgid ""
 "Contact the person in charge in order to subscribe to this group and get to "
 "know membership conditions."
@@ -2619,11 +2621,11 @@ msgstr ""
 "Contactez le responsable pour vous inscrire à ce groupe et connaître les "
 "modalités d'adhésion."
 
-#: ../lang/master/tpl/group/view.mtt:8569
+#: ../lang/master/tpl/group/view.mtt:7553
 msgid "Membership request"
 msgstr "Demande d'adhésion"
 
-#: ../lang/master/tpl/group/view.mtt:8649
+#: ../lang/master/tpl/group/view.mtt:7633
 msgid ""
 "This group accepts subscriptions on waiting list. A coordinator will contact "
 "you."
@@ -2631,50 +2633,50 @@ msgstr ""
 "Ce groupe prend les inscriptions sur liste d'attente. Un coordinateur vous "
 "contactera."
 
-#: ../lang/master/tpl/group/view.mtt:8790
+#: ../lang/master/tpl/group/view.mtt:7774
 #: ../lang/master/tpl/user/choose.mtt:1936
 msgid "Request sent on ::date::"
 msgstr "Demande envoyée le ::date::"
 
-#: ../lang/master/tpl/group/view.mtt:8998
+#: ../lang/master/tpl/group/view.mtt:7982
 #: ../lang/master/tpl/user/choose.mtt:2128
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../lang/master/tpl/group/view.mtt:9317
-#: ../lang/master/tpl/group/view.mtt:9508
+#: ../lang/master/tpl/group/view.mtt:8301
+#: ../lang/master/tpl/group/view.mtt:8492
 msgid "Subscription on waiting list"
 msgstr "Inscription liste d'attente"
 
-#: ../lang/master/tpl/group/view.mtt:9878
+#: ../lang/master/tpl/group/view.mtt:8862
 msgid "Free subscription"
 msgstr "Inscription libre"
 
-#: ../lang/master/tpl/group/view.mtt:10129
+#: ../lang/master/tpl/group/view.mtt:9113
 msgid "This group is full and do not accept any more subscription."
 msgstr "Ce groupe est complet et n'accepte plus de nouvelles inscriptions."
 
-#: ../lang/master/tpl/group/view.mtt:10269
+#: ../lang/master/tpl/group/view.mtt:9253
 msgid "Already member? Log in:"
 msgstr "Déjà membre ?<br/>Connectez-vous :"
 
-#: ../lang/master/tpl/group/view.mtt:10582 ../lang/master/tpl/macros.mtt:1075
+#: ../lang/master/tpl/group/view.mtt:9566 ../lang/master/tpl/macros.mtt:1075
 msgid "Log in"
 msgstr "Connexion"
 
-#: ../lang/master/tpl/group/view.mtt:12363
+#: ../lang/master/tpl/group/view.mtt:11347
 msgid "Next deliveries"
 msgstr "Prochaines distributions"
 
-#: ../lang/master/tpl/group/view.mtt:12678
+#: ../lang/master/tpl/group/view.mtt:11662
 msgid "Documents"
 msgstr "Documents"
 
-#: ../lang/master/tpl/group/view.mtt:12956
+#: ../lang/master/tpl/group/view.mtt:11940
 msgid "Suppliers and products"
 msgstr "Producteurs et produits"
 
-#: ../lang/master/tpl/group/view.mtt:14766
+#: ../lang/master/tpl/group/view.mtt:13750
 msgid "Non-complete extract of available products:"
 msgstr "Extrait non exhaustif des produits proposés :"
 
