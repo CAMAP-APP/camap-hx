@@ -266,6 +266,7 @@ $$browserDetection()
 		gap: 8px;
 	}
 	.groupProductCard {
+    position: relative;
 		width: 169px;
 		min-height: 234px;
 		display: flex;
@@ -553,6 +554,9 @@ $$browserDetection()
 				::foreach p productsPreview::
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
+					<div class="labelIcon" style="position: absolute; top: 10px;left: 10px;" ::cond p.organic::>
+							<i class="icons icon-bio"></i>
+					</div>
 					<div class="groupProductCard_text">
 						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::p.qt::&nbsp;::unit(p._unitType,false)::)</span></div>
 						<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
@@ -565,7 +569,12 @@ $$browserDetection()
 			::foreach p productsPreview::
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
-					<img src="::p.getImage()::" alt="" />
+					<div style="position: relative">
+						<img src="::p.getImage()::" alt="" />
+						<div class="labelIcon" style="position: absolute; top: 10px;left: 10px;" ::cond p.organic::>
+							<i class="icons icon-bio"></i>
+						</div>
+					</div>
 				</div>
 			</div>
 			::end::
