@@ -1017,6 +1017,15 @@ background-color: $state-info-bg-alpha;
   object-fit: scale-down;
 }
 
+.modal-image-background {
+  position: relative;
+  background-color: $white-base;
+  border-radius: 8px;
+  width: 640px;
+  min-height: 320px;
+  padding: 10px;
+}
+
 
 .labelIcon {
   position: relative;

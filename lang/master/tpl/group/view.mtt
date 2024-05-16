@@ -308,6 +308,16 @@ $$browserDetection()
 		justify-items: center
 	}
 
+	.productModal-description {
+		padding-left: 20px;
+	}
+
+	.productModal-title {
+		padding-bottom: 1rem;
+		font-weight: bold;
+		line-height: 1.2rem
+	}
+
 	*[data-toggle="modal"] {
 		cursor: pointer;
 	}
@@ -554,7 +564,7 @@ $$browserDetection()
 				::foreach p productsPreview::
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
-					<div class="labelIcon" style="position: absolute; top: 10px;left: 10px;" ::cond p.organic::>
+					<div class="productLabelIcon" ::cond p.organic::>
 							<i class="icons icon-bio"></i>
 					</div>
 					<div class="groupProductCard_text">
@@ -569,9 +579,13 @@ $$browserDetection()
 			::foreach p productsPreview::
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
-					<div style="position: relative">
+					<div class="modal-image-background">
 						<img src="::p.getImage()::" alt="" />
-						<div class="labelIcon" style="position: absolute; top: 10px;left: 10px;" ::cond p.organic::>
+						<div class="productModal-description">
+							<div class="productModal-title">::p.name::</div>
+							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
+						</div>
+						<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
 							<i class="icons icon-bio"></i>
 						</div>
 					</div>
