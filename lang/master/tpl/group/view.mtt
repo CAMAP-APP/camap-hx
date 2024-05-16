@@ -568,7 +568,7 @@ $$browserDetection()
 							<i class="icons icon-bio"></i>
 					</div>
 					<div class="groupProductCard_text">
-						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::p.qt::&nbsp;::unit(p._unitType,false)::)</span></div>
+						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
 						<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
 							::formatNum(p.price)::&nbsp;::currency()::
 						</div>
