@@ -554,12 +554,9 @@ $$browserDetection()
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
 					<div class="groupProductCard_text">
-						<div id="imglabel-::p.id::">::p.name::</div>
-						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt!=null && catalog.displayPricesOnGroupPage()::>
-							::raw pricePerUnit(p.price,p.qt,p._unitType)::
-						</div>
-						<div class="groupProductCard_price" ::cond p._unitType!=null && p.qt==null && catalog.displayPricesOnGroupPage()::>
-							::raw pricePerUnit(p.price,1,p._unitType)::
+						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::p.qt::&nbsp;::unit(p._unitType,false)::)</span></div>
+						<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
+							::formatNum(p.price)::&nbsp;::currency()::
 						</div>
 					</div>
 				</button>
