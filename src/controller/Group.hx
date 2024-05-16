@@ -57,10 +57,8 @@ class Group extends controller.Controller
 		if ( app.user == null ) {
 			service.UserService.prepareLoginBoxOptions(view,group);
 		}	
-		// view.user = app.user;
-		// view.isMember = isMemberOfGroup;
-		view.user = null;
-		view.isMember = false;
+		view.user = app.user;
+		view.isMember = isMemberOfGroup;
 
 		// Documents
 		view.visibleGroupDocuments = group.getVisibleDocuments( isMemberOfGroup );
