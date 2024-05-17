@@ -305,7 +305,8 @@ $$browserDetection()
 	.productModal {
 		align-content: center;
 		justify-content: center;
-		justify-items: center
+		justify-items: center;
+		width: 100vw;
 	}
 
 	.productModal-description {
@@ -315,8 +316,17 @@ $$browserDetection()
 	.productModal-title {
 		padding-bottom: 1rem;
 		font-weight: bold;
-		line-height: 1.2rem
+		line-height: 1.2rem;
 	}
+
+	.modal-image img {
+        max-width: 100%;
+        object-fit: scale-down;
+        float: left;
+        width: 40%;
+        padding-right: 10px;
+    }
+
 
 	*[data-toggle="modal"] {
 		cursor: pointer;
@@ -583,10 +593,10 @@ $$browserDetection()
 						<img src="::p.getImage()::" alt=""/>
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
+							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
+								<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
+							</div>
 							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
-						</div>
-						<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
-							<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
 						</div>
 					</div>
 				</div>
