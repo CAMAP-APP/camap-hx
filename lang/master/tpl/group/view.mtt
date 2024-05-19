@@ -590,7 +590,7 @@ $$browserDetection()
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt=""/>
+						<img src="::p.getImage()::" alt="Illustration" float="left" width="50%"/>
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
 							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
