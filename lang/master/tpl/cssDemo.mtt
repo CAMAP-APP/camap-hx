@@ -184,10 +184,14 @@
 		</ul>
 	</div>
 	
+	<!-- broken by v1.1.0
+	---- cssDemo.mtt:187: Macro today needs 3 parameters
+
 	$$today(Mercredi,15,Décembre,19,90,::user.getGroup()._mainPlace::)
-	
+		
 	$$date(Mercredi,15,Décembre,19,::user.getGroup()._mainPlace::)
 	
+	-->
 	
 </div>
 ::end::
