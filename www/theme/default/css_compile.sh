@@ -10,9 +10,8 @@ then
         exit 0
 fi
 CAMAPDIR=$1
-cat $CAMAPDIR/camap-hx/www/theme/default/css/variables.less | grep -v keyframes |  sed s/@/$/g > /srv/data/$CAMAPDIR/camap-hx/www/theme/default/css/style.scss
-cat $CAMAPDIR/camap-hx/www/theme/default/css/bootswatch.scss >> /srv/data/$CAMAPDIR/camap-hx/www/theme/default/css/style.scss
-cd /srv/data/bootstrap-3.4.1/
+cat $CAMAPDIR/camap-hx/www/theme/default/css/variables.less | grep -v keyframes |  sed s/@/$/g > $CAMAPDIR/camap-hx/www/theme/default/css/variables.scss
+cd $CAMAPDIR/data/bootstrap-3.4.1/
 cp $CAMAPDIR/camap-hx/www/theme/default/css/variables.less less/variables.less
 grunt dist
 cp -f dist/css/bootstrap.*css* $CAMAPDIR/camap-hx/www/theme/default/css/

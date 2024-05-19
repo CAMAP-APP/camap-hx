@@ -239,6 +239,11 @@ class AmapAdmin extends Controller
 		dispatch.dispatch( new controller.Documents() );
 	}
 
+	function doMedia( dispatch : haxe.web.Dispatch ) {
+		addBc('media',"Media","amapadmin/media");
+		dispatch.dispatch( new controller.Media() );
+	}
+
 	/**
 	 * Set up group currency. Default is EURO
 	 */

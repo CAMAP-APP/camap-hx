@@ -631,7 +631,12 @@ class ContractAdmin extends Controller
 		form.addElement(new StringInput("name", t._("Name of the new catalog"), catalog.name.substr(0,50)  + " - copie"));	
 		var catalogTypes = [ { label : 'Contrat AMAP classique', value : 0 }, { label : 'Contrat AMAP variable', value : 1 } ];
 		form.addElement( new sugoi.form.elements.IntSelect( 'catalogtype', 'Type de catalogue', catalogTypes, catalog.type, true ) );
-		form.addElement(new Checkbox("copyProducts", t._("Copy products"),true));
+		form.addElement(new sugoi.form.elements.RadioGroup('copyProducts', t._("Copy products"), [
+			{value: "none", label: t._("None")},
+			{value: "all", label: t._("All Products")},
+			{value: "onlyActiveProducts", label: t._("Only active products")},
+			], "all"));
+
 		/* Pour superadmin et admin groupe seulement, décoché par défaut v1.0.5 */
 		if (app.user.isAdmin() || app.user.isGroupManager()){
 			
@@ -690,15 +695,25 @@ class ContractAdmin extends Controller
 				ua.giveRight(ContractAdmin(nc.id));
 			}
 			
-			if (form.getValueOf("copyProducts") == true) {
-				var prods = catalog.getProducts();
-				for ( source_p in prods) {
-					var p = ProductService.duplicate(source_p);
-					p.catalog = nc;
-					p.update();
-				}
+			var copyProducts = form.getValueOf("copyProducts");
+			switch (copyProducts) {
+				case "all":
+					var prods = catalog.getProducts(false);
+					for ( source_p in prods) {
+						var p = ProductService.duplicate(source_p);
+						p.catalog = nc;
+						p.update();
+					}
+				case "onlyActiveProducts":
+					var prods = catalog.getProducts(true);
+					for ( source_p in prods) {
+						var p = ProductService.duplicate(source_p);
+						p.catalog = nc;
+						p.update();
+					}
 			}
-			
+
+					
 			if (app.user.isAdmin() || app.user.isGroupManager()){
 				if (form.getValueOf("copyDeliveries") == true) {
 					for ( ds in catalog.getDistribs()) {

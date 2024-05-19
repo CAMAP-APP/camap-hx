@@ -89,12 +89,15 @@
 		<div class="header orders row">
 
 			<div class="dateBoxOffset">
+				<div class="dateBox">
 				::set s = getDate(start)::
+				::set e = getDate(end)::
 				::if isToday(start)::
-				$$today(::s.dow::,::s.d::,::s.m::,::s.y::,::s.h::,null)
+				$$today(::s.dow::,::s::,::e::)
 				::else::
-				$$date(::s.dow::,::s.d::,::s.m::,::s.y::,null)
+				$$date(::s.dow::,::s::,::e::)
 				::end::
+				</div>
 			</div>
 
 			<div class="col-md-6">

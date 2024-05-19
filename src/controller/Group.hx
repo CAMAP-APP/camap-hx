@@ -35,8 +35,18 @@ class Group extends controller.Controller
 			*/
 		}
 		
+		var activeCatalogs = group.getActiveContracts().array();
+		var subCountPerCatalog = new Map<db.Catalog, Int>();
+		for (catalog in activeCatalogs) {
+			subCountPerCatalog[catalog] = db.Subscription.manager.count($catalogId == catalog.id);
+		};
+		activeCatalogs.sort(function (a,b) {
+			var bCount = subCountPerCatalog.exists(b) ? subCountPerCatalog[b] : 0;
+			var aCount = subCountPerCatalog.exists(a) ? subCountPerCatalog[a] : 0;
+			return bCount - aCount;
+		});
+		view.md = db.MultiDistrib.getNextMultiDistrib(group);
 		view.group = group;
-		var activeCatalogs = group.getActiveContracts();
 		view.contracts = activeCatalogs;
 		view.pageTitle = group.name;
 		group.getMainPlace(); //just to update cache
@@ -58,6 +68,11 @@ class Group extends controller.Controller
 			visibleCatalogsDocuments.set( catalog.id, catalog.getVisibleDocuments( app.user ) );
 		}
 		view.visibleCatalogsDocuments = visibleCatalogsDocuments;
+
+		// Media
+		var media : List<sugoi.db.EntityFile> = group.getVisibleMedia( isMemberOfGroup );
+		view.media = media;
+
 	}
 	
 	/**
