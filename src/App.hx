@@ -19,7 +19,7 @@ class App extends sugoi.BaseApp {
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
 	 */ 
-	public static var VERSION = ([1,0,6]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	public static var VERSION = ([1,1,0]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 	
 	public function new(){
 		super();
@@ -94,9 +94,24 @@ class App extends sugoi.BaseApp {
                          </ul>
                         ',
                 bloc4: '
-                        <a href="http://www.amap44.org" target="_blank">
-                             <img src="/theme/default/logo_amap44.png" alt="CAMAP" style="width:145px;"/>
-                        </a>
+							<a href=\"http://www.amap44.org\" target=\"_blank\">
+								<img src=\"/theme/default/logo_amap44.png\" alt=\"CAMAP\" style=\"width:145px;\"/>
+							</a>
+							<br>
+							<table>
+								<caption style=\"color:white\">Camap est co-financé par:</caption>
+								<tr>
+									<td>
+										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo NM\" style=\"width:60px;\"/>&nbsp;
+									</td>
+									<td>
+										<img src=\"/theme/default/Logo_LA.png\" alt=\"Logo LA\" style=\"width:60px;\"/>&nbsp;
+									</td>
+									<td>
+										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo PDL\" style=\"width:60px;\"/>
+									</td>
+								</tr>
+							</table>
                        '
             },
             email:{
@@ -250,6 +265,7 @@ class App extends sugoi.BaseApp {
 		out.set("membershipPrice", "Adhésions : Coût de l'adhésion");
 		out.set("UsersCanOrder", "Les membres peuvent saisir leur commande en ligne");
 		out.set("StockManagement", "Gestion des stocks");
+		out.set("DisplayPricesOnGroupPage", "Afficher les prix des produits sur la page public du groupe");
 		out.set("contact", "Responsable");
 		out.set("PercentageOnOrders", "Ajouter des frais au pourcentage de la commande");
 		out.set("percentageValue", "Pourcentage des frais");

@@ -69,6 +69,18 @@ class MultiDistrib extends Object
 		return multidistribs;
 	}
 
+	public static function getNextMultiDistrib(group: db.Group) : MultiDistrib {
+
+		var multidistribs = new Array<db.MultiDistrib>();
+		var now = Date.now();
+		var now = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
+		var twoMonths = new Date(now.getFullYear(), now.getMonth()+2, now.getDate(), 0, 0, 0);
+		
+		multidistribs = Lambda.array(db.MultiDistrib.manager.search( $group == group && $distribStartDate >= now && $distribStartDate < twoMonths, { orderBy: distribStartDate, limit: 1 } ));
+
+		return multidistribs.length > 0 ? multidistribs[0] : null;
+	}
+
 	public function getPlace(){
 		return place;
 	}

@@ -1,243 +1,616 @@
 ::use 'base.mtt'::
 
+$$browserDetection()
+
 <meta property="og:type"content="website" />
 <meta property="og:url" content="https://::HOST::/group/::group.id::" />
 <meta property="og:title" content="::group.name::" />
 <meta property="og:description" content="::group.txtIntro::" />
-<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />	
+<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
+<script>_Camap.handleAriaTabEvents();</script>
 
-	
-	<div class="col-md-8 col-md-offset-2" style="margin-top:12px;">
+::raw '
+<style>
+	@media (min-width: 1440px) {
+		.container {
+			width: 1400px;
+		}
+	}
+	.layout {
+		display: flex;
+		flex-direction: row;
+	}
+	.side {
+		width: 471px;
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	.main {
+		width: 100%;
+		position: relative;
+		min-height: 1px;
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+	@media (max-width: 991px){
+		.layout {
+			flex-direction: column;
+		}
+		.layout .side {
+			width: 100%;
+			order:1;
+			flex-shrink: 0;
+		}
+	}
+	nav {
+		margin: 24px;
+	}
+	.mapBox {
+		position: relative;
+		width: 441px;
+		height: 441px;
+		border-radius: 8px;
+		border: 1px solid #EB7334;
+		overflow: hidden;
+	}
+	.mapBoxContainer {
+		z-index: 1;
+	}
+	.nextDelivery {
+		line-height: 42px;
+		padding-left: 64px;
+		vertical-align: center;
+		background: rgba(255, 255, 255, 90%);
+		color: #666666;
+		position: absolute;
+		z-index: 1000;
+		width: 100%;
+		font-weight: 700;
+	}
+	.imageList {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		gap: 16px;
+		margin-top: 16px;
+	}
 
-		<!-- Notifications -->
-		<div class="row">
-			<div id="content" class="col-md-12">
-				::foreach notification getMessages()::
-				<div class="alert ::if notification.error:: alert-danger ::else:: alert-success ::end::" ::cond notification::>
-					::if notification.error::
-					<span class="glyphicon glyphicon-exclamation-sign"></span>
-					::else::
-					<i class="icon icon-check"></i>
+	.imageList-button {
+		width: 75px;
+		height: 78px;
+		border-radius: 8px;
+		padding: 0;
+		border: 0;
+		overflow: hidden;
+	}
+
+	.imageList-thumb {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+	.subscriptionPanel {
+		background-color: #5D1E4E;
+		color: white;
+		padding: 32px;
+		border-radius: 8px;
+		margin-top: 16px;
+		margin-bottom: 16px;
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		gap: 16px;
+	}
+
+	.subscriptionPanel > * {
+		margin: 0;
+	}
+
+	.subscriptionPanel .btn-default {
+		min-width: 218px;
+		display: flex;
+		justify-items: center;
+		justify-content: center;
+	}
+	.subscriptionPanel .btn-default * {
+		flex-grow: 1;
+	}
+	.subscriptionPanel .btn-default :first-child {
+		flex-grow: 0;
+	}
+
+	.titleAndContact {
+		width: auto;
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 48px;
+		align-items: center;
+		align-content: space-between;
+	}
+	.titleAndContact > h2 {
+		display: flex;
+		flex-grow: 1;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 16px;
+		align-items: center;
+		align-content: space-between;
+		line-height: 2.3rem;
+	}
+	.titleAndContact > * {
+		margin: 0;
+	}
+	.titleAndContact img {
+		width: 64px;
+		height: auto;
+	}
+	.groupContact {
+		max-width: 275px;
+		flex-shrink: 0;
+		background-color: #F8F8F8;
+		border-radius: 8px 8px 0 0;
+		padding: 8px;
+		min-height: 64px;
+	}
+	.groupContactItem {
+		display: flex;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		gap: 16px;
+		align-items: center;
+		text-align: left;
+	}
+	.groupContactItem > :first-child {
+		width: 16px;
+		flex-shrink: 0;
+		text-align: center;
+	}
+	.groupContactItem > a {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.logo {
+		height:64px;
+		display:inline;
+	}
+	.tabs {
+		background-color: #F8F8F8;
+		border-radius: 8px 0px 8px 8px;
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.tabButton {
+		padding: 8px 24px;
+		border: 0;
+		border-radius: 8px;
+		background-color: #F8F8F8;
+		display: flex;
+		gap:8px;
+		align-items: center;
+		height: 64px;
+	}
+
+	.tabButton[aria-selected="true"] {
+		background-color: #E8E8E8;
+		color: #EB7334;
+	}
+
+	.panel {
+		padding: 24px;
+	}
+
+	.charIcon {
+		font-family: monospace;
+		padding-right: 12px;
+		font-size: 20px;
+		line-height: 20px;
+	}
+
+	.deliveries:not([hidden]) {
+		padding: 24px 8px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.deliveryCatalogs {
+		flex-shrink: 0;
+		flex-grow: 1;
+		background-color: rgba(255,255,255,20%);
+		color: #333333;
+		border-radius: 8px;
+		padding: 8px;
+	}
+	.deliveryCatalogs ul {
+		text-align: left;
+		padding-left: 16px;
+		margin: 0px;
+	}
+
+	.deliveryCatalogs ul > li {
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.deliveryPlace {
+		flex-shrink: 0;
+		flex-grow: 0;
+		line-height: 13px;
+		font-size: 13px;
+		padding: 8px;
+		color: white;
+	}
+
+	.dateBox:not(:first-child) {
+		background-color: #F1F1F1;
+	}
+
+	.dateBox:not(:first-child) .deliveryPlace {
+		color: #333333;
+	}
+
+	.dateBox:not(:first-child) .deliveryPlace a {
+		color: #333333 !important;
+	}
+
+	.groupProductList{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+	.groupProductCard {
+    position: relative;
+		width: 169px;
+		min-height: 234px;
+		display: flex;
+		flex-direction: column;
+		background: #F8F8F8;
+		border: none;
+		border-radius: 8px;
+		padding:0;
+		margin:0;
+		overflow: hidden;
+		align-items: center;
+	}
+
+	.groupProductCard img {
+		width: 169px;
+		height: 169px;
+		object-fit: cover;
+	}
+	.groupProductCard_text {
+		display: flex;
+		flex-direction: column;
+		font-size: 13px;
+		line-height: 13px;
+		margin:16px 8px;
+		gap: 4px;
+		justify-items: center;
+		align-items: center;
+		flex-grow: 1;
+		justify-content: center;
+	}
+	.groupProductCard_price {
+		font-size: 16px;
+		line-height: 18px;
+	}
+
+	.productModal {
+		align-content: center;
+		justify-content: center;
+		justify-items: center;
+		width: 100vw;
+	}
+
+	.productModal-description {
+		padding-left: 20px;
+	}
+
+	.productModal-title {
+		padding-bottom: 1rem;
+		font-weight: bold;
+		line-height: 1.2rem;
+	}
+
+	.modal-image img {
+        max-width: 100%;
+        object-fit: scale-down;
+        float: left;
+        width: 40%;
+        padding-right: 10px;
+    }
+
+
+	*[data-toggle="modal"] {
+		cursor: pointer;
+	}
+</style>
+'::
+<nav>
+	<ol class="breadcrumb">
+		<li><a href="/user/choose"><span class="charIcon">&lt;</span> ::_("Back")::</a></li>
+	</ol>
+</nav>
+
+<div class="layout">
+	<div class="side">
+		<div id="mapBox" class="mapBox" ::cond md!=null::>
+			::set place = md.getPlace()::
+			::set start = md.getDate()::
+			::set s = getDate(start)::
+			::set e = getDate(md.getEndDate())::
+			<div class="nextDelivery">
+				::raw __("Next Delivery on ::date::",{date:hDate(start)})::
+			</div>
+			<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					neo.createNeoModule('::place.id::', 'place', { placeId: ::place.id:: })
+				});
+			</script>
+			<span id="::place.id::"  class="mapBoxContainer"></span>
+		</div>
+		<div class="imageList">
+			::foreach m media::
+			<button class="imageList-button" type="button" data-toggle="modal" data-target="#img-::m.fileId::" title="::m._file.name::">
+				<img class="imageList-thumb" src="::file(m.fileId)::" alt="::m._file.name::" />
+			</button>
+			<div class="modal" id="img-::m.fileId::" tabindex="-1"
+					 aria-labelledby="imglabel-::m.fileId::" aria-hidden="true">
+				<div class="modal-dialog modal-image">
+					<img src="::file(m.fileId)::" alt="" />
+				</div>
+			</div>
+			::end::
+		</div>
+		<div class="subscriptionPanel">
+				::if isMember::
+				<!-- connected and member of the group-->
+				<a href="/user/choose?group=::group.id::" class="btn btn-default">
+					<span class="charIcon">&gt;</span>
+					::_("Go to my account")::
+				</a>
+
+				::else::
+			<h4>Inscriptions :</h4>
+			::switch group._regOption::
+
+			::case::
+			<p>
+				::_("Contact the person in charge in order to subscribe to this group and get to know membership conditions.")::
+			</p>
+			<p ::cond group._contact!=null::>
+				<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::" class="btn btn-default">
+				<span class="charIcon">&gt;</span>
+				<span>::_("Membership request")::</span>
+				</a>
+			</p>
+			::case::
+			<p>
+				::_("This group accepts subscriptions on waiting list. A coordinator will contact you.")::
+			</p>
+			::if isInWaitingList::
+			<p>
+				::__("Request sent on ::date::",{ date:hDate(isInWaitingList.date) })::
+			</p>
+			<p>
+				<a href="/group/listCancel/::isInWaitingList._group.id::" class="btn btn-default"><i class="icon icon-delete"></i> ::_("Cancel")::</a>
+			</p>
+			::else::
+			::if user==null::
+			<p>
+				<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/group/list/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+					<span class="charIcon">&gt;</span>
+					::_("Subscription on waiting list")::
+				</a>
+			</p>
+			::else::
+			<p>
+				<a href="/group/list/::group.id::"  class="btn btn-default">
+					<span class="charIcon">&gt;</span>
+					::_("Subscription on waiting list")::
+				</a>
+			</p>
+			::end::
+			::end::
+
+			::case::
+			::if user==null::
+			<p>
+				<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+					<span class="charIcon">&gt;</span>
+					<span>::_("Free subscription")::</span>
+				</a>
+			</p>
+			::else::
+			<a href="/user/joingroup" class="btn btn-default">
+				<span class="charIcon">&gt;</span>
+				<span>M'inscrire à ce groupe</span>
+			</a>
+			::end::
+
+			::case::
+			<p>
+				::_("This group is full and do not accept any more subscription.")::
+			</p>
+			::end::
+
+			::end::
+
+			::if user==null::
+			<h4>::raw _("Already member? Log in:")::</h4>
+			<div class="text-center">
+				<a href="#" onclick="_Camap.loginBox('/group/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)" class="btn btn-default">
+					<span class="charIcon">&gt;</span>
+					<span>::_("Log in")::</span>
+				</a>
+			</div>
+			::end::
+		</div>
+	</div>
+	<div class="main">
+		<div class="titleAndContact">
+			<h2 class="h1">
+				::if group.imageId!=null::
+				<img src="::file(group.imageId)::" class="logo" alt="" />
+				::end::
+				::group.name::
+			</h2>
+			<div class="groupContact">
+				<div class="groupContactItem">
+					<span class="glyphicon glyphicon-user"></span>
+					<b>::group._contact.firstName:: ::group._contact.lastName::</b>
+				</div>
+				<div class="groupContactItem" ::cond group.extUrl!=null::>
+					<span class="glyphicon glyphicon-share"></span>
+					<a href="::group.extUrl::" target="_blank">::group.extUrl::</a>
+				</div>
+				<div class="groupContactItem" ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
+					<span class="glyphicon glyphicon-earphone"></span>
+					<span>::group._contact.phone::</span>
+				</div>
+				<div class="groupContactItem" ::cond group._contact.email!=null::>
+					<span class="glyphicon glyphicon-envelope"></span>
+					<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a>
+				</div>
+			</div>
+		</div>
+		<div class="tabs" role="tablist" aria-label="Onglets de navigation">
+			<button
+				class="tabButton"
+				role="tab"
+				aria-selected="true"
+				aria-controls="panel-description"
+				id="tab-description"
+				tabindex="0"
+				::cond group.txtIntro!=null && group.txtIntro!=""::
+			>
+				<span class="glyphicon glyphicon-info-sign"></span><span>::_("Description")::</span>
+			</button>
+			<button
+				class="tabButton"
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-nextDeliveries"
+				id="tab-nextDeliveries"
+				tabindex="-1">
+				<span class="glyphicon glyphicon-time"></span><span>::_("Next deliveries")::</span>
+			</button>
+			<button
+				class="tabButton"
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-documents"
+				id="tab-documents"
+				tabindex="-1"
+				::cond visibleGroupDocuments.length != 0::
+			>
+				<span class="glyphicon glyphicon-file"></span><span>::_("Documents")::</span>
+			</button>
+			<button
+				class="tabButton"
+				role="tab"
+				aria-selected="false"
+				aria-controls="panel-suppliersAndProducts"
+				id="tab-suppliersAndProducts"
+				tabindex="-1">
+				<span class="glyphicon glyphicon-user"></span><span>::_("Suppliers and products")::</span>
+			</button>
+		</div>
+		<div id="panel-description" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-description" ::cond group.txtIntro!=null && group.txtIntro!=""::>
+			::raw nl2br(group.txtIntro)::
+		</div>
+		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" hidden="hidden">
+			::foreach del group.getDeliveries(4)::
+			::set d = del._multiDistrib::
+			<div class="dateBox">
+				::if isToday(d.distribStartDate)::
+				$$today(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				::else::
+				$$date(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				::end::
+				<div class="deliveryCatalogs">
+					<ul>
+					::foreach e d.getDistributions(null)::
+					<li>::e._catalog.name::</li>
 					::end::
-					
-					::raw notification.text::					
+					</ul>
+				</div>
+				::if d._place!=null::
+				<div class="deliveryPlace">
+					<i class="icon icon-map-marker"></i>
+					<a onclick="neo.createNeoModule('mapid-::d.id::', 'place-dialog', {placeId: ::d._place.id::})">::d._place::</a>
+					<div style="width: 0px; height: 0px; overflow: hidden">
+						<span id="mapid-::d.id::"></span>
+					</div>
 				</div>
 				::end::
-			</div>	
+			</div>
+			::end::
 		</div>
-		
-		<div class="article">
-			
-			<div class="row">
-				<div class="col-md-4">
-					<p>
-						
-					::if group.imageid!=null::
+		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" hidden="hidden" ::cond visibleGroupDocuments.length != 0::>
+			::foreach doc visibleGroupDocuments::
+			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
+			::end::
+		</div>
+		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" hidden="hidden">
+			<p>
+				::_("Non-complete extract of available products:")::
+			</p>
 
-					   ::if group.extUrl!=null && group.extUrl!=""::
-					   <a href="::group.extUrl::"><img src="::file(group.imageid)::" class="img-responsive img-thumbnail" /></a><br/>
-					   ::else::
-					   <img src="::file(group.imageid)::" class="img-responsive img-thumbnail" /><br/>
-					   ::end::
+			::foreach catalog contracts::
+			<p>
+				<b>::catalog._vendor.name::</b> <br/>
+				$$nullSafe(::catalog._vendor.city::)<br/>
 
-					::end::
-					</p>
-					
-					<p>
-					::if isMember::
-						<!-- connected and member of the group-->
-						<a href="/user/choose?group=::group.id::" class="btn btn-default">
-							<i class="icon icon-chevron-right"></i>
-							 ::_("Go to my account")::
-						</a>
-					
-					::else::
-						
-						<h4>Inscriptions :</h4>
-						::switch group._regOption::
-						
-						::case::
-							<p>
-								::_("Contact the person in charge in order to subscribe to this group and get to know membership conditions.")::
-							</p>
-							<p ::cond group._contact!=null::>
-								<a href="::"mailto:"+group._contact.email+"?subject=Adhésion"::"  class="btn btn-default">
-									<span class="glyphicon glyphicon-envelope"></span>
-									::_("Membership request")::
-								</a>
-							</p>
-						::case::
-							<p>
-								::_("This group accepts subscriptions on waiting list. A coordinator will contact you.")::
-							</p>
-							::if isInWaitingList::
-								<p>
-									::__("Request sent on ::date::",{ date:hDate(isInWaitingList.date) })::
-								</p>
-								<p>
-									<a href="/group/listCancel/::isInWaitingList._group.id::" class="btn btn-default"><i class="icon icon-delete"></i> ::_("Cancel")::</a>
-								</p>
-							::else::
-								::if user==null::
-								<p>
-									<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/group/list/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
-									<i class="icon icon-chevron-right"></i>
-										::_("Subscription on waiting list")::
-									</a>
-								</p>
-								::else::
-								<p>
-									<a href="/group/list/::group.id::"  class="btn btn-default">
-									<i class="icon icon-chevron-right"></i>
-										::_("Subscription on waiting list")::
-									</a>
-								</p>
-								::end::
-							::end::
-							
-						::case::
-							::if user==null::
-							<p>
-								<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
-								<span class="glyphicon glyphicon-plus"></span>
-									::_("Free subscription")::
-								</a>
-							</p>
-							::else::
-								<a href="/user/joingroup" class="btn btn-default btn-sm">
-									<span class="glyphicon glyphicon-plus"></span>
-									M'inscrire à ce groupe
-								</a>
-							::end::
-
-						::case::
-							<p>
-								::_("This group is full and do not accept any more subscription.")::
-							</p>
-						::end::
-					
-					::end::
-						
-					
-					</p>
-					
-					::if user==null::
-						<hr />
-						<h4>::_("Already member? Log in:")::</h4>
-						<div class="text-center">
-							<a href="#" onclick="_Camap.loginBox('/group/::group.id::','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-user"></span> ::_("Log in")::</a>
+				::set productsPreview = catalog.getProductsPreview(6)::
+			<div class="groupProductList">
+				::foreach p productsPreview::
+				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
+					<img src="::p.getImage()::" alt="" />
+					<div class="productLabelIcon" ::cond p.organic::>
+							<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
+					</div>
+					<div class="groupProductCard_text">
+						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
+						<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
+							::formatNum(p.price)::&nbsp;::currency()::
 						</div>
-					::end::
-					
-				</div>
-				<div class="col-md-8">
-					
-					<h2>
-						::group.name::
-					</h2>
-					
-					<p>
-						::if group.txtIntro!=null && group.txtIntro!=""::
-							::raw nl2br(group.txtIntro)::
-						::end::
-					</p>
-					
-					
-					<p>
-						<h3> ::_("Next deliveries")::</h3>
-						
-						::foreach d group.getDeliveries(4)::
-						
-							<div style="display:inline-block;margin-right:8px;vertical-align:top;">
-							::set s = getDate( d.date )::
-							::if isToday(d.date)::
-								$$today(::s.dow::,::s.d::,::s.m::,::s.y::,::s.h::,::d._place::)
-							::else::
-								$$date(::s.dow::,::s.d::,::s.m::,::s.y::,::d._place::)
-							::end::
+					</div>
+				</button>
+				::end::
+			</div>
+			::foreach p productsPreview::
+			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
+				<div class="modal-dialog modal-image">
+					<div class="modal-image-background">
+						<img src="::p.getImage()::" alt=""/>
+						<div class="productModal-description">
+							<div class="productModal-title">::p.name::</div>
+							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
+								<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
 							</div>
-					
-						::end::
-					</p>
-					
-					<hr/>
-					
-					<p ::cond group._contact!=null::>
-						<h3>::_("Contact")::</h3>
-						
-						<i class="icon-user"></i>
- 						<b>::group._contact.firstName:: ::group._contact.lastName::</b><br/>
- 						<span ::cond group._contact.email!=null::>
- 							<span class="glyphicon glyphicon-envelope"></span>
-							<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a><br/>
- 						</span>
- 						<span ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
- 							<span class="glyphicon glyphicon-phone-alt"></span>  ::group._contact.phone::<br/>
- 						</span>
-					</p>
-
-					<hr/>
-					
-					<p ::cond visibleGroupDocuments.length != 0::>
-						<h3>Documents</h3>
-						<div>
-							::foreach doc visibleGroupDocuments::
-								<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>					
-							::end::
+							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
 						</div>
-						<hr/>													
-					</p>
-					
-					<p>
-						<h3>::_("Suppliers and products")::</h3>
-						<p>
-							::_("Non-complete extract of available products:")::
-						</p>
-				
-						::foreach catalog contracts::
-						<p>
-							<b>::catalog._vendor.name::</b> <br/>			
-							$$nullSafe(::catalog._vendor.city::)<br/>
-
-							<div class="row">
-								::foreach p catalog.getProductsPreview(6)::
-								<div class="col-md-2" data-toggle="tooltip" data-placement="top" title="::p.name::" >									
-									<div style="background-image:url('::p.getImage()::')" class="productImg"/> 
-								</div>
-								::end::
-							</div>
-							<div class="row">
-								<div style="padding-left:15px;">									
-									::foreach doc visibleCatalogsDocuments.get( catalog.id )::
-										<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>					
-									::end::
-								</div>
-							</div>	
-						</p>
-						<br/>
-						::end::
-				
-					</p>
-					
+					</div>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			<div class="col-md-4">
-				
-			</div>
-			
-			
+			::end::
+			</p>
+			<br/>
+			::end::
 		</div>
+	</div>
+</div>
 
-	</div>
-	
-	<div class="col-md-12">
-		
-		$$footer()
-	</div>
+<div class="col-md-12">
+	$$footer()
+</div>
 
 ::end::

@@ -8,6 +8,7 @@ enum CatalogFlags {
 	UsersCanOrder;  		//adhérents peuvent saisir eux meme la commande en ligne
 	StockManagement; 		//gestion des commandes
 	PercentageOnOrders;		//calcul d'une commission supplémentaire 
+	DisplayPricesOnGroupPage; //affiche les prix des produits sur la page public du groupe
 }
 
 @:index(startDate,endDate)
@@ -127,6 +128,10 @@ class Catalog extends Object
 	
 	public function hasStockManagement():Bool {
 		return flags.has(StockManagement);
+	}
+	
+	public function displayPricesOnGroupPage():Bool {
+		return flags.has(DisplayPricesOnGroupPage);
 	}
 
 	public function hasConstraints() : Bool {

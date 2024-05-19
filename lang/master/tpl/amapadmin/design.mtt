@@ -35,6 +35,11 @@
 					<i class="icon icon-file-pdf"></i> Documents
 				</a>
 			</li>
+			<li id="media" ::attr class if(category=="media") 'active'::>
+				<a href="/amapadmin/media">
+					<i class="icon icon-file-image"></i> Media
+				</a>
+			</li>
 			::if nav != null::				
 				::foreach i nav::
 					::if i.name != null::

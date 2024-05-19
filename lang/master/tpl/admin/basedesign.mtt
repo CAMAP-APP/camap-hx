@@ -8,7 +8,9 @@
 		</div>
 		
 		<ul class="nav nav-tabs nav-stacked" >
+			<!-- Disabled v1.0.6, incompatibility with mysql upgrade to v8
 			<li><a href="/db"><i class="icon icon-cog"></i> Base de données</a> </li>
+			-->
 			<li><a href="/admin/errors"><i class="icon icon-cog"></i> Errors</a> </li>			
 			<li><a href="/admin/emails"><i class="icon icon-mail"></i> Emails</a> </li>			
 			<li><a href="/admin/messages"><i class="icon icon-info"></i> Message Général</a> </li>	

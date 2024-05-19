@@ -430,6 +430,85 @@ class App {
         req.request();
     }
 
+
+    // implemention ported from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
+    // + add url control as window.location.search
+    public function handleAriaTabEvents() {
+        js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
+            var tabs = Browser.document.querySelectorAll('[role="tab"]');
+            var tabList = Browser.document.querySelector('[role="tablist"]');
+            var search:String = Browser.window.location.search;
+
+            if (search != null && search != '') {
+                var target = Browser.document.querySelector(StringTools.replace(search, '?', '#'));
+                if (target != null) {
+                    selectTab(target, target.parentElement, target.parentElement.parentElement);
+                }
+            }
+
+            // Add a click event handler to each tab
+            for (tab in tabs) {
+                tab.addEventListener('click', changeTabs);
+            }
+
+            // Enable arrow navigation between tabs in the tab list
+            var tabFocus:Int = 0;
+
+            tabList.addEventListener('keydown', function(e:js.html.KeyboardEvent) {
+                // Move right
+                if (e.key == 'ArrowRight' || e.key == 'ArrowLeft') {
+                    var tab:js.html.Element = cast tabs[tabFocus];
+                    tab.setAttribute('tabindex', '-1');
+                    if (e.key == 'ArrowRight') {
+                        tabFocus++;
+                        // If we're at the end, go to the start
+                        if (tabFocus >= tabs.length) {
+                            tabFocus = 0;
+                        }
+                        // Move left
+                    } else if (e.key == 'ArrowLeft') {
+                        tabFocus--;
+                        // If we're at the start, move to the end
+                        if (tabFocus < 0) {
+                            tabFocus = tabs.length - 1;
+                        }
+                    }
+
+                    tab.setAttribute('tabindex', '0');
+                    tab.focus();
+                }
+            });
+        });
+    }
+
+    function selectTab(target:js.html.Element, parent:js.html.Element, grandparent:js.html.Element) {
+        // Remove all current selected tabs
+        var selectedTabs = parent.querySelectorAll('[aria-selected="true"]');
+        for (t in selectedTabs) {
+            cast(t, js.html.Element).setAttribute('aria-selected', 'false');
+        }
+
+        // Set this tab as selected
+        target.setAttribute('aria-selected', 'true');
+
+        // Hide all tab panels
+        var panels = grandparent.querySelectorAll('[role="tabpanel"]');
+        for (p in panels) {
+            cast(p, js.html.Element).setAttribute('hidden', 'true');
+        }
+
+        // Show the selected panel
+        grandparent.parentElement.querySelector('#' + target.getAttribute('aria-controls')).removeAttribute('hidden');
+    }
+
+    function changeTabs(e:js.html.Event) {
+        var target = cast(e.currentTarget, js.html.Element);
+        var parent = target.parentElement;
+        var grandparent = parent.parentElement;
+        selectTab(target, parent, grandparent);
+        var urlUpdated:String = Browser.window.location.protocol + "//" + Browser.window.location.host + Browser.window.location.pathname + '?' + target.getAttribute('id');
+        Browser.window.history.replaceState({path: urlUpdated}, '', urlUpdated);
+    }
 }
 
 

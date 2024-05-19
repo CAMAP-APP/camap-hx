@@ -117,29 +117,10 @@
 			::formatNum(balance)::&nbsp;::currency()::
 		</span>
 	</macro>
-	
-	<macro name="date(dow,d,m,y,place)">
-		<div class="dateBox" >
-			<div class="box">
-				<div>::dow::</div>
-				<div class="date-calendar">::d::</div>
-				<div>::m::</div>				
-			</div>
-			::if place!=null:: 
-			<div style="margin-top:6px;">
-                <i class="icon icon-map-marker"></i>
-                <a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>
-            </div>
-            ::end::
-            <div style="width: 0px; height: 0px; overflow: hidden">
-                <span id="::dow::-::d::-::m::-::y::"></span>	
-            </div>
-		</div>		
-    </macro>
     
     <macro name="placeOsm(place,unique)">
         <i class="icon icon-map-marker"></i>		
-		<a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>		
+		<a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>
 		
         <div style="width: 0px; height: 0px; overflow: hidden">
             <span id="::unique::"></span>	
@@ -278,30 +259,41 @@
 			
 		</div>
 	</macro>
-	
-	<macro name="today(dow,d,m,y,h,place)">
-		<div class="dateBox"  >
-			<div class="box">
-			<img src="/img/go.png" width="40px" style="background-color: #fff;border-radius: 8px;margin: 5px;" />
+	<macro name="today(dow,s,e)">
+		<div class="box">
+			<div class="boxLeft">
+				<img src="/img/go.png" width="40px" style="background-color: #fff;border-radius: 8px;margin: 5px;" />
 				<div style="font-size:14px">
-					::if parseInt(h)<=12::
-						::_("THIS MORNING")::
-					::elseif parseInt(h)<18::
-						<span style="font-size:14px;">CET<br/>::_("AFTERNOON")::</span>
+					::if parseInt(s.h)<=12::
+					::_("THIS MORNING")::
+					::elseif parseInt(s.h)<18::
+					<span style="font-size:14px;">CET<br />::_("AFTERNOON")::</span>
 					::else::
-						::_("THIS EVENING")::
+					::_("THIS EVENING")::
 					::end::
-				
 				</div>
 			</div>
-			::if place!=null:: 
-			<div style="margin-top:6px;">
-                <i class="icon icon-map-marker"></i>
-                <span id="::dow::-::d::-::m::-::y::"></span>
-                <a onclick="neo.createNeoModule('::unique::', 'place-dialog', {placeId: ::place.id::})">::place::</a>
+			<div class="boxRight">
+				<span>::raw s.h+" <sup>h</sup> "::<span ::cond s.i!="00"::>::s.i::</span></span>
+				<div style="background-color: #5D1E4E;width:16px;height:1px;"></div>
+				<span>::raw e.h+" <sup>h</sup> "::<span ::cond e.i!="00"::>::e.i::</span></span>
 			</div>
-			::end::
-		</div>		
+		</div>
+	</macro>
+
+	<macro name="date(dow,s,e)">
+		<div class="box">
+			<div class="boxLeft">
+				<div>::dow::</div>
+				<div class="date-calendar">::s.d::</div>
+				<div>::s.m::</div>
+			</div>
+			<div class="boxRight">
+				<span>::raw s.h+" <sup>h</sup> "::<span ::cond s.i!="00"::>::s.i::</span></span>
+				<div style="background-color: #5D1E4E;width:16px;height:1px;"></div>
+				<span>::raw e.h+" <sup>h</sup> "::<span ::cond e.i!="00"::>::e.i::</span></span>
+			</div>
+		</div>
 	</macro>
 	
 	<macro name="contact(u)">
