@@ -465,7 +465,7 @@ $$browserDetection()
 			<div class="groupContact">
 				<div class="groupContactItem" ::cond group.userId!=null::>
 					<span class="glyphicon glyphicon-user"></span>
-					<b>::group._contact.firstName:: ::group._contact.lastName:: ::cond group._contact!=null::</b>
+					<b>::group._contact.firstName:: ::group._contact.lastName::</b>
 				</div>
 				<div class="groupContactItem" ::cond group.extUrl!=null::>
 					<span class="glyphicon glyphicon-share"></span>
@@ -474,7 +474,7 @@ $$browserDetection()
 				::if group.userId!=null::
 				<div class="groupContactItem" ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
 					<span class="glyphicon glyphicon-earphone"></span>
-					<span>::group._contact.phone:: ::cond group._contact!=null::</span>
+					<span>::group._contact.phone::</span>
 				</div>
 				<div class="groupContactItem" ::cond group._contact.email!=null::>
 					<span class="glyphicon glyphicon-envelope"></span>
