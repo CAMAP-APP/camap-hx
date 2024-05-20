@@ -463,22 +463,24 @@ $$browserDetection()
 				::group.name::
 			</h2>
 			<div class="groupContact">
-				<div class="groupContactItem">
+				<div class="groupContactItem" ::cond group.userId!=null::>
 					<span class="glyphicon glyphicon-user"></span>
-					<b>::group._contact.firstName:: ::group._contact.lastName::</b>
+					<b>::group._contact.firstName:: ::group._contact.lastName:: ::cond group._contact!=null::</b>
 				</div>
 				<div class="groupContactItem" ::cond group.extUrl!=null::>
 					<span class="glyphicon glyphicon-share"></span>
 					<a href="::group.extUrl::" target="_blank">::group.extUrl::</a>
 				</div>
+				::if group.userId!=null::
 				<div class="groupContactItem" ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
 					<span class="glyphicon glyphicon-earphone"></span>
-					<span>::group._contact.phone::</span>
+					<span>::group._contact.phone:: ::cond group._contact!=null::</span>
 				</div>
 				<div class="groupContactItem" ::cond group._contact.email!=null::>
 					<span class="glyphicon glyphicon-envelope"></span>
 					<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a>
 				</div>
+				::end::
 			</div>
 		</div>
 		<div class="tabs" role="tablist" aria-label="Onglets de navigation">
