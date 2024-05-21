@@ -309,6 +309,27 @@ $$browserDetection()
 		width: 100vw;
 	}
 
+	.productLabelIcon {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		border-radius: 50%;
+		overflow: hidden;
+		user-select: none;
+		color: rgb(255, 255, 255);
+		background-color: #2e7d32;
+		width: 32px;
+		height: 32px;
+		margin-right: 4px;
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+		padding-right: 2px;
+		padding-bottom: 2px;
+	}
+
 	.productModal-description {
 		padding-left: 20px;
 	}
@@ -592,7 +613,10 @@ $$browserDetection()
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt="Illustration" float="left" width="50%"/>
+						<img src="::p.getImage()::" alt="" />
+						<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
+							<i class="icons icon-bio"></i>
+						</div>
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
 							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
