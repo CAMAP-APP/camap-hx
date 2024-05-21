@@ -598,7 +598,7 @@ $$browserDetection()
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
 					<div class="productLabelIcon" ::cond p.organic::>
-							<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
+							<i class="icons icon-bio"></i>
 					</div>
 					<div class="groupProductCard_text">
 						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
@@ -620,7 +620,7 @@ $$browserDetection()
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
 							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
-								<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
+								<i class="icons icon-bio"></i>
 							</div>
 							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
 						</div>
