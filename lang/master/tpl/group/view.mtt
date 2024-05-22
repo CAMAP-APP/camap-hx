@@ -310,9 +310,6 @@ $$browserDetection()
 	}
 
 	.productLabelIcon {
-		position: absolute;
-		top: 10px;
-		left: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -332,10 +329,13 @@ $$browserDetection()
 
 	.productModal-description {
 		padding-left: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
 	}
 
 	.productModal-title {
-		padding-bottom: 1rem;
+		padding-bottom: 0.5rem;
 		font-weight: bold;
 		line-height: 1.2rem;
 	}
@@ -597,7 +597,7 @@ $$browserDetection()
 				::foreach p productsPreview::
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
-					<div class="productLabelIcon" ::cond p.organic::>
+					<div class="productLabelIcon" style="margin-top: -10px;margin-bottom: -10px;" ::cond p.organic::>
 							<i class="icons icon-bio"></i>
 					</div>
 					<div class="groupProductCard_text">
@@ -614,12 +614,9 @@ $$browserDetection()
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
 						<img src="::p.getImage()::" alt="" />
-						<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
-							<i class="icons icon-bio"></i>
-						</div>
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
-							<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
+							<div class="productLabelIcon" ::cond p.organic::>
 								<i class="icons icon-bio"></i>
 							</div>
 							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
