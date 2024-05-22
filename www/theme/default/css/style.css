@@ -882,30 +882,14 @@ div.reportHeader {
 
 .modal-image-background {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
   background-color: #ffffff;
   border-radius: 8px;
   width: 640px;
   min-height: 320px;
-  padding: 10px;
-}
-
-.labelIcon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  user-select: none;
-  color: rgb(255, 255, 255);
-  background-color: #2e7d32;
-  width: 32px;
-  height: 32px;
-  margin-right: 4px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
-  padding-right: 2px;
-  padding-bottom: 2px;
+  padding: 16px;
 }
 
 /* hightlight a zone for tutos */

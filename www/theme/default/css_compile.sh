@@ -11,7 +11,7 @@ then
 fi
 CAMAPDIR=$1
 cat $CAMAPDIR/camap-hx/www/theme/default/css/variables.less | grep -v keyframes |  sed s/@/$/g > $CAMAPDIR/camap-hx/www/theme/default/css/variables.scss
-cd $CAMAPDIR/data/bootstrap-3.4.1/
+cd $CAMAPDIR/../bootstrap-3.4.1/
 cp $CAMAPDIR/camap-hx/www/theme/default/css/variables.less less/variables.less
 grunt dist
 cp -f dist/css/bootstrap.*css* $CAMAPDIR/camap-hx/www/theme/default/css/

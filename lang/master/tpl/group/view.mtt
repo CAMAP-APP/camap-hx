@@ -305,18 +305,49 @@ $$browserDetection()
 	.productModal {
 		align-content: center;
 		justify-content: center;
-		justify-items: center
+		justify-items: center;
+		width: 100vw;
+	}
+
+	.productLabelIcon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		border-radius: 50%;
+		overflow: hidden;
+		user-select: none;
+		color: rgb(255, 255, 255);
+		background-color: #2e7d32;
+		width: 32px;
+		height: 32px;
+		margin-right: 4px;
+		box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+		padding-right: 2px;
+		padding-bottom: 2px;
 	}
 
 	.productModal-description {
 		padding-left: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
 	}
 
 	.productModal-title {
-		padding-bottom: 1rem;
+		padding-bottom: 0.5rem;
 		font-weight: bold;
-		line-height: 1.2rem
+		line-height: 1.2rem;
 	}
+
+	.modal-image img {
+        max-width: 100%;
+        object-fit: scale-down;
+        float: left;
+        width: 40%;
+        padding-right: 10px;
+    }
+
 
 	*[data-toggle="modal"] {
 		cursor: pointer;
@@ -453,7 +484,7 @@ $$browserDetection()
 				::group.name::
 			</h2>
 			<div class="groupContact">
-				<div class="groupContactItem">
+				<div class="groupContactItem" ::cond group.userId!=null::>
 					<span class="glyphicon glyphicon-user"></span>
 					<b>::group._contact.firstName:: ::group._contact.lastName::</b>
 				</div>
@@ -461,6 +492,7 @@ $$browserDetection()
 					<span class="glyphicon glyphicon-share"></span>
 					<a href="::group.extUrl::" target="_blank">::group.extUrl::</a>
 				</div>
+				::if group.userId!=null::
 				<div class="groupContactItem" ::cond group._contact.phone!=null && (isMember || group.canExposePhone())::>
 					<span class="glyphicon glyphicon-earphone"></span>
 					<span>::group._contact.phone::</span>
@@ -469,6 +501,7 @@ $$browserDetection()
 					<span class="glyphicon glyphicon-envelope"></span>
 					<a href="::"mailto:"+group._contact.email::">::group._contact.email::</a>
 				</div>
+				::end::
 			</div>
 		</div>
 		<div class="tabs" role="tablist" aria-label="Onglets de navigation">
@@ -564,8 +597,8 @@ $$browserDetection()
 				::foreach p productsPreview::
 				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
 					<img src="::p.getImage()::" alt="" />
-					<div class="productLabelIcon" ::cond p.organic::>
-							<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
+					<div class="productLabelIcon" style="margin-top: -10px;margin-bottom: -10px;" ::cond p.organic::>
+							<i class="icons icon-bio"></i>
 					</div>
 					<div class="groupProductCard_text">
 						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
@@ -580,13 +613,13 @@ $$browserDetection()
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt=""/>
+						<img src="::p.getImage()::" alt="" />
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
+							<div class="productLabelIcon" ::cond p.organic::>
+								<i class="icons icon-bio"></i>
+							</div>
 							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
-						</div>
-						<div class="productLabelIcon" style="top: 20px;left: 20px;" ::cond p.organic::>
-							<i class="icons icon-bio" style="color:white;background-color:green;border-radius:50%;border-style: solid;border-color: green;"></i>
 						</div>
 					</div>
 				</div>
