@@ -440,7 +440,9 @@ class App {
             var search:String = Browser.window.location.search;
 
             if (search != null && search != '') {
-                var target = Browser.document.querySelector(StringTools.replace(search, '?', '#'));
+                var target:js.html.Element = null;
+                
+                var target = Browser.document.getElementById(StringTools.replace(search, '?', ''));
                 if (target != null) {
                     selectTab(target, target.parentElement, target.parentElement.parentElement);
                 }
@@ -482,23 +484,27 @@ class App {
     }
 
     function selectTab(target:js.html.Element, parent:js.html.Element, grandparent:js.html.Element) {
-        // Remove all current selected tabs
-        var selectedTabs = parent.querySelectorAll('[aria-selected="true"]');
-        for (t in selectedTabs) {
-            cast(t, js.html.Element).setAttribute('aria-selected', 'false');
+        try {
+            // Remove all current selected tabs
+            var selectedTabs = parent.querySelectorAll('[aria-selected="true"]');
+            for (t in selectedTabs) {
+                cast(t, js.html.Element).setAttribute('aria-selected', 'false');
+            }
+
+            // Set this tab as selected
+            target.setAttribute('aria-selected', 'true');
+
+            // Hide all tab panels
+            var panels = grandparent.querySelectorAll('[role="tabpanel"]');
+            for (p in panels) {
+                cast(p, js.html.Element).setAttribute('hidden', 'true');
+            }
+
+            // Show the selected panel
+            grandparent.parentElement.querySelector('#' + target.getAttribute('aria-controls')).removeAttribute('hidden');
+        } catch (e:Dynamic) {
+            js.Browser.console.log("Error:" + e);
         }
-
-        // Set this tab as selected
-        target.setAttribute('aria-selected', 'true');
-
-        // Hide all tab panels
-        var panels = grandparent.querySelectorAll('[role="tabpanel"]');
-        for (p in panels) {
-            cast(p, js.html.Element).setAttribute('hidden', 'true');
-        }
-
-        // Show the selected panel
-        grandparent.parentElement.querySelector('#' + target.getAttribute('aria-controls')).removeAttribute('hidden');
     }
 
     function changeTabs(e:js.html.Event) {

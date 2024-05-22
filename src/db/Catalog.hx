@@ -8,7 +8,7 @@ enum CatalogFlags {
 	UsersCanOrder;  		//adhérents peuvent saisir eux meme la commande en ligne
 	StockManagement; 		//gestion des commandes
 	PercentageOnOrders;		//calcul d'une commission supplémentaire 
-	DisplayPricesOnGroupPage; //affiche les prix des produits sur la page public du groupe
+	DisplayPricesOnGroupPage; //affiche les prix des produits sur la page publique du groupe
 }
 
 @:index(startDate,endDate)
