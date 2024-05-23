@@ -1,5 +1,6 @@
 package service;
 
+import Common.StockTracking;
 import controller.Product;
 import sugoi.form.elements.Html;
 import tink.core.Error;
@@ -108,8 +109,8 @@ class ProductService{
 
 		//stock mgmt ?
 		if (!product.catalog.hasStockManagement()){
-			f.removeElementByName('stock');	
-			f.removeElementByName('currentStock');	
+			f.removeElementByName('stock');
+			f.removeElementByName('currentStock');
 			f.removeElementByName('stockTracking');	
 			f.removeElementByName('stockTrackingPerDistrib');	
 		} 
@@ -118,6 +119,7 @@ class ProductService{
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			var now = Date.now();
+
 			//Nbre de distri restantes
 			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
 			// Si distri > 0
@@ -127,20 +129,31 @@ class ProductService{
 					stock.value = product.stock;
 				}
 
-				var currentStock = f.getElement("currentStock");
-				currentStock.attributes = "disabled=\"disabled\"";
+				if (catalog != null) {
+					// insert mode, ignore currentStock
+					f.removeElementByName('currentStock');
+				} else {
+					var currentStock = f.getElement("currentStock");
+					currentStock.attributes = "disabled=\"disabled\"";
 
-				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
-				if (nextDistribs[0] != null) {
-					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
-					var totOrdersQt : Float = 0;
-					for (actualOrder in actualOrders) totOrdersQt += actualOrder.quantity;
-					// Stock dispo = stock - commandes en cours
-					if (product.stock != null) currentStock.value = product.stock - totOrdersQt;
+					var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
+					if (nextDistribs[0] != null) {
+						var actualOrders:List<db.UserOrder>;
+						if (product.stockTracking == StockTracking.PerDistribution) {
+							actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+						} else if (product.stockTracking == StockTracking.Global) {
+							actualOrders = db.UserOrder.manager.search($productId==product.id, true);
+						} else {
+							actualOrders = new List<db.UserOrder>();
+						}
+						var totOrdersQt : Float = 0;
+						for (actualOrder in actualOrders) totOrdersQt += actualOrder.quantity;
+						// Stock dispo = stock - commandes en cours
+						if (product.stock != null) currentStock.value = product.stock - totOrdersQt;
+					}
 				}
-			}
+			} else {
 			// Sinon (pas distri planifiées)
-			else {
 			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
 			product.stock = null;
 			stock.value = product.stock;

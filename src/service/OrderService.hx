@@ -211,28 +211,36 @@ class OrderService
 		}
 
 		//stocks
-		
-		if (order.product.stock != null) {
-			var c = order.product.catalog;
+		var product = order.product;
+		if (product.stock != null) {
+			var c = product.catalog;
 			
+			// TODO: to update
 			if (c.hasStockManagement()) {
 				var totOrdersQt : Float = 0;
-				var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $distributionId==order.distribution.id, true);
+				var actualOrders:List<db.UserOrder>;
+				if (product.stockTracking == StockTracking.PerDistribution) {
+					actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==order.distribution.id, true);
+				} else if (product.stockTracking == StockTracking.Global) {
+					actualOrders = db.UserOrder.manager.search($productId==product.id, true);
+				} else {
+					actualOrders = new List<db.UserOrder>();
+				}
 				for (actualOrder in actualOrders) {
 					totOrdersQt += actualOrder.quantity;
 				}
 				totOrdersQt -= order.quantity;
 				// Stock dispo = stock - commandes en cours
-				var availableStock = order.product.stock - totOrdersQt;
+				var availableStock = product.stock - totOrdersQt;
 				if (availableStock == 0 && newquantity != 0) {
 					newquantity = 0;
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
+					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé');	
 				} else if (newquantity >= order.quantity && availableStock - newquantity < 0) {
 						//stock is not enough, cancel
 						newquantity = availableStock;
 						order.quantity = newquantity;
 						order.update();
-						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 				}
 			}	
 		}

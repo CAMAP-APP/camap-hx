@@ -32,12 +32,7 @@ class Product extends Controller
 			f.toSpod(product);
 
 			//manage stocks by distributions for CSA contracts
-			if(product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				
-				/* On arrête de calculer un stock total qui n'a pas de sens */
-				// var now = Date.now();
-				// var distribNum = db.Distribution.manager.count( $orderEndDate > now && $catalogId==product.catalog.id);
-				// product.stock = (f.getValueOf("stock"):Float) * distribNum;
+			if (product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
 				product.stock = (f.getValueOf("stock"):Float);
 			}
 			try{

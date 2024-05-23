@@ -166,7 +166,14 @@ class ContractAdmin extends Controller
 			if (nextDistribs[0] != null){
 				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
 				for (product in contract.getProducts(false)){
-					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+					var actualOrders:List<db.UserOrder>;
+					if (product.stockTracking == StockTracking.PerDistribution) {
+						actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+					} else if (product.stockTracking == StockTracking.Global) {
+						actualOrders = db.UserOrder.manager.search($productId==product.id, true);
+					} else {
+						actualOrders = new List<db.UserOrder>();
+					}
 					var totOrdersQt : Float = 0;
 					for (actualOrder in actualOrders) {
 						totOrdersQt += actualOrder.quantity;
