@@ -21,6 +21,9 @@ class Product extends Object
 	
 	public var desc : SNull<SText>;
 	public var stock : SNull<SFloat>; //if qantity can be float, stock should be float
+	public var currentStock : SNull<SFloat>; // not in db: calculated
+	public var stockTracking : SEnum<StockTracking>;
+	public var stockTrackingPerDistrib : SEnum<StockTrackingPerDistribution>; // if "stockTracking" is "PerDistribution", stockTrackingPerDistrib is the rule to use.
 	
 	public var unitType : SNull<SEnum<Unit>>; // Kg / L / g / units
 	public var qt : SNull<SFloat>;
@@ -166,20 +169,23 @@ class Product extends Object
 	public static function getLabels(){
 		var t = sugoi.i18n.Locale.texts;
 		return [
-			"name" 				=> t._("Product name"),
-			"ref" 				=> t._("Product ID"),
-			"price" 			=> t._("Price"),
-			"desc" 				=> t._("Description"),
-			"stock" 			=> t._("Stock"),
-			"unitType" 			=> t._("Base unit"),
-			"qt" 				=> t._("Quantity"),			
-			"hasFloatQt" 		=> t._("Allow fractional quantities"),			
-			"active" 			=> t._("Available"),			
-			"organic" 			=> t._("Organic agriculture"),			
-			"vat" 				=> t._("VAT Rate"),			
-			"variablePrice"		=> t._("Variable price based on weight"),			
-			"multiWeight" 		=> t._("Multi-weighing"),	
-			"bulk" 				=> "Vrac",
+			"name" 					=> t._("Product name"),
+			"ref" 					=> t._("Product ID"),
+			"price" 				=> t._("Price"),
+			"desc" 					=> t._("Description"),
+			"stock" 				=> t._("Stock"),
+			"unitType" 				=> t._("Base unit"),
+			"qt" 					=> t._("Quantity"),			
+			"hasFloatQt" 			=> t._("Allow fractional quantities"),			
+			"active" 				=> t._("Available"),			
+			"organic" 				=> t._("Organic agriculture"),			
+			"vat" 					=> t._("VAT Rate"),			
+			"variablePrice"			=> t._("Variable price based on weight"),			
+			"multiWeight" 			=> t._("Multi-weighing"),	
+			"bulk" 					=> "Vrac",
+			"currentStock" 			=> t._("Current stock"),
+			"stockTracking" 		=> t._("Stock tracking"),
+			"stockTrackingPerDistrib" => t._("Stock per distribution configuration"),
 		];
 	}
 	

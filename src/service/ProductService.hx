@@ -109,6 +109,9 @@ class ProductService{
 		//stock mgmt ?
 		if (!product.catalog.hasStockManagement()){
 			f.removeElementByName('stock');	
+			f.removeElementByName('currentStock');	
+			f.removeElementByName('stockTracking');	
+			f.removeElementByName('stockTrackingPerDistrib');	
 		} 
 		else 
 		{
@@ -120,10 +123,22 @@ class ProductService{
 			// Si distri > 0
 			if (distLeft > 0) {
 				stock.label = "Stock par distribution ("+distLeft+ " distributions restantes)";				 
-				if(product.stock!=null){
-					stock.value = Math.floor( product.stock );
+				if (product.stock!=null){
+					stock.value = product.stock;
 				}
-			} 
+
+				var currentStock = f.getElement("currentStock");
+				currentStock.attributes = "disabled=\"disabled\"";
+
+				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
+				if (nextDistribs[0] != null) {
+					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
+					var totOrdersQt : Float = 0;
+					for (actualOrder in actualOrders) totOrdersQt += actualOrder.quantity;
+					// Stock dispo = stock - commandes en cours
+					if (product.stock != null) currentStock.value = product.stock - totOrdersQt;
+				}
+			}
 			// Sinon (pas distri planifiées)
 			else {
 			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 

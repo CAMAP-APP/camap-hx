@@ -1,4 +1,11 @@
 ::use 'contractadmin/design.mtt'::
+::raw '
+<style>
+.table > tbody > tr > th {
+	line-height: 1.1
+}
+</style>
+'::
 	
 	<h3>::_("Products")::</h3>
 		
@@ -72,11 +79,9 @@
 			<th></th>
 			<th>::_("Product ID||id or reference of a product")::</th>
 			<th>::_("Name")::</th>			
-			<th>::_("Price")::</th>			
-			<th>
-				::if (c.hasStockManagement() && stockDate != null)::
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock"):: 
-				::end::
+			<th>::_("Price")::</th>
+			<th ::cond c.hasStockManagement() && stockDate != null::>
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Current stock"):: / ::_("Initial stock")::
 			</th>
 			<th></th>
 		</tr>
@@ -110,20 +115,19 @@
 				</div>
 			</td>			
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
-			<td>
-			::if (c.hasStockManagement() && stockDate != null)::
-				::if p.stock==null::
+			<td ::cond (c.hasStockManagement() && stockDate != null)::>
+				::if p.currentStock==null && p.stock != null::
 					-
 				::else::
-					::if p.stock <= 10::
+					::if p.currentStock <= 10::
 						<span style="color:red;font-weight:bold;">							
-							::p.stock::
+							::p.currentStock:: / ::p.stock::
 						</span>
 					::else::
-						::p.stock::
+						::p.currentStock:: / ::p.stock::
 					::end::
+					<span ::cond p.stockTracking != null && p.stockTracking == 1::>(global)</span>
 				::end::
-			::end::
 			</td>
 			<td>
 				<div class="btn-group" role="group">
