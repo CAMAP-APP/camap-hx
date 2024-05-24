@@ -1,9 +1,10 @@
 package controller.amapadmin;
+import service.VolunteerService;
+import sugoi.form.elements.Checkbox;
 import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
 import sugoi.form.elements.TextArea;
-import service.VolunteerService;
 
 class Volunteers extends controller.Controller
 {
@@ -15,6 +16,11 @@ class Volunteers extends controller.Controller
 		checkToken();
 
 		var form = new sugoi.form.Form("msg");
+		// new
+		form.addElement( new Checkbox("allowInformationNotifs", t._("Authorize the sending of information emails to volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowInformationNotifs)));
+		form.addElement( new Checkbox("allowAlertNotifs", t._("Authorize the sending of alert emails to free volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowAlertNotifs)));
+
+		// end new
 		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 365)"), app.user.getGroup().daysBeforeDutyPeriodsOpen, true) );
 		
 		form.addElement( new IntInput("maildays", t._("Number of days before duty period to send mail"), app.user.getGroup().volunteersMailDaysBeforeDutyPeriod, true) );
@@ -48,6 +54,10 @@ class Volunteers extends controller.Controller
 			group.volunteersMailContent = form.getValueOf("volunteersMailContent");
 			group.vacantVolunteerRolesMailDaysBeforeDutyPeriod = form.getValueOf("alertmaildays");
 			group.alertMailContent = form.getValueOf("alertMailContent");
+			// notifs
+			form.getValueOf("allowInformationNotifs") ? group.flags.set(db.Group.GroupFlags.AllowInformationNotifs) : group.flags.unset(db.Group.GroupFlags.AllowInformationNotifs);
+			form.getValueOf("allowAlertNotifs") ? group.flags.set(db.Group.GroupFlags.AllowAlertNotifs) : group.flags.unset(db.Group.GroupFlags.AllowAlertNotifs);
+
 			group.update();
 			
 			throw Ok("/amapadmin/volunteers", t._("Your changes have been successfully saved."));
