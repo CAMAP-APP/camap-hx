@@ -102,13 +102,13 @@ class App extends sugoi.BaseApp {
 								<caption style=\"color:white\">Camap est co-financé par:</caption>
 								<tr>
 									<td>
-										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo NM\" style=\"width:60px;\"/>&nbsp;
+										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo Nantes Métropole\" style=\"width:60px;\"/>&nbsp;
 									</td>
 									<td>
-										<img src=\"/theme/default/Logo_LA.png\" alt=\"Logo LA\" style=\"width:60px;\"/>&nbsp;
+										<img src=\"/theme/default/Logo_BUPA.png\" alt=\"Logo Budget Participatif de Loire-Atlantique 2023\" style=\"width:60px;\"/>&nbsp;
 									</td>
 									<td>
-										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo PDL\" style=\"width:60px;\"/>
+										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo Pays-de-la-Loire\" style=\"width:60px;\"/>
 									</td>
 								</tr>
 							</table>
