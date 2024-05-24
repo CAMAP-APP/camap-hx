@@ -129,34 +129,29 @@ class ProductService{
 					stock.value = product.stock;
 				}
 
-				if (catalog != null) {
-					// insert mode, ignore currentStock
-					f.removeElementByName('currentStock');
-				} else {
-					var currentStock = f.getElement("currentStock");
-					currentStock.attributes = "disabled=\"disabled\"";
-
+				// Si catalog, on est en mode création et on a pas encore configuré de stock
+				// Si catalog == null, on est en mode modification et c'est intéressant d'afficher une info de stock
+				if (catalog == null) {
+					var stockElem = f.getElement("stock");
 					var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
 					if (nextDistribs[0] != null) {
-						var actualOrders:List<db.UserOrder>;
-						if (product.stockTracking == StockTracking.PerDistribution) {
-							actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
-						} else if (product.stockTracking == StockTracking.Global) {
-							actualOrders = db.UserOrder.manager.search($productId==product.id, true);
-						} else {
-							actualOrders = new List<db.UserOrder>();
-						}
-						var totOrdersQt : Float = 0;
-						for (actualOrder in actualOrders) totOrdersQt += actualOrder.quantity;
-						// Stock dispo = stock - commandes en cours
-						if (product.stock != null) currentStock.value = product.stock - totOrdersQt;
+						var stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
+						var t = sugoi.i18n.Locale.texts;
+						f.addElement(
+							new sugoi.form.elements.Html(
+								"avalaibleStockInfo", 
+								'<div style="padding-top:6px">${product.getAvailableStock(nextDistribs[0].id, null)}</div>', 
+								t._("Available stock") + ' <i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ${stockDate}">&nbsp;</i>'
+							), 
+							f.elements.indexOf(stockElem) + 1 // after "stocks"
+						);
 					}
 				}
 			} else {
-			// Sinon (pas distri planifiées)
-			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
-			product.stock = null;
-			stock.value = product.stock;
+				// Sinon (pas distri planifiées)
+				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
+				product.stock = null;
+				stock.value = product.stock;
 			}
 			
 		}
@@ -185,30 +180,4 @@ class ProductService{
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
 		}
 	}
-
-	/**
-		Calcul le stock disponible d'un produit pour une distribution
-	**/
-	/* DESACTIVEE CAR INUTILISEE 
-	public static function calculateStock(catalog:db.Catalog, product:db.Product):Float {
-		if (catalog.hasStockManagement()) {
-			var now = Date.now();
-			var totOrdersQt : Float = 0;
-			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==catalog.id),{orderBy:orderEndDate}).array();
-			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
-			for (actualOrder in actualOrders) {
-				totOrdersQt += actualOrder.quantity;
-			}
-			// Stock dispo = stock - commandes en cours
-			if (product.stock != null)  {
-				var availableStock = product.stock - totOrdersQt;
-				return availableStock;
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-	*/
 }

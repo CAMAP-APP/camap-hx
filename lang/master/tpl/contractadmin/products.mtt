@@ -81,7 +81,7 @@
 			<th>::_("Name")::</th>			
 			<th>::_("Price")::</th>
 			<th ::cond c.hasStockManagement() && stockDate != null::>
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Current stock"):: / ::_("Initial stock")::
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Available stock"):: / ::_("Initial stock")::
 			</th>
 			<th></th>
 		</tr>
@@ -115,18 +115,30 @@
 				</div>
 			</td>			
 			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
-			<td ::cond (c.hasStockManagement() && stockDate != null)::>
-				::if p.currentStock==null && p.stock != null::
-					-
+			<td ::cond (c.hasStockManagement())::>
+				::if stockDate == null || nextDistribId == null::
+					<span style="color:red;font-weight:bold;">
+						Aucune distribution planifiée.
+					</span>
 				::else::
-					::if p.currentStock <= 10::
-						<span style="color:red;font-weight:bold;">							
-							::p.currentStock:: / ::p.stock::
+					::set availableStock = p.getAvailableStock(nextDistribId, null)::
+					::if p.hasStockTracking() && p.stock == null::
+						<span style="color:red;font-weight:bold;">
+							Le stock initial a besoin d'être renseigné.
 						</span>
+					::elseif availableStock==null || p.stock == null::
+						-
 					::else::
-						::p.currentStock:: / ::p.stock::
+						::if availableStock <= 10::
+							<span style="color:red;font-weight:bold;">
+								::availableStock:: / ::p.stock::
+							</span>
+						::else::
+							::availableStock:: / ::p.stock::
+						::end::
+						<span ::cond p.stockTracking != null && p.stockTracking == 1::>(global)</span>
+						<span ::cond p.stockTracking != null && p.stockTracking == 2::>(par distrib.)</span>
 					::end::
-					<span ::cond p.stockTracking != null && p.stockTracking == 1::>(global)</span>
 				::end::
 			</td>
 			<td>

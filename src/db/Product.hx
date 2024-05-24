@@ -21,7 +21,6 @@ class Product extends Object
 	
 	public var desc : SNull<SText>;
 	public var stock : SNull<SFloat>; //if qantity can be float, stock should be float
-	public var currentStock : SNull<SFloat>; // not in db: calculated
 	public var stockTracking : SEnum<StockTracking>;
 	public var stockTrackingPerDistrib : SEnum<StockTrackingPerDistribution>; // if "stockTracking" is "PerDistribution", stockTrackingPerDistrib is the rule to use.
 	
@@ -50,6 +49,43 @@ class Product extends Object
 		unitType = Unit.Piece;
 		qt = 1;
 		
+	}
+
+	public function getAvailableStock(nextDistribId:Null<SId>, ignoreOrderId:Null<SId> = null):Float {
+		if (this.stock == null || !this.hasStockTracking()) return null;
+
+		var existingOrders:List<db.UserOrder>;
+		if (this.stockTracking == StockTracking.PerDistribution && nextDistribId != null) {
+			if (ignoreOrderId != null) {
+				existingOrders = db.UserOrder.manager.search($productId==this.id && $distributionId==nextDistribId && $id!=ignoreOrderId && $quantity>0, true);
+			} else {
+				existingOrders = db.UserOrder.manager.search($productId==this.id && $distributionId==nextDistribId && $quantity>0, true);
+			}
+			
+		} else if (this.stockTracking == StockTracking.Global) {
+			if (ignoreOrderId != null) {
+				existingOrders = db.UserOrder.manager.search($productId==this.id && $id!=ignoreOrderId && $quantity>0, true);
+			} else {
+				existingOrders = db.UserOrder.manager.search($productId==this.id && $quantity>0, true);
+			}
+			
+		} else {
+			existingOrders = new List<db.UserOrder>();
+		}
+		var totOrdersQt : Float = 0;
+		for (order in existingOrders) {
+			// if multiWeight, the exact weight does not matters, only the item count and there can be only 1 per line
+			// also the stock for multiweight products is the number of products, not the quantité
+			totOrdersQt += this.multiWeight ? 1 : order.quantity;
+		}
+		// Stock dispo = stock - commandes en cours ou terminées
+		var availableStock = this.stock - totOrdersQt;
+		if (availableStock < 0) availableStock = 0;
+		return availableStock.clean();
+	}
+
+	public function hasStockTracking():Bool {
+		return this.stockTracking != StockTracking.Disabled && this.stockTracking != null;
 	}
 	
 	/**
@@ -183,7 +219,6 @@ class Product extends Object
 			"variablePrice"			=> t._("Variable price based on weight"),			
 			"multiWeight" 			=> t._("Multi-weighing"),	
 			"bulk" 					=> "Vrac",
-			"currentStock" 			=> t._("Current stock"),
 			"stockTracking" 		=> t._("Stock tracking"),
 			"stockTrackingPerDistrib" => t._("Stock per distribution configuration"),
 		];
