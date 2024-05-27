@@ -1036,7 +1036,7 @@ msgstr ""
 msgid "Initial stock"
 msgstr "Stock initial"
 
-msgid "Current stock"
+msgid "Available stock"
 msgstr "Stock actuel"
 
 msgid "Stock tracking"
@@ -1860,9 +1860,7 @@ msgid "U.P"
 msgstr ""
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:6949
-msgid ""
-"Do you really want to delete this order row for the product \"::o.productName::\" "
-"?"
+msgid "Do you really want to delete this order row for the product \"::productName::\" ?"
 msgstr ""
 
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:261

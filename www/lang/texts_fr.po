@@ -1173,7 +1173,7 @@ msgstr "Stock"
 msgid "Initial stock"
 msgstr "Stock initial"
 
-msgid "Current stock"
+msgid "Available stock"
 msgstr "Stock actuel"
 
 msgid "Stock tracking"
@@ -2218,15 +2218,8 @@ msgid "U.P"
 msgstr "P.U"
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:6949
-#, fuzzy
-#| msgid ""
-#| "Do you really want to delete this order row for the product \"::"
-#| "productName::\" ?"
-msgid ""
-"Do you really want to delete this order row for the product \"::o."
-"productName::\" ?"
-msgstr ""
-"Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
+msgid "Do you really want to delete this order row for the product \"::productName::\"?"
+msgstr "Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
 
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:273
 msgid "Validated"
