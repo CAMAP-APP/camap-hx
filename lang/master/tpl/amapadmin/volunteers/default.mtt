@@ -50,6 +50,30 @@ $$insert(::_("Add a role")::,/amapadmin/volunteers/insertRole)
 
 ::raw form::
 
+<!-- Management of alert fields state (enabled / disabled) -->
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// notifs info
+		let allowInfoNotifsToggle = document.getElementById("msg_allowInformationNotifs"); 
+		function handleInfoNotifChange() { 
+			_Camap.setReadonly(document.getElementById("msg_maildays"), !allowInfoNotifsToggle.checked);
+			_Camap.setReadonly(document.getElementById("msg_volunteersMailContent"), !allowInfoNotifsToggle.checked);
+		} 
+		allowInfoNotifsToggle.addEventListener("change", handleInfoNotifChange); 
+		handleInfoNotifChange();
+
+		// notifs alert
+		let allowAlertNotifsToggle = document.getElementById("msg_allowAlertNotifs"); 
+		function handleAlertNotifChange() { 
+			_Camap.setReadonly(document.getElementById("msg_alertmaildays"),!allowAlertNotifsToggle.checked);
+			_Camap.setReadonly(document.getElementById("msg_alertMailContent"),!allowAlertNotifsToggle.checked);
+		} 
+		allowAlertNotifsToggle.addEventListener("change", handleAlertNotifChange); 
+		handleAlertNotifChange();
+
+
+	});
+</script>
 
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script>

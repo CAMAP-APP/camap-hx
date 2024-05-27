@@ -1,37 +1,33 @@
+import Common;
+import bootstrap.Modal;
 import haxe.macro.Expr.Catch;
+import js.Browser;
 import js.html.Console;
 import js.lib.Promise;
-import bootstrap.Modal;
-import js.Browser;
-import Common;
-import utils.HttpUtil;
-// import thx.semver.Version;
-
-//React lib
-import react.ReactMacro.jsx;
-import react.ReactDOM;
-import react.*;
-
-//mui
-import react.mui.CamapTheme;
 import mui.core.CssBaseline;
 import mui.core.styles.MuiThemeProvider;
-
-//redux
+import react.*;
+import react.ReactComponent;
+import react.ReactDOM;
+import react.ReactMacro.jsx;
+import react.map.*;
+import react.mui.CamapTheme;
+import react.order.OrdersDialog;
+import react.product.*;
+import react.user.*;
+import react.vendor.*;
 import redux.Redux;
 import redux.Store;
 import redux.StoreBuilder.*;
+import redux.react.Provider as ReduxProvider;
 import redux.thunk.Thunk;
 import redux.thunk.ThunkMiddleware;
-import redux.react.Provider as ReduxProvider;
-
+// import thx.semver.Version;
+import utils.HttpUtil;
+//React lib
+//mui
+//redux
 //custom components
-import react.order.OrdersDialog;
-import react.product.*;
-import react.map.*;
-import react.user.*;
-import react.vendor.*;
-import react.ReactComponent;
 
 
 class App {
@@ -415,6 +411,26 @@ class App {
 		}
 	}
 
+	/**
+	 * Set input field in readonly state
+	 * 
+	 * Same as disabled attribute but field will be sent in form
+	 * 
+	 * @param target 
+	 * @param bool 
+	 */
+	public function setReadonly(target:js.html.InputElement, bool: Bool){
+		if (bool)
+		{
+			target.setAttribute("readonly", "readonly");
+			target.style.backgroundColor = "#f0f0f0";
+		}
+		else 
+		{
+			target.removeAttribute("readonly");
+			target.style.backgroundColor = "";
+		}
+	}
     // public function showTab(el){
     //     tab(el).show();
     // }

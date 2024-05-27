@@ -15,27 +15,25 @@ class Volunteers extends controller.Controller
 		
 		checkToken();
 
-		var form = new sugoi.form.Form("msg");
-		// new
-		form.addElement( new Checkbox("allowInformationNotifs", t._("Authorize the sending of information emails to volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowInformationNotifs)));
-		form.addElement( new Checkbox("allowAlertNotifs", t._("Authorize the sending of alert emails to free volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowAlertNotifs)));
-
-		// end new
+		
+		var form = new sugoi.form.Form("msg"); // don't change this name, it's used in the template view.mtt
 		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 365)"), app.user.getGroup().daysBeforeDutyPeriodsOpen, true) );
 		
+		form.addElement( new Checkbox("allowInformationNotifs", t._("Authorize the sending of information emails to volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowInformationNotifs)));		
 		form.addElement( new IntInput("maildays", t._("Number of days before duty period to send mail"), app.user.getGroup().volunteersMailDaysBeforeDutyPeriod, true) );
 		form.addElement( new TextArea("volunteersMailContent", t._("Email body sent to volunteers"), app.user.getGroup().volunteersMailContent, true, null, "style='height:300px;'") );
 		form.addElement( new sugoi.form.elements.Html("html1","<b>Variables utilisables dans l'email :</b><br/>
 				[DATE_DISTRIBUTION] : Date de la distribution<br/>
 				[LIEU_DISTRIBUTION] : Lieu de la distribution<br/> 
 				[LISTE_BENEVOLES] : Liste des bénévoles inscrits à cette permanence"));
+				
+		form.addElement( new Checkbox("allowAlertNotifs", t._("Authorize the sending of alert emails to free volunteers"), app.user.getGroup().flags.has(db.Group.GroupFlags.AllowAlertNotifs)));
 		form.addElement( new IntInput("alertmaildays", t._("Number of days before duty period to send mail for vacant volunteer roles"), app.user.getGroup().vacantVolunteerRolesMailDaysBeforeDutyPeriod, true) );
 		form.addElement( new TextArea("alertMailContent", t._("Alert email body"), app.user.getGroup().alertMailContent, true, null, "style='height:300px;'") );
 		form.addElement( new sugoi.form.elements.Html("html2","<b>Variables utilisables dans l'email :</b><br/>
 				[DATE_DISTRIBUTION] : Date de la distribution<br/>
 				[LIEU_DISTRIBUTION] : Lieu de la distribution<br/> 
 				[ROLES_MANQUANTS] : Rôles restant à pourvoir"));
-
 		if (form.isValid()) {
 
 			try {
@@ -54,6 +52,7 @@ class Volunteers extends controller.Controller
 			group.volunteersMailContent = form.getValueOf("volunteersMailContent");
 			group.vacantVolunteerRolesMailDaysBeforeDutyPeriod = form.getValueOf("alertmaildays");
 			group.alertMailContent = form.getValueOf("alertMailContent");
+			
 			// notifs
 			form.getValueOf("allowInformationNotifs") ? group.flags.set(db.Group.GroupFlags.AllowInformationNotifs) : group.flags.unset(db.Group.GroupFlags.AllowInformationNotifs);
 			form.getValueOf("allowAlertNotifs") ? group.flags.set(db.Group.GroupFlags.AllowAlertNotifs) : group.flags.unset(db.Group.GroupFlags.AllowAlertNotifs);
