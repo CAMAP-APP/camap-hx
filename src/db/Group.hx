@@ -3,6 +3,7 @@ import Common;
 import sugoi.form.ListData.FormData;
 import sys.db.Object;
 import sys.db.Types;
+
 using tools.DateTool;
 
 enum GroupFlags {
@@ -17,6 +18,8 @@ enum GroupFlags {
 	AddressRequired;//address required for delivery at home
 	__UnUsed;
 	__Show3rdCategoryLevel; //@deprecated Show the third category level in the shop (Only for shop V2)
+	AllowInformationNotifs;  // Allow to send permanence information to volunteers
+	AllowAlertNotifs; // Allow to send permanence alert to free volunteers
 }
 
 //user registration options

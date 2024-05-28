@@ -1,9 +1,9 @@
 package controller;
-import haxe.crypto.Md5;
 import Common;
 import db.Catalog;
 import db.MultiDistrib;
 import haxe.CallStack;
+import haxe.crypto.Md5;
 import sugoi.Web;
 import sugoi.db.Cache;
 import sugoi.mail.Mail;
@@ -106,6 +106,8 @@ class Cron extends Controller
 			
 			for (multidistrib  in multidistribs) {
 				if(multidistrib.getGroup().isDisabled()) continue;
+				if(!multidistrib.group.flags.has(db.Group.GroupFlags.AllowInformationNotifs)) continue;
+
 				var volunteers: Array<db.Volunteer> = multidistrib.getVolunteers();
 				if ( volunteers.length != 0 ) {
 					task.log(multidistrib.getGroup().name+" : "+multidistrib.getDate());
@@ -154,6 +156,7 @@ class Cron extends Controller
 			
 			for (multidistrib  in vacantVolunteerRolesMultidistribs) {
 				if(multidistrib.getGroup().isDisabled()) continue;
+				if(!multidistrib.group.flags.has(db.Group.GroupFlags.AllowAlertNotifs)) continue;
 
 				task.log(multidistrib.getGroup().name+" : "+multidistrib.getDate());
 				var mail = new Mail();
