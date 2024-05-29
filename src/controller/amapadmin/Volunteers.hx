@@ -13,6 +13,7 @@ class Volunteers extends controller.Controller
 
 		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(app.user.getGroup());
 		view.volunteerRoles = volunteerRolesGroup.filter(function(role) return role.catalog == null);
+		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog != null);
 
 		checkToken();
 
@@ -81,16 +82,14 @@ class Volunteers extends controller.Controller
 		form.addElement( new Checkbox("enabledByDefault", t._("Enabled by default on all distributions"), false, true) );
 
 		if (form.isValid()) {
-			
 			role.name = form.getValueOf("name");
 			role.group = app.user.getGroup();
 			role.catalog = null;
 			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.insert();
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully added"));
-			
 		}
-
+		
 		view.title = t._("Create a volunteer role");
 		view.form = form;
 
@@ -101,7 +100,6 @@ class Volunteers extends controller.Controller
 	 */
 	@tpl('form.mtt')
 	function doEditRole(role:db.VolunteerRole) {
-
 		var form = new sugoi.form.Form("volunteerrole");
 
 		form.addElement( new StringInput("name", t._("Volunteer role name"), role.name, true) );
@@ -110,7 +108,6 @@ class Volunteers extends controller.Controller
 		if (form.isValid()) {
 			
 			role.lock();
-
 			role.name = form.getValueOf("name");
 			role.group = app.user.getGroup();
 			role.catalog = null;
@@ -120,10 +117,8 @@ class Volunteers extends controller.Controller
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully updated"));
 			
 		}
-
-		view.title = t._("Create a volunteer role");
+		view.title = t._("Edit a volunteer role");
 		view.form = form;
-
 	}
 
 	/**
