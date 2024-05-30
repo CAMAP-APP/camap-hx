@@ -1,5 +1,6 @@
 import Common;
 import bootstrap.Modal;
+import js.html.InputElement;
 import haxe.macro.Expr.Catch;
 import js.Browser;
 import js.html.Console;
@@ -444,7 +445,27 @@ class App {
     public function resetGroupInSession(groupId:Int) {
         var req = new haxe.Http("/account/quitGroup/"+groupId);
         req.request();
-    }
+	}
+
+	public function InitStockTrackingComponent(formName:String) {
+		var containerId = formName + "_StockTrackingPerDistribFormContainer";
+		var stockTrackingName = formName + "_stockTracking";
+		var container = Browser.document.getElementById(containerId).parentElement.parentElement;
+		var stockTracking = Browser.document.getElementsByName(stockTrackingName);
+		function updateVisibility() {
+			var input:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
+			if (input.value == "2") {
+				container.removeAttribute('hidden');
+			} else {
+				container.setAttribute('hidden', 'true');
+			}
+		}
+
+		for (elem in stockTracking) {
+			elem.addEventListener("change", updateVisibility);
+		}
+        updateVisibility();
+	}
 
 
     // implemention ported from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role

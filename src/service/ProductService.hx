@@ -88,6 +88,7 @@ class ProductService{
 	}
 
 	public static function getForm(?product:db.Product,?catalog:db.Catalog):sugoi.form.Form{
+		var t = sugoi.i18n.Locale.texts;
 
 		if(product==null){
 			product = new db.Product();
@@ -108,14 +109,19 @@ class ProductService{
 		}
 
 		//stock mgmt ?
-		if (!product.catalog.hasStockManagement()){
-			f.removeElementByName('stock');
-			f.removeElementByName('currentStock');
-			f.removeElementByName('stockTracking');	
-			f.removeElementByName('stockTrackingPerDistrib');	
-		} 
-		else 
-		{
+		if (product.catalog.hasStockManagement()) {
+			// Replace stockTrackingPerDistrib component to enrich contribution
+			var stockTrackingPerDistribIdx = f.elements.indexOf(f.getElement('stockTrackingPerDistrib'));
+			f.removeElementByName('stockTrackingPerDistrib');
+			f.addElement(
+					new form.StockTrackingPerDistribForm(
+					'stockTrackingPerDistrib', 
+					t._("Stock per distribution configuration"), 
+					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex()
+				), 
+				stockTrackingPerDistribIdx
+			);
+
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			var now = Date.now();
@@ -124,29 +130,8 @@ class ProductService{
 			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
 			// Si distri > 0
 			if (distLeft > 0) {
-				stock.label = "Stock par distribution ("+distLeft+ " distributions restantes)";				 
-				if (product.stock!=null){
-					stock.value = product.stock;
-				}
-
-				// Si catalog, on est en mode création et on a pas encore configuré de stock
-				// Si catalog == null, on est en mode modification et c'est intéressant d'afficher une info de stock
-				if (catalog == null) {
-					var stockElem = f.getElement("stock");
-					var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
-					if (nextDistribs[0] != null) {
-						var stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-						var t = sugoi.i18n.Locale.texts;
-						f.addElement(
-							new sugoi.form.elements.Html(
-								"avalaibleStockInfo", 
-								'<div style="padding-top:6px">${product.getAvailableStock(nextDistribs[0].id, null)}</div>', 
-								t._("Available stock") + ' <i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ${stockDate}">&nbsp;</i>'
-							), 
-							f.elements.indexOf(stockElem) + 1 // after "stocks"
-						);
-					}
-				}
+				stock.label = "Stock initial";				 
+				if (product.stock!=null) stock.value = product.stock;
 			} else {
 				// Sinon (pas distri planifiées)
 				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
@@ -154,6 +139,11 @@ class ProductService{
 				stock.value = product.stock;
 			}
 			
+		} else {
+			// no stock tracking at all
+			f.removeElementByName('stock');
+			f.removeElementByName('stockTracking');	
+			f.removeElementByName('stockTrackingPerDistrib');
 		}
 			
 			
@@ -165,7 +155,7 @@ class ProductService{
 		f.addElement( new sugoi.form.elements.FloatSelect("vat", "TVA", data, product.vat ) );
 
 		f.removeElementByName("catalogId");
-		
+
 		return f;
 	}
 
