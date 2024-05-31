@@ -153,7 +153,7 @@ class ContractAdmin extends Controller
 	}
 
 	/**
-	 * Manage roles HERE
+	 * Manage roles
 	 */
 	 @tpl("contractadmin/roles.mtt")
 	 function doRoles(contract:db.Catalog,?args:{?enable:String,?disable:String}) {
@@ -163,7 +163,7 @@ class ContractAdmin extends Controller
 		sendNav(contract);
 
 		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(app.user.getGroup());
-		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog != null);
+		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog == contract);
 
 		view.c = contract;
 	 }
@@ -811,6 +811,18 @@ class ContractAdmin extends Controller
 						d.insert();
 					}
 				}
+			}
+
+			// copy roles
+			var roles = VolunteerService.getRolesFromGroup(app.user.getGroup())
+				.filter(function(role) return role.catalog == catalog);
+			for ( r in roles) {
+				var role = new db.VolunteerRole();
+				role.name = r.name;
+				role.catalog = nc;
+				role.group = nc.group;
+				role.enabledByDefault = r.enabledByDefault;
+				role.insert();
 			}
 			
 			app.event(DuplicateContract(catalog));

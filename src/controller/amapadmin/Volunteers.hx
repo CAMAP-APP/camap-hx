@@ -13,7 +13,6 @@ class Volunteers extends controller.Controller
 
 		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(app.user.getGroup());
 		view.volunteerRoles = volunteerRolesGroup.filter(function(role) return role.catalog == null);
-		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog != null);
 
 		checkToken();
 
