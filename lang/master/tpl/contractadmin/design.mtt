@@ -21,7 +21,12 @@
 				<a href="/contractAdmin/products/::c.id::">
 					<i class="icon icon-products"></i> ::_("Products")::
 				</a>
-			</li>			
+			</li>
+			<li id="stocks" ::attr class if(nav[1]=="stocks") 'active'::>
+				<a href="/contractAdmin/stocks/::c.id::">
+					<i class="icon icon-wholesale"></i> ::_("Stocks")::
+				</a>
+			</li>
 			<li id="deliveries" ::attr class if(nav[1]=="distributions") 'active'::>
 				<a href="/contractAdmin/distributions/::c.id::">
 					<i class="icon icon-calendar"></i> ::_("Distributions")::

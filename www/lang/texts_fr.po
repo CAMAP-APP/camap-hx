@@ -1179,6 +1179,12 @@ msgstr "Stock actuel"
 msgid "Stock tracking"
 msgstr "Suivi des stocks"
 
+msgid "Global"
+msgstr "Global"
+
+msgid "PerDistribution"
+msgstr "Par distribution"
+
 #: ../src/db/ProductDistributionStock.hx
 msgid "Stock per distribution configuration"
 msgstr "Paramétrage du stock par distribution"

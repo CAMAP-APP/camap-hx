@@ -187,7 +187,25 @@ class ContractAdmin extends Controller
 		//generate a token
 		checkToken();
 	}
-		
+
+	
+	/**
+	 * View stocks
+	 */
+	@tpl("contractadmin/stocks.mtt")
+	function doStocks(contract:db.Catalog, ?args:{?enable:String, ?disable:String}) {
+		view.nav.push("stocks");
+		sendNav(contract);
+		if (!app.user.canManageContract(contract))
+			throw Error("/", t._("Access forbidden"));
+		if (!contract.hasStockManagement())
+			throw Error("/", "Please activate stock management to access this screen.");
+
+		var now = Date.now();
+		var nextDistribs = db.Distribution.manager.search(($date >= now && $catalogId == contract.id), {orderBy: date}).array();
+		view.distributions = nextDistribs;
+		view.c = contract;
+	}
 	
 	/**
 	 *  - hidden page -

@@ -1,3 +1,4 @@
+import js.lib.Error;
 import Common;
 import bootstrap.Modal;
 import js.html.InputElement;
@@ -24,7 +25,9 @@ import redux.react.Provider as ReduxProvider;
 import redux.thunk.Thunk;
 import redux.thunk.ThunkMiddleware;
 // import thx.semver.Version;
+
 import utils.HttpUtil;
+import haxe.Timer;
 //React lib
 //mui
 //redux
@@ -467,6 +470,64 @@ class App {
         updateVisibility();
 	}
 
+	public function handleScrolling(targetId:String, leftButtonId:String, rightButtonId:String, StepAmount:Float) {
+		js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
+			var container = Browser.document.getElementById(targetId);
+			if (container == null)
+				throw new Error("Couldn't bind to element " + targetId);
+			var left = Browser.document.getElementById(leftButtonId);
+			if (left == null)
+				throw new Error("Couldn't bind to element " + leftButtonId);
+			var right = Browser.document.getElementById(rightButtonId);
+			if (right == null)
+				throw new Error("Couldn't bind to element " + rightButtonId);
+			var target = 0.0;
+			var scrollToTarget = debounce(() -> {
+				if (target <= 0) {
+					left.setAttribute("disabled", "disabled");
+				} else {
+					left.removeAttribute("disabled");
+				}
+				if (target >= container.scrollWidth - container.offsetWidth) {
+					right.setAttribute("disabled", "disabled");
+				} else {
+					right.removeAttribute("disabled");
+				}
+				container.scrollTo(target, 0);
+			});
+			function scollLeft() {
+				target -= StepAmount;
+				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+				scrollToTarget();
+			}
+			function scollRight() {
+				target += StepAmount;
+				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+				scrollToTarget();
+			}
+			function scrollKeyDown(e:Dynamic) {
+				switch (e.code) {
+					case 'ArrowLeft':
+						scollLeft();
+					case 'ArrowRight':
+						scollRight();
+				}
+			}
+			left.addEventListener("click", scollLeft);
+			right.addEventListener("click", scollRight);
+			scrollToTarget();
+		});
+	}
+
+    public function debounce(func:Void->Void, timeout:Int = 100):Void->Void {
+        var timer:Timer = null;
+        return function():Void {
+          if (timer != null) {
+            timer.stop();
+          }
+          timer = Timer.delay(func, timeout);
+        }
+      }
 
     // implemention ported from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
     // + add url control as window.location.search
