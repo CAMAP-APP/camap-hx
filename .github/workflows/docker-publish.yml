@@ -65,6 +65,11 @@ jobs:
         uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          labels: |
+            org.opencontainers.image.title=neko-loc-camap
+            org.opencontainers.image.description="Container 1/3 de l'application Camap (camap-hx)"
+            org.opencontainers.image.vendor="InterAMAP 44"
+            org.opencontainers.image.licenses="GPL-3.0-or-later"
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -77,6 +82,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      
+      
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
       # repository is public to avoid leaking data.  If you would like to publish
@@ -90,3 +97,10 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+      - name: générer des usages d'attestation d'artefact
+        uses: actions/attest-build-provenance@v1 
+        with: 
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}} 
+          subject-digest: ${{ steps.push.outputs.digest }} 
+          push-to-registry: true
