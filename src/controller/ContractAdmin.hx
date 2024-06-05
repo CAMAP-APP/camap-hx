@@ -199,7 +199,7 @@ class ContractAdmin extends Controller
 		if (!app.user.canManageContract(contract))
 			throw Error("/", t._("Access forbidden"));
 		if (!contract.hasStockManagement())
-			throw Error("/", "Please activate stock management to access this screen.");
+			throw Error("/", t._("Please activate stock management to access this screen."));
 
 		var now = Date.now();
 		var nextDistribs = db.Distribution.manager.search(($date >= now && $catalogId == contract.id), {orderBy: date}).array();

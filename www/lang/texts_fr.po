@@ -98,6 +98,10 @@ msgstr "Le rôle a bien été supprimé"
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
+#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:5006
+msgid "Please activate stock management to access this screen."
+msgstr "Activez la gestion de stock pour accéder à cet écran."
+
 #: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10550
 msgid "Means of payment"
 msgstr "Moyens de paiement"
@@ -1178,6 +1182,9 @@ msgstr "Stock actuel"
 
 msgid "Stock tracking"
 msgstr "Suivi des stocks"
+
+msgid "See stocks"
+msgstr "Voir le stock"
 
 msgid "Global"
 msgstr "Global"

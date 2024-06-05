@@ -482,40 +482,40 @@ class App {
 			if (right == null)
 				throw new Error("Couldn't bind to element " + rightButtonId);
 			var target = 0.0;
-			var scrollToTarget = debounce(() -> {
-				if (target <= 0) {
+            function updateButton(scrollLeft:Float) {
+                if (scrollLeft <= 0) {
 					left.setAttribute("disabled", "disabled");
 				} else {
 					left.removeAttribute("disabled");
 				}
-				if (target >= container.scrollWidth - container.offsetWidth) {
+				if (scrollLeft >= container.scrollWidth - container.offsetWidth) {
 					right.setAttribute("disabled", "disabled");
 				} else {
 					right.removeAttribute("disabled");
 				}
+            }
+			var scrollToTarget = debounce(() -> {
 				container.scrollTo(target, 0);
 			});
 			function scollLeft() {
 				target -= StepAmount;
 				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+                updateButton(target);
 				scrollToTarget();
 			}
 			function scollRight() {
 				target += StepAmount;
 				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+                updateButton(target);
 				scrollToTarget();
-			}
-			function scrollKeyDown(e:Dynamic) {
-				switch (e.code) {
-					case 'ArrowLeft':
-						scollLeft();
-					case 'ArrowRight':
-						scollRight();
-				}
 			}
 			left.addEventListener("click", scollLeft);
 			right.addEventListener("click", scollRight);
-			scrollToTarget();
+            container.addEventListener("scrollend", () -> {
+                target = container.scrollLeft;
+                updateButton(target);
+            });
+			updateButton(0);
 		});
 	}
 

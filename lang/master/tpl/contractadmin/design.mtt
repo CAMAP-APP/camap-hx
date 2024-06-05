@@ -22,7 +22,7 @@
 					<i class="icon icon-products"></i> ::_("Products")::
 				</a>
 			</li>
-			<li id="stocks" ::attr class if(nav[1]=="stocks") 'active'::>
+			<li id="stocks" ::attr class if(nav[1]=="stocks") 'active':: ::cond c.hasStockManagement()::>
 				<a href="/contractAdmin/stocks/::c.id::">
 					<i class="icon icon-wholesale"></i> ::_("Stocks")::
 				</a>
