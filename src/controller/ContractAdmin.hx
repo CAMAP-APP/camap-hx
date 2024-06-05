@@ -165,22 +165,7 @@ class ContractAdmin extends Controller
 			
 			if (nextDistribs[0] != null){
 				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-				// debug
-				// var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-				// App.current.session.addMessage(msg, true);
-				// end debug
-				for (product in contract.getProducts(false)){
-					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
-					var totOrdersQt : Float = 0;
-					for (actualOrder in actualOrders) {
-						totOrdersQt += actualOrder.quantity;
-					}
-					// Stock dispo = stock - commandes en cours
-					if (product.stock != null)  {
-						var availableStock = product.stock - totOrdersQt;
-						product.stock = availableStock;
-					}
-				}
+				view.nextDistribId = nextDistribs[0].id;
 			}
 		}
 		view.c = contract;
@@ -202,7 +187,25 @@ class ContractAdmin extends Controller
 		//generate a token
 		checkToken();
 	}
-		
+
+	
+	/**
+	 * View stocks
+	 */
+	@tpl("contractadmin/stocks.mtt")
+	function doStocks(contract:db.Catalog, ?args:{?enable:String, ?disable:String}) {
+		view.nav.push("stocks");
+		sendNav(contract);
+		if (!app.user.canManageContract(contract))
+			throw Error("/", t._("Access forbidden"));
+		if (!contract.hasStockManagement())
+			throw Error("/", t._("Please activate stock management to access this screen."));
+
+		var now = Date.now();
+		var nextDistribs = db.Distribution.manager.search(($date >= now && $catalogId == contract.id), {orderBy: date}).array();
+		view.distributions = nextDistribs;
+		view.c = contract;
+	}
 	
 	/**
 	 *  - hidden page -

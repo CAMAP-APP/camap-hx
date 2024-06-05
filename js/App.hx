@@ -1,37 +1,37 @@
+import js.lib.Error;
+import Common;
+import bootstrap.Modal;
+import js.html.InputElement;
 import haxe.macro.Expr.Catch;
+import js.Browser;
 import js.html.Console;
 import js.lib.Promise;
-import bootstrap.Modal;
-import js.Browser;
-import Common;
-import utils.HttpUtil;
-// import thx.semver.Version;
-
-//React lib
-import react.ReactMacro.jsx;
-import react.ReactDOM;
-import react.*;
-
-//mui
-import react.mui.CamapTheme;
 import mui.core.CssBaseline;
 import mui.core.styles.MuiThemeProvider;
-
-//redux
+import react.*;
+import react.ReactComponent;
+import react.ReactDOM;
+import react.ReactMacro.jsx;
+import react.map.*;
+import react.mui.CamapTheme;
+import react.order.OrdersDialog;
+import react.product.*;
+import react.user.*;
+import react.vendor.*;
 import redux.Redux;
 import redux.Store;
 import redux.StoreBuilder.*;
+import redux.react.Provider as ReduxProvider;
 import redux.thunk.Thunk;
 import redux.thunk.ThunkMiddleware;
-import redux.react.Provider as ReduxProvider;
+// import thx.semver.Version;
 
+import utils.HttpUtil;
+import haxe.Timer;
+//React lib
+//mui
+//redux
 //custom components
-import react.order.OrdersDialog;
-import react.product.*;
-import react.map.*;
-import react.user.*;
-import react.vendor.*;
-import react.ReactComponent;
 
 
 class App {
@@ -415,6 +415,26 @@ class App {
 		}
 	}
 
+	/**
+	 * Set input field in readonly state
+	 * 
+	 * Same as disabled attribute but field will be sent in form
+	 * 
+	 * @param target 
+	 * @param bool 
+	 */
+	public function setReadonly(target:js.html.InputElement, bool: Bool){
+		if (bool)
+		{
+			target.setAttribute("readonly", "readonly");
+			target.style.backgroundColor = "#f0f0f0";
+		}
+		else 
+		{
+			target.removeAttribute("readonly");
+			target.style.backgroundColor = "";
+		}
+	}
     // public function showTab(el){
     //     tab(el).show();
     // }
@@ -428,8 +448,95 @@ class App {
     public function resetGroupInSession(groupId:Int) {
         var req = new haxe.Http("/account/quitGroup/"+groupId);
         req.request();
-    }
+	}
 
+	public function InitStockTrackingComponent(formName:String) {
+        js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
+            var containerId = formName + "_StockTrackingPerDistribFormContainer";
+            var stockTrackingName = formName + "_stockTracking";
+            var stockInputId = formName + "_stock";
+            var container = Browser.document.getElementById(containerId).parentElement.parentElement;
+            var stockTracking = Browser.document.getElementsByName(stockTrackingName);
+            var stockInput = Browser.document.getElementById(stockInputId).parentElement.parentElement;
+            function updateVisibility() {
+                var input:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
+                if (input.value == "2") {
+                    container.removeAttribute('hidden');
+                } else {
+                    container.setAttribute('hidden', 'true');
+                }
+                if (input.value == "0") {
+                    stockInput.setAttribute('hidden', 'true');
+                } else {
+                    stockInput.removeAttribute('hidden');
+                }
+            }
+
+            for (elem in stockTracking) {
+                elem.addEventListener("change", updateVisibility);
+            }
+            updateVisibility();
+        });
+	}
+
+	public function handleScrolling(targetId:String, leftButtonId:String, rightButtonId:String, StepAmount:Float) {
+		js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
+			var container = Browser.document.getElementById(targetId);
+			if (container == null)
+				throw new Error("Couldn't bind to element " + targetId);
+			var left = Browser.document.getElementById(leftButtonId);
+			if (left == null)
+				throw new Error("Couldn't bind to element " + leftButtonId);
+			var right = Browser.document.getElementById(rightButtonId);
+			if (right == null)
+				throw new Error("Couldn't bind to element " + rightButtonId);
+			var target = 0.0;
+            function updateButton(scrollLeft:Float) {
+                if (scrollLeft <= 0) {
+					left.setAttribute("disabled", "disabled");
+				} else {
+					left.removeAttribute("disabled");
+				}
+				if (scrollLeft >= container.scrollWidth - container.offsetWidth) {
+					right.setAttribute("disabled", "disabled");
+				} else {
+					right.removeAttribute("disabled");
+				}
+            }
+			var scrollToTarget = debounce(() -> {
+				container.scrollTo(target, 0);
+			});
+			function scollLeft() {
+				target -= StepAmount;
+				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+                updateButton(target);
+				scrollToTarget();
+			}
+			function scollRight() {
+				target += StepAmount;
+				target = Math.max(0, Math.min(target, container.scrollWidth - container.offsetWidth));
+                updateButton(target);
+				scrollToTarget();
+			}
+			left.addEventListener("click", scollLeft);
+			right.addEventListener("click", scollRight);
+            container.addEventListener("scrollend", () -> {
+                target = container.scrollLeft;
+                updateButton(target);
+            });
+			updateButton(0);
+		});
+	}
+
+    public function debounce(func:Void->Void, timeout:Int = 100):Void->Void {
+        var timer:Timer = null;
+        return function():Void {
+          if (timer != null) {
+            timer.stop();
+          }
+          timer = Timer.delay(func, timeout);
+        }
+      }
 
     // implemention ported from https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
     // + add url control as window.location.search
