@@ -1,4 +1,11 @@
 ::use 'contractadmin/design.mtt'::
+::raw '
+<style>
+.table > tbody > tr > th {
+	line-height: 1.1
+}
+</style>
+'::
 	
 	<h3>::_("Products")::</h3>
 		
@@ -69,15 +76,14 @@
 	<table class="table table-striped table-hover">
 		<tr>
 			<th></th>
-			<th></th>
-			<th>::_("Product ID||id or reference of a product")::</th>
-			<th>::_("Name")::</th>			
-			<th>::_("Price")::</th>			
-			<th>
-				::if (c.hasStockManagement() && stockDate != null)::
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock"):: 
-				::end::
+			<th>::_("Name")::</th>
+			<th ::cond c.hasStockManagement()::>
+				::_("Stock tracking")::
 			</th>
+			<th ::cond c.hasStockManagement() && stockDate != null::>
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock")::
+			</th>
+			<th>::_("Price")::</th>
 			<th></th>
 		</tr>
 		::foreach p c.getProducts(false)::
@@ -93,38 +99,58 @@
 				<input type="checkbox" name="checkbox" value="::p.id::" />
 			</td>
 			<td>
-				<img src="::p.getImage()::" style="width:64px;height:64px;" />
-			</td>
-			<td class="ref">$$nullSafe(::p.ref::)</td>
-			<td>
-				<b>::p.name::</b>
-				
-				::if p._unitType!=null && p.qt!=null::
-				::p.qt::&nbsp;::unit(p._unitType,false)::
-				::end::
-				
-				
-				<div style="color:#AAA">
-				::if p.organic ::<i class="icon icon-bio"></i>::end::
-				::if p.variablePrice ::<i class="icon icon-scale"></i>::end::
+				<div style="display: flex;flex-direction: row;gap:12px;max-width:240px">
+					<div>
+					<img src="::p.getImage()::" style="width:54px;height:64px;object-fit:cover;border-radius: 80%" />
+					</div>
+					<div>
+						<b>::p.name::</b>
+						::if p._unitType!=null && p.qt!=null::
+						::p.qt::&nbsp;::unit(p._unitType,false)::
+						::end::
+						<div style="color:#AAA">
+						::if p.organic ::<i class="icon icon-bio"></i>::end::
+						::if p.variablePrice ::<i class="icon icon-scale"></i>::end::
+						</div>
+					</div>
 				</div>
-			</td>			
-			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
-			<td>
-			::if (c.hasStockManagement() && stockDate != null)::
-				::if p.stock==null::
-					-
+			</td>
+			<td ::cond c.hasStockManagement()::>
+				<span ::cond p.stockTracking != null && p.stockTracking == 1::>::_("Global")::</span>
+				<span ::cond p.stockTracking != null && p.stockTracking == 2::>::_("PerDistribution")::</span>
+			</td>
+			<td ::cond c.hasStockManagement()::>
+				::if stockDate == null || nextDistribId == null::
+					<span style="color:red;font-weight:bold;">
+						Aucune distribution planifiée.
+					</span>
 				::else::
-					::if p.stock <= 10::
-						<span style="color:red;font-weight:bold;">							
-							::p.stock::
+					::set availableStock = p.getAvailableStock(nextDistribId, null)::
+					::if p.hasStockTracking() && p.stock == null::
+						<span style="color:red;font-weight:bold;">
+							Le stock initial a besoin d'être renseigné.
 						</span>
+					::elseif availableStock==null || p.stock == null::
+						-
 					::else::
-						::p.stock::
+						<span ::cond p.stockTracking != null && p.stockTracking == 1::>
+						::if availableStock <= 10::
+							<span style="color:red;font-weight:bold;">
+								::availableStock:: / ::p.stock::
+							</span>
+						::else::
+							::availableStock:: / ::p.stock::
+						::end::
+						</span>
+						<span ::cond p.stockTracking != null && p.stockTracking == 2::>
+						<a class="btn btn-default btn-sm" href="/contractAdmin/stocks/::c.id::">
+									<i class="icon icon-wholesale" style="padding-right: 8px;"></i> ::_("See stocks")::
+						</a>
+						</span>
 					::end::
 				::end::
-			::end::
 			</td>
+			<td>::formatNum(p.price)::&nbsp;::currency()::</td>
 			<td>
 				<div class="btn-group" role="group">
 

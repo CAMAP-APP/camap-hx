@@ -1033,7 +1033,28 @@ msgstr ""
 msgid "Stock"
 msgstr ""
 
-#: ../src/db/Product.hx:4488
+msgid "Initial stock"
+msgstr "Stock initial"
+
+msgid "Available stock"
+msgstr "Stock actuel"
+
+msgid "Stock tracking"
+msgstr "Suivi des stocks"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Stock per distribution configuration"
+msgstr "Paramétrage du stock par distribution"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Starting distribution"
+msgstr "Distribution de démarrage"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Ending distribution"
+msgstr "Distribution de fin"
+
+#: ../src/db/Product.hx:4661
 msgid "Base unit"
 msgstr ""
 
@@ -1839,9 +1860,7 @@ msgid "U.P"
 msgstr ""
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:6949
-msgid ""
-"Do you really want to delete this order row for the product \"::o.productName::\" "
-"?"
+msgid "Do you really want to delete this order row for the product \"::productName::\" ?"
 msgstr ""
 
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:261

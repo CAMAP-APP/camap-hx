@@ -98,6 +98,10 @@ msgstr "Le rôle a bien été supprimé"
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
+#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:5006
+msgid "Please activate stock management to access this screen."
+msgstr "Activez la gestion de stock pour accéder à cet écran."
+
 #: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10550
 msgid "Means of payment"
 msgstr "Moyens de paiement"
@@ -1170,6 +1174,36 @@ msgstr "Prix"
 msgid "Stock"
 msgstr "Stock"
 
+msgid "Initial stock"
+msgstr "Stock initial"
+
+msgid "Available stock"
+msgstr "Stock actuel"
+
+msgid "Stock tracking"
+msgstr "Suivi des stocks"
+
+msgid "See stocks"
+msgstr "Voir le stock"
+
+msgid "Global"
+msgstr "Global"
+
+msgid "PerDistribution"
+msgstr "Par distribution"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Stock per distribution configuration"
+msgstr "Paramétrage du stock par distribution"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Starting distribution"
+msgstr "Distribution de démarrage"
+
+#: ../src/db/ProductDistributionStock.hx
+msgid "Ending distribution"
+msgstr "Distribution de fin"
+
 #: ../src/db/Product.hx:4661
 msgid "Base unit"
 msgstr "Unité de base"
@@ -2197,15 +2231,8 @@ msgid "U.P"
 msgstr "P.U"
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:6949
-#, fuzzy
-#| msgid ""
-#| "Do you really want to delete this order row for the product \"::"
-#| "productName::\" ?"
-msgid ""
-"Do you really want to delete this order row for the product \"::o."
-"productName::\" ?"
-msgstr ""
-"Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
+msgid "Do you really want to delete this order row for the product \"::productName::\"?"
+msgstr "Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
 
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:273
 msgid "Validated"

@@ -941,6 +941,11 @@ background-color: $state-info-bg-alpha;
   }
 }
 
+.flex-col {
+  display:flex;
+  flex-direction:column;
+}
+
 /* categories */
 .tag {
   color: white;

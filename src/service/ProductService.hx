@@ -1,5 +1,6 @@
 package service;
 
+import Common.StockTracking;
 import controller.Product;
 import sugoi.form.elements.Html;
 import tink.core.Error;
@@ -87,6 +88,7 @@ class ProductService{
 	}
 
 	public static function getForm(?product:db.Product,?catalog:db.Catalog):sugoi.form.Form{
+		var t = sugoi.i18n.Locale.texts;
 
 		if(product==null){
 			product = new db.Product();
@@ -107,30 +109,41 @@ class ProductService{
 		}
 
 		//stock mgmt ?
-		if (!product.catalog.hasStockManagement()){
-			f.removeElementByName('stock');	
-		} 
-		else 
-		{
+		if (product.catalog.hasStockManagement()) {
+			// Replace stockTrackingPerDistrib component to enrich contribution
+			var stockTrackingPerDistribIdx = f.elements.indexOf(f.getElement('stockTrackingPerDistrib'));
+			f.removeElementByName('stockTrackingPerDistrib');
+			f.addElement(
+					new form.StockTrackingPerDistribForm(
+					'stockTrackingPerDistrib', 
+					t._("Stock per distribution configuration"), 
+					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex()
+				), 
+				stockTrackingPerDistribIdx
+			);
+
 			//manage stocks by distributions for CSA contracts
 			var stock = f.getElement("stock");
 			var now = Date.now();
+
 			//Nbre de distri restantes
 			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
 			// Si distri > 0
 			if (distLeft > 0) {
-				stock.label = "Stock par distribution ("+distLeft+ " distributions restantes)";				 
-				if(product.stock!=null){
-					stock.value = Math.floor( product.stock );
-				}
-			} 
-			// Sinon (pas distri planifiées)
-			else {
-			stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
-			product.stock = null;
-			stock.value = product.stock;
+				stock.label = "Stock initial";				 
+				if (product.stock!=null) stock.value = product.stock;
+			} else {
+				// Sinon (pas distri planifiées)
+				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
+				product.stock = null;
+				stock.value = product.stock;
 			}
 			
+		} else {
+			// no stock tracking at all
+			f.removeElementByName('stock');
+			f.removeElementByName('stockTracking');	
+			f.removeElementByName('stockTrackingPerDistrib');
 		}
 			
 			
@@ -142,7 +155,7 @@ class ProductService{
 		f.addElement( new sugoi.form.elements.FloatSelect("vat", "TVA", data, product.vat ) );
 
 		f.removeElementByName("catalogId");
-		
+
 		return f;
 	}
 
@@ -157,30 +170,4 @@ class ProductService{
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
 		}
 	}
-
-	/**
-		Calcul le stock disponible d'un produit pour une distribution
-	**/
-	/* DESACTIVEE CAR INUTILISEE 
-	public static function calculateStock(catalog:db.Catalog, product:db.Product):Float {
-		if (catalog.hasStockManagement()) {
-			var now = Date.now();
-			var totOrdersQt : Float = 0;
-			var nextDistribs = db.Distribution.manager.search( ($orderEndDate > now && $catalogId==catalog.id),{orderBy:orderEndDate}).array();
-			var actualOrders = db.UserOrder.manager.search($product==product && $distributionId==nextDistribs[0].id, true);
-			for (actualOrder in actualOrders) {
-				totOrdersQt += actualOrder.quantity;
-			}
-			// Stock dispo = stock - commandes en cours
-			if (product.stock != null)  {
-				var availableStock = product.stock - totOrdersQt;
-				return availableStock;
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	}
-	*/
 }

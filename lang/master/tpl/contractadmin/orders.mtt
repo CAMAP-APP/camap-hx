@@ -162,7 +162,7 @@
 						<td>
 							::if(o.quantity==0)::
 								&nbsp;&nbsp;&nbsp;&nbsp;
-								<a href="/contractAdmin/orders/::c.id::?d=::distribution.id::&delete=::o.id::&token=::token::" $$confirm(::__("Do you really want to delete this order row for the product \"::o.productName::\" ?",{productName:o.productName})::) class="btn btn-danger btn-xs" >
+								<a href="/contractAdmin/orders/::c.id::?d=::distribution.id::&delete=::o.id::&token=::token::" $$confirm(::__("Do you really want to delete this order row for the product \"::productName::\"?",{productName:o.productName})::) class="btn btn-danger btn-xs" >
 									<i class="icon icon-delete"></i>
 									::_("Delete")::
 								</a>
