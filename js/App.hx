@@ -451,23 +451,32 @@ class App {
 	}
 
 	public function InitStockTrackingComponent(formName:String) {
-		var containerId = formName + "_StockTrackingPerDistribFormContainer";
-		var stockTrackingName = formName + "_stockTracking";
-		var container = Browser.document.getElementById(containerId).parentElement.parentElement;
-		var stockTracking = Browser.document.getElementsByName(stockTrackingName);
-		function updateVisibility() {
-			var input:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
-			if (input.value == "2") {
-				container.removeAttribute('hidden');
-			} else {
-				container.setAttribute('hidden', 'true');
-			}
-		}
+        js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
+            var containerId = formName + "_StockTrackingPerDistribFormContainer";
+            var stockTrackingName = formName + "_stockTracking";
+            var stockInputId = formName + "_stock";
+            var container = Browser.document.getElementById(containerId).parentElement.parentElement;
+            var stockTracking = Browser.document.getElementsByName(stockTrackingName);
+            var stockInput = Browser.document.getElementById(stockInputId).parentElement.parentElement;
+            function updateVisibility() {
+                var input:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
+                if (input.value == "2") {
+                    container.removeAttribute('hidden');
+                } else {
+                    container.setAttribute('hidden', 'true');
+                }
+                if (input.value == "0") {
+                    stockInput.setAttribute('hidden', 'true');
+                } else {
+                    stockInput.removeAttribute('hidden');
+                }
+            }
 
-		for (elem in stockTracking) {
-			elem.addEventListener("change", updateVisibility);
-		}
-        updateVisibility();
+            for (elem in stockTracking) {
+                elem.addEventListener("change", updateVisibility);
+            }
+            updateVisibility();
+        });
 	}
 
 	public function handleScrolling(targetId:String, leftButtonId:String, rightButtonId:String, StepAmount:Float) {

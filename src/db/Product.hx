@@ -20,12 +20,12 @@ class Product extends Object
 	public var vat : SFloat;			//VAT rate in percent
 	
 	public var desc : SNull<SText>;
+	public var qt : SNull<SFloat>;
+	public var unitType : SNull<SEnum<Unit>>; // Kg / L / g / units
+
 	public var stockTracking : SEnum<StockTracking>;
 	public var stockTrackingPerDistrib : SEnum<StockTrackingPerDistribution>; // if "stockTracking" is "PerDistribution", stockTrackingPerDistrib is the rule to use.
 	public var stock : SNull<SFloat>; //if qantity can be float, stock should be float
-	
-	public var unitType : SNull<SEnum<Unit>>; // Kg / L / g / units
-	public var qt : SNull<SFloat>;
 	
 	public var organic : SBool;
 	public var variablePrice : Bool; 	//price can vary depending on weighting of the product
