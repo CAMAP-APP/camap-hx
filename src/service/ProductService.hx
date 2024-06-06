@@ -121,24 +121,6 @@ class ProductService{
 				), 
 				stockTrackingPerDistribIdx
 			);
-
-			//manage stocks by distributions for CSA contracts
-			var stock = f.getElement("stock");
-			var now = Date.now();
-
-			//Nbre de distri restantes
-			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
-			// Si distri > 0
-			if (distLeft > 0) {
-				stock.label = "Stock initial";				 
-				if (product.stock!=null) stock.value = product.stock;
-			} else {
-				// Sinon (pas distri planifiées)
-				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
-				product.stock = null;
-				stock.value = product.stock;
-			}
-			
 		} else {
 			// no stock tracking at all
 			f.removeElementByName('stock');

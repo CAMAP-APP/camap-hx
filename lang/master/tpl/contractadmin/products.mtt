@@ -80,8 +80,8 @@
 			<th ::cond c.hasStockManagement()::>
 				::_("Stock tracking")::
 			</th>
-			<th ::cond c.hasStockManagement() && stockDate != null::>
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock")::
+			<th ::cond c.hasStockManagement()::>
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::" ::cond stockDate != null::>&nbsp;</i> ::_("Stock")::
 			</th>
 			<th>::_("Price")::</th>
 			<th></th>
