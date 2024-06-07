@@ -37,11 +37,11 @@ jobs:
 
       # Copy the camap-hx.Dockerfile from CAMAP-APP/camap-docker
       - name: Get camap-hx.Dockerfile from camap-docker
-        run: curl https://raw.githubusercontent.com/CAMAP-APP/camap-docker/main/camap-hx.Dockerfile | sed 's!/camap-hx/!/!' > Dockerfile
+        run: curl https://raw.githubusercontent.com/${{ github.repository_owner }}/camap-docker/main/camap-hx.Dockerfile | sed 's!/camap-hx/!/!' > Dockerfile
 
       # Get config.xml from CAMAP-APP/camap-docker
       - name: Get config.xml from camap-docker
-        run: curl https://raw.githubusercontent.com/CAMAP-APP/camap-docker/main/config.xml > config.xml
+        run: curl https://raw.githubusercontent.com/${{ github.repository_owner }}/camap-docker/main/config.xml > config.xml
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
