@@ -192,7 +192,9 @@ class OrderService
 					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé');	
 				} else if (availableStock != null && quantityAsStockUnits > availableStock) {
 						//stock is not enough, cancel
-						newquantity = availableStock * order.product.qt; // availableStock is a unit quantity (ie. 1x300g of tomato is 1 quantity), but the contributed quantity can be of any unit (ie. 0.3 Kg)
+						var qt:Float = 1;
+						if (order.product.qt != null) qt = order.product.qt; // product.qt can be null, consider 1 if null
+						newquantity = availableStock * qt; // availableStock is a unit quantity (ie. 1x300g of tomato is 1 quantity), but the contributed quantity can be of any unit (ie. 0.3 Kg)
 						order.quantity = newquantity;
 						order.update();
 						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
@@ -855,12 +857,15 @@ class OrderService
 			total += fees;
 		}
 
+		var productQt:Float = 1;
+		if (updatedUserOrder.product.qt != null) productQt = updatedUserOrder.product.qt;
+
 		return { 
 			subTotal: Formatting.formatNum(subTotal), 
 			total: Formatting.formatNum(total), 
 			fees: fees == 0 ? '' : Formatting.formatNum(fees), 
 			basketTotal: Formatting.formatNum(updatedUserOrder.basket.total),
-			nextQt: Formatting.formatNum(updatedUserOrder.quantity * updatedUserOrder.product.qt)
+			nextQt: Formatting.formatNum(updatedUserOrder.quantity * productQt)
 		 };
 	}
 }
