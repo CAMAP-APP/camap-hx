@@ -110,14 +110,20 @@ class ProductService{
 
 		//stock mgmt ?
 		if (product.catalog.hasStockManagement()) {
+			var stockElement = f.getElement("stock");
 			// Replace stockTrackingPerDistrib component to enrich contribution
 			var stockTrackingPerDistribIdx = f.elements.indexOf(f.getElement('stockTrackingPerDistrib'));
 			f.removeElementByName('stockTrackingPerDistrib');
+			var distributionsStocks = product.getDistributionsStocks();
+			var distribs = product.catalog.getDistribs(false);
 			f.addElement(
-					new form.StockTrackingPerDistribForm(
+				new form.StockTrackingPerDistribForm(
 					'stockTrackingPerDistrib', 
 					t._("Stock per distribution configuration"), 
-					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex()
+					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex(),
+					stockElement,
+					distributionsStocks,
+					distribs
 				), 
 				stockTrackingPerDistribIdx
 			);
@@ -152,7 +158,6 @@ class ProductService{
 			if(product.qt==null) throw new  Error("Vous devez définir une quantité si l'option 'vrac' est activée");
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
 		}
-		
 
 		// Check no stocks ends being negative in any distribution
 		if (product.stockTracking != StockTracking.Disabled) {
@@ -163,8 +168,12 @@ class ProductService{
 				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
 				for (d in nextDistribs) {
 					var stockValue = product.getAvailableStock(d.id, null, false);
+					var distribStock = product.getDistribStock(d.id);
 					if (stockValue < 0 ) {
-						throw new Error(t._("Stock can't be less than ::minStock:: for ::product:: because of existing orders.", {product: product.name, minStock: Math.abs(stockValue - product.stock)}) );
+						throw new Error(t._(
+							"Stock can't be less than ::minStock:: for ::product:: on distribution ::ddate:: because of existing orders.", 
+							{product: product.name, minStock: Math.abs(stockValue - distribStock), ddate: Formatting.hDate(d.date)}
+						));
 					}
 				}
 			}

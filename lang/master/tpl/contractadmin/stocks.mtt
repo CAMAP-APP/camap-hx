@@ -101,9 +101,10 @@
 			::foreach distrib distributions::
 			<td>
 			::set availableStock = p.getAvailableStock(distrib.id, null, true)::
+			::set distribStock = p.getDistribStock(distrib.id)::
 			::if !p.hasStockTracking()::
 				-
-			::elseif p.stock == null::
+			::elseif distribStock == null::
 				<span style="color:red;font-weight:bold;">
 					Le stock initial a besoin d'être renseigné.
 				</span>
@@ -114,10 +115,10 @@
 			::else::
 				::if availableStock <= 10::
 					<span style="color:red;font-weight:bold;">
-						::availableStock:: / ::p.stock::
+						::availableStock:: / ::distribStock::
 					</span>
 				::else::
-					::availableStock:: / ::p.stock::
+					::availableStock:: / ::distribStock::
 				::end::
 			::end::
 			</td>

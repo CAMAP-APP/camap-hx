@@ -126,20 +126,21 @@
 					</span>
 				::else::
 					::set availableStock = p.getAvailableStock(nextDistribId, null, true)::
-					::if p.hasStockTracking() && p.stock == null::
+					::set distribStock = p.getDistribStock(nextDistribId)::
+					::if p.hasStockTracking() && distribStock == null::
 						<span style="color:red;font-weight:bold;">
 							Le stock initial a besoin d'être renseigné.
 						</span>
-					::elseif availableStock==null || p.stock == null::
+					::elseif availableStock==null || distribStock == null::
 						-
 					::else::
 						<span ::cond p.stockTracking != null && p.stockTracking == 1::>
 						::if availableStock <= 10::
 							<span style="color:red;font-weight:bold;">
-								::availableStock:: / ::p.stock::
+								::availableStock:: / ::distribStock::
 							</span>
 						::else::
-							::availableStock:: / ::p.stock::
+							::availableStock:: / ::distribStock::
 						::end::
 						</span>
 						<span ::cond p.stockTracking != null && p.stockTracking == 2::>

@@ -450,31 +450,74 @@ class App {
         req.request();
 	}
 
-	public function InitStockTrackingComponent(formName:String) {
+	public function InitStockTrackingComponent(formName:String, componentName:String) {
         js.Browser.document.addEventListener("DOMContentLoaded", function(event) {
-            var containerId = formName + "_StockTrackingPerDistribFormContainer";
+            var n = formName + "_" + componentName;
+            var containerId = formName + "_stockTrackingPerDistribFormContainer";
             var stockTrackingName = formName + "_stockTracking";
-            var stockInputId = formName + "_stock";
-            var container = Browser.document.getElementById(containerId).parentElement.parentElement;
+            var stockTrackingPerDistribName = formName + "_stockTrackingPerDistrib";
+            var generalStockInputId = formName + "_stock";
+            var container = Browser.document.getElementById(containerId).parentElement;
             var stockTracking = Browser.document.getElementsByName(stockTrackingName);
-            var stockInput = Browser.document.getElementById(stockInputId).parentElement.parentElement;
+            var generalStockInput = Browser.document.getElementById(generalStockInputId).parentElement.parentElement;
+            var fieldsetAlwaysTheSame = Browser.document.getElementById(n + "_AlwaysTheSame_fieldset");
+            var fieldsetFrequencyBased = Browser.document.getElementById(n + "_FrequencyBased_fieldset");
+            var fieldsetPerPeriod = Browser.document.getElementById(n + "_PerPeriod_fieldset");
+
+            var stockTrackingPerDistribInputs = Browser.document.getElementsByName(stockTrackingPerDistribName);
+            var addPeriodButton = Browser.document.getElementById(n + "_addPeriodButton");
+
             function updateVisibility() {
-                var input:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
-                if (input.value == "2") {
+                var selectedStockTracking:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingName}"]:checked');
+                // stockTracking is "PerDistribution", display component content
+                if (selectedStockTracking.value == "2") {
                     container.removeAttribute('hidden');
                 } else {
                     container.setAttribute('hidden', 'true');
                 }
-                if (input.value == "0") {
-                    stockInput.setAttribute('hidden', 'true');
+                // enable generalStockInput when stockTracking is "global" (1)
+                if (selectedStockTracking.value == "1") {
+                    generalStockInput.removeAttribute('hidden');
                 } else {
-                    stockInput.removeAttribute('hidden');
+                    generalStockInput.setAttribute('hidden', 'true');
+                }
+
+                // stockTracking is "perDistrib" (2)
+                if (selectedStockTracking.value == "2") {
+                    var selectedPerDistrib:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingPerDistribName}"]:checked');
+                    if (selectedPerDistrib == null) {
+                        selectedPerDistrib = cast Browser.document.querySelector('input[name="${stockTrackingPerDistribName}"]');
+                        selectedPerDistrib.checked = true;
+                    }
+                    fieldsetAlwaysTheSame.setAttribute("disabled","disabled");
+                    fieldsetFrequencyBased.setAttribute("disabled","disabled");
+                    fieldsetPerPeriod.setAttribute("disabled","disabled");
+                    
+                    // AlwaysTheSame
+                    if (selectedPerDistrib.value == "0") {
+                        fieldsetAlwaysTheSame.removeAttribute("disabled");
+                    }
+                    if (selectedPerDistrib.value == "1") {
+                        fieldsetFrequencyBased.removeAttribute("disabled");
+                    }
+                    if (selectedPerDistrib.value == "2") {
+                        fieldsetPerPeriod.removeAttribute("disabled");
+                    }
                 }
             }
 
             for (elem in stockTracking) {
                 elem.addEventListener("change", updateVisibility);
             }
+            for (elem in stockTrackingPerDistribInputs) {
+                elem.addEventListener("change", updateVisibility);
+            }
+            addPeriodButton.addEventListener("click", e -> {
+                var stockTrackingPeriods = Browser.document.getElementsByClassName("stockTrackingPeriod");
+                var elem = stockTrackingPeriods[stockTrackingPeriods.length - 1];
+                var clone = elem.cloneNode(true);
+                elem.parentNode.appendChild(clone);
+            });
             updateVisibility();
         });
 	}

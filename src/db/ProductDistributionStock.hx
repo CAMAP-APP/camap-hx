@@ -19,7 +19,7 @@ class ProductDistributionStock extends Object {
 
 	public function new() {
 		super();
-		stock = 0;
+		stockPerDistribution = 0;
 		frequencyRatio = 1;
 	}
 

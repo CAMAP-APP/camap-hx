@@ -946,6 +946,11 @@ background-color: $state-info-bg-alpha;
   flex-direction:column;
 }
 
+.flex-row {
+  display:flex;
+  flex-direction:row;
+}
+
 /* categories */
 .tag {
   color: white;

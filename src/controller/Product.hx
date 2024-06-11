@@ -1,4 +1,6 @@
 package controller;
+import db.ProductDistributionStock;
+import thx.Error;
 import service.ProductService;
 import sys.db.RecordInfos;
 import neko.Utf8;
@@ -25,16 +27,13 @@ class Product extends Controller
 		
 		if (!app.user.canManageContract(product.catalog)) throw t._("Forbidden access");
 		
-		var f = ProductService.getForm(product);		
+		var f = ProductService.getForm(product);
 		
 		if (f.isValid()) {
 
 			f.toSpod(product);
+			updateProductStocksConfiguration(f, product);
 
-			//manage stocks by distributions for CSA contracts
-			if (product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				product.stock = (f.getValueOf("stock"):Float);
-			}
 			try{
 				ProductService.check(product);
 			}catch(e:tink.core.Error){
@@ -63,6 +62,7 @@ class Product extends Controller
 
 			f.toSpod(product);
 			product.catalog = contract;
+			updateProductStocksConfiguration(f, product);
 
 			try{
 				ProductService.check(product);
@@ -81,6 +81,50 @@ class Product extends Controller
 		
 		view.form = f;
 		view.title = t._("Key-in a new product");
+	}
+
+	public function updateProductStocksConfiguration(f:Form, product:db.Product) {
+		//manage stocks by distributions for CSA contracts
+		if (product.catalog.hasStockManagement()){
+			// in all cases, rewrite the ProductDistributionStock
+			ProductDistributionStock.manager.delete($productId==product.id);
+
+			switch product.stockTracking {
+				case Global:
+					product.stock = f.getValueOf("stock") != null ?(f.getValueOf("stock"):Float) : null;
+				case PerDistribution:
+					switch product.stockTrackingPerDistrib {
+						case AlwaysTheSame:
+							product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_AlwaysTheSame"));
+						case FrequencyBased: {
+							product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_FrequencyBased"));
+							var productDistribStock = new db.ProductDistributionStock();
+							productDistribStock.startDistribution = db.Distribution.manager.get(Std.parseInt(App.current.params.get(f.name + "_firstDistrib")));
+							productDistribStock.endDistribution = productDistribStock.startDistribution;
+							productDistribStock.stockPerDistribution = product.stock;
+							productDistribStock.product = product;
+							productDistribStock.frequencyRatio = Std.parseInt(App.current.params.get(f.name + "_frequencyRatio"));
+							productDistribStock.insert();
+						}
+
+						case PerPeriod: {
+							var startDistribs = neko.Web.getParamValues(f.name + "_startDistributionId");
+							var endDistribs = neko.Web.getParamValues(f.name + "_endDistributionId");
+							var stocks = neko.Web.getParamValues(f.name + "_stockPerDistribution");
+							if (product.stock == null) product.stock = 0;
+							for (i in 0...startDistribs.length) {
+								var productDistribStock = new db.ProductDistributionStock();
+								productDistribStock.startDistribution = db.Distribution.manager.get(Std.parseInt(startDistribs[i]));
+								productDistribStock.endDistribution = db.Distribution.manager.get(Std.parseInt(endDistribs[i]));
+								productDistribStock.stockPerDistribution = Std.parseFloat(stocks[i]);
+								productDistribStock.product = product;
+								productDistribStock.insert();
+							}
+						}
+					}
+				case Disabled:
+			}
+		}
 	}
 	
 	public function doDelete(p:db.Product) {

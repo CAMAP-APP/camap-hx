@@ -1,4 +1,5 @@
 package db;
+import thx.Error;
 import sys.db.Object;
 import sys.db.Types;
 import Common;
@@ -59,8 +60,87 @@ class Product extends Object
 		return ProductDistributionStock.manager.search($product==this, false);
 	}
 
+		/**
+	 * Get remaining stocks for a specific distrib. = product stock - current orders.
+	 * 4 cases are handled:
+	 * - global stock. 
+	 * 		- Value: this.stock holds the stock value for ALL distributions.
+	 * 		- Orders: all orders are taken into account to decrement stock.
+	 * - per distribution stock - AlwaysTheSame. 
+	 * 		- Value: this.stock holds the stock value for EACH distribution.
+	 * 		- Orders: only the orders of the considerer discribution are decremented.
+	 * - per distribution stock - FrequencyBased. 
+	 * 		- Value: the associated ProductDistributionStock.stockPerDistribution holds the stock value for CONFIGURED distributions and the configuration.
+	 * 		- Orders: only the orders of the considerer distribution are decremented
+	 * - per distribution stock - PerPeriod. 
+	 * 		- Value: the first ProductDistributionStock.stockPerDistribution that encapsulate the nextDistribId.
+	 * 		- Orders: only the orders of the considerer distribution are decremented.
+	 * @param nextDistribId The distrib we want to check the stock for
+	 * @param ignoreOrderId We might want to ignore the order we are currently calculating. Ignores a specific order in the calcultion
+	 * @param alwaysPositive = true By default, the return value is >=0. alwaysPositive at false will gives how much stock is missing to match the current orders as a negative value.
+	 * @return Float
+	 */
+	 public function getDistribStock(nextDistribId:Null<SId>):Float {
+		if (!this.hasStockTracking()) return null;
+		if (nextDistribId == null) throw new Error('Product.getDistribStock expects an existing nextDistribId.');
+
+		// calcul du stock pour la période (global ou distribution)
+		var periodStock = this.stock;
+
+		if (this.stockTracking == StockTracking.PerDistribution && this.stockTrackingPerDistrib == StockTrackingPerDistribution.FrequencyBased) {
+			var pdsResult = ProductDistributionStock.manager.search($productId==this.id);
+			if (pdsResult.length > 0) {
+				var pds = pdsResult.first();
+				var distribs:List<Distribution> = Distribution.manager.search( $catalog == this.catalog && $date >= pds.startDistribution.date, { orderBy:date,limit:999 } ,false);
+				var index = distribs.map(d -> d.id).indexOf(nextDistribId);
+				 // ie. 7th distribution on a "1/3" frequency ratio will have the following calculation:
+				 // expected distribs with stock: 1 0 0 1 0 0 1 0 0… (have stock (=1) each 3 distribs)
+				 //                        index: 0 1 2 3 4 5 6 7 8…
+				 // index of 7th distribution = 6 (indexes starts at 0)
+				 // pds.frequencyRatio = 3 (1/3 is represented as "3" in database)
+				 // 6 % 3 == 0 is true, stocks should be considered available for the 7th distribution
+				var hasStock = (index % pds.frequencyRatio) == 0;
+				periodStock =  hasStock ? pds.stockPerDistribution : 0;
+			} else {
+				throw new Error('Product ${id} (${name}) stock is FrequencyBased but no ProductDistributionStock were found in database. There should be 1 ProductDistributionStock entry for a FrequencyBased stock.');
+			}
+		}
+
+		if (this.stockTracking == StockTracking.PerDistribution && this.stockTrackingPerDistrib == StockTrackingPerDistribution.PerPeriod) {
+			var distrib = Distribution.manager.get(nextDistribId);
+			if (distrib.date == null) throw new Error('Distrib ${nextDistribId} doesnt have a date setup. Please fix date so the distrib has a date.');
+			var periods = ProductDistributionStock.manager.search($productId==this.id);
+			periods = periods.filter(function (period:ProductDistributionStock) {
+				if (period.startDistribution == null || period.endDistribution == null) throw new Error('Configured period ${period.id} is missing start or end date. Ensure all ProductDistributionStock have dates.');
+				var periodStart = period.startDistribution.date;
+				var periodEnd = period.endDistribution.date;
+				return periodStart.getTime() <= distrib.date.getTime() && distrib.date.getTime() <= periodEnd.getTime();
+			});
+			if (periods.length > 0) {
+				periodStock = periods.first().stockPerDistribution;
+			} else {
+				periodStock = 0;
+			}
+		}
+
+		return periodStock;
+	}
+
 	/**
 	 * Get remaining stocks for a specific distrib. = product stock - current orders.
+	 * 4 cases are handled:
+	 * - global stock. 
+	 * 		- Value: this.stock holds the stock value for ALL distributions.
+	 * 		- Orders: all orders are taken into account to decrement stock.
+	 * - per distribution stock - AlwaysTheSame. 
+	 * 		- Value: this.stock holds the stock value for EACH distribution.
+	 * 		- Orders: only the orders of the considerer discribution are decremented.
+	 * - per distribution stock - FrequencyBased. 
+	 * 		- Value: the associated ProductDistributionStock.stockPerDistribution holds the stock value for CONFIGURED distributions and the configuration.
+	 * 		- Orders: only the orders of the considerer distribution are decremented
+	 * - per distribution stock - PerPeriod. 
+	 * 		- Value: the first ProductDistributionStock.stockPerDistribution that encapsulate the nextDistribId.
+	 * 		- Orders: only the orders of the considerer distribution are decremented.
 	 * @param nextDistribId The distrib we want to check the stock for
 	 * @param ignoreOrderId We might want to ignore the order we are currently calculating. Ignores a specific order in the calcultion
 	 * @param alwaysPositive = true By default, the return value is >=0. alwaysPositive at false will gives how much stock is missing to match the current orders as a negative value.
@@ -68,33 +148,37 @@ class Product extends Object
 	 */
 	public function getAvailableStock(nextDistribId:Null<SId>, ignoreOrderId:Null<SId> = null, alwaysPositive = true):Float {
 		if (this.stock == null || !this.hasStockTracking()) return null;
+		if (nextDistribId == null) throw new Error('Product.getAvailableStock expects an existing nextDistribId.');
 
 		var existingOrders:List<db.UserOrder>;
-		if (this.stockTracking == StockTracking.PerDistribution && nextDistribId != null) {
+		if (this.stockTracking == StockTracking.PerDistribution) {
 			if (ignoreOrderId != null) {
 				existingOrders = db.UserOrder.manager.search($productId==this.id && $distributionId==nextDistribId && $id!=ignoreOrderId && $quantity>0, true);
 			} else {
 				existingOrders = db.UserOrder.manager.search($productId==this.id && $distributionId==nextDistribId && $quantity>0, true);
 			}
-			
 		} else if (this.stockTracking == StockTracking.Global) {
 			if (ignoreOrderId != null) {
 				existingOrders = db.UserOrder.manager.search($productId==this.id && $id!=ignoreOrderId && $quantity>0, true);
 			} else {
 				existingOrders = db.UserOrder.manager.search($productId==this.id && $quantity>0, true);
 			}
-			
 		} else {
 			existingOrders = new List<db.UserOrder>();
 		}
+
 		var totOrdersQt : Float = 0;
 		for (order in existingOrders) {
 			// if multiWeight, the exact weight does not matters, only the item count and there can be only 1 per line
 			// also the stock for multiweight products is the number of products, not the quantité
 			totOrdersQt += this.multiWeight ? 1 : order.quantity;
 		}
+
+		// calcul du stock pour la période (global ou distribution)
+		var distribStock = this.getDistribStock(nextDistribId);
+
 		// Stock dispo = stock - commandes en cours ou terminées
-		var availableStock = this.stock - totOrdersQt;
+		var availableStock = distribStock - totOrdersQt;
 		if (alwaysPositive && availableStock < 0) availableStock = 0;
 		return availableStock.clean();
 	}

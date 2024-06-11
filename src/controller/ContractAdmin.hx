@@ -282,7 +282,7 @@ class ContractAdmin extends Controller
 			throw Error("/", t._("Please activate stock management to access this screen."));
 
 		var now = Date.now();
-		var nextDistribs = db.Distribution.manager.search(($date >= now && $catalogId == contract.id), {orderBy: date}).array();
+		var nextDistribs = contract.getDistribs();
 		view.distributions = nextDistribs;
 		view.c = contract;
 	}
