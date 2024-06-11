@@ -19,7 +19,7 @@ class App extends sugoi.BaseApp {
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
 	 */ 
-	public static var VERSION = ([1,1,0]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	public static var VERSION = ([1,1,1]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 	
 	public function new(){
 		super();
@@ -102,13 +102,13 @@ class App extends sugoi.BaseApp {
 								<caption style=\"color:white\">Camap est co-financé par:</caption>
 								<tr>
 									<td>
-										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo NM\" style=\"width:60px;\"/>&nbsp;
+										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo Nantes Métropole\" style=\"width:60px;\"/>&nbsp;
 									</td>
 									<td>
-										<img src=\"/theme/default/Logo_LA.png\" alt=\"Logo LA\" style=\"width:60px;\"/>&nbsp;
+										<img src=\"/theme/default/Logo_BUPA.png\" alt=\"Logo Budget Participatif de Loire-Atlantique 2023\" style=\"width:60px;\"/>&nbsp;
 									</td>
 									<td>
-										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo PDL\" style=\"width:60px;\"/>
+										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo Pays-de-la-Loire\" style=\"width:60px;\"/>
 									</td>
 								</tr>
 							</table>
