@@ -125,7 +125,7 @@
 						Aucune distribution planifiée.
 					</span>
 				::else::
-					::set availableStock = p.getAvailableStock(nextDistribId, null)::
+					::set availableStock = p.getAvailableStock(nextDistribId, null, true)::
 					::if p.hasStockTracking() && p.stock == null::
 						<span style="color:red;font-weight:bold;">
 							Le stock initial a besoin d'être renseigné.

@@ -146,10 +146,28 @@ class ProductService{
 		check that a product is well configured
 	**/
 	public static function check(product:db.Product){
+		var t = sugoi.i18n.Locale.texts;
 		if(product.bulk){			
 			if(product.unitType==null) throw new Error("Vous devez définir l'unité de votre produit si l'option 'vrac' est activée");
 			if(product.qt==null) throw new  Error("Vous devez définir une quantité si l'option 'vrac' est activée");
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
+		}
+		
+
+		// Check no stocks ends being negative in any distribution
+		if (product.stockTracking != StockTracking.Disabled) {
+			if (product.stock == null) {
+				throw new Error(t._("Please fill the field \"stock\" or disable stockTracking.") );
+			} else {
+				var now = Date.now();
+				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
+				for (d in nextDistribs) {
+					var stockValue = product.getAvailableStock(d.id, null, false);
+					if (stockValue < 0 ) {
+						throw new Error(t._("Stock can't be less than ::minStock:: for ::product:: because of existing orders.", {product: product.name, minStock: Math.abs(stockValue - product.stock)}) );
+					}
+				}
+			}
 		}
 	}
 }

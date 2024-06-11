@@ -99,7 +99,7 @@
 			</td>
 			::foreach distrib distributions::
 			<td>
-			::set availableStock = p.getAvailableStock(distrib.id, null)::
+			::set availableStock = p.getAvailableStock(distrib.id, null, true)::
 			::if !p.hasStockTracking()::
 				-
 			::elseif p.stock == null::

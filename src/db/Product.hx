@@ -50,8 +50,23 @@ class Product extends Object
 		qt = 1;
 		
 	}
+	
+	/**
+	 * get distribution stocks
+	 * @param	onlyActive = true
+	 */
+	 public function getDistributionsStocks():List<ProductDistributionStock> {
+		return ProductDistributionStock.manager.search($product==this, false);
+	}
 
-	public function getAvailableStock(nextDistribId:Null<SId>, ignoreOrderId:Null<SId> = null):Float {
+	/**
+	 * Get remaining stocks for a specific distrib. = product stock - current orders.
+	 * @param nextDistribId The distrib we want to check the stock for
+	 * @param ignoreOrderId We might want to ignore the order we are currently calculating. Ignores a specific order in the calcultion
+	 * @param alwaysPositive = true By default, the return value is >=0. alwaysPositive at false will gives how much stock is missing to match the current orders as a negative value.
+	 * @return Float
+	 */
+	public function getAvailableStock(nextDistribId:Null<SId>, ignoreOrderId:Null<SId> = null, alwaysPositive = true):Float {
 		if (this.stock == null || !this.hasStockTracking()) return null;
 
 		var existingOrders:List<db.UserOrder>;
@@ -80,7 +95,7 @@ class Product extends Object
 		}
 		// Stock dispo = stock - commandes en cours ou terminées
 		var availableStock = this.stock - totOrdersQt;
-		if (availableStock < 0) availableStock = 0;
+		if (alwaysPositive && availableStock < 0) availableStock = 0;
 		return availableStock.clean();
 	}
 
