@@ -143,8 +143,8 @@
 						::end::
 						</span>
 						<span ::cond p.stockTracking != null && p.stockTracking == 2::>
-						<a class="btn btn-default btn-sm" href="/contractAdmin/stocks/::c.id::">
-									<i class="icon icon-wholesale" style="padding-right: 8px;"></i> ::_("See stocks")::
+						<a class="" href="/contractAdmin/stocks/::c.id::" style="white-space:nowrap;">
+							<i class="icon icon-wholesale" style="padding-right: 4px;"></i> <span style="color:initial">::_("See stocks")::</span>
 						</a>
 						</span>
 					::end::
