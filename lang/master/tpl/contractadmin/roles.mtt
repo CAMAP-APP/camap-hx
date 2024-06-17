@@ -1,0 +1,32 @@
+::use 'contractadmin/design.mtt'::
+	
+<h3>::_("Volunteer roles")::</h3>
+<p>
+	::raw _("Here you can define volunteers roles.")::
+</p>
+
+<table class="table table-bordered">
+	<tr>
+		<th>
+			::_("Volunteer Role")::
+		</th>
+	</tr>
+	
+	::foreach role volunteerRolesWithCatalog::
+	<tr>
+		<td>
+			<span>::role.name::</span>
+		</td>
+		<td>
+			<div class="btn-group">
+			$$edit(::_("Edit")::,/contractAdmin/editRole/::role.id::)
+			$$delete(::_("Delete")::,/contractAdmin/deleteRole/::role.id::?token=::token::&catalogId=::c.id::)
+			</div>
+		</td>
+	</tr>
+	
+	::end::
+</table>
+$$insert(::_("Add a role")::,/contractAdmin/insertRole/::c.id::)
+	
+::end::

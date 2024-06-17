@@ -1,4 +1,5 @@
 package controller;
+import thx.Error;
 import service.ProductService;
 import sys.db.RecordInfos;
 import neko.Utf8;
@@ -25,16 +26,13 @@ class Product extends Controller
 		
 		if (!app.user.canManageContract(product.catalog)) throw t._("Forbidden access");
 		
-		var f = ProductService.getForm(product);		
+		var f = ProductService.getForm(product);
 		
 		if (f.isValid()) {
 
 			f.toSpod(product);
+			ProductService.updateProductStocksConfiguration(f, product);
 
-			//manage stocks by distributions for CSA contracts
-			if (product.catalog.hasStockManagement() && f.getValueOf("stock")!=null){
-				product.stock = (f.getValueOf("stock"):Float);
-			}
 			try{
 				ProductService.check(product);
 			}catch(e:tink.core.Error){
@@ -63,6 +61,7 @@ class Product extends Controller
 
 			f.toSpod(product);
 			product.catalog = contract;
+			ProductService.updateProductStocksConfiguration(f, product);
 
 			try{
 				ProductService.check(product);
