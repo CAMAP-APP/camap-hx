@@ -110,35 +110,23 @@ class ProductService{
 
 		//stock mgmt ?
 		if (product.catalog.hasStockManagement()) {
+			var stockElement = f.getElement("stock");
 			// Replace stockTrackingPerDistrib component to enrich contribution
 			var stockTrackingPerDistribIdx = f.elements.indexOf(f.getElement('stockTrackingPerDistrib'));
 			f.removeElementByName('stockTrackingPerDistrib');
+			var distributionsStocks = product.getDistributionsStocks();
+			var distribs = product.catalog.getDistribs(false);
 			f.addElement(
-					new form.StockTrackingPerDistribForm(
+				new form.StockTrackingPerDistribForm(
 					'stockTrackingPerDistrib', 
 					t._("Stock per distribution configuration"), 
-					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex()
+					product.stockTrackingPerDistrib == null ? null : product.stockTrackingPerDistrib.getIndex(),
+					stockElement,
+					distributionsStocks,
+					distribs
 				), 
 				stockTrackingPerDistribIdx
 			);
-
-			//manage stocks by distributions for CSA contracts
-			var stock = f.getElement("stock");
-			var now = Date.now();
-
-			//Nbre de distri restantes
-			var distLeft = db.Distribution.manager.count( $date >= now && $catalogId==product.catalog.id);
-			// Si distri > 0
-			if (distLeft > 0) {
-				stock.label = "Stock initial";				 
-				if (product.stock!=null) stock.value = product.stock;
-			} else {
-				// Sinon (pas distri planifiées)
-				stock.label = "Stock (par distribution): vous devez planifier au moins une distribution avant de définir le stock";				 
-				product.stock = null;
-				stock.value = product.stock;
-			}
-			
 		} else {
 			// no stock tracking at all
 			f.removeElementByName('stock');
@@ -159,15 +147,79 @@ class ProductService{
 		return f;
 	}
 
+	public static function updateProductStocksConfiguration(f:sugoi.form.Form, product:db.Product) {
+		//manage stocks by distributions for CSA contracts
+		if (product.catalog.hasStockManagement()){
+			// in all cases, rewrite the ProductDistributionStock
+			db.ProductDistributionStock.manager.delete($productId==product.id);
+
+			switch product.stockTracking {
+				case Global:
+					product.stock = f.getValueOf("stock") != null ?(f.getValueOf("stock"):Float) : null;
+				case PerDistribution:
+					switch product.stockTrackingPerDistrib {
+						case AlwaysTheSame:
+							product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_AlwaysTheSame"));
+						case FrequencyBased: {
+							product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_FrequencyBased"));
+							var productDistribStock = new db.ProductDistributionStock();
+							productDistribStock.startDistribution = db.Distribution.manager.get(Std.parseInt(App.current.params.get(f.name + "_firstDistrib")));
+							productDistribStock.endDistribution = productDistribStock.startDistribution;
+							productDistribStock.stockPerDistribution = product.stock;
+							productDistribStock.product = product;
+							productDistribStock.frequencyRatio = Std.parseInt(App.current.params.get(f.name + "_frequencyRatio"));
+							productDistribStock.insert();
+						}
+
+						case PerPeriod: {
+							var startDistribs = neko.Web.getParamValues(f.name + "_startDistributionId");
+							var endDistribs = neko.Web.getParamValues(f.name + "_endDistributionId");
+							var stocks = neko.Web.getParamValues(f.name + "_stockPerDistribution");
+							if (product.stock == null) product.stock = 0;
+							for (i in 0...startDistribs.length) {
+								var productDistribStock = new db.ProductDistributionStock();
+								productDistribStock.startDistribution = db.Distribution.manager.get(Std.parseInt(startDistribs[i]));
+								productDistribStock.endDistribution = db.Distribution.manager.get(Std.parseInt(endDistribs[i]));
+								productDistribStock.stockPerDistribution = Std.parseFloat(stocks[i]);
+								productDistribStock.product = product;
+								productDistribStock.insert();
+							}
+						}
+					}
+				case Disabled:
+			}
+		}
+	}
 
 	/**
 		check that a product is well configured
 	**/
 	public static function check(product:db.Product){
+		var t = sugoi.i18n.Locale.texts;
 		if(product.bulk){			
 			if(product.unitType==null) throw new Error("Vous devez définir l'unité de votre produit si l'option 'vrac' est activée");
 			if(product.qt==null) throw new  Error("Vous devez définir une quantité si l'option 'vrac' est activée");
 			if(product.multiWeight) throw new Error("Un produit en vrac ne peut pas être aussi en multi-pesée.");			
+		}
+
+		// Check no stocks ends being negative in any distribution
+		if (product.stockTracking != StockTracking.Disabled) {
+			if (product.stock == null) {
+				throw new Error(t._("Please fill the field \"stock\" or disable stockTracking.") );
+			} else {
+				var now = Date.now();
+				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
+				for (d in nextDistribs) {
+					var stockValue = product.getAvailableStock(d.id, null, false);
+					var distribStock = product.getDistribStock(d.id);
+					if (stockValue < 0 ) {
+						throw new Error(t._(
+							"Stock can't be less than ::minStock:: for ::product:: on distribution ::ddate:: because of existing orders.", 
+							{product: product.name, minStock: Math.abs(stockValue - distribStock), ddate: Formatting.hDate(d.date)}
+						));
+					}
+				}
+			}
 		}
 	}
 }

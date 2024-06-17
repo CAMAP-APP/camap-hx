@@ -80,8 +80,8 @@
 			<th ::cond c.hasStockManagement()::>
 				::_("Stock tracking")::
 			</th>
-			<th ::cond c.hasStockManagement() && stockDate != null::>
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::">&nbsp;</i> ::_("Stock")::
+			<th ::cond c.hasStockManagement()::>
+				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::" ::cond stockDate != null::>&nbsp;</i> ::_("Stock")::
 			</th>
 			<th>::_("Price")::</th>
 			<th></th>
@@ -125,26 +125,27 @@
 						Aucune distribution planifiée.
 					</span>
 				::else::
-					::set availableStock = p.getAvailableStock(nextDistribId, null)::
-					::if p.hasStockTracking() && p.stock == null::
+					::set availableStock = p.getAvailableStock(nextDistribId, null, true)::
+					::set distribStock = p.getDistribStock(nextDistribId)::
+					::if p.hasStockTracking() && distribStock == null::
 						<span style="color:red;font-weight:bold;">
 							Le stock initial a besoin d'être renseigné.
 						</span>
-					::elseif availableStock==null || p.stock == null::
+					::elseif availableStock==null || distribStock == null::
 						-
 					::else::
 						<span ::cond p.stockTracking != null && p.stockTracking == 1::>
 						::if availableStock <= 10::
 							<span style="color:red;font-weight:bold;">
-								::availableStock:: / ::p.stock::
+								::availableStock:: / ::distribStock::
 							</span>
 						::else::
-							::availableStock:: / ::p.stock::
+							::availableStock:: / ::distribStock::
 						::end::
 						</span>
 						<span ::cond p.stockTracking != null && p.stockTracking == 2::>
-						<a class="btn btn-default btn-sm" href="/contractAdmin/stocks/::c.id::">
-									<i class="icon icon-wholesale" style="padding-right: 8px;"></i> ::_("See stocks")::
+						<a class="" href="/contractAdmin/stocks/::c.id::" style="white-space:nowrap;">
+							<i class="icon icon-wholesale" style="padding-right: 4px;"></i> <span style="color:initial">::_("See stocks")::</span>
 						</a>
 						</span>
 					::end::

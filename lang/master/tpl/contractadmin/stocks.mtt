@@ -13,7 +13,8 @@
 }
 .stocks table {
   table-layout: fixed; 
-  width: 100%;
+  width: auto;
+  max-width: 100%;
 }
 .stocks td, .stocks th {
   width: 150px;
@@ -63,7 +64,7 @@
 			<svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowForwardIcon"><path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
 		</button>
 	<div class="stocks" id="stocks-scroll-container" tabindex="0">
-	<table class="table table-striped table-hover" style="table-layout:fixed;">
+	<table class="table table-striped table-hover">
 		<tr>
 			<th class="table-head">::_("Name")::</th>
 			<th style="width:80px;">
@@ -99,10 +100,11 @@
 			</td>
 			::foreach distrib distributions::
 			<td>
-			::set availableStock = p.getAvailableStock(distrib.id, null)::
+			::set availableStock = p.getAvailableStock(distrib.id, null, true)::
+			::set distribStock = p.getDistribStock(distrib.id)::
 			::if !p.hasStockTracking()::
 				-
-			::elseif p.stock == null::
+			::elseif distribStock == null::
 				<span style="color:red;font-weight:bold;">
 					Le stock initial a besoin d'être renseigné.
 				</span>
@@ -113,10 +115,10 @@
 			::else::
 				::if availableStock <= 10::
 					<span style="color:red;font-weight:bold;">
-						::availableStock:: / ::p.stock::
+						::availableStock:: / ::distribStock::
 					</span>
 				::else::
-					::availableStock:: / ::p.stock::
+					::availableStock:: / ::distribStock::
 				::end::
 			::end::
 			</td>
