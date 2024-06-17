@@ -104,7 +104,7 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		choiceIdx = StockTrackingPerDistribution.FrequencyBased.getIndex();
 		isChecked = choiceIdx == this.value;
 		var radio = '<input type="radio" name="${n}" id="${n}_FrequencyBased" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} />';
-		s += '<label for="${n}_FrequencyBased" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.AlwaysTheSame.getName())}</label>';
+		s += '<label for="${n}_FrequencyBased" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.FrequencyBased.getName())}</label>';
 		s += '<fieldset id="${n}_FrequencyBased_fieldset" disabled="disabled" style="padding:12px 24px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">';
 		s += '	<div>${App.t._("Le stock définit ici sera disponible uniquement à la fréquence choisir et égal à 0 sinon.")}<br/>';
 		s += '	${App.t._("La date de départ permet de choisir la première date de distribution où le produit est disponible.")}</div>';
