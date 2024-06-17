@@ -28,27 +28,28 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 	}
 
 	override function isValid():Bool {
+		var _ = App.t._;
 		var regularValid = super.isValid();
 
 		// additional validation
 		var additionValid = true;
 		if (this.value == AlwaysTheSame.getIndex()) {
 			if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_AlwaysTheSame")))) {
-				this.errors.add("<span class=\"formErrorsField\">\"" + ((label != null && label != "") ? label : name) + "\"</span>: le stock doit être un nombre.");
+				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
 				additionValid = false;
 			}
 		}
 		if (this.value == FrequencyBased.getIndex()) {
 			if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_FrequencyBased")))) {
-				this.errors.add("<span class=\"formErrorsField\">\"" + ((label != null && label != "") ? label : name) + "\"</span>: le stock doit être un nombre.");
+				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
 				additionValid = false;
 			}
 			if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_firstDistrib")))) {
-				this.errors.add("<span class=\"formErrorsField\">\"" + ((label != null && label != "") ? label : name) + "\"</span>: la date de début de l'alternance des stocks est obligatoire.");
+				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("la date de début de l'alternance des stocks est obligatoire.")}');
 				additionValid = false;
 			}
 			if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_frequencyRatio")))) {
-				this.errors.add("<span class=\"formErrorsField\">\"" + ((label != null && label != "") ? label : name) + "\"</span>: il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4).");
+				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4).")}');
 				additionValid = false;
 			}
 		}
@@ -57,12 +58,12 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 			var endDistribs = neko.Web.getParamValues(parentForm.name + "_endDistributionId");
 			var stocks = neko.Web.getParamValues(parentForm.name + "_stockPerDistribution");
 			if (startDistribs.length != stocks.length || endDistribs.length != stocks.length) {
-				this.errors.add("<span class=\"formErrorsField\">\"" + ((label != null && label != "") ? label : name) + "\"</span>: une erreur est survenue au niveau de la définition des périodes. Chaque période doit comporter une distribution de début, de fin et un stock.");
+				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("une erreur est survenue au niveau de la définition des périodes. Chaque période doit comporter une distribution de début, de fin et un stock.")}');
 				additionValid = false;
 			}
 			for (i in 0...stocks.length) {
 				if (Math.isNaN(Std.parseFloat(stocks[i]))) {
-					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name} > Stock [${i}]"</span>: le stock doit être un nombre.');
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name} > Stock [${i}]"</span>: ${_("le stock doit être un nombre.")}');
 					additionValid = false;
 				}
 			}
@@ -109,7 +110,7 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		s += '	${App.t._("La date de départ permet de choisir la première date de distribution où le produit est disponible.")}</div>';
 	
 		// 		Choix de la distrib de début d'alternance
-		var distribsData = Lambda.map(this.distribs, function(c) return {label:c.date.toString().substr(0, 10),value: Std.string(c.id)} ).array();
+		var distribsData = Lambda.map(this.distribs, function(c) return {label:Formatting.dDate(c.date),value: Std.string(c.id)} ).array();
 		var selectedDistrib = distributionsStocks.length > 0 ? Std.string(distributionsStocks.first().startDistribution.id) : null;
 		var distribSelector = new Selectbox("firstDistrib", "Date de départ de l'alternance", distribsData, selectedDistrib, false, "");
 		distribSelector.parentForm = this.parentForm;
@@ -153,7 +154,7 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		}
 		for (distribStock in distributionsStocks) {
 			s += '<div class="flex-row stockTrackingPeriod" style="align-items:center;gap:8px;margin: 6px 0">Du ';
-			s += renderDistribSelect('Première distribution de la période ${c+1}', '${parentForm.name}_startDistributionId[${c}]','${parentForm.name}_startDistributionId[]', distribsData, Std.string(distribStock.startDistribution.id));
+			s += renderDistribSelect('${App.t._("Première distribution de la période")} ${c+1}', '${parentForm.name}_startDistributionId[${c}]','${parentForm.name}_startDistributionId[]', distribsData, Std.string(distribStock.startDistribution.id));
 			s += ' Au ';
 			s += renderDistribSelect('Dernière distribution de la période ${c+1}', '${parentForm.name}_endDistributionId[${c}]','${parentForm.name}_endDistributionId[]', distribsData, Std.string(distribStock.endDistribution.id));
 			var periodStockElem = new StringInput('stockPerDistribution[]', stockElement.label, Std.string(distribStock.stockPerDistribution), stockElement.required);

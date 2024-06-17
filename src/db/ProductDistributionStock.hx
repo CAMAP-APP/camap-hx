@@ -47,7 +47,7 @@ class ProductDistributionStock extends Object {
 		return [
 			"startDistribution" => t._("Starting distribution"),
 			"endDistribution" => t._("Ending distribution"),
-			"product" => t._("Produit"),
+			"product" => t._("Product"),
 			"stockPerDistribution" => t._("Stock per distribution")
 		];
 	}
