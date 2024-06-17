@@ -10,6 +10,7 @@ import service.CatalogService;
 import service.OrderService;
 import service.ProductService;
 import service.SubscriptionService;
+import service.VolunteerService;
 import sugoi.form.Form;
 import sugoi.form.elements.Checkbox;
 import sugoi.form.elements.IntInput;
@@ -150,6 +151,85 @@ class ContractAdmin extends Controller
 		 
 		view.form = form;
 	}
+
+	/**
+	 * Manage roles
+	 */
+	 @tpl("contractadmin/roles.mtt")
+	 function doRoles(contract:db.Catalog,?args:{?enable:String,?disable:String}) {
+		checkToken();
+
+		view.nav.push("roles");
+		sendNav(contract);
+
+		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(app.user.getGroup());
+		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog == contract);
+
+		view.c = contract;
+	 }
+
+	 	/**
+		Insert a volunteer role
+	**/
+	@tpl("form.mtt")
+	function doInsertRole(contract:db.Catalog) {
+		var role = new db.VolunteerRole();
+		var form = new sugoi.form.Form("volunteerrole");
+
+		form.addElement( new StringInput("name", t._("Volunteer role name"), null, true) );
+
+		if (form.isValid()) {
+			role.name = form.getValueOf("name");
+			role.group = app.user.getGroup();
+			role.catalog = contract;
+			role.enabledByDefault = true;
+			role.insert();
+			throw Ok("/contractAdmin/roles/"+contract.id, t._("Volunteer Role has been successfully added"));
+			
+		}
+
+		view.title = t._("Create a volunteer role");
+		view.form = form;
+	}
+
+	 /**
+	 * Edit a volunteer role
+	 */
+	@tpl('form.mtt')
+	function doEditRole(role:db.VolunteerRole) {
+		var form = new sugoi.form.Form("volunteerrole");
+	
+		form.addElement( new StringInput("name", t._("Volunteer role name"), role.name, true) );
+
+		if (form.isValid()) {
+			role.lock();
+			role.name = form.getValueOf("name");
+			role.update();
+
+			throw Ok("/contractAdmin/roles/"+role.catalog.id, t._("Volunteer Role has been successfully updated"));
+		}
+		
+		view.title = t._("Edit a volunteer role");
+		view.form = form;
+	}
+
+	/**
+	 * Delete a volunteer role
+	 */
+	 function doDeleteRole(role: db.VolunteerRole, args: { token:String , ?force:Bool, ?catalogId:String}) {
+		if ( checkToken() ) {
+			try {
+				VolunteerService.deleteVolunteerRole(role,args.force);
+			}
+			catch(e: tink.core.Error){
+				throw Error("/contractAdmin/roles/"+args.catalogId, e.message);
+			}
+
+			throw Ok("/contractAdmin/roles/"+args.catalogId, t._("Volunteer Role has been successfully deleted"));
+		} else {
+			throw Redirect("/contractAdmin/roles/"+args.catalogId);
+		}
+}
 
 	/**
 	 * Manage products
@@ -731,6 +811,18 @@ class ContractAdmin extends Controller
 						d.insert();
 					}
 				}
+			}
+
+			// copy roles
+			var roles = VolunteerService.getRolesFromGroup(app.user.getGroup())
+				.filter(function(role) return role.catalog == catalog);
+			for ( r in roles) {
+				var role = new db.VolunteerRole();
+				role.name = r.name;
+				role.catalog = nc;
+				role.group = nc.group;
+				role.enabledByDefault = r.enabledByDefault;
+				role.insert();
 			}
 			
 			app.event(DuplicateContract(catalog));

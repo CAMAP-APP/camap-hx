@@ -12,63 +12,67 @@ msgstr ""
 msgid "The group has been updated."
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:580
-msgid "Authorize the sending of information emails to volunteers"
-msgstr ""
-
-#: ../src/controller/amapadmin/Volunteers.hx:775
-msgid "Authorize the sending of alert emails to free volunteers"
-msgstr ""
-
-#: ../src/controller/amapadmin/Volunteers.hx:976
+#: ../src/controller/amapadmin/Volunteers.hx:910
 msgid "Number of days before duty periods open to volunteers (between 7 and 365)"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1161
+#: ../src/controller/amapadmin/Volunteers.hx:1109
+msgid "Authorize the sending of information emails to volunteers"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:1298
 msgid "Number of days before duty period to send mail"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1338
+#: ../src/controller/amapadmin/Volunteers.hx:1475
 msgid "Email body sent to volunteers"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1801
+#: ../src/controller/amapadmin/Volunteers.hx:1946
+msgid "Authorize the sending of alert emails to free volunteers"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:2131
 msgid "Number of days before duty period to send mail for vacant volunteer roles"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:2010
+#: ../src/controller/amapadmin/Volunteers.hx:2340
 msgid "Alert email body"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:3639
+#: ../src/controller/amapadmin/Volunteers.hx:3972
 msgid "Your changes have been successfully saved."
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:3974 ../src/controller/amapadmin/Volunteers.hx:4980
+#: ../src/controller/amapadmin/Volunteers.hx:4306 ../src/controller/amapadmin/Volunteers.hx:5593
 msgid "Volunteer role name"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4225 ../src/controller/amapadmin/Volunteers.hx:5309 ../lang/master/tpl/amapadmin/volunteers/default.mtt:256
+#: ../src/controller/amapadmin/Volunteers.hx:4576 ../src/controller/amapadmin/Volunteers.hx:5945
 msgid "Related catalog"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4279 ../src/controller/amapadmin/Volunteers.hx:5376 ../src/controller/ContractAdmin.hx:20646 ../lang/master/tpl/amapadmin/volunteers/default.mtt:503
+#: ../src/controller/amapadmin/Volunteers.hx:4630 ../src/controller/amapadmin/Volunteers.hx:6012 ../src/controller/ContractAdmin.hx:20646
 msgid "None"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4651
+#: ../src/controller/amapadmin/Volunteers.hx:4723 ../src/controller/amapadmin/Volunteers.hx:6102 ../lang/master/tpl/amapadmin/volunteers/default.mtt:256
+msgid "Enabled by default on all distributions"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:5264
 msgid "Volunteer Role has been successfully added"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4727 ../src/controller/amapadmin/Volunteers.hx:5796
+#: ../src/controller/amapadmin/Volunteers.hx:5340 ../src/controller/amapadmin/Volunteers.hx:6742
 msgid "Create a volunteer role"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:5718
+#: ../src/controller/amapadmin/Volunteers.hx:6664
 msgid "Volunteer Role has been successfully updated"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:6202
+#: ../src/controller/amapadmin/Volunteers.hx:7148
 msgid "Volunteer Role has been successfully deleted"
 msgstr ""
 
@@ -1554,7 +1558,7 @@ msgstr ""
 msgid "Delete ?"
 msgstr ""
 
-#: ../lang/master/tpl/amap/default.mtt:573 ../lang/master/tpl/amapadmin/places.mtt:386 ../lang/master/tpl/amapadmin/volunteers/default.mtt:596 ../lang/master/tpl/contractadmin/documents.mtt:3248 ../lang/master/tpl/contractadmin/documents.mtt:3594 ../lang/master/tpl/contractadmin/orders.mtt:3917 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2632 ../lang/master/tpl/contractadmin/products.mtt:3632 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6636 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1947 ../lang/master/tpl/contractadmin/view.mtt:899 ../lang/master/tpl/member/view.mtt:2652
+#: ../lang/master/tpl/amap/default.mtt:573 ../lang/master/tpl/amapadmin/places.mtt:386 ../lang/master/tpl/amapadmin/volunteers/default.mtt:557 ../lang/master/tpl/contractadmin/documents.mtt:3248 ../lang/master/tpl/contractadmin/documents.mtt:3594 ../lang/master/tpl/contractadmin/orders.mtt:3917 ../lang/master/tpl/contractadmin/ordersByDate.mtt:2632 ../lang/master/tpl/contractadmin/products.mtt:3632 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:6636 ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:1947 ../lang/master/tpl/contractadmin/view.mtt:899 ../lang/master/tpl/member/view.mtt:2652
 msgid "Edit"
 msgstr ""
 
@@ -1637,15 +1641,23 @@ msgstr ""
 msgid "Volunteer Role"
 msgstr ""
 
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:666 ../lang/master/tpl/contractadmin/documents.mtt:3416 ../lang/master/tpl/contractadmin/documents.mtt:3743 ../lang/master/tpl/contractadmin/media.mtt:2845 ../lang/master/tpl/contractadmin/orders.mtt:7154 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8129 ../lang/master/tpl/distribution/default.mtt:11848
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:442
+msgid "Yes"
+msgstr ""
+
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:477
+msgid "No"
+msgstr ""
+
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:627 ../lang/master/tpl/contractadmin/documents.mtt:3416 ../lang/master/tpl/contractadmin/documents.mtt:3743 ../lang/master/tpl/contractadmin/media.mtt:2845 ../lang/master/tpl/contractadmin/orders.mtt:7154 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8129 ../lang/master/tpl/distribution/default.mtt:11848
 msgid "Delete"
 msgstr ""
 
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:800
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:761
 msgid "Add a role"
 msgstr ""
 
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:862
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:823
 msgid "Delays and messages"
 msgstr ""
 

@@ -12,9 +12,8 @@
 			::_("Volunteer Role")::
 		</th>
 		<th>
-			::_("Related catalog")::
+			::_("Enabled by default on all distributions")::
 		</th>
-		<th></th>
 	</tr>
 	
 	::foreach role volunteerRoles::
@@ -23,12 +22,8 @@
 			<span>::role.name::</span>
 		</td>
 		<td>
-			::if role._catalog!=null ::
-				<span>::role._catalog.name::</span>
-            ::else::
-				<span>::_("None")::</span>
-            ::end::
-		</td>
+			::if role.enabledByDefault:: <span>::_("Yes")::</span> ::else:: <span>::_("No")::</span> ::end::
+			</td>
 		<td>
 			<div class="btn-group">
 			$$edit(::_("Edit")::,/amapadmin/volunteers/editRole/::role.id::)

@@ -17,6 +17,11 @@
 					<i class="icon icon-edit"></i> ::_("Edit catalog")::
 				</a>
 			</li>
+				<li id="roles" ::attr class if(nav[1]=="roles") 'active'::>
+				<a href="/contractAdmin/roles/::c.id::">
+					<i class="icon icon-users"></i> ::_("Duty periods")::
+				</a>
+			</li>
 			<li id="products" ::attr class if(nav[1]=="products") 'active'::>
 				<a href="/contractAdmin/products/::c.id::">
 					<i class="icon icon-products"></i> ::_("Products")::

@@ -173,7 +173,7 @@ class DistributionService
 
 		//add default general roles
 		var roles = service.VolunteerService.getRolesFromGroup(place.group);
-		var generalRoles = Lambda.array(Lambda.filter(roles,function(r) return r.catalog==null));
+		var generalRoles = Lambda.array(Lambda.filter(roles,function(r) return r.catalog==null && r.enabledByDefault == true));
 		md.volunteerRolesIds = generalRoles.map( function(r) return Std.string(r.id) ).join(",");
 		md.insert();
 			

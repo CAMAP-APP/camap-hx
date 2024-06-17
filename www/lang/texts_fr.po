@@ -1885,6 +1885,12 @@ msgstr "Permanences"
 msgid "Volunteer roles"
 msgstr "Rôles de bénévoles"
 
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:113
 msgid "Here you can define volunteers roles."
 msgstr "Ici vous pouvez définir les rôles de bénévoles."
@@ -1892,6 +1898,10 @@ msgstr "Ici vous pouvez définir les rôles de bénévoles."
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:225
 msgid "Volunteer Role"
 msgstr "Rôle de bénévole"
+
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:15
+msgid "Enabled by default on all distributions"
+msgstr "Activer par défaut sur toutes les distributions"
 
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:700
 #: ../lang/master/tpl/contractadmin/documents.mtt:3479
