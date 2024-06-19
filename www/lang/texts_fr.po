@@ -398,6 +398,10 @@ msgstr "Vous ne pouvez pas effacer ce catalogue car il y a des commandes rattach
 msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
+#: ../src/controller/ContractAdmin.hx:34172
+msgid "Edit a volunteer role"
+msgstr "Modifier un rôle de bénévole"
+
 #: ../src/controller/ContractAdmin.hx:34239 ../src/controller/Documents.hx:3241
 #: ../src/controller/Media.hx:2084 ../src/controller/Product.hx:2984
 #: ../src/controller/SubscriptionAdmin.hx:2031
@@ -1451,6 +1455,14 @@ msgstr "Commande du ::date::"
 #: ../src/service/PaymentService.hx:4507
 msgid "deliveries"
 msgstr "distributions"
+
+#: ../src/service/ProductService.hx:5560
+msgid "Please fill the field \"stock\" or disable stockTracking."
+msgstr "Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."
+
+#: ../src/service/ProductService.hx
+msgid "Stock can't be less than ::minStock:: for ::product:: on distribution ::ddate:: because of existing orders."
+msgstr "Le stock ne peut pas être inférieur à ::minStock:: pour ::product:: sur la distribution du ::ddate:: à cause des commandes en cours."
 
 #: ../src/service/ReportService.hx:464
 msgid "Delivery ::contractName:: of the "
