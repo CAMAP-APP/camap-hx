@@ -61,7 +61,20 @@ class Product extends Controller
 
 			f.toSpod(product);
 			product.catalog = contract;
-			ProductService.updateProductStocksConfiguration(f, product);
+			// update stockValue if needed
+			if (product.catalog.hasStockManagement()) {
+				switch product.stockTracking {
+					case Global:
+						product.stock = f.getValueOf("stock") != null ? (f.getValueOf("stock") : Float) : null;
+					case PerDistribution:
+						switch product.stockTrackingPerDistrib {
+							case AlwaysTheSame: product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_AlwaysTheSame"));
+							case FrequencyBased: product.stock = Std.parseFloat(App.current.params.get(f.name + "_stock_FrequencyBased"));
+							case PerPeriod: if (product.stock == null) product.stock = 0;
+						}
+					case Disabled:
+				}
+			}
 
 			try{
 				ProductService.check(product);
@@ -71,6 +84,9 @@ class Product extends Controller
 			
 			app.event(NewProduct(product));
 			product.insert();
+			// the product must exists for the stockConfiguration to work, so update the stockConfig after creating the product
+			ProductService.updateProductStocksConfiguration(f, product);
+
 			throw Ok('/contractAdmin/products/'+product.catalog.id, t._("The product has been saved"));
 		}
 		else {

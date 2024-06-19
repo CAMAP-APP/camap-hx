@@ -24,6 +24,7 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		this.stockElement = stockElement;
 		this.distributionsStocks = distributionsStocks;
 		this.distribs = distribs;
+		if (this.distribs == null) this.distribs = new List<db.Distribution>();
 		this.enumStrings = Type.getEnumConstructs(StockTrackingPerDistribution);
 	}
 
@@ -103,9 +104,11 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		// à fréquence régulière
 		choiceIdx = StockTrackingPerDistribution.FrequencyBased.getIndex();
 		isChecked = choiceIdx == this.value;
-		var radio = '<input type="radio" name="${n}" id="${n}_FrequencyBased" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} />';
+		var hasDistribs = this.distribs.length > 0;
+		var radio = '<input type="radio" name="${n}" id="${n}_FrequencyBased" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} ${hasDistribs ? '' : 'disabled="disabled"'} />';
 		s += '<label for="${n}_FrequencyBased" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.FrequencyBased.getName())}</label>';
 		s += '<fieldset id="${n}_FrequencyBased_fieldset" disabled="disabled" style="padding:12px 24px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">';
+		if (!hasDistribs) s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
 		s += '	<div>${App.t._("Le stock définit ici sera disponible uniquement à la fréquence choisir et égal à 0 sinon.")}<br/>';
 		s += '	${App.t._("La date de départ permet de choisir la première date de distribution où le produit est disponible.")}</div>';
 	
@@ -138,18 +141,19 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		// Par période
 		choiceIdx = StockTrackingPerDistribution.PerPeriod.getIndex();
 		isChecked = choiceIdx == this.value;
-		var radio = '<input type="radio" name="${n}" id="${n}_PerPeriod" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} />';
+		var radio = '<input type="radio" name="${n}" id="${n}_PerPeriod" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} ${hasDistribs ? '' : 'disabled="disabled"'} />';
 		s += '<label for="${n}_PerPeriod" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.PerPeriod.getName())}</label>';
 		s += '<fieldset id="${n + "_PerPeriod_fieldset"}" disabled="disabled" style="padding:12px 24px;">';
+		if (!hasDistribs) s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
 		s += '	<div>${App.t._("Vous pouvez définir ici une ou plusieurs périodes pour lesquelles indiquer un stock disponible à chaque distribution. Le stock des distributions non incluses dans les périodes définies sera égale à 0.")}</div>';
 		s += '	<button type="button" class="btn btn-primary btn-noAntiDoubleClick" id="${n}_addPeriodButton" style="margin: 12px 0;">${_("Add period")}</button>';
 		s += '<div class="periods">';
 		var c = 0;
-		if (distributionsStocks.length == 0) {
+		if (distributionsStocks.length == 0 && hasDistribs) {
 			var initial = new ProductDistributionStock();
-			initial.stockPerDistribution = stockElement.value;
-			initial.startDistribution = this.distribs.first();
-			initial.endDistribution = this.distribs.last();
+			initial.stockPerDistribution = stockElement.value != null ? stockElement.value : 0;
+			initial.startDistribution = this.distribs.first(); // can be null !
+			initial.endDistribution = this.distribs.last();  // can be null !
 			distributionsStocks.add(initial);
 		}
 		for (distribStock in distributionsStocks) {
