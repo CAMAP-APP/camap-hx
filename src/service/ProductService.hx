@@ -211,8 +211,8 @@ class ProductService{
 				var nextDistribs = db.Distribution.manager.search( ($date >= now && $catalogId==product.catalog.id),{orderBy: date}).array();
 				for (d in nextDistribs) {
 					var stockValue = product.getAvailableStock(d.id, null, false);
-					var distribStock = product.getDistribStock(d.id);
 					if (stockValue < 0 ) {
+						var distribStock = product.getDistribStock(d.id);
 						throw new Error(t._(
 							"Stock can't be less than ::minStock:: for ::product:: on distribution ::ddate:: because of existing orders.", 
 							{product: product.name, minStock: Math.abs(stockValue - distribStock), ddate: Formatting.hDate(d.date)}

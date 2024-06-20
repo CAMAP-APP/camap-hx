@@ -1413,6 +1413,10 @@ msgstr ""
 msgid "Please fill the field \"stock\" or disable stockTracking."
 msgstr ""
 
+#: ../src/service/ProductService.hx
+msgid "Stock can't be less than ::minStock:: for ::product:: on distribution ::ddate:: because of existing orders."
+msgstr ""
+
 #: ../src/service/ReportService.hx:464
 msgid "Delivery ::contractName:: of the "
 msgstr ""

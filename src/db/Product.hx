@@ -100,9 +100,10 @@ class Product extends Object
 				 // pds.frequencyRatio = 3 (1/3 is represented as "3" in database)
 				 // 6 % 3 == 0 is true, stocks should be considered available for the 7th distribution
 				var hasStock = (index % pds.frequencyRatio) == 0;
-				periodStock =  hasStock ? pds.stockPerDistribution : 0;
+				periodStock = hasStock ? pds.stockPerDistribution : 0;
 			} else {
-				throw new Error('Product ${id} (${name}) stock is FrequencyBased but no ProductDistributionStock were found in database. There should be 1 ProductDistributionStock entry for a FrequencyBased stock.');
+				// The product might be in creation and the stockTracking not configured yet. Consider 0 stock in this case.
+				periodStock = 0;
 			}
 		}
 
