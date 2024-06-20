@@ -1,4 +1,5 @@
 package service;
+import service.SubscriptionService.CSAOrder;
 import Common;
 import db.MultiDistrib;
 import db.Basket;
@@ -115,29 +116,47 @@ class OrderService
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			if (c.hasStockManagement()) {
-				var orderDate = order.distribution.date;
-				var now = Date.now();
 				var availableStock = order.product.getAvailableStock(order.distribution.id, order.id);
 				// multiWeight always count as 1 regarding the stocks, no matter the weight
-				// product quantity should be converted in "stock units"
-				var orderedQuantity = order.product.multiWeight ? 1 : order.quantity;
+				var orderedQuantity = order.product.multiWeight && order.quantity > 0 ? 1 : order.quantity;
 
 				// si stock à 0 annuler commande
-				if (availableStock == 0) {
+				if (availableStock == 0 && orderedQuantity > 0) {
 					order.quantity = 0;
 					order.update();
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé pour cette date.');	
 				} else if (availableStock != null && orderedQuantity > availableStock) {
 					// si stock insuffisant, prend le max disponible
 					order.quantity = availableStock;
 					order.update();
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 				}
 			}	
 		}
 
 
 		return order;
+	}
+
+	public static function assertStocksAvailable(catalog:db.Catalog, ordersByDistrib:Map<db.Distribution,Array<CSAOrder>>) {
+		if (catalog.hasStockManagement()) {
+			var keys = ordersByDistrib.keys();
+			for ( distrib in keys ) {
+				for ( o in ordersByDistrib[distrib] ) {
+					var product = db.Product.manager.get(o.productId);
+					var availableStock = product.getAvailableStock(distrib.id);
+					// multiWeight always count as 1 regarding the stocks, no matter the weight
+					var orderedQuantity = product.multiWeight && o.quantity > 0 ? 1 : o.quantity;
+
+					// si stock à 0 annuler commande
+					if (availableStock == 0 && orderedQuantity > 0) {
+						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.' + product.qt);	
+					} else if (availableStock != null && orderedQuantity > availableStock) {
+						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${product.name}');	
+					}
+				}
+			}
+		}	
 	}
 
 
@@ -185,11 +204,11 @@ class OrderService
 			if (c.hasStockManagement()) {
 				var availableStock = product.getAvailableStock(order.distribution.id, order.id);
 				// multiWeight always count as 1 regarding the stocks, no matter the weight
-				var quantityAsStockUnits = order.product.multiWeight ? 1 : newquantity;
+				var quantityAsStockUnits = order.product.multiWeight && order.quantity > 0 ? 1 : newquantity;
 				
 				if (availableStock == 0 && quantityAsStockUnits != 0) {
 					newquantity = 0;
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé');	
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.');	
 				} else if (availableStock != null && quantityAsStockUnits > availableStock) {
 						//stock is not enough, cancel
 						var qt:Float = 1;
@@ -197,7 +216,7 @@ class OrderService
 						newquantity = availableStock * qt; // availableStock is a unit quantity (ie. 1x300g of tomato is 1 quantity), but the contributed quantity can be of any unit (ie. 0.3 Kg)
 						order.quantity = newquantity;
 						order.update();
-						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+						throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 				}
 			}	
 		}
