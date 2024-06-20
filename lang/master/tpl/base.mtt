@@ -118,7 +118,7 @@
     </script>
 
 	::foreach script getNeoModuleScripts()::
-    <script src="::script::"></script>
+    <script src="::script::" ::cond script!=null::></script>
     ::end::
 
 </body>

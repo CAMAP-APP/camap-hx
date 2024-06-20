@@ -142,29 +142,38 @@ class Subscription extends Controller
     **/
     public function doCheckDefaultOrder(catalog:db.Catalog){
         var post = sugoi.Web.getPostData();
-        if(post!=null){
+        if (post!=null){
             var defaultOrder:Array<CSAOrder> = Json.parse(StringTools.urlDecode(post));
+            var ordersByDistrib:Map<db.Distribution,Array<CSAOrder>> = null;
+            if (catalog.hasStockManagement()) {
+                ordersByDistrib = buildOrdersByDistrib(catalog, defaultOrder);
+                OrderService.assertStocksAvailable(catalog, ordersByDistrib);
+            }
 
             //no default order to check in those cases
-            if(catalog.isConstantOrdersCatalog() || catalog.distribMinOrdersTotal==0){                
+            if (catalog.isConstantOrdersCatalog() || catalog.distribMinOrdersTotal==0){                
                 return json({defaultOrderCheck:true});
             }
 
-            //build ordersByDistrib
-            var distribs = db.Distribution.manager.search( $catalog == catalog && $date >= SubscriptionService.getNewSubscriptionStartDate( catalog ) );
-            var ordersByDistrib = new Map<db.Distribution,Array<CSAOrder>>();
-            for( d in distribs){
-				try{
-					ordersByDistrib.set(d,defaultOrder);
-				}catch(e:tink.core.Error) {
-					throw (e);
-				}
-			}
-
-            if(SubscriptionService.checkVarOrders(ordersByDistrib)){
+            if (ordersByDistrib == null) ordersByDistrib = buildOrdersByDistrib(catalog, defaultOrder);
+            if (SubscriptionService.checkVarOrders(ordersByDistrib)){
                 json({defaultOrderCheck:true});
             }
         }
+    }
+
+    private function buildOrdersByDistrib(catalog:db.Catalog, defaultOrder:Array<CSAOrder>) {
+        var ordersByDistrib = new Map<db.Distribution,Array<CSAOrder>>();
+        var distribs = db.Distribution.manager.search( $catalog == catalog && $date >= SubscriptionService.getNewSubscriptionStartDate( catalog ) );
+        var ordersByDistrib = new Map<db.Distribution,Array<CSAOrder>>();
+        for( d in distribs){
+            try{
+                ordersByDistrib.set(d,defaultOrder);
+            }catch(e:tink.core.Error) {
+                throw (e);
+            }
+        }
+        return ordersByDistrib;
     }
 
     private function getSubscription(sub:db.Subscription){
