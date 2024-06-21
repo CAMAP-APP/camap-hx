@@ -150,7 +150,7 @@ class OrderService
 
 					// si stock à 0 annuler commande
 					if (availableStock == 0 && orderedQuantity > 0) {
-						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.' + product.qt);	
+						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.');	
 					} else if (availableStock != null && orderedQuantity > availableStock) {
 						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${product.name}');	
 					}
