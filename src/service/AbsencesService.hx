@@ -193,8 +193,47 @@ class AbsencesService {
 				order.lock();
 				order.delete();
 			}
+			
+			// create the default order on the new date
+			if(subscription.catalog.hasDefaultOrdersManagement()) {
+				
+				// check the dates of previous absence that becomes presence
+				var newDistribPresence:Array<Int> = new Array<Int>();
+			for (i in 0...oldAbsentDistribIds.length) {
+				var distributionId = oldAbsentDistribIds[i];
+				if (!newAbsentDistribIds.has(distributionId)) {
+						newDistribPresence.push(distributionId);
+					}
+				}
+				var ordersData = subscription.getDefaultOrders();
+				
+				// used to be absent at the distrib but not anymore: create the default order
+				for (i in 0...newDistribPresence.length) {
+					var distribution = db.Distribution.manager.get(newDistribPresence[i]);
+					for ( order in ordersData ) {
+						if ( order.quantity > 0 ) {
+							var product = db.Product.manager.get( order.productId, false );
+							// User2 + Invert
+							var user2 : db.User = null;
+							var invert = false;
+							if ( order.userId2 != null && order.userId2 != 0 ) {
+								user2 = db.User.manager.get( order.userId2, false );
+								if ( user2 == null ) throw new Error( 'Impossible de trouver l\'utilisateur #${order.userId2}' );
+								if ( subscription.user.id == user2.id ) throw new Error( "Les deux comptes sélectionnés doivent être différents" );
+								if ( !user2.isMemberOf( product.catalog.group ) ) throw new Error( 'L\'utilisateur #${user2} ne fait pas partie de ce groupe' );
+								invert = order.invertSharedOrder;
+							}
+							try {
+								OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+							} catch (e : Error) {
+								throw new Error(Forbidden, 'Impossible de créer la commande par défaut sur la date où vous n\'êtes plus absent (${DateTools.format(distribution.date,"%d/%m/%Y")}): ${e.message}');
+							}
+ 						}
+					}
+				}
+			}
+
 		}
 
 	}
-    
 }
