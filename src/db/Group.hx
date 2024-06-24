@@ -246,13 +246,6 @@ class Group extends Object
 	public function getGroupAdmins():Array<db.UserGroup>{
 
 		var users = db.UserGroup.manager.search($rights != null && $rights != "[]" && $group == this, false);
-		users.array().sort(function(a, b){
-			if( a.user.lastName.toUpperCase() > b.user.lastName.toUpperCase() ){
-				return 1;
-			}else{
-				return -1;
-			}
-		});
 		//cleaning 
 		/*for ( u in users.array()) {
 			
