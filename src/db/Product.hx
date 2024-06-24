@@ -60,27 +60,22 @@ class Product extends Object
 		return ProductDistributionStock.manager.search($product==this, false);
 	}
 
-		/**
-	 * Get remaining stocks for a specific distrib. = product stock - current orders.
+	/**
+	 * Get total stock for a specific distrib
 	 * 4 cases are handled:
 	 * - global stock. 
 	 * 		- Value: this.stock holds the stock value for ALL distributions.
 	 * 		- Orders: all orders are taken into account to decrement stock.
 	 * - per distribution stock - AlwaysTheSame. 
 	 * 		- Value: this.stock holds the stock value for EACH distribution.
-	 * 		- Orders: only the orders of the considerer discribution are decremented.
 	 * - per distribution stock - FrequencyBased. 
 	 * 		- Value: the associated ProductDistributionStock.stockPerDistribution holds the stock value for CONFIGURED distributions and the configuration.
-	 * 		- Orders: only the orders of the considerer distribution are decremented
 	 * - per distribution stock - PerPeriod. 
 	 * 		- Value: the first ProductDistributionStock.stockPerDistribution that encapsulate the nextDistribId.
-	 * 		- Orders: only the orders of the considerer distribution are decremented.
 	 * @param nextDistribId The distrib we want to check the stock for
-	 * @param ignoreOrderId We might want to ignore the order we are currently calculating. Ignores a specific order in the calcultion
-	 * @param alwaysPositive = true By default, the return value is >=0. alwaysPositive at false will gives how much stock is missing to match the current orders as a negative value.
 	 * @return Float
 	 */
-	 public function getDistribStock(nextDistribId:Null<SId>):Float {
+	 public function getDistribStock(nextDistribId:SId):Float {
 		if (!this.hasStockTracking()) return null;
 		if (nextDistribId == null) throw new Error('Product.getDistribStock expects an existing nextDistribId.');
 
@@ -237,7 +232,6 @@ class Product extends Object
 			catalogTaxName : catalog.percentageName,
 			desc : App.current.view.nl2br(desc),
 			orderable : this.catalog.isUserOrderAvailable(),
-			stock : catalog.hasStockManagement() ? this.stock : null,
 			qt:qt,
 			unitType:unitType,
 			organic:organic,
@@ -248,6 +242,7 @@ class Product extends Object
 			catalogId : catalog.id,
 			vendorId : catalog.vendor.id,
 			multiWeight : multiWeight,
+			stockTracking: this.stockTracking
 		}
 		
 		App.current.event(ProductInfosEvent(o,distribution));

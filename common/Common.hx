@@ -60,9 +60,9 @@ typedef ProductInfo = {
 	vatValue : Null<Float>,				//amount of VAT included in the price
 	desc : Null<String>,
 	orderable : Bool,			//can be currently ordered
-	stock: Null<Float>,			//available stock
 	qt:Null<Float>,
 	unitType:Null<Unit>,
+	stockTracking:Null<StockTracking>,
 
 	organic:Bool,
 	variablePrice:Bool,
