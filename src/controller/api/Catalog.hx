@@ -54,11 +54,11 @@ class Catalog extends Controller
     public function doSubscriptionAbsences(sub:db.Subscription){
 
 		if ( !app.user.canManageContract(sub.catalog) && !(app.user.id==sub.user.id) ){
-			throw new Error(403,t._('Access forbidden') );
+			throw new Error(Forbidden,t._('Access forbidden') );
 		} 
 		
 		if( !sub.catalog.hasAbsencesManagement() ) {
-			throw new Error(403,t._('no absences management in this catalog') );
+			throw new Error(Forbidden,t._('no absences management in this catalog') );
 		}
 		
 		var absenceDistribs = sub.getAbsentDistribs();
@@ -74,7 +74,7 @@ class Catalog extends Controller
             */
             var newAbsentDistribIds:Array<Int> = Json.parse(StringTools.urlDecode(post)).absentDistribIds;
             if (newAbsentDistribIds==null || newAbsentDistribIds.length==0) {
-                throw new Error(500,"bad parameter");
+                throw new Error(BadRequest,"bad parameter");
             }
             
             AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, false );

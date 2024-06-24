@@ -1,4 +1,5 @@
 package service;
+import controller.Distribution;
 import tink.core.Error;
 
 /**
@@ -60,31 +61,10 @@ class AbsencesService {
 
 		if ( !catalog.hasAbsencesManagement() ) return 0;
 		return catalog.absentDistribsMaxNb;
-
-		/*if ( subscription == null || subscription.startDate == null || subscription.endDate == null ||
-			( subscription.startDate.getTime() <= catalog.absencesStartDate.getTime() && subscription.endDate.getTime() >= catalog.absencesEndDate.getTime() ) ) {
-			return catalog.absentDistribsMaxNb;
-		} else {
-
-			var absencesDistribsNbDuringSubscription = 0;
-			if ( subscription.startDate.getTime() > catalog.absencesStartDate.getTime() && subscription.endDate.getTime() < catalog.absencesEndDate.getTime() ) {
-				absencesDistribsNbDuringSubscription = db.Distribution.manager.count( $catalog == catalog && $date >= subscription.startDate && $end <= subscription.endDate );
-			} else if ( subscription.startDate.getTime() > catalog.absencesStartDate.getTime() ) {
-				absencesDistribsNbDuringSubscription = db.Distribution.manager.count( $catalog == catalog && $date >= subscription.startDate && $end <= catalog.absencesEndDate );
-			} else {
-				absencesDistribsNbDuringSubscription = db.Distribution.manager.count( $catalog == catalog && $date >= catalog.absencesStartDate && $end <= subscription.endDate );
-			}
-
-			if ( absencesDistribsNbDuringSubscription <= catalog.absentDistribsMaxNb ) {
-				return absencesDistribsNbDuringSubscription;
-			} else {
-				return catalog.absentDistribsMaxNb;
-			}
-		}*/
 	}
 
 	/**
-		get automatically absence distributions from an asbence number ( last distributions of the subscription )
+		get automatically absence distributions from an absence number ( last distributions of the subscription )
 	**/
 	public static function getAutomaticAbsentDistribs(catalog:db.Catalog, absencesNb:Int):Array<db.Distribution>{		
 		if( !catalog.hasAbsencesManagement() ) return [];
@@ -106,43 +86,6 @@ class AbsencesService {
 	}
 
 	/**
-		Update Absences Number on an existing subscription
-	**/
-	/*public static function setAbsencesNb( subscription:db.Subscription, absencesNb:Int, adminMode:Bool ) {
-
-		if( subscription == null ) throw new Error( 'La souscription n\'existe pas' );
-		if( !subscription.catalog.hasAbsencesManagement() ) return;
-		if(absencesNb==null) return;
-		
-		//a user can only choose absenceNb on subscription creation
-		//an admin can change it at anytime
-		if ( subscription.id == null || adminMode) {
-			
-			if(absencesNb == subscription.getAbsencesNb()){
-				return;
-			}
-			
-			if ( absencesNb > subscription.catalog.absentDistribsMaxNb ) {
-				throw new Error( 'Nombre de jours d\'absence invalide, vous avez droit à ${subscription.catalog.absentDistribsMaxNb} jours d\'absence maximum.' );
-			}
-
-			var distribs = subscription.getPossibleAbsentDistribs();
-			if ( absencesNb > distribs.length ) {
-				throw new Error( 'Nombre de jours d\'absence invalide, il n\'y a que ${distribs.length} distributions pendant le période d\'absence de cette souscription.' );
-			}
-
-
-			//sort from later to sooner distrib
-			distribs.sort( (a,b)-> Math.round(b.date.getTime()/1000) - Math.round(a.date.getTime()/1000) );
-
-			subscription.setAbsences( distribs.slice(0,absencesNb).map(d -> d.id) );
-
-		} else {
-			throw new Error('Il n\'est pas possible de modifier le nombre de jours d\'absence sur une souscription déjà créée.' );			
-		}
-	}*/
-
-	/**
 		can change absences number ?
 	**/
 	public static function canAbsencesNbBeEdited( catalog:db.Catalog, subscription:db.Subscription ):Bool {
@@ -160,16 +103,6 @@ class AbsencesService {
 		}else{
 			return true;
 		}
-		// var lastDistribBeforeAbsences = getLastDistribBeforeAbsences( catalog );
-		// if( lastDistribBeforeAbsences == null ) return false;
-
-		// var deadline = lastDistribBeforeAbsences.date.getTime();
-		// var beforeDeadline = Date.now().getTime() < deadline;
-		// var subscriptionInAbsencesPeriod = subscription == null || ( subscription.startDate.getTime() < deadline && subscription.endDate.getTime() > catalog.absencesStartDate.getTime() );
-		// var forbidden = catalog.type == db.Catalog.TYPE_CONSTORDERS && subscription != null && subscription.paid();
-
-		// return !forbidden && beforeDeadline && subscriptionInAbsencesPeriod;
-		
 	}
 
 	/**
@@ -199,9 +132,9 @@ class AbsencesService {
 				
 				// check the dates of previous absence that becomes presence
 				var newDistribPresence:Array<Int> = new Array<Int>();
-			for (i in 0...oldAbsentDistribIds.length) {
-				var distributionId = oldAbsentDistribIds[i];
-				if (!newAbsentDistribIds.has(distributionId)) {
+				for (i in 0...oldAbsentDistribIds.length) {
+					var distributionId = oldAbsentDistribIds[i];
+					if (!newAbsentDistribIds.has(distributionId)) {
 						newDistribPresence.push(distributionId);
 					}
 				}
@@ -228,11 +161,10 @@ class AbsencesService {
 							} catch (e : Error) {
 								throw new Error(Forbidden, 'Impossible de créer la commande par défaut sur la date où vous n\'êtes plus absent (${DateTools.format(distribution.date,"%d/%m/%Y")}): ${e.message}');
 							}
- 						}
+						}
 					}
 				}
 			}
-
 		}
 
 	}
