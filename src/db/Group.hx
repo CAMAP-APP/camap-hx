@@ -241,7 +241,7 @@ class Group extends Object
 	}
 
 	/**
-		sorted list of anyone having rights in this group
+		list of anyone having rights in this group
 	**/
 	public function getGroupAdmins():Array<db.UserGroup>{
 
