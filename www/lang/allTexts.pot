@@ -12,63 +12,75 @@ msgstr ""
 msgid "The group has been updated."
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:747
+#: ../src/controller/amapadmin/Volunteers.hx:815
+msgid "Duties configuration"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:929
+msgid "Masquer les catalogues expirés depuis plus de… (jours)"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:1110
+msgid "Delays and messages"
+msgstr ""
+
+#: ../src/controller/amapadmin/Volunteers.hx:1201
 msgid "Number of days before duty periods open to volunteers (between 7 and 365)"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:948
+#: ../src/controller/amapadmin/Volunteers.hx:1388
 msgid "Authorize the sending of information emails to volunteers"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1138
+#: ../src/controller/amapadmin/Volunteers.hx:1568
 msgid "Number of days before duty period to send mail"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1316
+#: ../src/controller/amapadmin/Volunteers.hx:1736
 msgid "Email body sent to volunteers"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1793
+#: ../src/controller/amapadmin/Volunteers.hx:2203
 msgid "Authorize the sending of alert emails to free volunteers"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:1979
+#: ../src/controller/amapadmin/Volunteers.hx:2379
 msgid "Number of days before duty period to send mail for vacant volunteer roles"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:2189
+#: ../src/controller/amapadmin/Volunteers.hx:2579
 msgid "Alert email body"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:3851
+#: ../src/controller/amapadmin/Volunteers.hx:4483
 msgid "Your changes have been successfully saved."
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4202 ../src/controller/amapadmin/Volunteers.hx:4964 ../src/controller/ContractAdmin.hx:5460 ../src/controller/ContractAdmin.hx:6085
+#: ../src/controller/amapadmin/Volunteers.hx:4834 ../src/controller/amapadmin/Volunteers.hx:5596 ../src/controller/ContractAdmin.hx:5460 ../src/controller/ContractAdmin.hx:6085
 msgid "Volunteer role name"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4298 ../src/controller/amapadmin/Volunteers.hx:5065 ../lang/master/tpl/amapadmin/volunteers/default.mtt:270
+#: ../src/controller/amapadmin/Volunteers.hx:4930 ../src/controller/amapadmin/Volunteers.hx:5697 ../lang/master/tpl/amapadmin/volunteers/default.mtt:270
 msgid "Enabled by default on all distributions"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4623 ../src/controller/ContractAdmin.hx:5741
+#: ../src/controller/amapadmin/Volunteers.hx:5255 ../src/controller/ContractAdmin.hx:5741
 msgid "Volunteer Role has been successfully added"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:4700 ../src/controller/ContractAdmin.hx:5821
+#: ../src/controller/amapadmin/Volunteers.hx:5332 ../src/controller/ContractAdmin.hx:5821
 msgid "Create a volunteer role"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:5430 ../src/controller/ContractAdmin.hx:6293
+#: ../src/controller/amapadmin/Volunteers.hx:6062 ../src/controller/ContractAdmin.hx:6293
 msgid "Volunteer Role has been successfully updated"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:5510 ../src/controller/ContractAdmin.hx:6372
+#: ../src/controller/amapadmin/Volunteers.hx:6142 ../src/controller/ContractAdmin.hx:6372
 msgid "Edit a volunteer role"
 msgstr ""
 
-#: ../src/controller/amapadmin/Volunteers.hx:5931 ../src/controller/ContractAdmin.hx:6839
+#: ../src/controller/amapadmin/Volunteers.hx:6563 ../src/controller/ContractAdmin.hx:6839
 msgid "Volunteer Role has been successfully deleted"
 msgstr ""
 
@@ -76,107 +88,107 @@ msgstr ""
 msgid "Access forbidden"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10550
+#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10808
 msgid "Means of payment"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3040 ../src/db/Subscription.hx:5618 ../lang/master/tpl/distribution/volunteersParticipation.mtt:676
+#: ../src/controller/AmapAdmin.hx:3298 ../src/db/Subscription.hx:5618 ../lang/master/tpl/distribution/volunteersParticipation.mtt:676
 msgid "Member"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3168
+#: ../src/controller/AmapAdmin.hx:3426
 msgid "Group administrator"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3238
+#: ../src/controller/AmapAdmin.hx:3496
 msgid "Membership management"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3309
+#: ../src/controller/AmapAdmin.hx:3567
 msgid "Messages"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3661 ../src/db/User.hx:18983 ../lang/master/tpl/amapadmin/rights.mtt:509 ../lang/master/tpl/member/view.mtt:4337
+#: ../src/controller/AmapAdmin.hx:3919 ../src/db/User.hx:18983 ../lang/master/tpl/amapadmin/rights.mtt:509 ../lang/master/tpl/member/view.mtt:4337
 msgid "Rights"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3898
+#: ../src/controller/AmapAdmin.hx:4156
 msgid "All catalogs"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:4472
+#: ../src/controller/AmapAdmin.hx:4730
 msgid "Catalogs management"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:5370
+#: ../src/controller/AmapAdmin.hx:5628
 msgid "You cannot strip yourself of admin rights."
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:5538
+#: ../src/controller/AmapAdmin.hx:5796
 msgid "Rights removed"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:5609
+#: ../src/controller/AmapAdmin.hx:5867
 msgid "Rights created or modified"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:5702
+#: ../src/controller/AmapAdmin.hx:5960
 msgid "Give rights to a user"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:5760
+#: ../src/controller/AmapAdmin.hx:6018
 msgid "Modify the rights of ::user::"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:6207 ../src/controller/AmapAdmin.hx:6430 ../src/db/Place.hx:1330 ../lang/master/tpl/amapadmin/rights.mtt:481 ../lang/master/tpl/contractadmin/products.mtt:2252 ../lang/master/tpl/contractadmin/stocks.mtt:2090 ../lang/master/tpl/contractadmin/view.mtt:1863 ../lang/master/tpl/distribution/listByDate.mtt:612 ../lang/master/tpl/distribution/listByDateShort.mtt:455 ../lang/master/tpl/product/import.mtt:1930
+#: ../src/controller/AmapAdmin.hx:6465 ../src/controller/AmapAdmin.hx:6688 ../src/db/Place.hx:1330 ../lang/master/tpl/amapadmin/rights.mtt:481 ../lang/master/tpl/contractadmin/products.mtt:2252 ../lang/master/tpl/contractadmin/stocks.mtt:2090 ../lang/master/tpl/contractadmin/view.mtt:1863 ../lang/master/tpl/distribution/listByDate.mtt:612 ../lang/master/tpl/distribution/listByDateShort.mtt:455 ../lang/master/tpl/product/import.mtt:1930
 msgid "Name"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:6275 ../src/controller/AmapAdmin.hx:6501
+#: ../src/controller/AmapAdmin.hx:6533 ../src/controller/AmapAdmin.hx:6759
 msgid "Rate"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:6856
+#: ../src/controller/AmapAdmin.hx:7114
 msgid "Rate updated"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:6904
+#: ../src/controller/AmapAdmin.hx:7162
 msgid "Edit VAT rates"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:7623
+#: ../src/controller/AmapAdmin.hx:7881
 msgid "Currency used by your group."
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:7768
+#: ../src/controller/AmapAdmin.hx:8026
 msgid "Currency symbol"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:7897
+#: ../src/controller/AmapAdmin.hx:8155
 msgid "3 digit ISO code"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:8226
+#: ../src/controller/AmapAdmin.hx:8484
 msgid "Currency updated"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:8728
+#: ../src/controller/AmapAdmin.hx:8986
 msgid "Authorized payment types"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:9034
+#: ../src/controller/AmapAdmin.hx:9292
 msgid "Make the check payable to"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:9171
+#: ../src/controller/AmapAdmin.hx:9429
 msgid "IBAN of your bank account for transfers"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:9343
+#: ../src/controller/AmapAdmin.hx:9601
 msgid "Allow money pots with negative balance"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:10487
+#: ../src/controller/AmapAdmin.hx:10745
 msgid "Payment options updated"
 msgstr ""
 
@@ -304,11 +316,11 @@ msgstr ""
 msgid "The order has been deleted."
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21397 ../src/service/OrderService.hx:21183
+#: ../src/controller/ContractAdmin.hx:21397 ../src/service/OrderService.hx:21170
 msgid "Delivery ::contractName:: "
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21649 ../src/service/OrderService.hx:21524
+#: ../src/controller/ContractAdmin.hx:21649 ../src/service/OrderService.hx:21511
 msgid "Per member"
 msgstr ""
 
@@ -760,27 +772,27 @@ msgstr ""
 msgid "Product deleted"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:17702 ../src/controller/Transaction.hx:544 ../src/controller/Transaction.hx:3029 ../src/controller/Transaction.hx:4409 ../src/controller/Transaction.hx:4725
+#: ../src/controller/SubscriptionAdmin.hx:15301 ../src/controller/Transaction.hx:544 ../src/controller/Transaction.hx:3029 ../src/controller/Transaction.hx:4409 ../src/controller/Transaction.hx:4725
 msgid "Action forbidden"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:18434 ../src/controller/Transaction.hx:938 ../src/controller/Transaction.hx:3521
+#: ../src/controller/SubscriptionAdmin.hx:16033 ../src/controller/Transaction.hx:938 ../src/controller/Transaction.hx:3521
 msgid "Amount"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:18517 ../src/controller/Transaction.hx:1019 ../src/controller/Transaction.hx:3614 ../src/db/Distribution.hx:8533 ../src/db/MultiDistrib.hx:8418 ../lang/master/tpl/contractadmin/selectDistrib.mtt:199
+#: ../src/controller/SubscriptionAdmin.hx:16116 ../src/controller/Transaction.hx:1019 ../src/controller/Transaction.hx:3614 ../src/db/Distribution.hx:8533 ../src/db/MultiDistrib.hx:8418 ../lang/master/tpl/contractadmin/selectDistrib.mtt:199
 msgid "Date"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:18971 ../src/controller/Transaction.hx:1354
+#: ../src/controller/SubscriptionAdmin.hx:16570 ../src/controller/Transaction.hx:1354
 msgid "Payment type"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:19502
+#: ../src/controller/SubscriptionAdmin.hx:17101
 msgid "Payment recorded"
 msgstr ""
 
-#: ../src/controller/SubscriptionAdmin.hx:19554 ../src/controller/Transaction.hx:2540
+#: ../src/controller/SubscriptionAdmin.hx:17153 ../src/controller/Transaction.hx:2540
 msgid "Record a payment for ::user::"
 msgstr ""
 
@@ -889,7 +901,7 @@ msgstr ""
 msgid "Catalog name"
 msgstr ""
 
-#: ../src/db/Catalog.hx:11971 ../src/db/Product.hx:12472 ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:12049
+#: ../src/db/Catalog.hx:11971 ../src/db/Product.hx:11845 ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:12049
 msgid "Description"
 msgstr ""
 
@@ -897,7 +909,7 @@ msgstr ""
 msgid "Number of required volunteers during a distribution"
 msgstr ""
 
-#: ../src/db/Catalog.hx:12094 ../src/db/Group.hx:12358 ../src/db/User.hx:19056
+#: ../src/db/Catalog.hx:12094 ../src/db/Group.hx:12312 ../src/db/User.hx:19056
 msgid "Options"
 msgstr ""
 
@@ -961,43 +973,43 @@ msgstr ""
 msgid "Fermeture de commande (nbre de jours avant distribution)"
 msgstr ""
 
-#: ../src/db/Group.hx:12023
+#: ../src/db/Group.hx:11977
 msgid "Group name"
 msgstr ""
 
-#: ../src/db/Group.hx:12064 ../src/db/Vendor.hx:4785
+#: ../src/db/Group.hx:12018 ../src/db/Vendor.hx:4785
 msgid "Legal status"
 msgstr ""
 
-#: ../src/db/Group.hx:12105
+#: ../src/db/Group.hx:12059
 msgid "Public page description"
 msgstr ""
 
-#: ../src/db/Group.hx:12156
+#: ../src/db/Group.hx:12110
 msgid "Homepage text"
 msgstr ""
 
-#: ../src/db/Group.hx:12199
+#: ../src/db/Group.hx:12153
 msgid "Text for distribution lists"
 msgstr ""
 
-#: ../src/db/Group.hx:12309
+#: ../src/db/Group.hx:12263
 msgid "Membership renewal date"
 msgstr ""
 
-#: ../src/db/Group.hx:12394
+#: ../src/db/Group.hx:12348
 msgid "Nouvelles fonctionnalités"
 msgstr ""
 
-#: ../src/db/Group.hx:12448
+#: ../src/db/Group.hx:12402
 msgid "Registration setting"
 msgstr ""
 
-#: ../src/db/Group.hx:12496 ../lang/master/tpl/amap/default.mtt:680
+#: ../src/db/Group.hx:12450 ../lang/master/tpl/amap/default.mtt:680
 msgid "Main contact"
 msgstr ""
 
-#: ../src/db/Group.hx:12546
+#: ../src/db/Group.hx:12500
 msgid "Legal representative"
 msgstr ""
 
@@ -1025,59 +1037,59 @@ msgstr ""
 msgid "Longitude"
 msgstr ""
 
-#: ../src/db/Product.hx:12362
+#: ../src/db/Product.hx:11735
 msgid "Product name"
 msgstr ""
 
-#: ../src/db/Product.hx:12401
+#: ../src/db/Product.hx:11774
 msgid "Product ID"
 msgstr ""
 
-#: ../src/db/Product.hx:12439 ../lang/master/tpl/contractadmin/products.mtt:2430 ../lang/master/tpl/product/import.mtt:1960
+#: ../src/db/Product.hx:11812 ../lang/master/tpl/contractadmin/products.mtt:2430 ../lang/master/tpl/product/import.mtt:1960
 msgid "Price"
 msgstr ""
 
-#: ../src/db/Product.hx:12511 ../lang/master/tpl/contractadmin/products.mtt:2397
+#: ../src/db/Product.hx:11884 ../lang/master/tpl/contractadmin/products.mtt:2397
 msgid "Stock"
 msgstr ""
 
-#: ../src/db/Product.hx:12547
+#: ../src/db/Product.hx:11920
 msgid "Base unit"
 msgstr ""
 
-#: ../src/db/Product.hx:12582 ../lang/master/tpl/contract/editVarOrders.mtt:757 ../lang/master/tpl/contractadmin/stats.mtt:800
+#: ../src/db/Product.hx:11955 ../lang/master/tpl/contract/editVarOrders.mtt:757 ../lang/master/tpl/contractadmin/stats.mtt:800
 msgid "Quantity"
 msgstr ""
 
-#: ../src/db/Product.hx:12625
+#: ../src/db/Product.hx:11998
 msgid "Allow fractional quantities"
 msgstr ""
 
-#: ../src/db/Product.hx:12684
+#: ../src/db/Product.hx:12057
 msgid "Available"
 msgstr ""
 
-#: ../src/db/Product.hx:12726 ../lang/master/tpl/shop/productInfo.mtt:1287
+#: ../src/db/Product.hx:12099 ../lang/master/tpl/shop/productInfo.mtt:1287
 msgid "Organic agriculture"
 msgstr ""
 
-#: ../src/db/Product.hx:12775
+#: ../src/db/Product.hx:12148
 msgid "VAT Rate"
 msgstr ""
 
-#: ../src/db/Product.hx:12820
+#: ../src/db/Product.hx:12193
 msgid "Variable price based on weight"
 msgstr ""
 
-#: ../src/db/Product.hx:12886
+#: ../src/db/Product.hx:12259
 msgid "Multi-weighing"
 msgstr ""
 
-#: ../src/db/Product.hx:12962 ../lang/master/tpl/contractadmin/products.mtt:2317 ../lang/master/tpl/contractadmin/stocks.mtt:2143
+#: ../src/db/Product.hx:12335 ../lang/master/tpl/contractadmin/products.mtt:2317 ../lang/master/tpl/contractadmin/stocks.mtt:2143
 msgid "Stock tracking"
 msgstr ""
 
-#: ../src/db/Product.hx:13018 ../src/service/ProductService.hx:4026
+#: ../src/db/Product.hx:12391 ../src/service/ProductService.hx:4026
 msgid "Stock per distribution configuration"
 msgstr ""
 
@@ -1397,15 +1409,15 @@ msgstr ""
 msgid "multi-weighing products should be ordered only with integer quantities"
 msgstr ""
 
-#: ../src/service/OrderService.hx:10651
+#: ../src/service/OrderService.hx:10638
 msgid "This order has already been deleted."
 msgstr ""
 
-#: ../src/service/OrderService.hx:11240
+#: ../src/service/OrderService.hx:11227
 msgid "Deletion not possible: quantity is not zero."
 msgstr ""
 
-#: ../src/service/OrderService.hx:12525 ../lang/master/tpl/contractadmin/orders.mtt:4949 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3402 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:2216 ../lang/master/tpl/distribution/list.mtt:2781 ../lang/master/tpl/distribution/listByDate.mtt:2046 ../lang/master/tpl/distribution/listByDateOnePage.mtt:2412 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:2889 ../lang/master/tpl/distribution/listByDateShort.mtt:1842 ../lang/master/tpl/home.mtt:4711 ../lang/master/tpl/home.mtt:7370
+#: ../src/service/OrderService.hx:12512 ../lang/master/tpl/contractadmin/orders.mtt:4949 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3402 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:2216 ../lang/master/tpl/distribution/list.mtt:2781 ../lang/master/tpl/distribution/listByDate.mtt:2046 ../lang/master/tpl/distribution/listByDateOnePage.mtt:2412 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:2889 ../lang/master/tpl/distribution/listByDateShort.mtt:1842 ../lang/master/tpl/home.mtt:4711 ../lang/master/tpl/home.mtt:7370
 msgid "Canceled"
 msgstr ""
 
@@ -1429,68 +1441,80 @@ msgstr ""
 msgid "Invalid email address"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:1573
+#: ../src/service/VolunteerService.hx:1591
 msgid "You need to first select the volunteer roles for this distribution."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:3100
+#: ../src/service/VolunteerService.hx:3118
 msgid "A volunteer can't be assigned to multiple roles for the same distribution!"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:3534
+#: ../src/service/VolunteerService.hx:3552
 msgid "This role is already filled by a volunteer!"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:5467
+#: ../src/service/VolunteerService.hx:5485
 msgid "A role has been left for ::date:: distribution"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:5940
+#: ../src/service/VolunteerService.hx:5958
 msgid "This user is not assigned to this role!"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:6031
+#: ../src/service/VolunteerService.hx:6049
 msgid "Missing distribution or role in the url!"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:7256
+#: ../src/service/VolunteerService.hx:7274
 msgid "Duty period"
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:7624
+#: ../src/service/VolunteerService.hx:7642
 msgid ""
 "The number of days before the volunteers can join a duty period needs to "
 "be greater than 6 days."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:7792
+#: ../src/service/VolunteerService.hx:7810
 msgid ""
 "The number of days before the volunteers can join a duty period needs to "
 "be lower than 366 days."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:7990
+#: ../src/service/VolunteerService.hx:8008
 msgid ""
 "The number of days before the duty periods to send the instructions mail "
 "to all the volunteers needs to be greater than 1 day."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:8187
+#: ../src/service/VolunteerService.hx:8205
 msgid ""
 "The number of days before the duty periods to send the instructions mail "
 "to all the volunteers needs to be lower than 15 days."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:8414
+#: ../src/service/VolunteerService.hx:8432
 msgid ""
 "The number of days before the duty periods to send the vacant roles mail "
 "to all members needs to be greater than 1 day."
 msgstr ""
 
-#: ../src/service/VolunteerService.hx:8604
+#: ../src/service/VolunteerService.hx:8622
 msgid ""
 "The number of days before the duty periods to send the instructions mail "
 "to all members needs to be lower than 15 days."
+msgstr ""
+
+#: ../src/service/VolunteerService.hx:8865
+msgid ""
+"The number of days before hiding a volunteer role in a catalog needs to be "
+"positive."
+msgstr ""
+
+#: ../src/service/VolunteerService.hx:9021
+msgid ""
+"The number of days before hiding a volunteer role in a catalog needs to be "
+"at most 255 days."
 msgstr ""
 
 #: ../src/service/WaitingListService.hx:516
@@ -1733,10 +1757,6 @@ msgstr ""
 
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:808 ../lang/master/tpl/contractadmin/roles.mtt:604
 msgid "Add a role"
-msgstr ""
-
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:874
-msgid "Delays and messages"
 msgstr ""
 
 #: ../lang/master/tpl/base.mtt:3599

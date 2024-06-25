@@ -261,6 +261,20 @@ class Formatting
 		}
 	}
 
+	public static function mapToObject(map:Map<Int, Map<Int, Float>>):Dynamic {
+		if (map == null) return null;
+        var result:haxe.DynamicAccess<Dynamic> = new haxe.DynamicAccess();
+        for (distribId in map.keys()) {
+            var innerMap = map.get(distribId);
+            var innerObj:haxe.DynamicAccess<Float> = new haxe.DynamicAccess();
+            for (productId in innerMap.keys()) {
+                innerObj.set(Std.string(productId), innerMap.get(productId));
+            }
+            result.set(Std.string(distribId), innerObj);
+        }
+        return result;
+    }
+
 	/**
 		strange float bug in neko : creates a new and clean float
 	**/

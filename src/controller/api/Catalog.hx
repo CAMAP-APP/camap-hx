@@ -1,4 +1,5 @@
 package controller.api;
+import Common.StockTracking;
 import service.AbsencesService;
 import haxe.Json;
 import neko.Web;
@@ -12,6 +13,21 @@ class Catalog extends Controller
         get a catalog
     **/
 	public function doDefault(catalog:db.Catalog){
+		var stocksPerProductDistribution:Map<Int, Map<Int, Float>> = null;
+		var distributions = catalog.getDistribs(false).array().map(d -> d.getInfos());
+		var products = catalog.getProducts();
+		if (catalog.hasStockManagement()) {
+			stocksPerProductDistribution = new Map<Int, Map<Int, Float>>();
+			for (product in products) {
+				var stocksPerDistrib = new Map<Int, Float>();
+				for (distrib in distributions) {
+					if (product.stockTracking != StockTracking.Disabled) {
+						stocksPerDistrib.set(distrib.id, product.getAvailableStock(distrib.id));
+					}
+				}
+				stocksPerProductDistribution.set(product.id, stocksPerDistrib);
+			}
+		}
 
         var ss = new SubscriptionService();
         var out = {
@@ -22,14 +38,16 @@ class Catalog extends Controller
             startDate   : catalog.startDate,
             endDate     : catalog.endDate,
             vendor:catalog.vendor.getInfos(),
-            products:catalog.getProducts().array().map( p -> p.infos() ),
+            products: products.array().map( p -> p.infos() ),
             contact: catalog.contact==null ? null : catalog.contact.infos(),
             documents : catalog.getVisibleDocuments(app.user).array().map(ef -> {name:ef.file.name,url:"/file/"+sugoi.db.File.makeSign(ef.file.id)}),
-            distributions : catalog.getDistribs(false).array().map( d -> d.getInfos() ),
+            distributions : distributions,
             constraints : SubscriptionService.getContractConstraints(catalog),
             absences : AbsencesService.getAbsencesDescription(catalog),
             absentDistribsMaxNb : catalog.absentDistribsMaxNb,
             distribMinOrdersTotal : catalog.distribMinOrdersTotal,
+            hasStockManagement: catalog.hasStockManagement(),
+            stocksPerProductDistribution: Formatting.mapToObject(stocksPerProductDistribution)
         }
 
         json(out);
@@ -54,11 +72,11 @@ class Catalog extends Controller
     public function doSubscriptionAbsences(sub:db.Subscription){
 
 		if ( !app.user.canManageContract(sub.catalog) && !(app.user.id==sub.user.id) ){
-			throw new Error(403,t._('Access forbidden') );
+			throw new Error(Forbidden,t._('Access forbidden') );
 		} 
 		
 		if( !sub.catalog.hasAbsencesManagement() ) {
-			throw new Error(403,t._('no absences management in this catalog') );
+			throw new Error(Forbidden,t._('no absences management in this catalog') );
 		}
 		
 		var absenceDistribs = sub.getAbsentDistribs();
@@ -74,7 +92,7 @@ class Catalog extends Controller
             */
             var newAbsentDistribIds:Array<Int> = Json.parse(StringTools.urlDecode(post)).absentDistribIds;
             if (newAbsentDistribIds==null || newAbsentDistribIds.length==0) {
-                throw new Error(500,"bad parameter");
+                throw new Error(BadRequest,"bad parameter");
             }
             
             AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, false );

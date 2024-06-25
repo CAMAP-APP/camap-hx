@@ -38,11 +38,6 @@
 
 $$insert(::_("Add a role")::,/amapadmin/volunteers/insertRole)
 
-
-<h3>
-	::_("Delays and messages")::
-</h3>		
-
 ::raw form::
 
 <!-- Management of alert fields state (enabled / disabled) -->

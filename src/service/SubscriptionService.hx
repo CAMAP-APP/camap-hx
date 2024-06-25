@@ -944,25 +944,7 @@ class SubscriptionService
 		createOrUpdateTotalOperation( subscription );
 
 		return orders;	
-	}	
-
-	/*public static function getLastDistribBeforeAbsences( catalog:db.Catalog ) : db.Distribution {
-
-		if ( !catalog.hasAbsencesManagement() ) return null;
-		
-		var catalogDistribs = catalog.getDistribs( false ).array();
-		var lastDistribBeforeAbsences : db.Distribution = catalogDistribs[0];
-		for ( distrib in catalogDistribs ) {
-
-			if ( distrib.date.getTime() < catalog.absencesStartDate.getTime() ) {
-				lastDistribBeforeAbsences = distrib;
-			} else {
-				break;
-			}
-		}
-
-		return lastDistribBeforeAbsences;
-	}*/
+	}
 
 	/**
 		Update default orders (store it in the subscription entity) and create the recurrent UserOrders

@@ -39,7 +39,7 @@ class DateTool {
 	}
 
 	public static function deltaDays(d:Date, n:Int):Date {
-		return DateTools.delta(d, n * 1000 * 60 * 60 * 24.0);
+		return DateTools.delta(d, DateTools.days(n));
 	}
 
 	public static function setHourMinute(d:Date, hour:Int, minute:Int):Date {
