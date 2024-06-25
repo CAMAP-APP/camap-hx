@@ -415,6 +415,12 @@ class DistributionService
 			throw "Multidistrib is the same. No need to shift";
 		}
 
+		//Chek that the new date is between catalog.startDate and catalog.endDate
+		// https://mantisbt.amap44.org/view.php?id=217
+		if (newMd.distribStartDate.getTime() < d.catalog.startDate.getTime() || newMd.distribEndDate.getTime() > d.catalog.endDate.getTime()) {
+			throw new Error(t._("The new distribution date is not between the catalog start and end date."));
+		}
+
 		//check that the vendor does not already participate
 		if( newMd.getDistributionForContract(d.catalog) != null){
 			throw new Error(d.catalog.vendor.name+" participe déjà à la distribution du "+Formatting.hDate(newMd.getDate()));

@@ -248,7 +248,6 @@ class Group extends Object
 	public function getGroupAdmins():Array<db.UserGroup>{
 
 		var users = db.UserGroup.manager.search($rights != null && $rights != "[]" && $group == this, false);
-		
 		//cleaning 
 		/*for ( u in users.array()) {
 			
