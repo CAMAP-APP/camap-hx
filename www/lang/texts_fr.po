@@ -114,63 +114,63 @@ msgstr "Le rôle a bien été supprimé"
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
-#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10808
+#: ../src/controller/AmapAdmin.hx:831 ../src/controller/AmapAdmin.hx:10734
 msgid "Means of payment"
 msgstr "Moyens de paiement"
 
-#: ../src/controller/AmapAdmin.hx:3298 ../src/db/Subscription.hx:5618
+#: ../src/controller/AmapAdmin.hx:3224 ../src/db/Subscription.hx:5618
 #: ../lang/master/tpl/distribution/volunteersParticipation.mtt:676
 msgid "Member"
 msgstr "Membre"
 
-#: ../src/controller/AmapAdmin.hx:3426
+#: ../src/controller/AmapAdmin.hx:3352
 msgid "Group administrator"
 msgstr "Administrateur de groupe"
 
-#: ../src/controller/AmapAdmin.hx:3496
+#: ../src/controller/AmapAdmin.hx:3422
 msgid "Membership management"
 msgstr "Gestion des membres"
 
-#: ../src/controller/AmapAdmin.hx:3567
+#: ../src/controller/AmapAdmin.hx:3493
 msgid "Messages"
 msgstr "Messages"
 
-#: ../src/controller/AmapAdmin.hx:3919 ../src/db/User.hx:18983
+#: ../src/controller/AmapAdmin.hx:3845 ../src/db/User.hx:18983
 #: ../lang/master/tpl/amapadmin/rights.mtt:509
 #: ../lang/master/tpl/member/view.mtt:4337
 msgid "Rights"
 msgstr "Droits"
 
-#: ../src/controller/AmapAdmin.hx:4156
+#: ../src/controller/AmapAdmin.hx:4082
 msgid "All catalogs"
 msgstr "Tous les catalogues"
 
-#: ../src/controller/AmapAdmin.hx:4730
+#: ../src/controller/AmapAdmin.hx:4656
 msgid "Catalogs management"
 msgstr "Gestion des catalogues"
 
-#: ../src/controller/AmapAdmin.hx:5628
+#: ../src/controller/AmapAdmin.hx:5554
 msgid "You cannot strip yourself of admin rights."
 msgstr ""
 "Vous ne pouvez pas vous enlever vous-même les droits de gestion du groupe."
 
-#: ../src/controller/AmapAdmin.hx:5796
+#: ../src/controller/AmapAdmin.hx:5722
 msgid "Rights removed"
 msgstr "Droits retirés"
 
-#: ../src/controller/AmapAdmin.hx:5867
+#: ../src/controller/AmapAdmin.hx:5793
 msgid "Rights created or modified"
 msgstr "Droits créés ou modifiés"
 
-#: ../src/controller/AmapAdmin.hx:5960
+#: ../src/controller/AmapAdmin.hx:5886
 msgid "Give rights to a user"
 msgstr "Donner des droits à un utilisateur"
 
-#: ../src/controller/AmapAdmin.hx:6018
+#: ../src/controller/AmapAdmin.hx:5944
 msgid "Modify the rights of ::user::"
 msgstr "Modifier les droits de ::user::"
 
-#: ../src/controller/AmapAdmin.hx:6465 ../src/controller/AmapAdmin.hx:6688
+#: ../src/controller/AmapAdmin.hx:6391 ../src/controller/AmapAdmin.hx:6614
 #: ../src/db/Place.hx:1330 ../lang/master/tpl/amapadmin/rights.mtt:481
 #: ../lang/master/tpl/contractadmin/products.mtt:2252
 #: ../lang/master/tpl/contractadmin/stocks.mtt:2090
@@ -181,51 +181,51 @@ msgstr "Modifier les droits de ::user::"
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/controller/AmapAdmin.hx:6533 ../src/controller/AmapAdmin.hx:6759
+#: ../src/controller/AmapAdmin.hx:6459 ../src/controller/AmapAdmin.hx:6685
 msgid "Rate"
 msgstr "Taux"
 
-#: ../src/controller/AmapAdmin.hx:7114
+#: ../src/controller/AmapAdmin.hx:7040
 msgid "Rate updated"
 msgstr "Taux mis à jour"
 
-#: ../src/controller/AmapAdmin.hx:7162
+#: ../src/controller/AmapAdmin.hx:7088
 msgid "Edit VAT rates"
 msgstr "Editer les taux de TVA"
 
-#: ../src/controller/AmapAdmin.hx:7881
+#: ../src/controller/AmapAdmin.hx:7807
 msgid "Currency used by your group."
 msgstr "Monnaie utilisée par votre groupe."
 
-#: ../src/controller/AmapAdmin.hx:8026
+#: ../src/controller/AmapAdmin.hx:7952
 msgid "Currency symbol"
 msgstr "Symbole de votre monnaie"
 
-#: ../src/controller/AmapAdmin.hx:8155
+#: ../src/controller/AmapAdmin.hx:8081
 msgid "3 digit ISO code"
 msgstr "Code ISO à 3 lettres"
 
-#: ../src/controller/AmapAdmin.hx:8484
+#: ../src/controller/AmapAdmin.hx:8410
 msgid "Currency updated"
 msgstr "Monnaie mise à jour"
 
-#: ../src/controller/AmapAdmin.hx:8986
+#: ../src/controller/AmapAdmin.hx:8912
 msgid "Authorized payment types"
 msgstr "Types de paiements autorisés"
 
-#: ../src/controller/AmapAdmin.hx:9292
+#: ../src/controller/AmapAdmin.hx:9218
 msgid "Make the check payable to"
 msgstr "Ordre pour les chèques"
 
-#: ../src/controller/AmapAdmin.hx:9429
+#: ../src/controller/AmapAdmin.hx:9355
 msgid "IBAN of your bank account for transfers"
 msgstr "IBAN de votre compte bancaire pour les virements"
 
-#: ../src/controller/AmapAdmin.hx:9601
+#: ../src/controller/AmapAdmin.hx:9527
 msgid "Allow money pots with negative balance"
 msgstr "Autoriser les cagnottes négatives"
 
-#: ../src/controller/AmapAdmin.hx:10745
+#: ../src/controller/AmapAdmin.hx:10671
 msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
@@ -1037,7 +1037,7 @@ msgstr "Mis en file d'attente"
 msgid "Catalog name"
 msgstr "Nom du catalogue"
 
-#: ../src/db/Catalog.hx:11971 ../src/db/Product.hx:11845
+#: ../src/db/Catalog.hx:11971 ../src/db/Product.hx:11881
 #: ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:12049
 msgid "Description"
 msgstr "Description"
@@ -1178,65 +1178,65 @@ msgstr "Latitude"
 msgid "Longitude"
 msgstr "Longitude"
 
-#: ../src/db/Product.hx:11735
+#: ../src/db/Product.hx:11771
 msgid "Product name"
 msgstr "Nom du produit"
 
-#: ../src/db/Product.hx:11774
+#: ../src/db/Product.hx:11810
 msgid "Product ID"
 msgstr "Référence"
 
-#: ../src/db/Product.hx:11812
+#: ../src/db/Product.hx:11848
 #: ../lang/master/tpl/contractadmin/products.mtt:2430
 #: ../lang/master/tpl/product/import.mtt:1960
 msgid "Price"
 msgstr "Prix"
 
-#: ../src/db/Product.hx:11884
+#: ../src/db/Product.hx:11920
 #: ../lang/master/tpl/contractadmin/products.mtt:2397
 msgid "Stock"
 msgstr "Stock"
 
-#: ../src/db/Product.hx:11920
+#: ../src/db/Product.hx:11956
 msgid "Base unit"
 msgstr "Unité de base"
 
-#: ../src/db/Product.hx:11955 ../lang/master/tpl/contract/editVarOrders.mtt:757
+#: ../src/db/Product.hx:11991 ../lang/master/tpl/contract/editVarOrders.mtt:757
 #: ../lang/master/tpl/contractadmin/stats.mtt:800
 msgid "Quantity"
 msgstr "Quantité"
 
-#: ../src/db/Product.hx:11998
+#: ../src/db/Product.hx:12034
 msgid "Allow fractional quantities"
 msgstr "Autoriser les quantités non entières"
 
-#: ../src/db/Product.hx:12057
+#: ../src/db/Product.hx:12093
 msgid "Available"
 msgstr "Activé"
 
-#: ../src/db/Product.hx:12099 ../lang/master/tpl/shop/productInfo.mtt:1287
+#: ../src/db/Product.hx:12135 ../lang/master/tpl/shop/productInfo.mtt:1287
 msgid "Organic agriculture"
 msgstr "Agriculture biologique"
 
-#: ../src/db/Product.hx:12148
+#: ../src/db/Product.hx:12184
 msgid "VAT Rate"
 msgstr "Taux de TVA"
 
-#: ../src/db/Product.hx:12193
+#: ../src/db/Product.hx:12229
 msgid "Variable price based on weight"
 msgstr "Prix variable selon pesée"
 
-#: ../src/db/Product.hx:12259
+#: ../src/db/Product.hx:12295
 msgid "Multi-weighing"
 msgstr "Multi-pesée"
 
-#: ../src/db/Product.hx:12335
+#: ../src/db/Product.hx:12371
 #: ../lang/master/tpl/contractadmin/products.mtt:2317
 #: ../lang/master/tpl/contractadmin/stocks.mtt:2143
 msgid "Stock tracking"
 msgstr "Suivi des stocks"
 
-#: ../src/db/Product.hx:12391 ../src/service/ProductService.hx:4026
+#: ../src/db/Product.hx:12427 ../src/service/ProductService.hx:4140
 msgid "Stock per distribution configuration"
 msgstr "Paramétrage du stock par distribution"
 
@@ -1398,71 +1398,71 @@ msgstr "Intitulé du lien"
 msgid "Link URL"
 msgstr "URL du lien"
 
-#: ../src/form/StockTrackingPerDistribForm.hx:1535
-#: ../src/form/StockTrackingPerDistribForm.hx:1881
-#: ../src/form/StockTrackingPerDistribForm.hx:3504
+#: ../src/form/StockTrackingPerDistribForm.hx:1665
+#: ../src/form/StockTrackingPerDistribForm.hx:2017
+#: ../src/form/StockTrackingPerDistribForm.hx:3662
 msgid "le stock doit être un nombre."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:2162
+#: ../src/form/StockTrackingPerDistribForm.hx:2302
 msgid "la date de début de l'alternance des stocks est obligatoire."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:2476
+#: ../src/form/StockTrackingPerDistribForm.hx:2620
 msgid "il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:3105
+#: ../src/form/StockTrackingPerDistribForm.hx:3258
 msgid ""
 "une erreur est survenue au niveau de la définition des périodes. Chaque "
 "période doit comporter une distribution de début, de fin et un stock."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:4807
+#: ../src/form/StockTrackingPerDistribForm.hx:4974
 msgid "A chaque distribution, le stock défini sera disponible à la vente."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:6124
-#: ../src/form/StockTrackingPerDistribForm.hx:9231
+#: ../src/form/StockTrackingPerDistribForm.hx:6291
+#: ../src/form/StockTrackingPerDistribForm.hx:9398
 msgid "Cette fonctionnalité nécessite que des distributions soient planifiées."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:6238
+#: ../src/form/StockTrackingPerDistribForm.hx:6405
 msgid ""
 "Le stock définit ici sera disponible uniquement à la fréquence choisir et "
 "égal à 0 sinon."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:6359
+#: ../src/form/StockTrackingPerDistribForm.hx:6526
 msgid ""
 "La date de départ permet de choisir la première date de distribution où le "
 "produit est disponible."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:7901
+#: ../src/form/StockTrackingPerDistribForm.hx:8068
 msgid ""
 "Fréquence choisie (1/2 = 1 distribution sur 2 à partir de la Date de départ "
 "de l'alternance)"
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:9345
+#: ../src/form/StockTrackingPerDistribForm.hx:9512
 msgid ""
 "Vous pouvez définir ici une ou plusieurs périodes pour lesquelles indiquer "
 "un stock disponible à chaque distribution. Le stock des distributions non "
 "incluses dans les périodes définies sera égale à 0."
 msgstr ""
 
-#: ../src/form/StockTrackingPerDistribForm.hx:9690
+#: ../src/form/StockTrackingPerDistribForm.hx:9857
 msgid "Add period"
 msgstr "Ajouter une période"
 
-#: ../src/form/StockTrackingPerDistribForm.hx:10337
+#: ../src/form/StockTrackingPerDistribForm.hx:10504
 #, fuzzy
 #| msgid "Distribution date added"
 msgid "Première distribution de la période"
 msgstr "Date de distribution ajoutée"
 
-#: ../src/form/StockTrackingPerDistribForm.hx:11304
+#: ../src/form/StockTrackingPerDistribForm.hx:11471
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -1662,7 +1662,7 @@ msgstr "Commande du ::date::"
 msgid "deliveries"
 msgstr "distributions"
 
-#: ../src/service/ProductService.hx:7816
+#: ../src/service/ProductService.hx:7930
 msgid "Please fill the field \"stock\" or disable stockTracking."
 msgstr ""
 "Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."

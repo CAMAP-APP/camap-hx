@@ -456,6 +456,7 @@ class App {
             var containerId = formName + "_stockTrackingPerDistribFormContainer";
             var stockTrackingName = formName + "_stockTracking";
             var stockTrackingPerDistribName = formName + "_stockTrackingPerDistrib";
+            var frequencyRatioName = formName + "_frequencyRatio";
             var generalStockInputId = formName + "_stock";
             var container = Browser.document.getElementById(containerId).parentElement;
             var stockTracking = Browser.document.getElementsByName(stockTrackingName);
@@ -487,7 +488,7 @@ class App {
                     var selectedPerDistrib:InputElement = cast Browser.document.querySelector('input[name="${stockTrackingPerDistribName}"]:checked');
                     if (selectedPerDistrib == null) {
                         selectedPerDistrib = cast Browser.document.querySelector('input[name="${stockTrackingPerDistribName}"]');
-                        selectedPerDistrib.checked = true;
+                        if (selectedPerDistrib != null) selectedPerDistrib.checked = true;
                     }
                     fieldsetAlwaysTheSame.setAttribute("disabled","disabled");
                     fieldsetFrequencyBased.setAttribute("disabled","disabled");
@@ -499,6 +500,11 @@ class App {
                     }
                     if (selectedPerDistrib.value == "1") {
                         fieldsetFrequencyBased.removeAttribute("disabled");
+                        var selectedFrequency:InputElement = cast Browser.document.querySelector('input[name="${frequencyRatioName}"]:checked');
+                        if (selectedFrequency == null) {
+                            selectedFrequency = cast Browser.document.querySelector('input[name="${frequencyRatioName}"]');
+                            if (selectedFrequency != null) selectedFrequency.checked = true;
+                        }
                     }
                     if (selectedPerDistrib.value == "2") {
                         fieldsetPerPeriod.removeAttribute("disabled");

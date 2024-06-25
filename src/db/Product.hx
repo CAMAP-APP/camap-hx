@@ -94,7 +94,8 @@ class Product extends Object
 				 // index of 7th distribution = 6 (indexes starts at 0)
 				 // pds.frequencyRatio = 3 (1/3 is represented as "3" in database)
 				 // 6 % 3 == 0 is true, stocks should be considered available for the 7th distribution
-				var hasStock = (index % pds.frequencyRatio) == 0;
+
+				var hasStock = pds.frequencyRatio <= 0 ? false : (index % pds.frequencyRatio) == 0;
 				periodStock = hasStock ? pds.stockPerDistribution : 0;
 			} else {
 				// The product might be in creation and the stockTracking not configured yet. Consider 0 stock in this case.
