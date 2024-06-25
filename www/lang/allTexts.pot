@@ -1735,6 +1735,10 @@ msgstr ""
 msgid "Delays and messages"
 msgstr ""
 
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:823
+msgid "Duties configuration"
+msgstr ""
+
 #: ../lang/master/tpl/base.mtt:3599
 msgid "Close"
 msgstr ""
