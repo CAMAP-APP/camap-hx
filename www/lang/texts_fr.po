@@ -1524,6 +1524,14 @@ msgstr "Le nombre de jours avant les permanences avant l'envoi du courriel pour 
 msgid "The number of days before the duty periods to send the instructions mail to all members needs to be lower than 15 days."
 msgstr "Le nombre de jours avant les permanences pour envoyer le courriel d'instructions à tous les membres doit être inférieur à 15."
 
+#: ../src/service/VolunteerService.hx:8604
+msgid "The number of days before hiding a volunteer role in a catalog needs to be positive."
+msgstr "Le nombre de jours avant de masquer les permancences d'un catalogue doit être positif."
+
+#: ../src/service/VolunteerService.hx:8604
+msgid "The number of days before hiding a volunteer role in a catalog needs to be at most 255 days."
+msgstr "Le nombre de jours avant de masquer les permancences d'un catalogue doit être au plus 255 jours."
+
 #: ../src/service/WaitingListService.hx:516
 msgid "<p><b>::name::</b> suscribed to the waiting list of <b>::group::</b> on ::date::</p>"
 msgstr "<p><b>::name::</b> s'est inscrit à la liste d'attente de <b>::group::</b> le ::date::</p>"
@@ -1796,6 +1804,14 @@ msgstr "Ajouter un rôle"
 #: ../lang/master/tpl/amapadmin/volunteers/default.mtt:909
 msgid "Delays and messages"
 msgstr "Délais et messages"
+
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:823
+msgid "Duties configuration"
+msgstr "Configuration des permanences"
+
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:823
+msgid "Masquer les catalogues expirés depuis plus de… (jours)"
+msgstr "Masquer les catalogues expirés depuis plus de… (jours)"
 
 #: ../lang/master/tpl/base.mtt:3512
 msgid "Close"
