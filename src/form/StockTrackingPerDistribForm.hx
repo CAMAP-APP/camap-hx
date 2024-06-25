@@ -34,38 +34,41 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 
 		// additional validation
 		var additionValid = true;
-		if (this.value == AlwaysTheSame.getIndex()) {
-			if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_AlwaysTheSame")))) {
-				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
-				additionValid = false;
-			}
-		}
-		if (this.value == FrequencyBased.getIndex()) {
-			if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_FrequencyBased")))) {
-				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
-				additionValid = false;
-			}
-			if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_firstDistrib")))) {
-				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("la date de début de l'alternance des stocks est obligatoire.")}');
-				additionValid = false;
-			}
-			if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_frequencyRatio")))) {
-				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4).")}');
-				additionValid = false;
-			}
-		}
-		if (this.value == PerPeriod.getIndex()) {
-			var startDistribs = neko.Web.getParamValues(parentForm.name + "_startDistributionId");
-			var endDistribs = neko.Web.getParamValues(parentForm.name + "_endDistributionId");
-			var stocks = neko.Web.getParamValues(parentForm.name + "_stockPerDistribution");
-			if (startDistribs.length != stocks.length || endDistribs.length != stocks.length) {
-				this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("une erreur est survenue au niveau de la définition des périodes. Chaque période doit comporter une distribution de début, de fin et un stock.")}');
-				additionValid = false;
-			}
-			for (i in 0...stocks.length) {
-				if (Math.isNaN(Std.parseFloat(stocks[i]))) {
-					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name} > Stock [${i}]"</span>: ${_("le stock doit être un nombre.")}');
+		var stockTracking = cast this.parentForm.getValueOf("stockTracking");
+		if (stockTracking == PerDistribution.getIndex()) {
+			if (this.value == AlwaysTheSame.getIndex()) {
+				if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_AlwaysTheSame")))) {
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
 					additionValid = false;
+				}
+			}
+			if (this.value == FrequencyBased.getIndex()) {
+				if (Math.isNaN(Std.parseFloat(App.current.params.get(parentForm.name + "_stock_FrequencyBased")))) {
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("le stock doit être un nombre.")}');
+					additionValid = false;
+				}
+				if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_firstDistrib")))) {
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("la date de début de l'alternance des stocks est obligatoire.")}');
+					additionValid = false;
+				}
+				if (Math.isNaN(Std.parseInt(App.current.params.get(parentForm.name + "_frequencyRatio")))) {
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4).")}');
+					additionValid = false;
+				}
+			}
+			if (this.value == PerPeriod.getIndex()) {
+				var startDistribs = neko.Web.getParamValues(parentForm.name + "_startDistributionId");
+				var endDistribs = neko.Web.getParamValues(parentForm.name + "_endDistributionId");
+				var stocks = neko.Web.getParamValues(parentForm.name + "_stockPerDistribution");
+				if (startDistribs.length != stocks.length || endDistribs.length != stocks.length) {
+					this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name}"</span>: ${_("une erreur est survenue au niveau de la définition des périodes. Chaque période doit comporter une distribution de début, de fin et un stock.")}');
+					additionValid = false;
+				}
+				for (i in 0...stocks.length) {
+					if (Math.isNaN(Std.parseFloat(stocks[i]))) {
+						this.errors.add('<span class="formErrorsField">"${(label != null && label != "") ? label : name} > Stock [${i}]"</span>: ${_("le stock doit être un nombre.")}');
+						additionValid = false;
+					}
 				}
 			}
 		}
