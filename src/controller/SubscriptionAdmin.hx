@@ -393,57 +393,6 @@ class SubscriptionAdmin extends controller.Controller
 		view.nav.push( 'subscriptions' );
 	}
 
-
-	/**
-		user can edit his absences.
-		The user can't change his absence number.
-	**/
-	/*@logged @tpl("form.mtt")
-	function doAbsences( subscription:db.Subscription ) {
-
-		var returnUrl = "/contractAdmin/subscriptions/"+subscription.catalog.id;
-		if( !subscription.catalog.hasAbsencesManagement() ) throw Error(returnUrl,"Pas de gestion des absences sur ce contrat");
-		
-		var absenceDistribs = subscription.getAbsentDistribs();
-		var possibleAbsences = subscription.getPossibleAbsentDistribs();
-		var now = Date.now().getTime();
-		possibleAbsences = possibleAbsences.filter(d -> d.orderEndDate.getTime() > now);
-		var lockedDistribs = absenceDistribs.filter( d -> d.orderEndDate.getTime() < now);	//absences that are not editable anymore
-		
-		var form = new sugoi.form.Form("subscriptionAbsences");		
-		var possibleAbsencesData = possibleAbsences.map( d -> { label : Formatting.hDate(d.date,true), value : d.id } );
-		for ( i in 0...subscription.getAbsencesNb() ) {
-			if( lockedDistribs.has(absenceDistribs[i]) ){
-				//absence cannot be modified anymore, too late !
-				form.addElement(new sugoi.form.elements.Html('absenceLocked',Formatting.dDate(absenceDistribs[i].date)+" (trop tard pour changer)","Je serai absent(e) le :"));
-			}else{
-				form.addElement(new sugoi.form.elements.IntSelect( "absentDistrib" + i, "Je serai absent(e) le :", possibleAbsencesData, absenceDistribs[i].id, true ));
-			}			
-		}
-		
-		if ( form.checkToken() ) {
-
-			try {
-				var absentDistribIds = lockedDistribs.map(d->d.id);
-				for ( i in 0...absenceDistribs.length ) {				
-					if(form.getElement('absentDistrib' + i)!=null){
-						absentDistribIds.push( form.getValueOf( 'absentDistrib' + i ) );	
-					}					
-				}
-				AbsencesService.updateAbsencesDates( subscription, absentDistribIds,true );				
-			} catch( error:Error ) {
-				throw Error( Web.getURI(), error.message );
-			}
-
-			throw Ok( returnUrl, 'Les dates d\'absences ont bien été mises à jour.' );
-		}
-
-		view.form = form;
-		view.text = '<b>${subscription.getAbsencesNb()}</b> absences autorisées dans la période du <b>${DateTools.format( subscription.catalog.absencesStartDate, "%d/%m/%Y" )}</b> au <b>${DateTools.format( subscription.catalog.absencesEndDate, "%d/%m/%Y")}</b>';
-		view.title = "Absences de "+subscription.user.getName()+" pour le contrat \""+subscription.catalog.name+"\"";
-		
-	}*/
-	
 	/**
 	 * inserts a payment for a CSA contract
 	 */

@@ -75,6 +75,9 @@ class ProductService{
 		p.unitType = source_p.unitType;
 		p.multiWeight = source_p.multiWeight;
 		p.variablePrice = source_p.variablePrice;
+		// disable stock tracking when duplicating
+		p.stockTracking = Disabled;
+		p.stockTrackingPerDistrib = null;
 		p.insert();
 		
 		//custom categs

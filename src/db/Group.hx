@@ -83,6 +83,7 @@ class Group extends Object
 	@hideInForms public var allowMoneyPotWithNegativeBalance:SNull<SBool>;
 
 	//Volunteers for duty periods
+	@hideInForms public var daysAfterClosingBeforeHidingDutyPeriods: STinyUInt;
 	@hideInForms public var volunteersMailDaysBeforeDutyPeriod: STinyInt;
 	@hideInForms public var volunteersMailContent: SText;
 	@hideInForms public var vacantVolunteerRolesMailDaysBeforeDutyPeriod: STinyInt;
@@ -104,6 +105,7 @@ class Group extends Object
 		
 		//duty periods props
 		daysBeforeDutyPeriodsOpen = 60;
+		daysAfterClosingBeforeHidingDutyPeriods = 30;
 		volunteersMailContent = "<b>Rappel : Vous êtes inscrit·e à la permanence du [DATE_DISTRIBUTION],</b><br/>
 		Lieu de distribution : [LIEU_DISTRIBUTION]<br/>
 		<br/>
@@ -246,7 +248,6 @@ class Group extends Object
 	public function getGroupAdmins():Array<db.UserGroup>{
 
 		var users = db.UserGroup.manager.search($rights != null && $rights != "[]" && $group == this, false);
-		
 		//cleaning 
 		/*for ( u in users.array()) {
 			

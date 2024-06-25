@@ -81,7 +81,7 @@
 				::_("Stock tracking")::
 			</th>
 			<th ::cond c.hasStockManagement()::>
-				<i class="icon icon-info" data-toggle="tooltip" data-placement="left" title="Stock pour la distribution du ::stockDate::" ::cond stockDate != null::>&nbsp;</i> ::_("Stock")::
+				::_("Stock")::
 			</th>
 			<th>::_("Price")::</th>
 			<th></th>

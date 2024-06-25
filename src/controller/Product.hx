@@ -128,7 +128,7 @@ class Product extends Controller
 		var csv = new sugoi.tools.Csv();
 		csv.step = 1;
 		var request = sugoi.tools.Utils.getMultipart(1024 * 1024 * 4);
-		csv.setHeaders( ["productName","price","ref","desc", "vat", "qt", "unit", "stock", "stockTracking", "stockTrackingPerDistrib", "organic", "bulk", "variablePrice"] );
+		csv.setHeaders( ["productName","price","ref","desc", "vat", "qt", "unit", "organic", "bulk", "variablePrice"] );
 		view.contract = c;
 		
 		// get the uploaded file content
@@ -173,19 +173,9 @@ class Product extends Controller
 							default : Piece;
 						}
 					}
-					if (p["stock"] != null) product.stock = fv.filterString(p["stock"]);
-					if (p["stockTracking"] != null) product.stockTracking = switch(p["stockTracking"].toLowerCase()){
-						case "disabled" : Disabled;
-						case "global" : Global;
-						case "perdistribution" : PerDistribution;
-						default : Disabled;
-					}
-					if (p["stockTrackingPerDistrib"] != null) product.stockTrackingPerDistrib = switch(p["stockTrackingPerDistrib"].toLowerCase()){
-						case "alwaysthesame" : AlwaysTheSame;
-						case "frequencybased" : FrequencyBased;
-						case "perperiod" : PerPeriod;
-						default : null;
-					}
+					product.stock = null;
+					product.stockTracking = Disabled;
+					product.stockTrackingPerDistrib = null;
 					if (p["organic"] == "true" || p["organic"] == "1") {
 						product.organic = true;
 					} else {
@@ -236,9 +226,6 @@ class Product extends Controller
 				"quantity": p.qt,
 				//"catalogId": c.id,
 				"unit": p.unitType,
-				"stock": p.stock,
-				"stockTracking": p.stockTracking,
-				"stockTrackingPerDistrib": p.stockTrackingPerDistrib,
 				"organic": p.organic,
 				"bulk": p.bulk,
 				"variablePrice": p.variablePrice,
@@ -252,7 +239,7 @@ class Product extends Controller
 //			"id", "name", "ref", "price", "vat", "catalogId", "vendorId", "unit", "quantity", "active", "image"], "Export-produits-" + c.name + "-CAMAP");
 //		return;
 	sugoi.tools.Csv.printCsvDataFromObjects(data, [
-			"name", "price", "ref", "desc", "vat", "quantity", "unit", "stock", "stockTracking", "stockTrackingPerDistrib", "organic", "bulk", "variablePrice"], "Export-produits-" + c.name + "-CAMAP");
+			"name", "price", "ref", "desc", "vat", "quantity", "unit", "organic", "bulk", "variablePrice"], "Export-produits-" + c.name + "-CAMAP");
 		return;
 		
 	}
