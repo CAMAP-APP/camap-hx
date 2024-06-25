@@ -69,11 +69,12 @@ $$insert(::_("Add a role")::,/amapadmin/volunteers/insertRole)
 <script>
 	tinymce.init({ 
 		selector:'textarea',
-		plugins: "autolink textcolor emoticons image",
-		toolbar: "styleselect bold italic alignleft aligncenter emoticons image bullist outdent indent forecolor",
+		plugins: "autolink textcolor emoticons image code",
+		toolbar: "bold italic alignleft aligncenter emoticons image bullist outdent indent forecolor code",
 		language: '::session.lang::',
-	
-	});	
+		menubar: false,
+		statusbar: false
+	});
 </script>
 
 ::end::
