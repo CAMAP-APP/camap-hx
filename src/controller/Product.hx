@@ -1,4 +1,5 @@
 package controller;
+import form.CamapForm;
 import thx.Error;
 import service.ProductService;
 import sys.db.RecordInfos;
@@ -44,6 +45,8 @@ class Product extends Controller
 		} else {
 			app.event(PreEditProduct(product));
 		}
+
+		CamapForm.addRichText(f, 'textarea');
 		
 		view.form = f;
 		view.title = t._("Modify a product");
@@ -94,6 +97,7 @@ class Product extends Controller
 			app.event(PreNewProduct(contract));
 		}
 		
+		CamapForm.addRichText(f, 'textarea');
 		view.form = f;
 		view.title = t._("Key-in a new product");
 	}

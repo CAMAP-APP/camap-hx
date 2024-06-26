@@ -17,7 +17,7 @@
 			::end::
 			::end::
 			
-			::raw nl2br(group.txtIntro)::
+			::raw sanitize(group.txtIntro)::
 			<br/>
 			::if user.isAmapManager()::
 			$$edit(::_("Edit")::,amap/edit)

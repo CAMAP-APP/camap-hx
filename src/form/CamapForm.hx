@@ -29,11 +29,12 @@ class CamapForm extends Form {
 <script>
 	tinymce.init({ 
 		selector: "${selector}",
-		plugins: "autolink textcolor emoticons image code link",
-		toolbar: "bold italic alignleft aligncenter emoticons image bullist outdent indent forecolor link code",
+		plugins: "autolink emoticons image code link lists",
+		toolbar: "bold italic alignleft aligncenter emoticons image bullist numlist outdent indent forecolor link code",
 		language: "${App.current.session.lang}",
 		menubar: false,
-		statusbar: false
+		statusbar: false,
+		license_key: "gpl"
 	});
 </script>
 '));
