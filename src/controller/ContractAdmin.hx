@@ -6,6 +6,7 @@ import db.Catalog;
 import db.UserOrder;
 import form.CamapDatePicker;
 import form.CamapDatePicker;
+import form.CamapForm;
 import service.CatalogService;
 import service.OrderService;
 import service.ProductService;
@@ -148,6 +149,8 @@ class ContractAdmin extends Controller
 			} 
 			throw Ok( "/contractAdmin/view/" + catalog.id,  text );
 		}
+
+		CamapForm.addRichText(form, 'textarea');
 		 
 		view.form = form;
 	}

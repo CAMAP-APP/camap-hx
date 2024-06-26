@@ -20,6 +20,25 @@ class CamapForm extends Form {
         return sugoi.form.Form.fromSpod(obj, fieldTypeToElementMap);
   	}
 
+	public static function addRichText(form:Form, selector:String)
+	{
+		if (form.getElement('richtext') != null)
+			throw new thx.Error('richtext already added to form.');
+		form.addElement(new form.RawHtml("richtext", '
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script>
+	tinymce.init({ 
+		selector: "${selector}",
+		plugins: "autolink textcolor emoticons image code link",
+		toolbar: "bold italic alignleft aligncenter emoticons image bullist outdent indent forecolor link code",
+		language: "${App.current.session.lang}",
+		menubar: false,
+		statusbar: false
+	});
+</script>
+'));
+	}
+
 
 	public static function renderDDate(name: String, label: String, value: Dynamic, ?required: Bool) {
 		// hack
