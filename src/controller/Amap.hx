@@ -1,4 +1,5 @@
 package controller;
+import form.CamapForm;
 import service.PaymentService;
 import service.SubscriptionService;
 import sugoi.form.elements.Html;
@@ -60,7 +61,7 @@ class Amap extends Controller
 			group.update();
 			throw Ok("/amapadmin", t._("The group has been updated."));
 		}
-		
+		CamapForm.addRichText(form, "textarea");
 		view.form = form;
 	}
 

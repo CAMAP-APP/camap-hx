@@ -6,6 +6,7 @@ import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
 import sugoi.form.elements.TextArea;
+import form.CamapForm;
 
 class Volunteers extends controller.Controller
 {
@@ -74,6 +75,8 @@ class Volunteers extends controller.Controller
 			throw Ok("/amapadmin/volunteers", t._("Your changes have been successfully saved."));
 			
 		}
+
+		CamapForm.addRichText(form, 'textarea');
 		
 		view.form = form;
 		view.nav.push( 'volunteers' );

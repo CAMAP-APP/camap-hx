@@ -57,7 +57,7 @@
 			</p>
 			
 			<p ::cond p.desc!=null::>
-				::raw nl2br(p.desc)::
+				::raw sanitize(p.desc)::
 			</p>
 			
 		</div>
@@ -81,7 +81,7 @@
 			<b>::vendor.city::</b> (::vendor.zipCode::)
 			
 			<p ::cond vendor.desc!=null:: style="font-size: 13px;height:150px;overflow-y: scroll;">
-				::raw nl2br(vendor.desc)::
+				::raw sanitize(vendor.desc)::
 			</p>
 			
 		</div>

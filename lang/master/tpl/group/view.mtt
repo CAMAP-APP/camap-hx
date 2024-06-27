@@ -332,6 +332,7 @@ $$browserDetection()
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+		pointer-events: all;
 	}
 
 	.productModal-title {
@@ -340,7 +341,7 @@ $$browserDetection()
 		line-height: 1.2rem;
 	}
 
-	.modal-image img {
+	img.leftImage {
         max-width: 100%;
         object-fit: scale-down;
         float: left;
@@ -385,7 +386,7 @@ $$browserDetection()
 			<div class="modal" id="img-::m.fileId::" tabindex="-1"
 					 aria-labelledby="imglabel-::m.fileId::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
-					<img src="::file(m.fileId)::" alt="" />
+					<img src="::file(m.fileId)::" alt="" class="leftImage" />
 				</div>
 			</div>
 			::end::
@@ -547,7 +548,7 @@ $$browserDetection()
 			</button>
 		</div>
 		<div id="panel-description" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-description" ::cond group.txtIntro!=null && group.txtIntro!=""::>
-			::raw nl2br(group.txtIntro)::
+			::raw sanitize(group.txtIntro)::
 		</div>
 		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" hidden="hidden">
 			::foreach del group.getDeliveries(4)::
@@ -613,13 +614,13 @@ $$browserDetection()
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt="" />
+						<img src="::p.getImage()::" alt="" class="leftImage" />
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
 							<div class="productLabelIcon" ::cond p.organic::>
 								<i class="icons icon-bio"></i>
 							</div>
-							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
+							<div ::cond p.desc != null::>::raw sanitize(p.desc)::</div>
 						</div>
 					</div>
 				</div>

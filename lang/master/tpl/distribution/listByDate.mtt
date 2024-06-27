@@ -176,7 +176,7 @@
 
 				</table>
 				
-				<p>::raw nl2br(user.getGroup().txtDistrib)::</p>
+				<p>::raw sanitize(user.getGroup().txtDistrib)::</p>
 		
 				<p class="hidden">
 					<i>::_("Push on \"Control + P\" to print this page.")::</i>					

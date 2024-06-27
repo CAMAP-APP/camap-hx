@@ -231,7 +231,7 @@ class Product extends Object
 			vatValue: (vat != 0 && vat != null) ? (  this.price - (this.price / (vat/100+1))  )  : null,
 			catalogTax : catalog.percentageValue,
 			catalogTaxName : catalog.percentageName,
-			desc : App.current.view.nl2br(desc),
+			desc : desc,
 			orderable : this.catalog.isUserOrderAvailable(),
 			qt:qt,
 			unitType:unitType,

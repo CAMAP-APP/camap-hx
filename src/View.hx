@@ -301,5 +301,94 @@ class View extends sugoi.BaseView {
 	public function getSid():String {
 		return App.current.session.sid;
 	}
+	
+	/**
+	 * To safely print a string as html.
+	 * This is a very basic sanitizer and won't handle those cases:
+	 * - unicode characters
+	 * - misleading css through style attribute
+	 * - svg image with script
+	 * @param	str
+	 */
+	public function sanitize( str : String ) {
+		if (str == null) return "";
+
+		// List of allowed HTML tags
+		var allowedTags = ["br", "b", "strong", "i", "em", "u", "p", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "a", "img"];
+
+		// Regular expression to match '<' followed by a tag name
+		var tagRegex = ~/(<\/?)([\w]+)/ig;
+
+		// Function to replace matched tags
+		function replacer(regex:EReg):String {
+			var fullMatch = regex.matched(0);
+			var tagName = regex.matched(2).toLowerCase();
+
+			// If the tag is allowed, keep it as is; otherwise, replace '<' with '&lt;'
+			return allowedTags.indexOf(tagName) != -1 ? fullMatch : StringTools.replace(fullMatch.substr(0, 1), "<", "&lt;") + fullMatch.substr(1);
+		}
+
+		// Replace potentially harmful attributes
+		for (i in 0...DANGEROUS_ATTRIBUTES.length) {
+			str = str.split(DANGEROUS_ATTRIBUTES[i]).join("data-" + DANGEROUS_ATTRIBUTES[i]);
+		}
+
+		str = str
+			.split("javascript:").join("#")
+			.split("javascript&#58;").join("#")
+			.split("data:").join("#")
+			.split("data&#58;").join("#")
+			.split("vbscript:").join("#")
+			.split("vbscript&#58;").join("#");
+
+		if(
+			str.toLowerCase().indexOf("javascript:") >= 0 ||
+			str.toLowerCase().indexOf("javascript&#58;") >= 0 ||
+			str.toLowerCase().indexOf("data:") >= 0 ||
+			str.toLowerCase().indexOf("javascript&#58;") >= 0 ||
+			str.toLowerCase().indexOf("vbscript:") >= 0 ||
+			str.toLowerCase().indexOf("vbscript&#58;") >= 0
+		) return "";
+		
+		// Apply the tag replacement
+		return tagRegex.map(str, replacer);
+	}
+
+	/**
+ * List of potentially dangerous HTML event attributes
+ */
+public static final DANGEROUS_ATTRIBUTES:Array<String> = [
+    // Mouse events
+    "onclick", "ondblclick", "onmousedown", "onmousemove", "onmouseout", 
+    "onmouseover", "onmouseup", "onwheel",
+
+    // Keyboard events
+    "onkeydown", "onkeypress", "onkeyup",
+
+    // Form events
+    "onblur", "onchange", "onfocus", "onreset", "onselect", "onsubmit",
+
+    // Load and execution events
+    "onload", "onunload", "onerror", "onabort",
+
+    // Window events
+    "onresize", "onscroll",
+
+    // Drag and drop events
+    "ondrag", "ondragend", "ondragenter", "ondragleave", "ondragover", 
+    "ondragstart", "ondrop",
+
+    // Clipboard events
+    "oncopy", "oncut", "onpaste",
+
+    // Media events
+    "oncanplay", "oncanplaythrough", "ondurationchange", "onended", "onpause", 
+    "onplay", "onplaying", "onprogress", "ontimeupdate", "onvolumechange",
+
+    // Other potentially dangerous events
+    "onafterprint", "onbeforeprint", "onbeforeunload", "onhashchange", 
+    "onmessage", "onoffline", "ononline", "onpagehide", "onpageshow", 
+    "onpopstate", "onstorage", "oncontextmenu"
+];
 
 }
