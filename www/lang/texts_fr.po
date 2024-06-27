@@ -230,7 +230,7 @@ msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
 #: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:28492
-#: ../src/controller/ContractAdmin.hx:35980 ../src/controller/Product.hx:656
+#: ../src/controller/ContractAdmin.hx:36515 ../src/controller/Product.hx:656
 #: ../src/controller/Product.hx:3052 ../src/controller/Product.hx:3716
 #: ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
@@ -242,7 +242,7 @@ msgstr "Vous n'avez pas le droit de gérer ce catalogue"
 
 #: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337
 #: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2783
-#: ../src/controller/ContractAdmin.hx:33731
+#: ../src/controller/ContractAdmin.hx:34266
 #: ../src/controller/Distribution.hx:7108
 #: ../src/controller/Distribution.hx:7702
 #: ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1441
@@ -331,7 +331,7 @@ msgstr "Produits copiés de "
 msgid "Start date"
 msgstr "Date de début"
 
-#: ../src/controller/ContractAdmin.hx:11221 ../src/db/Catalog.hx:12693
+#: ../src/controller/ContractAdmin.hx:11221 ../src/db/Catalog.hx:12749
 #: ../src/db/Subscription.hx:5693 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr "Date de fin"
@@ -373,8 +373,8 @@ msgstr "Commandes du ::fromDate:: au ::toDate:: par producteur.csv\")"
 #: ../src/controller/ContractAdmin.hx:22006
 #: ../src/controller/ContractAdmin.hx:27598
 #: ../src/controller/ContractAdmin.hx:29100
-#: ../src/controller/ContractAdmin.hx:30739
-#: ../src/controller/ContractAdmin.hx:31278
+#: ../src/controller/ContractAdmin.hx:31274
+#: ../src/controller/ContractAdmin.hx:31813
 #: ../src/controller/Distribution.hx:1666
 msgid "You do not have the authorization to manage this contract"
 msgstr "Vous n'avez pas le droit de gérer ce contrat"
@@ -434,21 +434,21 @@ msgstr ""
 "Il n'y a pas de distribution dans ce catalogue, créez au moins une "
 "distribution."
 
-#: ../src/controller/ContractAdmin.hx:30466
+#: ../src/controller/ContractAdmin.hx:31001
 msgid "Distribution date added"
 msgstr "Date de distribution ajoutée"
 
-#: ../src/controller/ContractAdmin.hx:36361
+#: ../src/controller/ContractAdmin.hx:36896
 msgid "You cannot delete this catalog because some orders are linked to it."
 msgstr ""
 "Vous ne pouvez pas effacer ce catalogue car il y a des commandes rattachées "
 "à ce catalogue."
 
-#: ../src/controller/ContractAdmin.hx:36773
+#: ../src/controller/ContractAdmin.hx:37308
 msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
-#: ../src/controller/ContractAdmin.hx:36840 ../src/controller/Documents.hx:3241
+#: ../src/controller/ContractAdmin.hx:37375 ../src/controller/Documents.hx:3241
 #: ../src/controller/Media.hx:2084 ../src/controller/Product.hx:3545
 #: ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
@@ -522,12 +522,12 @@ msgid "Bad token"
 msgstr "Mauvais jeton"
 
 #: ../src/controller/Distribution.hx:9373
-#: ../src/controller/Distribution.hx:14796 ../src/db/MultiDistrib.hx:8529
+#: ../src/controller/Distribution.hx:14796 ../src/db/MultiDistrib.hx:8565
 msgid "Orders opening date"
 msgstr "Date d'ouverture des commandes"
 
 #: ../src/controller/Distribution.hx:9485
-#: ../src/controller/Distribution.hx:14937 ../src/db/MultiDistrib.hx:8581
+#: ../src/controller/Distribution.hx:14937 ../src/db/MultiDistrib.hx:8617
 msgid "Orders closing date"
 msgstr "Date de clôture des commandes"
 
@@ -909,7 +909,7 @@ msgstr "Montant"
 
 #: ../src/controller/SubscriptionAdmin.hx:16116
 #: ../src/controller/Transaction.hx:1019 ../src/controller/Transaction.hx:3614
-#: ../src/db/Distribution.hx:8533 ../src/db/MultiDistrib.hx:8418
+#: ../src/db/Distribution.hx:8533 ../src/db/MultiDistrib.hx:8454
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:199
 msgid "Date"
 msgstr "Date"
@@ -1037,43 +1037,47 @@ msgstr "Mis en file d'attente"
 msgid "Catalog name"
 msgstr "Nom du catalogue"
 
-#: ../src/db/Catalog.hx:12733 ../src/db/Product.hx:11857
+#: ../src/db/Catalog.hx:12697 ../lang/master/tpl/contractadmin/view.mtt:921
+msgid "First distribution date"
+msgstr "Date de première distribution"
+
+#: ../src/db/Catalog.hx:12789 ../src/db/Product.hx:11857
 #: ../src/db/Vendor.hx:4707 ../lang/master/tpl/group/view.mtt:12088
 msgid "Description"
 msgstr "Description"
 
-#: ../src/db/Catalog.hx:12778
+#: ../src/db/Catalog.hx:12834
 msgid "Number of required volunteers during a distribution"
 msgstr "Nbre de bénévoles nécéssaires pendant une distribution"
 
-#: ../src/db/Catalog.hx:12856 ../src/db/Group.hx:12312 ../src/db/User.hx:19056
+#: ../src/db/Catalog.hx:12912 ../src/db/Group.hx:12312 ../src/db/User.hx:19056
 msgid "Options"
 msgstr "Options"
 
-#: ../src/db/Catalog.hx:12898
+#: ../src/db/Catalog.hx:12954
 msgid "Fees percentage"
 msgstr "Pourcentage des frais"
 
-#: ../src/db/Catalog.hx:12947
+#: ../src/db/Catalog.hx:13003
 msgid "Fees label"
 msgstr "Libellé pour ces frais"
 
-#: ../src/db/Catalog.hx:12986
+#: ../src/db/Catalog.hx:13042
 msgid "Contact"
 msgstr "Contact"
 
-#: ../src/db/Catalog.hx:13021 ../lang/master/tpl/contractadmin/view.mtt:1962
+#: ../src/db/Catalog.hx:13077 ../lang/master/tpl/contractadmin/view.mtt:1962
 #: ../lang/master/tpl/distribution/list.mtt:833
 #: ../lang/master/tpl/distribution/listByProductUser.mtt:811
 msgid "Farmer"
 msgstr "Producteur"
 
-#: ../src/db/Distribution.hx:8566 ../src/db/MultiDistrib.hx:8455
+#: ../src/db/Distribution.hx:8566 ../src/db/MultiDistrib.hx:8491
 msgid "End hour"
 msgstr "Heure de fin"
 
 #: ../src/db/Distribution.hx:8601 ../src/db/DistributionCycle.hx:1929
-#: ../src/db/MultiDistrib.hx:8490 ../lang/master/tpl/distribution/list.mtt:516
+#: ../src/db/MultiDistrib.hx:8526 ../lang/master/tpl/distribution/list.mtt:516
 #: ../lang/master/tpl/distribution/listByProductUser.mtt:516
 msgid "Place"
 msgstr "Lieu"
@@ -1660,6 +1664,14 @@ msgid "Please fill the field \"stock\" or disable stockTracking."
 msgstr ""
 "Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."
 
+#: ../src/service/ProductService.hx:8378
+msgid ""
+"Stock can't be less than ::minStock:: for ::product:: on distribution ::"
+"ddate:: because of existing orders."
+msgstr ""
+"Le stock ne peut pas être inférieur à ::minStock:: pour ::product:: sur la "
+"distribution du ::ddate:: à cause des commandes en cours."
+
 #: ../src/service/ReportService.hx:464
 msgid "Delivery ::contractName:: of the "
 msgstr "Distribution ::contractName:: du "
@@ -1978,7 +1990,7 @@ msgstr "Monnaie"
 
 #. short version for delete
 #: ../lang/master/tpl/amapadmin/places.mtt:501
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3478
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3560
 #: ../lang/master/tpl/contractadmin/products.mtt:5364
 #: ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:2072
 msgid "Del."
@@ -2151,7 +2163,7 @@ msgstr "Livraisons"
 
 #: ../lang/master/tpl/contractadmin/contract.mtt:313
 #: ../lang/master/tpl/contractadmin/design.mtt:2197
-#: ../lang/master/tpl/contractadmin/distributions.mtt:1685
+#: ../lang/master/tpl/contractadmin/distributions.mtt:1767
 #: ../lang/master/tpl/contractadmin/orders.mtt:602
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:87
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:712
@@ -2222,48 +2234,48 @@ msgstr "Distributions"
 msgid "Stats"
 msgstr "Statistiques"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:1088
+#: ../lang/master/tpl/contractadmin/distributions.mtt:1170
 msgid "Participate"
 msgstr "Participer"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:1953
+#: ../lang/master/tpl/contractadmin/distributions.mtt:2035
 #: ../lang/master/tpl/distribution/default.mtt:8808
 #: ../lang/master/tpl/distribution/default.mtt:10731
 msgid "Dates"
 msgstr "Dates"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:2667
+#: ../lang/master/tpl/contractadmin/distributions.mtt:2749
 #: ../lang/master/tpl/home.mtt:5905 ../lang/master/tpl/home.mtt:7711
 msgid "Distribution list"
 msgstr "Liste d'émargement"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3089
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3658
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3171
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3740
 #: ../lang/master/tpl/distribution/default.mtt:11663
 msgid "Distribution cycle"
 msgstr "Cycle de distribution"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3241
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3323
 #: ../lang/master/tpl/distribution/default.mtt:11821
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3272
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3354
 #: ../lang/master/tpl/distribution/default.mtt:11853
 msgid "Monthly"
 msgstr "Mensuel"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3304
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3386
 #: ../lang/master/tpl/distribution/default.mtt:11886
 msgid "Every 2 weeks"
 msgstr "Toutes les 2 semaines"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3342
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3424
 #: ../lang/master/tpl/distribution/default.mtt:11925
 msgid "Every 3 weeks"
 msgstr "Toutes les 3 semaines"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3585
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3667
 msgid "One time distribution"
 msgstr "Distribution ponctuelle"
 
@@ -2610,10 +2622,6 @@ msgstr "Total HT"
 #: ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:923
 msgid "Total TTC"
 msgstr "Total TTC"
-
-#: ../lang/master/tpl/contractadmin/view.mtt:921
-msgid "First distribution date"
-msgstr "Date de première distribution"
 
 #: ../lang/master/tpl/contractadmin/view.mtt:1216
 msgid "Duplicate"
@@ -3283,13 +3291,6 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 
 #~ msgid "Available stock"
 #~ msgstr "Stock actuel"
-
-#~ msgid ""
-#~ "Stock can't be less than ::minStock:: for ::product:: on distribution ::"
-#~ "ddate:: because of existing orders."
-#~ msgstr ""
-#~ "Le stock ne peut pas être inférieur à ::minStock:: pour ::product:: sur "
-#~ "la distribution du ::ddate:: à cause des commandes en cours."
 
 #~ msgid "This delivery has been already validated"
 #~ msgstr "Cette distribution a déjà été validée"
