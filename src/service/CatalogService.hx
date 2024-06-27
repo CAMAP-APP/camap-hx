@@ -86,10 +86,16 @@ class CatalogService{
 		
 		form.addElement( new sugoi.form.elements.Html( "vendorHtml", '<b>${catalog.vendor.name}</b> ( ${catalog.vendor.zipCode} ${catalog.vendor.city} )', t._( "Vendor" ) ), 3 );
 
+		// move contact field
 		var contact = form.getElement("userId");
 		form.removeElement( contact );
 		form.addElement( contact, 4 );
 		contact.required = true;
+
+		// move firstDistrib field
+		var firstDistrib = form.getElement("firstDistribId");
+		form.removeElement( firstDistrib );
+		form.addElement( firstDistrib, 6 );
 
 		return form;
     }
