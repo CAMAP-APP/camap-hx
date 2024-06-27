@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/CAMAP-APP/sugoi#54ccc3e19dc2ba9b99b89d08a6016ff3a9dc302e" into sugoi/1.0.0/github/54ccc3e19dc2ba9b99b89d08a6016ff3a9dc302e
--cp ${HAXE_LIBCACHE}/sugoi/1.0.0/github/54ccc3e19dc2ba9b99b89d08a6016ff3a9dc302e/src
+# @install: lix --silent download "gh://github.com/CAMAP-APP/sugoi#c3b8db853ccedf4be0eb15d6f27b16940ffcd37b" into sugoi/1.0.0/github/c3b8db853ccedf4be0eb15d6f27b16940ffcd37b
+-cp ${HAXE_LIBCACHE}/sugoi/1.0.0/github/c3b8db853ccedf4be0eb15d6f27b16940ffcd37b/src
 -D sugoi=1.0.0
