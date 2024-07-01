@@ -13,21 +13,8 @@ class Catalog extends Controller
         get a catalog
     **/
 	public function doDefault(catalog:db.Catalog){
-		var stocksPerProductDistribution:Map<Int, Map<Int, Float>> = null;
 		var distributions = catalog.getDistribs(false).array().map(d -> d.getInfos());
 		var products = catalog.getProducts();
-		if (catalog.hasStockManagement()) {
-			stocksPerProductDistribution = new Map<Int, Map<Int, Float>>();
-			for (product in products) {
-				var stocksPerDistrib = new Map<Int, Float>();
-				for (distrib in distributions) {
-					if (product.stockTracking != StockTracking.Disabled) {
-						stocksPerDistrib.set(distrib.id, product.getAvailableStock(distrib.id));
-					}
-				}
-				stocksPerProductDistribution.set(product.id, stocksPerDistrib);
-			}
-		}
 
         var ss = new SubscriptionService();
         var out = {
@@ -46,8 +33,7 @@ class Catalog extends Controller
             absences : AbsencesService.getAbsencesDescription(catalog),
             absentDistribsMaxNb : catalog.absentDistribsMaxNb,
             distribMinOrdersTotal : catalog.distribMinOrdersTotal,
-            hasStockManagement: catalog.hasStockManagement(),
-            stocksPerProductDistribution: Formatting.mapToObject(stocksPerProductDistribution)
+            hasStockManagement: catalog.hasStockManagement()
         }
 
         json(out);
@@ -65,6 +51,26 @@ class Catalog extends Controller
             possibleAbsentDistribs : AbsencesService.getContractAbsencesDistribs(catalog).map(d -> d.getInfos())
         });
     }
+    
+	public function doStocksPerProductDistribution( catalog:db.Catalog ) {
+
+		var stocksPerProductDistribution:Map<Int, Map<Int, Float>> = null;
+        if (catalog.hasStockManagement()) {
+			stocksPerProductDistribution = new Map<Int, Map<Int, Float>>();
+			for (product in catalog.getProducts()) {
+				var stocksPerDistrib = new Map<Int, Float>();
+				for (distrib in catalog.getDistribs()) {
+					if (product.stockTracking != StockTracking.Disabled) {
+						stocksPerDistrib.set(distrib.id, product.getAvailableStock(distrib.id));
+					}
+				}
+				stocksPerProductDistribution.set(product.id, stocksPerDistrib);
+			}
+		}
+		json(Formatting.mapToObject(stocksPerProductDistribution));
+
+	}
+
 
     /**
         Get and set asbences of a Subscription
