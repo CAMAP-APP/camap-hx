@@ -1,4 +1,5 @@
 package service;
+import Common.StockTracking;
 import sugoi.form.elements.IntInput;
 import tools.DateTool;
 import db.Catalog;
@@ -173,7 +174,7 @@ class CatalogService{
 			if ( catalog.hasStockManagement()) {
 
 				for ( p in catalog.getProducts()) {
-					if ( p.stock == null ) {
+					if ( p.stockTracking != StockTracking.Disabled && p.stock == null ) {
 						App.current.session.addMessage(t._("Warning about management of stock. Please fill the field \"stock\" for all your products"), true );
 						break;
 					}
