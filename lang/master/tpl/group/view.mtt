@@ -520,16 +520,17 @@ $$browserDetection()
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::group.txtIntro==null || group.txtIntro==""::"
 				aria-controls="panel-nextDeliveries"
 				id="tab-nextDeliveries"
-				tabindex="-1">
+				tabindex="-1"
+				::cond md!=null::>
 				<span class="glyphicon glyphicon-time"></span><span>::_("Next deliveries")::</span>
 			</button>
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::(group.txtIntro==null || group.txtIntro=="") && md == null::"
 				aria-controls="panel-documents"
 				id="tab-documents"
 				tabindex="-1"
@@ -540,7 +541,7 @@ $$browserDetection()
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::(group.txtIntro==null || group.txtIntro=="") && md == null && visibleGroupDocuments.length == 0::"
 				aria-controls="panel-suppliersAndProducts"
 				id="tab-suppliersAndProducts"
 				tabindex="-1">
@@ -550,7 +551,7 @@ $$browserDetection()
 		<div id="panel-description" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-description" ::cond group.txtIntro!=null && group.txtIntro!=""::>
 			::raw sanitize(group.txtIntro)::
 		</div>
-		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" hidden="hidden">
+		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" ::attr hidden group.txtIntro!=null && group.txtIntro!="":: ::cond md!=null::>
 			::foreach del group.getDeliveries(4)::
 			::set d = del._multiDistrib::
 			<div class="dateBox">
@@ -578,12 +579,12 @@ $$browserDetection()
 			</div>
 			::end::
 		</div>
-		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" hidden="hidden" ::cond visibleGroupDocuments.length != 0::>
+		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" ::attr hidden (group.txtIntro!=null && group.txtIntro!="") || md!=null:: ::cond visibleGroupDocuments.length != 0::>
 			::foreach doc visibleGroupDocuments::
 			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
 			::end::
 		</div>
-		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" hidden="hidden">
+		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" ::attr hidden (group.txtIntro!=null && group.txtIntro!="") || md!=null || visibleGroupDocuments.length != 0::>
 			<p>
 				::_("Non-complete extract of available products:")::
 			</p>
