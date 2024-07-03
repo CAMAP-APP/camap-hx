@@ -1943,6 +1943,10 @@ msgstr "Effacer ?"
 msgid "Edit"
 msgstr "Modifier"
 
+#: ../lang/master/tpl/contractadmin/batchOrder.mtt:28
+msgid "Batch order"
+msgstr "Commandes en lot"
+
 #: ../lang/master/tpl/amap/default.mtt:1709
 msgid "Coordinator"
 msgstr "Coordinateur"
@@ -3175,6 +3179,10 @@ msgid "To start, <a href=\"/produits.xls\">Download this demo file</a>"
 msgstr ""
 "Pour commencer, <a href=\"/produits.xls\">téléchargez ce fichier de "
 "démonstration.</a>"
+
+#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1238
+msgid "Batch order entry"
+msgstr "Saisie de commande en masse"
 
 #: ../lang/master/tpl/product/import.mtt:2974
 msgid ""

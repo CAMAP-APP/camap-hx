@@ -46,8 +46,12 @@
 		<a href="?old=1" class="btn btn-default btn-sm">
 				<i class="icon icon-archive"></i> ::_("Old orders")::
 		</a>
-		
-		
+				::if c.type==1::
+					<a href="/contractAdmin/batchOrder/::c.id::" class="btn btn-default btn-sm">
+						<i class="icon icon-archive"></i> ::_("Batch order entry")::
+					</a>
+				::end::
+
 	</div>
 
 ::end::
