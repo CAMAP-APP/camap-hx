@@ -206,7 +206,7 @@ class ProductService{
 		}
 
 		// Check no stocks ends being negative in any distribution
-		if (product.stockTracking != StockTracking.Disabled) {
+		if (product.catalog.hasStockManagement() && product.stockTracking != StockTracking.Disabled) {
 			if (product.stock == null) {
 				throw new Error(t._("Please fill the field \"stock\" or disable stockTracking.") );
 			} else {
