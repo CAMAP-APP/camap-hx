@@ -842,8 +842,9 @@ class SubscriptionService
 		var now = Date.now().getTime();
 		for ( order in subscriptionAllOrders ) {
 
-			if( catalog.isVariableOrdersCatalog() && order.distribution.orderEndDate.getTime() < now ){
+			if( catalog.isVariableOrdersCatalog() && (order.distribution.orderEndDate.getTime() < now || order.wasMoved() ) ){
 				//if catalog is variable and distrib is closed, do not delete order
+				//if order was moved from another shifted distribution, do not delete
 				continue;
 			}
 

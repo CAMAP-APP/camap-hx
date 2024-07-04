@@ -82,7 +82,15 @@ class UserOrder extends Object
 	public function hasInvertSharedOrder():Bool{
 		return flags.has(InvertSharedOrder);
 	}
-	
+
+	public function wasMoved():Bool{
+		return flags.has(WasMoved);
+	}
+
+	public function setWasMoved():Void{
+		return flags.set(WasMoved);
+	}
+
 	/**
 	 * On peut modifier si ça na pas deja été payé + commande encore ouvertes
 	 */

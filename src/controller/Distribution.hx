@@ -336,6 +336,7 @@ class Distribution extends Controller {
 		if (d.catalog.isConstantOrdersCatalog()) {
 			text += "<li>Provoquer l'extension des souscriptions pour prendre en compte la nouvelle date tout en préservant le même nombre de distributions. Pensez à vérifier les souscriptions après avec effectué cette action.</li>";
 		}
+		text += "<li>Si le catalogue participe déjà à la distribution ciblée, Provoquer la combinaison des commandes des 2 distributions et perturber les alternances d'utilisateurs partageant une souscription.</li>";
 		text += "</ul></div>";
 		view.text = text;
 
@@ -347,9 +348,7 @@ class Distribution extends Controller {
 		var mds = db.MultiDistrib.getFromTimeRange(d.catalog.group, from, to);
 		// remove the current one
 		mds = mds.filter(md -> return md.id != d.multiDistrib.id);
-		// remove already attended distribs
-		mds = mds.filter(md -> return md.getDistributionForContract(d.catalog) == null);
-		var mds = mds.map(md -> return {label: view.hDate(md.getDate()), value: md.id});
+		var mds = mds.map(md -> return {label: view.hDate(md.getDate()) + (md.getDistributionForContract(d.catalog) == null ? "" : " (Combiner les commandes)"), value: md.id});
 		var e = new sugoi.form.elements.IntSelect("md", "Reporter la distribution au ", mds, d.multiDistrib.id);
 		form.addElement(e, 1);
 

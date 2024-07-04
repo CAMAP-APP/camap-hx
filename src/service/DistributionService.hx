@@ -407,7 +407,6 @@ class DistributionService
 	**/
 	public static function shiftDistribution(d:db.Distribution,newMd:db.MultiDistrib,dispatchEvent:Bool){
 		//We prevent others from modifying it
-		d.lock();
 		var t = sugoi.i18n.Locale.texts;
 
 		//Distribution shift
@@ -421,36 +420,45 @@ class DistributionService
 			throw new Error(t._("The new distribution date is not between the catalog start and end date."));
 		}
 
-		//check that the vendor does not already participate
-		if( newMd.getDistributionForContract(d.catalog) != null){
-			throw new Error(d.catalog.vendor.name+" participe déjà à la distribution du "+Formatting.hDate(newMd.getDate()));
-		}
-
 		var oldMd = d.multiDistrib;
 
-		//set new multidistrib, and new dates
-		d.multiDistrib = newMd;
-		d.date = newMd.distribStartDate;
-		d.end = newMd.distribEndDate;
-		d.orderStartDate = newMd.orderStartDate;
-		d.orderEndDate = newMd.orderEndDate;
-		d.update();
+		//check that the vendor does not already participate
+		var existingDistribution = newMd.getDistributionForContract(d.catalog);
+		var orders = d.getOrders();
 
-		/**
-			TODO: (https://mantisbt.amap44.org/view.php?id=43)
-			Supprimer les roles de permanences attachés au catalogue de la distribution reportées
-			Identifier l'id du catalog de d (distribution reportée)
-			Identifier les VolunteersRoles associés
-			Supprimer ces roles de oldMd
-		**/
+		if (existingDistribution != null){
+			// already participate: merge orders
+			for (order in orders) {
+				order.lock();
+				var absentDistribIds = order.subscription.getAbsentDistribIds();
+				if (absentDistribIds.has(existingDistribution.id) && !absentDistribIds.has(d.id)) {
+					// user subscribed to lived distribution but not available at relocation time => stop the operation.
+					throw new Error(t._("Une souscription de cette distribution sera absent à la date de cette nouvelle souscription. Impossible de réaliser l'opération car cela modifierait l'engagement."));
+				}
+				order.distribution = existingDistribution;
+				order.setWasMoved();
+				order.update();
+			}
+			d.lock();
+			d.delete();
+			d = existingDistribution;
+		} else {
+			// no existing distribution, move the current one to the new multidistrib
+			d.lock();
 
+			//set new multidistrib, and new dates
+			d.multiDistrib = newMd;
+			d.date = newMd.distribStartDate;
+			d.end = newMd.distribEndDate;
+			d.orderStartDate = newMd.orderStartDate;
+			d.orderEndDate = newMd.orderEndDate;
+			d.update();
+		}
 
 		/* 
 		FORBID THIS WITH CREDIT CARD PAYMENTS 
 		because it would make the order and payment ops out of sync
 		*/
-		var orders = d.getOrders();
-
 		//different multidistrib id : assign orders to the newMd baskets
 		for ( o in orders ){
 			o.lock();
@@ -494,12 +502,7 @@ class DistributionService
 
 		if(dispatchEvent) App.current.event(EditDistrib(d));
 
-		if (d.date == null){
-			return d;
-		} else {
-			d.update();
-			return d;
-		}
+		return d;
 	}
 
 

@@ -229,7 +229,7 @@ typedef UserInfo = {
 
 enum OrderFlags {
 	InvertSharedOrder;	//invert order when there is a shared/alternated order
-	//Canceled;			//flag for cancelled orders, qt should always be 0
+	WasMoved;			//flag for orders moved from another distrib. Can't be removed by createRecurrentOrders
 }
 
 
