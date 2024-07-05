@@ -399,7 +399,6 @@ class OrderService
 			x.catalogId = c.id;
 			x.catalogName = c.name;
 			x.canModify = o.canModify(); 
-			x.wasMoved = o.wasMoved();
 			// Sys.print("A : "+x.total+"<br>");
 			
 			//recreate a clean float to prevent a strange bug in neko

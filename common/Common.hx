@@ -198,7 +198,6 @@ typedef UserOrder = {
 	invertSharedOrder:Bool,
 	?canceled:Bool,	
 	?canModify:Bool,
-	?wasMoved:Bool,
 	
 	catalogId:Int,
 	catalogName:String,
@@ -230,7 +229,6 @@ typedef UserInfo = {
 
 enum OrderFlags {
 	InvertSharedOrder;	//invert order when there is a shared/alternated order
-	WasMoved;			//flag for orders moved from another distrib. Can't be removed by createRecurrentOrders
 }
 
 

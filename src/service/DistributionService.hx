@@ -432,11 +432,10 @@ class DistributionService
 				order.lock();
 				var absentDistribIds = order.subscription.getAbsentDistribIds();
 				if (absentDistribIds.has(existingDistribution.id) && !absentDistribIds.has(d.id)) {
-					// user subscribed to lived distribution but not available at relocation time => stop the operation.
-					throw new Error(t._("Une souscription de cette distribution sera absent à la date de cette nouvelle souscription. Impossible de réaliser l'opération car cela modifierait l'engagement."));
+					// user subscribed to source distribution but is not available at relocation time => stop the operation.
+					throw new Error(t._("Une souscription de cette distribution est absent à la date de cette nouvelle distribution. Impossible de réaliser l'opération car cela modifierait l'engagement."));
 				}
 				order.distribution = existingDistribution;
-				order.setWasMoved();
 				order.update();
 			}
 			d.lock();

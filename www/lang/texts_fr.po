@@ -118,7 +118,7 @@ msgstr "Accès interdit"
 msgid "Means of payment"
 msgstr "Moyens de paiement"
 
-#: ../src/controller/AmapAdmin.hx:3224 ../src/db/Subscription.hx:5884
+#: ../src/controller/AmapAdmin.hx:3224 ../src/db/Subscription.hx:5867
 #: ../lang/master/tpl/distribution/volunteersParticipation.mtt:676
 msgid "Member"
 msgstr "Membre"
@@ -327,12 +327,12 @@ msgid "Products copied from "
 msgstr "Produits copiés de "
 
 #: ../src/controller/ContractAdmin.hx:11059 ../src/db/Catalog.hx:12654
-#: ../src/db/Subscription.hx:5920 ../lang/master/tpl/contractadmin/view.mtt:731
+#: ../src/db/Subscription.hx:5903 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
 msgstr "Date de début"
 
 #: ../src/controller/ContractAdmin.hx:11214 ../src/db/Catalog.hx:12749
-#: ../src/db/Subscription.hx:5959 ../lang/master/tpl/contractadmin/view.mtt:828
+#: ../src/db/Subscription.hx:5942 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr "Date de fin"
 
@@ -385,12 +385,12 @@ msgid "The order has been deleted."
 msgstr "La commande a été effacée."
 
 #: ../src/controller/ContractAdmin.hx:21460
-#: ../src/service/OrderService.hx:21201
+#: ../src/service/OrderService.hx:21170
 msgid "Delivery ::contractName:: "
 msgstr "Distribution ::contractName:: "
 
 #: ../src/controller/ContractAdmin.hx:21712
-#: ../src/service/OrderService.hx:21542
+#: ../src/service/OrderService.hx:21511
 msgid "Per member"
 msgstr "Par membre"
 
@@ -909,7 +909,7 @@ msgstr "Montant"
 
 #: ../src/controller/SubscriptionAdmin.hx:16368
 #: ../src/controller/Transaction.hx:1019 ../src/controller/Transaction.hx:3614
-#: ../src/db/Distribution.hx:6227 ../src/db/MultiDistrib.hx:8454
+#: ../src/db/Distribution.hx:6461 ../src/db/MultiDistrib.hx:8454
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:199
 msgid "Date"
 msgstr "Date"
@@ -1072,29 +1072,29 @@ msgstr "Contact"
 msgid "Farmer"
 msgstr "Producteur"
 
-#: ../src/db/Distribution.hx:6260 ../src/db/MultiDistrib.hx:8491
+#: ../src/db/Distribution.hx:6494 ../src/db/MultiDistrib.hx:8491
 msgid "End hour"
 msgstr "Heure de fin"
 
-#: ../src/db/Distribution.hx:6295 ../src/db/DistributionCycle.hx:1929
+#: ../src/db/Distribution.hx:6529 ../src/db/DistributionCycle.hx:1929
 #: ../src/db/MultiDistrib.hx:8526 ../lang/master/tpl/distribution/list.mtt:516
 #: ../lang/master/tpl/distribution/listByProductUser.mtt:516
 msgid "Place"
 msgstr "Lieu"
 
-#: ../src/db/Distribution.hx:6333
+#: ../src/db/Distribution.hx:6567
 msgid "Distributor #1"
 msgstr "Distributeur 1"
 
-#: ../src/db/Distribution.hx:6380
+#: ../src/db/Distribution.hx:6614
 msgid "Distributor #2"
 msgstr "Distributeur 2"
 
-#: ../src/db/Distribution.hx:6427
+#: ../src/db/Distribution.hx:6661
 msgid "Distributor #3"
 msgstr "Distributeur 3"
 
-#: ../src/db/Distribution.hx:6474
+#: ../src/db/Distribution.hx:6708
 msgid "Distributor #4"
 msgstr "Distributeur 4"
 
@@ -1601,32 +1601,32 @@ msgstr ""
 "La nouvelle date de distribution doit être comprise entre la date de début "
 "et la date de fin du catalogue."
 
-#: ../src/service/DistributionService.hx:15537
+#: ../src/service/DistributionService.hx:15541
 msgid ""
-"Une souscription de cette distribution sera absent à la date de cette "
-"nouvelle souscription. Impossible de réaliser l'opération car cela "
+"Une souscription de cette distribution est absent à la date de cette "
+"nouvelle distribution. Impossible de réaliser l'opération car cela "
 "modifierait l'engagement."
 msgstr ""
-"Une souscription de cette distribution sera absent à la date de cette "
-"nouvelle souscription. Impossible de réaliser l'opération car cela "
+"Une souscription de cette distribution est absent à la date de cette "
+"nouvelle distribution. Impossible de réaliser l'opération car cela "
 "modifierait l'engagement."
 
-#: ../src/service/DistributionService.hx:19324
+#: ../src/service/DistributionService.hx:19301
 msgid ""
 "Deletion not possible: orders are recorded for ::vendorName:: on ::date::."
 msgstr ""
 "Effacement impossible : des commandes sont enregistrées pour ::vendorName:: "
 "pour le ::date::."
 
-#: ../src/service/DistributionService.hx:20896
+#: ../src/service/DistributionService.hx:20873
 msgid "daysBeforeOrderEnd or daysBeforeOrderStart is null"
 msgstr "daysBeforeOrderEnd ou daysBeforeOrderStart est vide"
 
-#: ../src/service/DistributionService.hx:21963
+#: ../src/service/DistributionService.hx:21940
 msgid "this distributionCycle has not been recorded"
 msgstr "Ce cycle de distribution n'a pas été enregistré"
 
-#: ../src/service/DistributionService.hx:25524
+#: ../src/service/DistributionService.hx:25501
 msgid ""
 "The date of the delivery must be prior to the end of the contract (::"
 "contractEndDate::)"
@@ -1634,7 +1634,7 @@ msgstr ""
 "La date de distribution doit être antérieure à la date de fin du contrat (::"
 "contractEndDate::)"
 
-#: ../src/service/DistributionService.hx:25758
+#: ../src/service/DistributionService.hx:25735
 msgid ""
 "The date of the delivery must be after the begining of the contract (::"
 "contractBeginDate::)"
@@ -2070,7 +2070,7 @@ msgstr "Non"
 #: ../lang/master/tpl/contractadmin/documents.mtt:3479
 #: ../lang/master/tpl/contractadmin/documents.mtt:3810
 #: ../lang/master/tpl/contractadmin/media.mtt:2902
-#: ../lang/master/tpl/contractadmin/orders.mtt:7474
+#: ../lang/master/tpl/contractadmin/orders.mtt:7317
 #: ../lang/master/tpl/contractadmin/roles.mtt:453
 #: ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270
 #: ../lang/master/tpl/distribution/default.mtt:12268
@@ -2135,7 +2135,7 @@ msgstr "Frais"
 
 #: ../lang/master/tpl/contract/editVarOrders.mtt:727
 #: ../lang/master/tpl/contractadmin/orders.mtt:4514
-#: ../lang/master/tpl/contractadmin/orders.mtt:7617
+#: ../lang/master/tpl/contractadmin/orders.mtt:7460
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089
 #: ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716
@@ -2378,11 +2378,7 @@ msgstr "Prix unitaire TTC"
 msgid "U.P"
 msgstr "P.U"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:6347
-msgid "was moved from an other distribution"
-msgstr "Déplacé depuis une distribution reportée"
-
-#: ../lang/master/tpl/contractadmin/orders.mtt:7270
+#: ../lang/master/tpl/contractadmin/orders.mtt:7113
 msgid ""
 "Do you really want to delete this order row for the product \"::productName::"
 "\"?"
