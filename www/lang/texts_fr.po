@@ -73,8 +73,8 @@ msgstr "Vos modifications ont bien été enregistrées."
 
 #: ../src/controller/amapadmin/Volunteers.hx:4904
 #: ../src/controller/amapadmin/Volunteers.hx:5666
-#: ../src/controller/ContractAdmin.hx:5530
-#: ../src/controller/ContractAdmin.hx:6155
+#: ../src/controller/ContractAdmin.hx:5523
+#: ../src/controller/ContractAdmin.hx:6148
 msgid "Volunteer role name"
 msgstr "Nom du rôle de bénévole"
 
@@ -85,32 +85,32 @@ msgid "Enabled by default on all distributions"
 msgstr "Activer par défaut sur toutes les distributions"
 
 #: ../src/controller/amapadmin/Volunteers.hx:5325
-#: ../src/controller/ContractAdmin.hx:5811
+#: ../src/controller/ContractAdmin.hx:5804
 msgid "Volunteer Role has been successfully added"
 msgstr "Le rôle a bien été ajouté"
 
 #: ../src/controller/amapadmin/Volunteers.hx:5402
-#: ../src/controller/ContractAdmin.hx:5891
+#: ../src/controller/ContractAdmin.hx:5884
 msgid "Create a volunteer role"
 msgstr "Créer un rôle de volontaire"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6132
-#: ../src/controller/ContractAdmin.hx:6363
+#: ../src/controller/ContractAdmin.hx:6356
 msgid "Volunteer Role has been successfully updated"
 msgstr "Le rôle a bien été mis à jour"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6212
-#: ../src/controller/ContractAdmin.hx:6442
+#: ../src/controller/ContractAdmin.hx:6435
 msgid "Edit a volunteer role"
 msgstr "Modifier un rôle de bénévole"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6633
-#: ../src/controller/ContractAdmin.hx:6909
+#: ../src/controller/ContractAdmin.hx:6902
 msgid "Volunteer Role has been successfully deleted"
 msgstr "Le rôle a bien été supprimé"
 
-#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:7314
-#: ../src/controller/ContractAdmin.hx:8511
+#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:7307
+#: ../src/controller/ContractAdmin.hx:8504
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
@@ -229,20 +229,20 @@ msgstr "Autoriser les cagnottes négatives"
 msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
-#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:28492
-#: ../src/controller/ContractAdmin.hx:36515 ../src/controller/Product.hx:656
+#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:28485
+#: ../src/controller/ContractAdmin.hx:36673 ../src/controller/Product.hx:656
 #: ../src/controller/Product.hx:3052 ../src/controller/Product.hx:3716
 #: ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
 msgstr "Accès interdit"
 
-#: ../src/controller/api/Order.hx:1477 ../src/controller/ContractAdmin.hx:22849
+#: ../src/controller/api/Order.hx:1477 ../src/controller/ContractAdmin.hx:22842
 msgid "You do not have the authorization to manage this catalog"
 msgstr "Vous n'avez pas le droit de gérer ce catalogue"
 
 #: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337
-#: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2783
-#: ../src/controller/ContractAdmin.hx:34266
+#: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2776
+#: ../src/controller/ContractAdmin.hx:34424
 #: ../src/controller/Distribution.hx:7108
 #: ../src/controller/Distribution.hx:7702
 #: ../src/controller/Distribution.hx:24089 ../src/controller/Product.hx:1441
@@ -306,127 +306,127 @@ msgstr "Votre commande a été mise à jour"
 msgid "You don't have the authorization to manage contracts"
 msgstr "Vous n'avez pas accès à la gestion des contrats"
 
-#: ../src/controller/ContractAdmin.hx:8597
+#: ../src/controller/ContractAdmin.hx:8590
 msgid "Please activate stock management to access this screen."
 msgstr "Activez la gestion de stock pour accéder à cet écran."
 
-#: ../src/controller/ContractAdmin.hx:8974
+#: ../src/controller/ContractAdmin.hx:8967
 msgid "Copy products in: "
 msgstr "Copier les produits dans : "
 
-#: ../src/controller/ContractAdmin.hx:9284
+#: ../src/controller/ContractAdmin.hx:9277
 msgid "Copy products from: "
 msgstr "Copier les produits depuis : "
 
-#: ../src/controller/ContractAdmin.hx:9401
+#: ../src/controller/ContractAdmin.hx:9394
 msgid "Delete existing products (all orders will be deleted!)"
 msgstr "Effacer les produits existants (supprime toutes les commandes !)"
 
-#: ../src/controller/ContractAdmin.hx:9996
+#: ../src/controller/ContractAdmin.hx:9989
 msgid "Products copied from "
 msgstr "Produits copiés de "
 
-#: ../src/controller/ContractAdmin.hx:11066 ../src/db/Catalog.hx:12654
+#: ../src/controller/ContractAdmin.hx:11059 ../src/db/Catalog.hx:12654
 #: ../src/db/Subscription.hx:5920 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
 msgstr "Date de début"
 
-#: ../src/controller/ContractAdmin.hx:11221 ../src/db/Catalog.hx:12749
+#: ../src/controller/ContractAdmin.hx:11214 ../src/db/Catalog.hx:12749
 #: ../src/db/Subscription.hx:5959 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr "Date de fin"
 
-#: ../src/controller/ContractAdmin.hx:11616
-#: ../src/controller/ContractAdmin.hx:14215
+#: ../src/controller/ContractAdmin.hx:11609
+#: ../src/controller/ContractAdmin.hx:14208
 msgid "Global view of orders"
 msgstr "Vue globale des commandes"
 
-#: ../src/controller/ContractAdmin.hx:12686
-#: ../src/controller/ContractAdmin.hx:15356
+#: ../src/controller/ContractAdmin.hx:12679
+#: ../src/controller/ContractAdmin.hx:15349
 #: ../src/service/ReportService.hx:3946
 msgid "There is no delivery at this date"
 msgstr "Il n'y a aucune distribution à cette date"
 
-#: ../src/controller/ContractAdmin.hx:13822
+#: ../src/controller/ContractAdmin.hx:13815
 msgid "Delivery date"
 msgstr "Date de distribution"
 
-#: ../src/controller/ContractAdmin.hx:14261
+#: ../src/controller/ContractAdmin.hx:14254
 msgid "This page allows you to have a global view on orders of all catalogs"
 msgstr ""
 "Cette page vous permet d'avoir une vision d'ensemble des commandes tous "
 "catalogues confondus"
 
-#: ../src/controller/ContractAdmin.hx:14355
+#: ../src/controller/ContractAdmin.hx:14348
 msgid "<br/>Select a delivery date:"
 msgstr "<br/>Sélectionnez la date de distribution qui vous intéresse :"
 
-#: ../src/controller/ContractAdmin.hx:17156
+#: ../src/controller/ContractAdmin.hx:17149
 msgid "There is no delivery during this period"
 msgstr "Il n'y a aucune distribution sur cette période"
 
-#: ../src/controller/ContractAdmin.hx:19357
+#: ../src/controller/ContractAdmin.hx:19350
 msgid "Orders from the ::fromDate:: to the ::toDate:: per supplier.csv"
 msgstr "Commandes du ::fromDate:: au ::toDate:: par producteur.csv\")"
 
-#: ../src/controller/ContractAdmin.hx:20064
-#: ../src/controller/ContractAdmin.hx:22006
-#: ../src/controller/ContractAdmin.hx:27598
-#: ../src/controller/ContractAdmin.hx:29100
-#: ../src/controller/ContractAdmin.hx:31274
-#: ../src/controller/ContractAdmin.hx:31813
+#: ../src/controller/ContractAdmin.hx:20057
+#: ../src/controller/ContractAdmin.hx:21999
+#: ../src/controller/ContractAdmin.hx:27591
+#: ../src/controller/ContractAdmin.hx:29093
+#: ../src/controller/ContractAdmin.hx:31267
+#: ../src/controller/ContractAdmin.hx:31806
 #: ../src/controller/Distribution.hx:1666
 msgid "You do not have the authorization to manage this contract"
 msgstr "Vous n'avez pas le droit de gérer ce contrat"
 
-#: ../src/controller/ContractAdmin.hx:20623
-#: ../src/controller/ContractAdmin.hx:20726
+#: ../src/controller/ContractAdmin.hx:20616
+#: ../src/controller/ContractAdmin.hx:20719
 msgid "The order has been deleted."
 msgstr "La commande a été effacée."
 
-#: ../src/controller/ContractAdmin.hx:21467
+#: ../src/controller/ContractAdmin.hx:21460
 #: ../src/service/OrderService.hx:21201
 msgid "Delivery ::contractName:: "
 msgstr "Distribution ::contractName:: "
 
-#: ../src/controller/ContractAdmin.hx:21719
+#: ../src/controller/ContractAdmin.hx:21712
 #: ../src/service/OrderService.hx:21542
 msgid "Per member"
 msgstr "Par membre"
 
-#: ../src/controller/ContractAdmin.hx:22619
+#: ../src/controller/ContractAdmin.hx:22612
 msgid "Prices are now up to date."
 msgstr "Prix mis à jour à leur valeur actuelle."
 
-#: ../src/controller/ContractAdmin.hx:23062
+#: ../src/controller/ContractAdmin.hx:23055
 msgid "Name of the new catalog"
 msgstr "Nom du nouveau catalogue"
 
-#: ../src/controller/ContractAdmin.hx:23460
+#: ../src/controller/ContractAdmin.hx:23453
 msgid "Copy products"
 msgstr "Copier les produits"
 
-#: ../src/controller/ContractAdmin.hx:23511
+#: ../src/controller/ContractAdmin.hx:23504
 msgid "None"
 msgstr "Aucun"
 
-#: ../src/controller/ContractAdmin.hx:23551
+#: ../src/controller/ContractAdmin.hx:23544
 msgid "All Products"
 msgstr "Tous les produits"
 
-#: ../src/controller/ContractAdmin.hx:23614
+#: ../src/controller/ContractAdmin.hx:23607
 msgid "Only active products"
 msgstr "Uniquement les produits actifs"
 
-#: ../src/controller/ContractAdmin.hx:23853
+#: ../src/controller/ContractAdmin.hx:23846
 msgid "Copy deliveries"
 msgstr "Copier les distributions"
 
-#: ../src/controller/ContractAdmin.hx:27257
+#: ../src/controller/ContractAdmin.hx:27250
 msgid "The catalog has been duplicated"
 msgstr "Le catalogue a été dupliqué"
 
-#: ../src/controller/ContractAdmin.hx:27969
+#: ../src/controller/ContractAdmin.hx:27962
 msgid ""
 "There is no delivery in this catalog, please create at least one "
 "distribution."
@@ -434,21 +434,21 @@ msgstr ""
 "Il n'y a pas de distribution dans ce catalogue, créez au moins une "
 "distribution."
 
-#: ../src/controller/ContractAdmin.hx:31001
+#: ../src/controller/ContractAdmin.hx:30994
 msgid "Distribution date added"
 msgstr "Date de distribution ajoutée"
 
-#: ../src/controller/ContractAdmin.hx:36896
+#: ../src/controller/ContractAdmin.hx:37054
 msgid "You cannot delete this catalog because some orders are linked to it."
 msgstr ""
 "Vous ne pouvez pas effacer ce catalogue car il y a des commandes rattachées "
 "à ce catalogue."
 
-#: ../src/controller/ContractAdmin.hx:37308
+#: ../src/controller/ContractAdmin.hx:37466
 msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
-#: ../src/controller/ContractAdmin.hx:37375 ../src/controller/Documents.hx:3241
+#: ../src/controller/ContractAdmin.hx:37533 ../src/controller/Documents.hx:3241
 #: ../src/controller/Media.hx:2084 ../src/controller/Product.hx:3545
 #: ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
@@ -1966,10 +1966,6 @@ msgstr "Effacer ?"
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../lang/master/tpl/contractadmin/batchOrder.mtt:28
-msgid "Batch order"
-msgstr "Commandes en lot"
-
 #: ../lang/master/tpl/amap/default.mtt:1709
 msgid "Coordinator"
 msgstr "Coordinateur"
@@ -2074,7 +2070,7 @@ msgstr "Non"
 #: ../lang/master/tpl/contractadmin/documents.mtt:3479
 #: ../lang/master/tpl/contractadmin/documents.mtt:3810
 #: ../lang/master/tpl/contractadmin/media.mtt:2902
-#: ../lang/master/tpl/contractadmin/orders.mtt:7464
+#: ../lang/master/tpl/contractadmin/orders.mtt:7474
 #: ../lang/master/tpl/contractadmin/roles.mtt:453
 #: ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270
 #: ../lang/master/tpl/distribution/default.mtt:12268
@@ -2139,7 +2135,7 @@ msgstr "Frais"
 
 #: ../lang/master/tpl/contract/editVarOrders.mtt:727
 #: ../lang/master/tpl/contractadmin/orders.mtt:4514
-#: ../lang/master/tpl/contractadmin/orders.mtt:7607
+#: ../lang/master/tpl/contractadmin/orders.mtt:7617
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089
 #: ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716
@@ -2382,11 +2378,11 @@ msgstr "Prix unitaire TTC"
 msgid "U.P"
 msgstr "P.U"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:6338
+#: ../lang/master/tpl/contractadmin/orders.mtt:6347
 msgid "was moved from an other distribution"
 msgstr "Déplacé depuis une distribution reportée"
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:7260
+#: ../lang/master/tpl/contractadmin/orders.mtt:7270
 msgid ""
 "Do you really want to delete this order row for the product \"::productName::"
 "\"?"
@@ -2589,6 +2585,10 @@ msgstr "Cliquez ici pour gérer les distributions"
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1138
 msgid "Old orders"
 msgstr "Commandes anciennes"
+
+#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1324
+msgid "Batch order entry"
+msgstr "Saisie de commande en masse"
 
 #: ../lang/master/tpl/contractadmin/stats.mtt:106
 msgid "Seniority of subscribers"
@@ -3206,10 +3206,6 @@ msgid "To start, <a href=\"/produits.xls\">Download this demo file</a>"
 msgstr ""
 "Pour commencer, <a href=\"/produits.xls\">téléchargez ce fichier de "
 "démonstration.</a>"
-
-#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1238
-msgid "Batch order entry"
-msgstr "Saisie de commande en masse"
 
 #: ../lang/master/tpl/product/import.mtt:2974
 msgid ""

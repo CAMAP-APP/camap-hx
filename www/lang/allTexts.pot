@@ -200,7 +200,7 @@ msgstr ""
 msgid "You do not have the authorization to manage this catalog"
 msgstr ""
 
-#: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337 ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2776 ../src/controller/ContractAdmin.hx:34424 ../src/controller/Distribution.hx:7108 ../src/controller/Distribution.hx:7702 ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1441
+#: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337 ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2776 ../src/controller/ContractAdmin.hx:34424 ../src/controller/Distribution.hx:7108 ../src/controller/Distribution.hx:7702 ../src/controller/Distribution.hx:24089 ../src/controller/Product.hx:1441
 msgid "Forbidden action"
 msgstr ""
 
@@ -272,11 +272,11 @@ msgstr ""
 msgid "Products copied from "
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:11059 ../src/db/Catalog.hx:12654 ../src/db/Subscription.hx:5654 ../lang/master/tpl/contractadmin/view.mtt:731
+#: ../src/controller/ContractAdmin.hx:11059 ../src/db/Catalog.hx:12654 ../src/db/Subscription.hx:5920 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:11214 ../src/db/Catalog.hx:12749 ../src/db/Subscription.hx:5693 ../lang/master/tpl/contractadmin/view.mtt:828
+#: ../src/controller/ContractAdmin.hx:11214 ../src/db/Catalog.hx:12749 ../src/db/Subscription.hx:5959 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr ""
 
@@ -316,11 +316,11 @@ msgstr ""
 msgid "The order has been deleted."
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21460 ../src/service/OrderService.hx:21170
+#: ../src/controller/ContractAdmin.hx:21460 ../src/service/OrderService.hx:21201
 msgid "Delivery ::contractName:: "
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:21712 ../src/service/OrderService.hx:21511
+#: ../src/controller/ContractAdmin.hx:21712 ../src/service/OrderService.hx:21542
 msgid "Per member"
 msgstr ""
 
@@ -1767,7 +1767,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:665 ../lang/master/tpl/contractadmin/documents.mtt:3479 ../lang/master/tpl/contractadmin/documents.mtt:3810 ../lang/master/tpl/contractadmin/media.mtt:2902 ../lang/master/tpl/contractadmin/orders.mtt:7464 ../lang/master/tpl/contractadmin/roles.mtt:453 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270 ../lang/master/tpl/distribution/default.mtt:12268
+#: ../lang/master/tpl/amapadmin/volunteers/default.mtt:665 ../lang/master/tpl/contractadmin/documents.mtt:3479 ../lang/master/tpl/contractadmin/documents.mtt:3810 ../lang/master/tpl/contractadmin/media.mtt:2902 ../lang/master/tpl/contractadmin/orders.mtt:7474 ../lang/master/tpl/contractadmin/roles.mtt:453 ../lang/master/tpl/contractadmin/subscriptionadmin/default.mtt:8270 ../lang/master/tpl/distribution/default.mtt:12268
 msgid "Delete"
 msgstr ""
 
@@ -1802,7 +1802,7 @@ msgstr ""
 msgid "Fees"
 msgstr ""
 
-#: ../lang/master/tpl/contract/editVarOrders.mtt:727 ../lang/master/tpl/contractadmin/orders.mtt:4514 ../lang/master/tpl/contractadmin/orders.mtt:7607 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:2258 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1906 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:1592 ../lang/master/tpl/distribution/list.mtt:2587 ../lang/master/tpl/distribution/listByDate.mtt:799 ../lang/master/tpl/distribution/listByDateOnePage.mtt:605 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:635 ../lang/master/tpl/history/basket.mtt:677 ../lang/master/tpl/history/csaorders.mtt:1109
+#: ../lang/master/tpl/contract/editVarOrders.mtt:727 ../lang/master/tpl/contractadmin/orders.mtt:4514 ../lang/master/tpl/contractadmin/orders.mtt:7617 ../lang/master/tpl/contractadmin/ordersByDate.mtt:3089 ../lang/master/tpl/contractadmin/ordersByProduct.mtt:755 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1716 ../lang/master/tpl/contractadmin/ordersByProductList.mtt:2258 ../lang/master/tpl/contractadmin/ordersByTimeFrame.mtt:1906 ../lang/master/tpl/contractadmin/vendorsByTimeFrame.mtt:1592 ../lang/master/tpl/distribution/list.mtt:2587 ../lang/master/tpl/distribution/listByDate.mtt:799 ../lang/master/tpl/distribution/listByDateOnePage.mtt:605 ../lang/master/tpl/distribution/listByDateOnePageContract.mtt:635 ../lang/master/tpl/history/basket.mtt:677 ../lang/master/tpl/history/csaorders.mtt:1109
 msgid "Total"
 msgstr ""
 
@@ -1977,11 +1977,11 @@ msgstr ""
 msgid "U.P"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:6338
+#: ../lang/master/tpl/contractadmin/orders.mtt:6347
 msgid "was moved from an other distribution"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/orders.mtt:7260
+#: ../lang/master/tpl/contractadmin/orders.mtt:7270
 msgid "Do you really want to delete this order row for the product \"::productName::\"?"
 msgstr ""
 
@@ -2148,7 +2148,7 @@ msgstr ""
 msgid "Old orders"
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1312
+#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1324
 msgid "Batch order entry"
 msgstr ""
 
