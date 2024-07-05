@@ -1,4 +1,5 @@
 package service;
+import db.Product;
 import Common;
 import controller.Distribution;
 import db.Catalog;
@@ -204,59 +205,6 @@ class SubscriptionService
 	}
 
 	/**
-		@deprecated
-		now the recurrent order is stored in subscription.defaultOrder
-	**/
-	public static function getCSARecurrentOrders( subscription:db.Subscription, oldAbsentDistribIds:Array<Int> ) : Array<db.UserOrder> {
-		
-		if( subscription == null || subscription.id == null ) return [];
-
-		/*var oneDistrib = db.Distribution.manager.select( $catalog == subscription.catalog && $date >= subscription.startDate && $end <= subscription.endDate, false );
-		if( oneDistrib == null ) return [];
-
-		var oneDistriborders = db.UserOrder.manager.search( $subscription == subscription && $distribution == oneDistrib, false ).array();
-		if ( oneDistriborders.length == 0 && subscription.getAbsencesNb() != 0 ) {
-
-			var absentDistribIds = oldAbsentDistribIds;
-			if ( absentDistribIds == null ) {
-
-				absentDistribIds = subscription.getAbsentDistribIds();
-			}
-			var isAbsentDistrib = false;
-			var presentDistribFound = false;
-			while ( !presentDistribFound ) {
-
-				isAbsentDistrib = false;
-				for ( distribId in absentDistribIds ) {
-
-					if ( oneDistrib != null && oneDistrib.id == distribId ) {
-
-						isAbsentDistrib = true;
-						oneDistrib = db.Distribution.manager.select( $catalog == subscription.catalog && $date > oneDistrib.date && $end <= subscription.endDate, false );
-						break;
-					}
-				}
-
-				presentDistribFound = !isAbsentDistrib;
-			}
-
-			oneDistriborders = db.UserOrder.manager.search( $subscription == subscription && $distribution == oneDistrib, false ).array();
-		}
-	
-		return oneDistriborders;*/
-
-		var distribs = getSubscriptionDistributions(subscription);
-		var catalog = subscription.catalog;
-		for(d in distribs){
-			var orders = catalog.getUserOrders( subscription.user, d, false );
-			if(orders.length>0) return orders;
-		}
-
-		return [];
-
-	}
-
-	/**
 		Get contract constraints (no subscription for the current user)
 	**/
 	public static function getContractConstraints( catalog:db.Catalog ):String{
@@ -311,11 +259,11 @@ class SubscriptionService
 
 		} else {
 
-			var subscriptionOrders = getCSARecurrentOrders( subscription, null );
+			var subscriptionOrders = subscription.getDefaultOrders();
 			if( subscriptionOrders.length == 0 ) return null;
 			var label = "";
 			for ( order in subscriptionOrders ) {
-				label += tools.FloatTool.clean( order.quantity ) + ' x ' + order.product.name + '<br />';
+				label += tools.FloatTool.clean( order.quantity ) + ' x ' + Product.manager.get(order.productId).name + '<br />';
 			}
 			label += "à chaque distribution.";
 			out.push(label);
@@ -896,6 +844,7 @@ class SubscriptionService
 
 			if( catalog.isVariableOrdersCatalog() && order.distribution.orderEndDate.getTime() < now ){
 				//if catalog is variable and distrib is closed, do not delete order
+				//if order was moved from another shifted distribution, do not delete
 				continue;
 			}
 
@@ -929,12 +878,15 @@ class SubscriptionService
 					}
 					var newOrder=null;
 					try {
-						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
-					}catch(e:tink.core.Error) {
+						// distributions can have multiple quantities in case another distribution was merged into this one
+						for (i in 0...distribution.quantities) {
+							newOrder = OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+							if ( newOrder != null ) orders.push( newOrder );
+						}
+					} catch(e:tink.core.Error) {
 						//throw new Error(e.message);
 						throw TypedError.typed( e.message, CatalogRequirementsNotMet );
 					}
-					if ( newOrder != null ) orders.push( newOrder );
 				}
 			}
 		}

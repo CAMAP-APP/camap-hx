@@ -73,8 +73,8 @@ msgstr "Vos modifications ont bien été enregistrées."
 
 #: ../src/controller/amapadmin/Volunteers.hx:4904
 #: ../src/controller/amapadmin/Volunteers.hx:5666
-#: ../src/controller/ContractAdmin.hx:5530
-#: ../src/controller/ContractAdmin.hx:6155
+#: ../src/controller/ContractAdmin.hx:5523
+#: ../src/controller/ContractAdmin.hx:6148
 msgid "Volunteer role name"
 msgstr "Nom du rôle de bénévole"
 
@@ -85,32 +85,32 @@ msgid "Enabled by default on all distributions"
 msgstr "Activer par défaut sur toutes les distributions"
 
 #: ../src/controller/amapadmin/Volunteers.hx:5325
-#: ../src/controller/ContractAdmin.hx:5811
+#: ../src/controller/ContractAdmin.hx:5804
 msgid "Volunteer Role has been successfully added"
 msgstr "Le rôle a bien été ajouté"
 
 #: ../src/controller/amapadmin/Volunteers.hx:5402
-#: ../src/controller/ContractAdmin.hx:5891
+#: ../src/controller/ContractAdmin.hx:5884
 msgid "Create a volunteer role"
 msgstr "Créer un rôle de volontaire"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6132
-#: ../src/controller/ContractAdmin.hx:6363
+#: ../src/controller/ContractAdmin.hx:6356
 msgid "Volunteer Role has been successfully updated"
 msgstr "Le rôle a bien été mis à jour"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6212
-#: ../src/controller/ContractAdmin.hx:6442
+#: ../src/controller/ContractAdmin.hx:6435
 msgid "Edit a volunteer role"
 msgstr "Modifier un rôle de bénévole"
 
 #: ../src/controller/amapadmin/Volunteers.hx:6633
-#: ../src/controller/ContractAdmin.hx:6909
+#: ../src/controller/ContractAdmin.hx:6902
 msgid "Volunteer Role has been successfully deleted"
 msgstr "Le rôle a bien été supprimé"
 
-#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:7314
-#: ../src/controller/ContractAdmin.hx:8511
+#: ../src/controller/AmapAdmin.hx:616 ../src/controller/ContractAdmin.hx:7307
+#: ../src/controller/ContractAdmin.hx:8504
 msgid "Access forbidden"
 msgstr "Accès interdit"
 
@@ -118,7 +118,7 @@ msgstr "Accès interdit"
 msgid "Means of payment"
 msgstr "Moyens de paiement"
 
-#: ../src/controller/AmapAdmin.hx:3224 ../src/db/Subscription.hx:5618
+#: ../src/controller/AmapAdmin.hx:3224 ../src/db/Subscription.hx:5867
 #: ../lang/master/tpl/distribution/volunteersParticipation.mtt:676
 msgid "Member"
 msgstr "Membre"
@@ -229,23 +229,23 @@ msgstr "Autoriser les cagnottes négatives"
 msgid "Payment options updated"
 msgstr "Options de paiement mises à jour"
 
-#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:28492
-#: ../src/controller/ContractAdmin.hx:36515 ../src/controller/Product.hx:656
+#: ../src/controller/api/Order.hx:1369 ../src/controller/ContractAdmin.hx:28485
+#: ../src/controller/ContractAdmin.hx:36673 ../src/controller/Product.hx:656
 #: ../src/controller/Product.hx:3052 ../src/controller/Product.hx:3716
 #: ../src/controller/Vendor.hx:280
 msgid "Forbidden access"
 msgstr "Accès interdit"
 
-#: ../src/controller/api/Order.hx:1477 ../src/controller/ContractAdmin.hx:22849
+#: ../src/controller/api/Order.hx:1477 ../src/controller/ContractAdmin.hx:22842
 msgid "You do not have the authorization to manage this catalog"
 msgstr "Vous n'avez pas le droit de gérer ce catalogue"
 
 #: ../src/controller/Contract.hx:933 ../src/controller/Contract.hx:3337
-#: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2783
-#: ../src/controller/ContractAdmin.hx:34266
+#: ../src/controller/Contract.hx:3746 ../src/controller/ContractAdmin.hx:2776
+#: ../src/controller/ContractAdmin.hx:34424
 #: ../src/controller/Distribution.hx:7108
 #: ../src/controller/Distribution.hx:7702
-#: ../src/controller/Distribution.hx:23912 ../src/controller/Product.hx:1441
+#: ../src/controller/Distribution.hx:24089 ../src/controller/Product.hx:1441
 msgid "Forbidden action"
 msgstr "Action interdite"
 
@@ -306,127 +306,127 @@ msgstr "Votre commande a été mise à jour"
 msgid "You don't have the authorization to manage contracts"
 msgstr "Vous n'avez pas accès à la gestion des contrats"
 
-#: ../src/controller/ContractAdmin.hx:8597
+#: ../src/controller/ContractAdmin.hx:8590
 msgid "Please activate stock management to access this screen."
 msgstr "Activez la gestion de stock pour accéder à cet écran."
 
-#: ../src/controller/ContractAdmin.hx:8974
+#: ../src/controller/ContractAdmin.hx:8967
 msgid "Copy products in: "
 msgstr "Copier les produits dans : "
 
-#: ../src/controller/ContractAdmin.hx:9284
+#: ../src/controller/ContractAdmin.hx:9277
 msgid "Copy products from: "
 msgstr "Copier les produits depuis : "
 
-#: ../src/controller/ContractAdmin.hx:9401
+#: ../src/controller/ContractAdmin.hx:9394
 msgid "Delete existing products (all orders will be deleted!)"
 msgstr "Effacer les produits existants (supprime toutes les commandes !)"
 
-#: ../src/controller/ContractAdmin.hx:9996
+#: ../src/controller/ContractAdmin.hx:9989
 msgid "Products copied from "
 msgstr "Produits copiés de "
 
-#: ../src/controller/ContractAdmin.hx:11066 ../src/db/Catalog.hx:12654
-#: ../src/db/Subscription.hx:5654 ../lang/master/tpl/contractadmin/view.mtt:731
+#: ../src/controller/ContractAdmin.hx:11059 ../src/db/Catalog.hx:12654
+#: ../src/db/Subscription.hx:5903 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
 msgstr "Date de début"
 
-#: ../src/controller/ContractAdmin.hx:11221 ../src/db/Catalog.hx:12749
-#: ../src/db/Subscription.hx:5693 ../lang/master/tpl/contractadmin/view.mtt:828
+#: ../src/controller/ContractAdmin.hx:11214 ../src/db/Catalog.hx:12749
+#: ../src/db/Subscription.hx:5942 ../lang/master/tpl/contractadmin/view.mtt:828
 msgid "End date"
 msgstr "Date de fin"
 
-#: ../src/controller/ContractAdmin.hx:11616
-#: ../src/controller/ContractAdmin.hx:14215
+#: ../src/controller/ContractAdmin.hx:11609
+#: ../src/controller/ContractAdmin.hx:14208
 msgid "Global view of orders"
 msgstr "Vue globale des commandes"
 
-#: ../src/controller/ContractAdmin.hx:12686
-#: ../src/controller/ContractAdmin.hx:15356
+#: ../src/controller/ContractAdmin.hx:12679
+#: ../src/controller/ContractAdmin.hx:15349
 #: ../src/service/ReportService.hx:3946
 msgid "There is no delivery at this date"
 msgstr "Il n'y a aucune distribution à cette date"
 
-#: ../src/controller/ContractAdmin.hx:13822
+#: ../src/controller/ContractAdmin.hx:13815
 msgid "Delivery date"
 msgstr "Date de distribution"
 
-#: ../src/controller/ContractAdmin.hx:14261
+#: ../src/controller/ContractAdmin.hx:14254
 msgid "This page allows you to have a global view on orders of all catalogs"
 msgstr ""
 "Cette page vous permet d'avoir une vision d'ensemble des commandes tous "
 "catalogues confondus"
 
-#: ../src/controller/ContractAdmin.hx:14355
+#: ../src/controller/ContractAdmin.hx:14348
 msgid "<br/>Select a delivery date:"
 msgstr "<br/>Sélectionnez la date de distribution qui vous intéresse :"
 
-#: ../src/controller/ContractAdmin.hx:17156
+#: ../src/controller/ContractAdmin.hx:17149
 msgid "There is no delivery during this period"
 msgstr "Il n'y a aucune distribution sur cette période"
 
-#: ../src/controller/ContractAdmin.hx:19357
+#: ../src/controller/ContractAdmin.hx:19350
 msgid "Orders from the ::fromDate:: to the ::toDate:: per supplier.csv"
 msgstr "Commandes du ::fromDate:: au ::toDate:: par producteur.csv\")"
 
-#: ../src/controller/ContractAdmin.hx:20064
-#: ../src/controller/ContractAdmin.hx:22006
-#: ../src/controller/ContractAdmin.hx:27598
-#: ../src/controller/ContractAdmin.hx:29100
-#: ../src/controller/ContractAdmin.hx:31274
-#: ../src/controller/ContractAdmin.hx:31813
+#: ../src/controller/ContractAdmin.hx:20057
+#: ../src/controller/ContractAdmin.hx:21999
+#: ../src/controller/ContractAdmin.hx:27591
+#: ../src/controller/ContractAdmin.hx:29093
+#: ../src/controller/ContractAdmin.hx:31267
+#: ../src/controller/ContractAdmin.hx:31806
 #: ../src/controller/Distribution.hx:1666
 msgid "You do not have the authorization to manage this contract"
 msgstr "Vous n'avez pas le droit de gérer ce contrat"
 
-#: ../src/controller/ContractAdmin.hx:20623
-#: ../src/controller/ContractAdmin.hx:20726
+#: ../src/controller/ContractAdmin.hx:20616
+#: ../src/controller/ContractAdmin.hx:20719
 msgid "The order has been deleted."
 msgstr "La commande a été effacée."
 
-#: ../src/controller/ContractAdmin.hx:21467
+#: ../src/controller/ContractAdmin.hx:21460
 #: ../src/service/OrderService.hx:21170
 msgid "Delivery ::contractName:: "
 msgstr "Distribution ::contractName:: "
 
-#: ../src/controller/ContractAdmin.hx:21719
+#: ../src/controller/ContractAdmin.hx:21712
 #: ../src/service/OrderService.hx:21511
 msgid "Per member"
 msgstr "Par membre"
 
-#: ../src/controller/ContractAdmin.hx:22619
+#: ../src/controller/ContractAdmin.hx:22612
 msgid "Prices are now up to date."
 msgstr "Prix mis à jour à leur valeur actuelle."
 
-#: ../src/controller/ContractAdmin.hx:23062
+#: ../src/controller/ContractAdmin.hx:23055
 msgid "Name of the new catalog"
 msgstr "Nom du nouveau catalogue"
 
-#: ../src/controller/ContractAdmin.hx:23460
+#: ../src/controller/ContractAdmin.hx:23453
 msgid "Copy products"
 msgstr "Copier les produits"
 
-#: ../src/controller/ContractAdmin.hx:23511
+#: ../src/controller/ContractAdmin.hx:23504
 msgid "None"
 msgstr "Aucun"
 
-#: ../src/controller/ContractAdmin.hx:23551
+#: ../src/controller/ContractAdmin.hx:23544
 msgid "All Products"
 msgstr "Tous les produits"
 
-#: ../src/controller/ContractAdmin.hx:23614
+#: ../src/controller/ContractAdmin.hx:23607
 msgid "Only active products"
 msgstr "Uniquement les produits actifs"
 
-#: ../src/controller/ContractAdmin.hx:23853
+#: ../src/controller/ContractAdmin.hx:23846
 msgid "Copy deliveries"
 msgstr "Copier les distributions"
 
-#: ../src/controller/ContractAdmin.hx:27257
+#: ../src/controller/ContractAdmin.hx:27250
 msgid "The catalog has been duplicated"
 msgstr "Le catalogue a été dupliqué"
 
-#: ../src/controller/ContractAdmin.hx:27969
+#: ../src/controller/ContractAdmin.hx:27962
 msgid ""
 "There is no delivery in this catalog, please create at least one "
 "distribution."
@@ -434,21 +434,21 @@ msgstr ""
 "Il n'y a pas de distribution dans ce catalogue, créez au moins une "
 "distribution."
 
-#: ../src/controller/ContractAdmin.hx:31001
+#: ../src/controller/ContractAdmin.hx:30994
 msgid "Distribution date added"
 msgstr "Date de distribution ajoutée"
 
-#: ../src/controller/ContractAdmin.hx:36896
+#: ../src/controller/ContractAdmin.hx:37054
 msgid "You cannot delete this catalog because some orders are linked to it."
 msgstr ""
 "Vous ne pouvez pas effacer ce catalogue car il y a des commandes rattachées "
 "à ce catalogue."
 
-#: ../src/controller/ContractAdmin.hx:37308
+#: ../src/controller/ContractAdmin.hx:37466
 msgid "Catalog deleted"
 msgstr "Catalogue effacé"
 
-#: ../src/controller/ContractAdmin.hx:37375 ../src/controller/Documents.hx:3241
+#: ../src/controller/ContractAdmin.hx:37533 ../src/controller/Documents.hx:3241
 #: ../src/controller/Media.hx:2084 ../src/controller/Product.hx:3545
 #: ../src/controller/SubscriptionAdmin.hx:2031
 msgid "Token error"
@@ -522,17 +522,17 @@ msgid "Bad token"
 msgstr "Mauvais jeton"
 
 #: ../src/controller/Distribution.hx:9373
-#: ../src/controller/Distribution.hx:14796 ../src/db/MultiDistrib.hx:8565
+#: ../src/controller/Distribution.hx:14973 ../src/db/MultiDistrib.hx:8565
 msgid "Orders opening date"
 msgstr "Date d'ouverture des commandes"
 
 #: ../src/controller/Distribution.hx:9485
-#: ../src/controller/Distribution.hx:14937 ../src/db/MultiDistrib.hx:8617
+#: ../src/controller/Distribution.hx:15114 ../src/db/MultiDistrib.hx:8617
 msgid "Orders closing date"
 msgstr "Date de clôture des commandes"
 
 #: ../src/controller/Distribution.hx:10111
-#: ../src/controller/Distribution.hx:12993
+#: ../src/controller/Distribution.hx:13170
 msgid ""
 "The distribution has been proposed to the supplier, please wait for its "
 "validation"
@@ -541,177 +541,177 @@ msgstr ""
 "validation"
 
 #: ../src/controller/Distribution.hx:10301
-#: ../src/controller/Distribution.hx:16193
-#: ../src/controller/Distribution.hx:20840
+#: ../src/controller/Distribution.hx:16370
+#: ../src/controller/Distribution.hx:21017
 msgid "The distribution has been recorded"
 msgstr "La distribution a été enregistrée"
 
-#: ../src/controller/Distribution.hx:13756
+#: ../src/controller/Distribution.hx:13933
 msgid "The delivery is now up to date"
 msgstr "La distribution a été mise à jour"
 
-#: ../src/controller/Distribution.hx:13843
+#: ../src/controller/Distribution.hx:14020
 msgid "Modify a delivery"
 msgstr "Modifier une distribution"
 
-#: ../src/controller/Distribution.hx:14408
-#: ../src/controller/Distribution.hx:19342
-#: ../src/controller/Distribution.hx:22071
-#: ../src/controller/Distribution.hx:24551
+#: ../src/controller/Distribution.hx:14585
+#: ../src/controller/Distribution.hx:19519
+#: ../src/controller/Distribution.hx:22248
+#: ../src/controller/Distribution.hx:24728
 msgid "End time"
 msgstr "Heure de fin"
 
-#: ../src/controller/Distribution.hx:16059
+#: ../src/controller/Distribution.hx:16236
 msgid "Distribution request sent"
 msgstr "Demande de distribution envoyée"
 
-#: ../src/controller/Distribution.hx:16352
+#: ../src/controller/Distribution.hx:16529
 msgid "Create a distribution"
 msgstr "Créer une distribution"
 
-#: ../src/controller/Distribution.hx:18976
-#: ../src/controller/Distribution.hx:21281
+#: ../src/controller/Distribution.hx:19153
+#: ../src/controller/Distribution.hx:21458
 msgid "Distribution date"
 msgstr "Date de distribution"
 
-#: ../src/controller/Distribution.hx:19152
-#: ../src/controller/Distribution.hx:21687
-#: ../src/controller/Distribution.hx:24349
+#: ../src/controller/Distribution.hx:19329
+#: ../src/controller/Distribution.hx:21864
+#: ../src/controller/Distribution.hx:24526
 msgid "Start time"
 msgstr "Heure de début"
 
-#: ../src/controller/Distribution.hx:20711
+#: ../src/controller/Distribution.hx:20888
 msgid ""
 "The distribution has been recorded, please define which roles are needed."
 msgstr ""
 "La distribution a été enregistrée, définissez quels rôles sont nécéssaires."
 
-#: ../src/controller/Distribution.hx:20937
+#: ../src/controller/Distribution.hx:21114
 msgid "Create a general distribution"
 msgstr "Créer une distribution générale"
 
-#: ../src/controller/Distribution.hx:22384
-#: ../src/controller/Distribution.hx:29076
+#: ../src/controller/Distribution.hx:22561
+#: ../src/controller/Distribution.hx:29253
 #: ../lang/master/tpl/contractadmin/default.mtt:195
 #: ../lang/master/tpl/design.mtt:3041
 msgid "Catalogs"
 msgstr "Catalogues"
 
-#: ../src/controller/Distribution.hx:23584
+#: ../src/controller/Distribution.hx:23761
 msgid "The distribution has been updated"
 msgstr "La distribution a été mise à jour"
 
-#: ../src/controller/Distribution.hx:23671
+#: ../src/controller/Distribution.hx:23848
 msgid "Edit a general distribution"
 msgstr "Modifier une distribution"
 
-#: ../src/controller/Distribution.hx:24910
-#: ../src/controller/Distribution.hx:28398
+#: ../src/controller/Distribution.hx:25087
+#: ../src/controller/Distribution.hx:28575
 msgid "Opening time"
 msgstr "Heure d'ouverture"
 
-#: ../src/controller/Distribution.hx:25215
-#: ../src/controller/Distribution.hx:28722
+#: ../src/controller/Distribution.hx:25392
+#: ../src/controller/Distribution.hx:28899
 msgid "Closing time"
 msgstr "Heure de fermeture"
 
-#: ../src/controller/Distribution.hx:26743
-#: ../src/controller/Distribution.hx:30130
+#: ../src/controller/Distribution.hx:26920
+#: ../src/controller/Distribution.hx:30307
 msgid "The delivery has been saved"
 msgstr "La distribution a été enregistrée"
 
-#: ../src/controller/Distribution.hx:26926
+#: ../src/controller/Distribution.hx:27103
 msgid "Schedule a recurrent delivery"
 msgstr "Programmer une distribution récurrente"
 
-#: ../src/controller/Distribution.hx:27813
+#: ../src/controller/Distribution.hx:27990
 msgid "Distributions start time"
 msgstr "Heure de début de distribution"
 
-#: ../src/controller/Distribution.hx:28058
+#: ../src/controller/Distribution.hx:28235
 msgid "Distributions end time"
 msgstr "Heure de fin de distribution"
 
-#: ../src/controller/Distribution.hx:30618
+#: ../src/controller/Distribution.hx:30795
 msgid "Recurrent deliveries deleted"
 msgstr "Distributions récurrentes effacées"
 
-#: ../src/controller/Distribution.hx:32894
+#: ../src/controller/Distribution.hx:33071
 msgid "Volunteer Roles have been saved for this distribution"
 msgstr "Les rôles de bénévoles ont été définis pour cette distribution"
 
-#: ../src/controller/Distribution.hx:33491
+#: ../src/controller/Distribution.hx:33668
 msgid "You need to first select the volunteer roles for this distribution"
 msgstr ""
 "Vous devez d'abord sélectionner les rôles de bénévoles pour cette "
 "distribution"
 
-#: ../src/controller/Distribution.hx:33971
+#: ../src/controller/Distribution.hx:34148
 msgid "No volunteer assigned"
 msgstr "Pas de bénévole défini"
 
-#: ../src/controller/Distribution.hx:34426
+#: ../src/controller/Distribution.hx:34603
 msgid "Volunteers have been assigned to roles for this distribution"
 msgstr "Les bénévoles ont été enregistrés pour cette distribution"
 
-#: ../src/controller/Distribution.hx:34519
+#: ../src/controller/Distribution.hx:34696
 msgid "Select a volunteer for each role for this multidistrib"
 msgstr "Sélectionnez un(e) bénévole pour chaque rôle pour cette distribution"
 
-#: ../src/controller/Distribution.hx:35360
+#: ../src/controller/Distribution.hx:35537
 msgid "There is no volunteer to remove for this role!"
 msgstr "Il n'y a pas de bénévole à effacer pour ce rôle !"
 
-#: ../src/controller/Distribution.hx:35493
+#: ../src/controller/Distribution.hx:35670
 msgid "You can only remove yourself from a role."
 msgstr "Vous ne pouvez que vous retirer vous-même d'un rôle."
 
-#: ../src/controller/Distribution.hx:35607
+#: ../src/controller/Distribution.hx:35784
 msgid "Reason for leaving the role"
 msgstr "Raison pour laquelle vous vous désistez"
 
-#: ../src/controller/Distribution.hx:35959
+#: ../src/controller/Distribution.hx:36136
 msgid "You have been successfully removed from this role."
 msgstr "Vous êtes bien désinscrit pour ce rôle."
 
-#: ../src/controller/Distribution.hx:36042
+#: ../src/controller/Distribution.hx:36219
 msgid "Enter the reason why you are leaving this role."
 msgstr "Saisissez la raison pour laquelle vous vous désistez."
 
-#: ../src/controller/Distribution.hx:36901
+#: ../src/controller/Distribution.hx:37078
 msgid "You have been successfully assigned to the selected role."
 msgstr "Vous avez été enregistré pour ce rôle."
 
-#: ../src/controller/Distribution.hx:39820
+#: ../src/controller/Distribution.hx:39997
 msgid "Undelivered product"
 msgstr "Produit non livré"
 
-#: ../src/controller/Distribution.hx:40083
-#: ../src/controller/Distribution.hx:41600
+#: ../src/controller/Distribution.hx:40260
+#: ../src/controller/Distribution.hx:41777
 msgid "Please select a product"
 msgstr "Sélectionnez un produit"
 
-#: ../src/controller/Distribution.hx:40468
+#: ../src/controller/Distribution.hx:40645
 msgid "The undelivered product has been removed from ::n:: orders."
 msgstr "Le produit non livré a été retiré de ::n:: commandes."
 
-#: ../src/controller/Distribution.hx:40593
+#: ../src/controller/Distribution.hx:40770
 msgid "Remove an undelivered product from orders"
 msgstr "Retirer des commandes un produit non livré"
 
-#: ../src/controller/Distribution.hx:41233
+#: ../src/controller/Distribution.hx:41410
 msgid "Product which price has changed"
 msgstr "Produit dont le prix à changé"
 
-#: ../src/controller/Distribution.hx:41357
+#: ../src/controller/Distribution.hx:41534
 msgid "New price"
 msgstr "Nouveau prix"
 
-#: ../src/controller/Distribution.hx:42161
+#: ../src/controller/Distribution.hx:42338
 msgid "The price of ::product:: has been modified to ::price:: in orders."
 msgstr "Le prix de ::product:: a été ajusté à ::price:: dans les commandes."
 
-#: ../src/controller/Distribution.hx:42322
+#: ../src/controller/Distribution.hx:42499
 msgid "Change the price of a product in orders"
 msgstr "Changer le prix d'un produit dans les commandes"
 
@@ -896,34 +896,34 @@ msgstr "Impossible d'effacer ce produit car des commandes y sont rattachées"
 msgid "Product deleted"
 msgstr "Produit supprimé"
 
-#: ../src/controller/SubscriptionAdmin.hx:15301
+#: ../src/controller/SubscriptionAdmin.hx:15553
 #: ../src/controller/Transaction.hx:544 ../src/controller/Transaction.hx:3029
 #: ../src/controller/Transaction.hx:4409 ../src/controller/Transaction.hx:4725
 msgid "Action forbidden"
 msgstr "Action interdite"
 
-#: ../src/controller/SubscriptionAdmin.hx:16033
+#: ../src/controller/SubscriptionAdmin.hx:16285
 #: ../src/controller/Transaction.hx:938 ../src/controller/Transaction.hx:3521
 msgid "Amount"
 msgstr "Montant"
 
-#: ../src/controller/SubscriptionAdmin.hx:16116
+#: ../src/controller/SubscriptionAdmin.hx:16368
 #: ../src/controller/Transaction.hx:1019 ../src/controller/Transaction.hx:3614
-#: ../src/db/Distribution.hx:8533 ../src/db/MultiDistrib.hx:8454
+#: ../src/db/Distribution.hx:6461 ../src/db/MultiDistrib.hx:8454
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:199
 msgid "Date"
 msgstr "Date"
 
-#: ../src/controller/SubscriptionAdmin.hx:16570
+#: ../src/controller/SubscriptionAdmin.hx:16822
 #: ../src/controller/Transaction.hx:1354
 msgid "Payment type"
 msgstr "Type de paiement"
 
-#: ../src/controller/SubscriptionAdmin.hx:17101
+#: ../src/controller/SubscriptionAdmin.hx:17353
 msgid "Payment recorded"
 msgstr "Paiement enregistré"
 
-#: ../src/controller/SubscriptionAdmin.hx:17153
+#: ../src/controller/SubscriptionAdmin.hx:17405
 #: ../src/controller/Transaction.hx:2540
 msgid "Record a payment for ::user::"
 msgstr "Saisir un paiement pour ::user::"
@@ -1072,29 +1072,29 @@ msgstr "Contact"
 msgid "Farmer"
 msgstr "Producteur"
 
-#: ../src/db/Distribution.hx:8566 ../src/db/MultiDistrib.hx:8491
+#: ../src/db/Distribution.hx:6494 ../src/db/MultiDistrib.hx:8491
 msgid "End hour"
 msgstr "Heure de fin"
 
-#: ../src/db/Distribution.hx:8601 ../src/db/DistributionCycle.hx:1929
+#: ../src/db/Distribution.hx:6529 ../src/db/DistributionCycle.hx:1929
 #: ../src/db/MultiDistrib.hx:8526 ../lang/master/tpl/distribution/list.mtt:516
 #: ../lang/master/tpl/distribution/listByProductUser.mtt:516
 msgid "Place"
 msgstr "Lieu"
 
-#: ../src/db/Distribution.hx:8639
+#: ../src/db/Distribution.hx:6567
 msgid "Distributor #1"
 msgstr "Distributeur 1"
 
-#: ../src/db/Distribution.hx:8686
+#: ../src/db/Distribution.hx:6614
 msgid "Distributor #2"
 msgstr "Distributeur 2"
 
-#: ../src/db/Distribution.hx:8733
+#: ../src/db/Distribution.hx:6661
 msgid "Distributor #3"
 msgstr "Distributeur 3"
 
-#: ../src/db/Distribution.hx:8780
+#: ../src/db/Distribution.hx:6708
 msgid "Distributor #4"
 msgstr "Distributeur 4"
 
@@ -1404,48 +1404,58 @@ msgstr "URL du lien"
 #: ../src/form/StockTrackingPerDistribForm.hx:2017
 #: ../src/form/StockTrackingPerDistribForm.hx:3662
 msgid "le stock doit être un nombre."
-msgstr ""
+msgstr "le stock doit être un nombre."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:2302
 msgid "la date de début de l'alternance des stocks est obligatoire."
-msgstr ""
+msgstr "la date de début de l'alternance des stocks est obligatoire."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:2620
 msgid "il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
 msgstr ""
+"il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:3258
 msgid ""
 "une erreur est survenue au niveau de la définition des périodes. Chaque "
 "période doit comporter une distribution de début, de fin et un stock."
 msgstr ""
+"une erreur est survenue au niveau de la définition des périodes. Chaque "
+"période doit comporter une distribution de début, de fin et un stock."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:4974
 msgid "A chaque distribution, le stock défini sera disponible à la vente."
-msgstr ""
+msgstr "A chaque distribution, le stock défini sera disponible à la vente."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:6291
 #: ../src/form/StockTrackingPerDistribForm.hx:9398
 msgid "Cette fonctionnalité nécessite que des distributions soient planifiées."
 msgstr ""
+"Cette fonctionnalité nécessite que des distributions soient planifiées."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:6405
 msgid ""
 "Le stock définit ici sera disponible uniquement à la fréquence choisir et "
 "égal à 0 sinon."
 msgstr ""
+"Le stock définit ici sera disponible uniquement à la fréquence choisir et "
+"égal à 0 sinon."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:6526
 msgid ""
 "La date de départ permet de choisir la première date de distribution où le "
 "produit est disponible."
 msgstr ""
+"La date de départ permet de choisir la première date de distribution où le "
+"produit est disponible."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:8068
 msgid ""
 "Fréquence choisie (1/2 = 1 distribution sur 2 à partir de la Date de départ "
 "de l'alternance)"
 msgstr ""
+"Fréquence choisie (1/2 = 1 distribution sur 2 à partir de la Date de départ "
+"de l'alternance)"
 
 #: ../src/form/StockTrackingPerDistribForm.hx:9512
 msgid ""
@@ -1453,6 +1463,9 @@ msgid ""
 "un stock disponible à chaque distribution. Le stock des distributions non "
 "incluses dans les périodes définies sera égale à 0."
 msgstr ""
+"Vous pouvez définir ici une ou plusieurs périodes pour lesquelles indiquer "
+"un stock disponible à chaque distribution. Le stock des distributions non "
+"incluses dans les périodes définies sera égale à 0."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:9857
 msgid "Add period"
@@ -1486,18 +1499,18 @@ msgstr "Paiement sur place"
 msgid "Bank transfer"
 msgstr "Virement"
 
-#: ../src/service/CatalogService.hx:4203
+#: ../src/service/CatalogService.hx:4233
 msgid "Vendor"
 msgstr "Producteur"
 
-#: ../src/service/CatalogService.hx:7783
+#: ../src/service/CatalogService.hx:7813
 msgid ""
 "If you would like to add fees to the order, define a rate (%) and a label."
 msgstr ""
 "Si vous souhaitez ajouter des frais au pourcentage de la commande, spécifiez "
 "le pourcentage et son libellé."
 
-#: ../src/service/CatalogService.hx:8032
+#: ../src/service/CatalogService.hx:8107
 msgid ""
 "Warning about management of stock. Please fill the field \"stock\" for all "
 "your products"
@@ -1581,29 +1594,39 @@ msgid ""
 msgstr ""
 "Le lieu de distribution est différent du lieu de la distribution principale."
 
-#: ../src/service/DistributionService.hx:14850
+#: ../src/service/DistributionService.hx:14837
 msgid ""
 "The new distribution date is not between the catalog start and end date."
 msgstr ""
 "La nouvelle date de distribution doit être comprise entre la date de début "
 "et la date de fin du catalogue."
 
-#: ../src/service/DistributionService.hx:18948
+#: ../src/service/DistributionService.hx:15541
+msgid ""
+"Une souscription de cette distribution est absent à la date de cette "
+"nouvelle distribution. Impossible de réaliser l'opération car cela "
+"modifierait l'engagement."
+msgstr ""
+"Une souscription de cette distribution est absent à la date de cette "
+"nouvelle distribution. Impossible de réaliser l'opération car cela "
+"modifierait l'engagement."
+
+#: ../src/service/DistributionService.hx:19301
 msgid ""
 "Deletion not possible: orders are recorded for ::vendorName:: on ::date::."
 msgstr ""
 "Effacement impossible : des commandes sont enregistrées pour ::vendorName:: "
 "pour le ::date::."
 
-#: ../src/service/DistributionService.hx:20520
+#: ../src/service/DistributionService.hx:20873
 msgid "daysBeforeOrderEnd or daysBeforeOrderStart is null"
 msgstr "daysBeforeOrderEnd ou daysBeforeOrderStart est vide"
 
-#: ../src/service/DistributionService.hx:21587
+#: ../src/service/DistributionService.hx:21940
 msgid "this distributionCycle has not been recorded"
 msgstr "Ce cycle de distribution n'a pas été enregistré"
 
-#: ../src/service/DistributionService.hx:25148
+#: ../src/service/DistributionService.hx:25501
 msgid ""
 "The date of the delivery must be prior to the end of the contract (::"
 "contractEndDate::)"
@@ -1611,7 +1634,7 @@ msgstr ""
 "La date de distribution doit être antérieure à la date de fin du contrat (::"
 "contractEndDate::)"
 
-#: ../src/service/DistributionService.hx:25382
+#: ../src/service/DistributionService.hx:25735
 msgid ""
 "The date of the delivery must be after the begining of the contract (::"
 "contractBeginDate::)"
@@ -1659,12 +1682,12 @@ msgstr "Commande du ::date::"
 msgid "deliveries"
 msgstr "distributions"
 
-#: ../src/service/ProductService.hx:7930
+#: ../src/service/ProductService.hx:7970
 msgid "Please fill the field \"stock\" or disable stockTracking."
 msgstr ""
 "Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."
 
-#: ../src/service/ProductService.hx:8378
+#: ../src/service/ProductService.hx:8418
 msgid ""
 "Stock can't be less than ::minStock:: for ::product:: on distribution ::"
 "ddate:: because of existing orders."
@@ -1943,10 +1966,6 @@ msgstr "Effacer ?"
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../lang/master/tpl/contractadmin/batchOrder.mtt:28
-msgid "Batch order"
-msgstr "Commandes en lot"
-
 #: ../lang/master/tpl/amap/default.mtt:1709
 msgid "Coordinator"
 msgstr "Coordinateur"
@@ -1994,7 +2013,7 @@ msgstr "Monnaie"
 
 #. short version for delete
 #: ../lang/master/tpl/amapadmin/places.mtt:501
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3560
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3631
 #: ../lang/master/tpl/contractadmin/products.mtt:5364
 #: ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:2072
 msgid "Del."
@@ -2167,7 +2186,7 @@ msgstr "Livraisons"
 
 #: ../lang/master/tpl/contractadmin/contract.mtt:313
 #: ../lang/master/tpl/contractadmin/design.mtt:2197
-#: ../lang/master/tpl/contractadmin/distributions.mtt:1767
+#: ../lang/master/tpl/contractadmin/distributions.mtt:1838
 #: ../lang/master/tpl/contractadmin/orders.mtt:602
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:87
 #: ../lang/master/tpl/contractadmin/selectDistrib.mtt:712
@@ -2238,48 +2257,48 @@ msgstr "Distributions"
 msgid "Stats"
 msgstr "Statistiques"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:1170
+#: ../lang/master/tpl/contractadmin/distributions.mtt:1241
 msgid "Participate"
 msgstr "Participer"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:2035
+#: ../lang/master/tpl/contractadmin/distributions.mtt:2106
 #: ../lang/master/tpl/distribution/default.mtt:8808
 #: ../lang/master/tpl/distribution/default.mtt:10731
 msgid "Dates"
 msgstr "Dates"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:2749
+#: ../lang/master/tpl/contractadmin/distributions.mtt:2820
 #: ../lang/master/tpl/home.mtt:5905 ../lang/master/tpl/home.mtt:7711
 msgid "Distribution list"
 msgstr "Liste d'émargement"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3171
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3740
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3242
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3811
 #: ../lang/master/tpl/distribution/default.mtt:11663
 msgid "Distribution cycle"
 msgstr "Cycle de distribution"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3323
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3394
 #: ../lang/master/tpl/distribution/default.mtt:11821
 msgid "Weekly"
 msgstr "Hebdomadaire"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3354
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3425
 #: ../lang/master/tpl/distribution/default.mtt:11853
 msgid "Monthly"
 msgstr "Mensuel"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3386
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3457
 #: ../lang/master/tpl/distribution/default.mtt:11886
 msgid "Every 2 weeks"
 msgstr "Toutes les 2 semaines"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3424
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3495
 #: ../lang/master/tpl/distribution/default.mtt:11925
 msgid "Every 3 weeks"
 msgstr "Toutes les 3 semaines"
 
-#: ../lang/master/tpl/contractadmin/distributions.mtt:3667
+#: ../lang/master/tpl/contractadmin/distributions.mtt:3738
 msgid "One time distribution"
 msgstr "Distribution ponctuelle"
 
@@ -2563,6 +2582,10 @@ msgstr "Cliquez ici pour gérer les distributions"
 msgid "Old orders"
 msgstr "Commandes anciennes"
 
+#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1324
+msgid "Batch order entry"
+msgstr "Saisie de commande en masse"
+
 #: ../lang/master/tpl/contractadmin/stats.mtt:106
 msgid "Seniority of subscribers"
 msgstr "Ancienneté des membres"
@@ -2611,7 +2634,7 @@ msgstr "Distribution du ::date::, de ::from:: à ::to::"
 msgid "Payments"
 msgstr "Paiements"
 
-#: ../lang/master/tpl/contractadmin/subscriptionadmin/editsubscription.mtt:3210
+#: ../lang/master/tpl/contractadmin/subscriptionadmin/editsubscription.mtt:3205
 msgid "Reverse the alternation"
 msgstr "Inverser l'alternance"
 
@@ -2847,19 +2870,19 @@ msgstr "Déjà membre ?<br/>Connectez-vous :"
 msgid "Log in"
 msgstr "Connexion"
 
-#: ../lang/master/tpl/group/view.mtt:12356
+#: ../lang/master/tpl/group/view.mtt:12420
 msgid "Next deliveries"
 msgstr "Prochaines distributions"
 
-#: ../lang/master/tpl/group/view.mtt:12671
+#: ../lang/master/tpl/group/view.mtt:12792
 msgid "Documents"
 msgstr "Documents"
 
-#: ../lang/master/tpl/group/view.mtt:12949
+#: ../lang/master/tpl/group/view.mtt:13164
 msgid "Suppliers and products"
 msgstr "Producteurs et produits"
 
-#: ../lang/master/tpl/group/view.mtt:14762
+#: ../lang/master/tpl/group/view.mtt:15189
 msgid "Non-complete extract of available products:"
 msgstr "Extrait non exhaustif des produits proposés :"
 
@@ -3179,10 +3202,6 @@ msgid "To start, <a href=\"/produits.xls\">Download this demo file</a>"
 msgstr ""
 "Pour commencer, <a href=\"/produits.xls\">téléchargez ce fichier de "
 "démonstration.</a>"
-
-#: ../lang/master/tpl/contractadmin/selectDistrib.mtt:1238
-msgid "Batch order entry"
-msgstr "Saisie de commande en masse"
 
 #: ../lang/master/tpl/product/import.mtt:2974
 msgid ""
