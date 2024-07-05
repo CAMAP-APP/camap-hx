@@ -12,10 +12,9 @@ class AbsencesService {
 	**/
 	public static function getContractAbsencesDistribs( catalog:db.Catalog ) : Array<db.Distribution> {
 		if ( !catalog.hasAbsencesManagement() ) return [];
-		var distributions = db.Distribution.manager.search( $catalog == catalog && $date >= catalog.absencesStartDate && $end <= catalog.absencesEndDate, { orderBy : date }, false ).array();
-		// remove from the list the distributions where an order was shifted to.
-		// this is because the user would be absent on a distrib with multiple orders to retrieve, and would change de subscription content.
-		distributions = distributions.filter(d -> d.getOrders().count(o -> o.wasMoved()) == 0);
+		// keep only the distributions with no orders shifted from other distributions ($quantities == 1).
+		// this is because the user would be absent on a distrib with multiple orders to retrieve: it would change de subscription content.
+		var distributions = db.Distribution.manager.search( $catalog == catalog && $date >= catalog.absencesStartDate && $end <= catalog.absencesEndDate && $quantities == 1, { orderBy : date }, false ).array();
 		return distributions;
 	}
 

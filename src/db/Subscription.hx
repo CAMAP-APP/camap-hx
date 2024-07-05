@@ -154,17 +154,16 @@ class Subscription extends Object {
 	{
 		if (this.catalog.absencesStartDate == null) return [];
 
-		//get all subscription distribs
-		var subDistributions = db.Distribution.manager.search( $catalog == this.catalog && $date >= this.startDate && $end <= this.endDate, { orderBy:date }, false );
+		// get all subscription distribs
+		// keep only the distributions with no orders shifted from other distributions ($quantities == 1).
+		// this is because the user would be absent on a distrib with multiple orders to retrieve: it would change de subscription content.
+		var subDistributions = db.Distribution.manager.search( $catalog == this.catalog && $date >= this.startDate && $end <= this.endDate && $quantities == 1, { orderBy:date }, false );
 		
 		// keep only those who are in the absence period
 		var out = [];
 		for (d in subDistributions) {
-			if (d.date.getTime() >= this.catalog.absencesStartDate.getTime()
-				&& d.date.getTime() <= this.catalog.absencesEndDate.getTime() 
-				// keep only the distributions with no orders shifted from other distributions.
-				// this is because the user would be absent on a distrib with multiple orders to retrieve: it would change de subscription content.
-				&& d.getOrders().count(o -> o.wasMoved()) == 0) {
+			if (this.catalog.absencesStartDate.getTime() <= d.date.getTime()
+				&& d.date.getTime() <= this.catalog.absencesEndDate.getTime()) {
 				out.push(d);
 			}
 		}

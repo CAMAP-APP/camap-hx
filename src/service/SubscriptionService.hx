@@ -842,7 +842,7 @@ class SubscriptionService
 		var now = Date.now().getTime();
 		for ( order in subscriptionAllOrders ) {
 
-			if( catalog.isVariableOrdersCatalog() && (order.distribution.orderEndDate.getTime() < now || order.wasMoved() ) ){
+			if( catalog.isVariableOrdersCatalog() && order.distribution.orderEndDate.getTime() < now ){
 				//if catalog is variable and distrib is closed, do not delete order
 				//if order was moved from another shifted distribution, do not delete
 				continue;
@@ -878,12 +878,15 @@ class SubscriptionService
 					}
 					var newOrder=null;
 					try {
-						newOrder =  OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
-					}catch(e:tink.core.Error) {
+						// distributions can have multiple quantities in case another distribution was merged into this one
+						for (i in 0...distribution.quantities) {
+							newOrder = OrderService.make( subscription.user, order.quantity , product,  distribution.id, false, subscription, user2, invert );
+							if ( newOrder != null ) orders.push( newOrder );
+						}
+					} catch(e:tink.core.Error) {
 						//throw new Error(e.message);
 						throw TypedError.typed( e.message, CatalogRequirementsNotMet );
 					}
-					if ( newOrder != null ) orders.push( newOrder );
 				}
 			}
 		}

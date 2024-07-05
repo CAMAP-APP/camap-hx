@@ -24,6 +24,10 @@ class Distribution extends Object
 	@hideInForms public var orderStartDate : SDateTime; 
 	@hideInForms public var orderEndDate : SDateTime; //cannot be null since CSA contracts also have orderEndDate
 	
+	// When recreating orders from this distrib, how many times the recurrent order must be created
+	// Allows a distrib to be merged to another distrib while keeping the orders count
+	@hideInForms public var quantities : Int = 1;
+	
 	public static var DISTRIBUTION_VALIDATION_LIMIT = 10;
 	
 	public function new() 

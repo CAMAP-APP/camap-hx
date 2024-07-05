@@ -441,6 +441,7 @@ class DistributionService
 			d.lock();
 			d.delete();
 			d = existingDistribution;
+			d.quantities ++;
 		} else {
 			// no existing distribution, move the current one to the new multidistrib
 			d.lock();
