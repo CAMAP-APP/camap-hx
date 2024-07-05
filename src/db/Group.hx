@@ -192,6 +192,13 @@ class Group extends Object
 	}
 	
 	/**
+	 * Renvoi la liste des multidistributions actives
+	 */
+	public function getActiveMultiDistribs(){
+		return db.MultiDistrib.manager.search($group == this, false);
+	}
+	
+	/**
 	 * récupere les produits des contracts actifs
 	 */
 	public function getProducts() {

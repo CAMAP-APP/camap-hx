@@ -1,12 +1,12 @@
 package controller.amapadmin;
-import sugoi.form.elements.Html;
+import form.CamapForm;
 import service.VolunteerService;
 import sugoi.form.elements.Checkbox;
+import sugoi.form.elements.Html;
 import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
 import sugoi.form.elements.TextArea;
-import form.CamapForm;
 
 class Volunteers extends controller.Controller
 {
@@ -100,6 +100,12 @@ class Volunteers extends controller.Controller
 			role.catalog = null;
 			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.insert();
+
+			if (role.enabledByDefault) {
+				// add new role to futures distribs
+				addRoleToFuturesDistribs(role);
+			}
+
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully added"));
 		}
 		
@@ -108,6 +114,25 @@ class Volunteers extends controller.Controller
 
 	}
 
+	function addRoleToFuturesDistribs(role:db.VolunteerRole){
+		// add new role to futures distribs
+		for (contracts in app.user.getGroup().getActiveContracts()) {
+			for (distribs in contracts.getDistribs()) {
+				var md = distribs.multiDistrib;
+				var rolesIds = md.volunteerRolesIds.split(",");
+
+				if (md.getDate().getTime() < Date.now().getTime()) continue;
+
+				// if role is not already in the multidistrib
+				if (rolesIds.indexOf(role.id.string()) == -1) {
+					md.lock();
+					rolesIds.push(role.id.string());
+					md.volunteerRolesIds = rolesIds.join(",");
+					md.update();
+				}
+			}
+		}
+	}
 	/**
 	 * Edit a volunteer role
 	 */
@@ -127,6 +152,10 @@ class Volunteers extends controller.Controller
 			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.update();
 
+			if (role.enabledByDefault) {
+				// add new role to futures distribs
+				addRoleToFuturesDistribs(role);
+			}
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully updated"));
 			
 		}
