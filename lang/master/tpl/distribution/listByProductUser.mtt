@@ -88,7 +88,7 @@
 		</tr>
 	</table>
 
-	<p>::raw nl2br(distrib._catalog._group.txtDistrib)::</p>
+	<p>::raw sanitize(distrib._catalog._group.txtDistrib)::</p>
 	<p class="hidden"><i>::_("Push on \"Control + P\" to print this page.")::</i></p>
 
 </body>

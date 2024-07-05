@@ -6,6 +6,7 @@ import db.Catalog;
 import db.UserOrder;
 import form.CamapDatePicker;
 import form.CamapDatePicker;
+import form.CamapForm;
 import service.CatalogService;
 import service.OrderService;
 import service.ProductService;
@@ -32,10 +33,8 @@ class ContractAdmin extends Controller
 		super();
 		if (!app.user.isContractManager()) throw Error("/", t._("You don't have the authorization to manage contracts"));
 		view.nav = ["contractadmin"];
-		
-
 	}
-	
+
 	public function sendNav(c){
 		var navbar = new Array<Link>();
 		var e = Nav(navbar,"contractAdmin",c.id);
@@ -148,6 +147,8 @@ class ContractAdmin extends Controller
 			} 
 			throw Ok( "/contractAdmin/view/" + catalog.id,  text );
 		}
+
+		CamapForm.addRichText(form, 'textarea');
 		 
 		view.form = form;
 	}
@@ -883,16 +884,17 @@ class ContractAdmin extends Controller
 		
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("You do not have the authorization to manage this contract"));
 
-		var now = Date.now();
-		//snap to beggining of the month , end is 3 month later 
-		var from = new Date(now.getFullYear(),now.getMonth(),1,0,0,0);
-		var to = new Date(now.getFullYear(),now.getMonth()+3,-1,23,59,59);
-		var timeframe = new tools.Timeframe(from,to);
+		var fromFirstDistrib = contract.firstDistrib != null ? contract.firstDistrib.distribStartDate : contract.startDate;
+		var toEndDate = contract.endDate;
+		// a timeframe that can be overriden by url params
+		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+		// a timeframe that always match exactly the participation dates
+		var participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
 
-		var multidistribs =  db.MultiDistrib.getFromTimeRange(contract.group,timeframe.from , timeframe.to);
 
 		if(args!=null && args.participateToAllDistributions){
-			for( d in multidistribs){
+			var participatingMultidistribs =  db.MultiDistrib.getFromTimeRange(contract.group, participationTimeframe.from , participationTimeframe.to);
+			for( d in participatingMultidistribs){
 				if( d.getDistributionForContract(contract)==null ){
 					try{
 						service.DistributionService.participate(d,contract);
@@ -901,14 +903,15 @@ class ContractAdmin extends Controller
 					}
 				}				
 			}
-			app.session.addMessage(contract.vendor.name+" participe maintenant à toutes les distributions");
+			app.session.addMessage('${contract.vendor.name} participe maintenant à toutes les distributions du ${Formatting.dDate(participationTimeframe.from)} au ${Formatting.dDate(participationTimeframe.to)}');
 		}
 		
-		view.multidistribs = multidistribs;
+		var displayedMultidistribs =  db.MultiDistrib.getFromTimeRange(contract.group, displayTimeframe.from , displayTimeframe.to, false);
+		view.multidistribs = displayedMultidistribs;
 		view.c = contract;
 		view.contract = contract;
-		view.timeframe = timeframe;
-
+		view.timeframe = displayTimeframe;
+		view.participationTimeframe = participationTimeframe;
 				
 	}
 
@@ -1003,6 +1006,14 @@ class ContractAdmin extends Controller
 			view.distributions = c.getDistribs(true);
 		}
 		
+	}
+
+	@tpl("contractadmin/batchOrder.mtt")
+	function doBatchOrder(c:db.Catalog, ?args:{old:Bool}) {
+		view.nav.push("orders");
+		sendNav(c);
+		
+		view.c = c;
 	}
 
 	@tpl("contractadmin/tmpBaskets.mtt")

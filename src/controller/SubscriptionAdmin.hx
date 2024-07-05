@@ -304,8 +304,20 @@ class SubscriptionAdmin extends controller.Controller
 		view.catalog = subscription.catalog;
 		view.members = app.user.getGroup().getMembersFormElementData();
 		view.products = catalogProducts;
-		view.getProductOrder = function( productId : Int ) {		
-			return SubscriptionService.getCSARecurrentOrders( subscription, null ).find( function( order ) return order.product.id == productId );
+		var defaultOrders = subscription.getDefaultOrders();
+		view.getProductOrder = function( productId : Int ) {
+			var csaOrder = null;
+			for (o in defaultOrders) {
+				if (o.productId == productId) {
+					if (csaOrder == null) {
+						csaOrder = o;
+					} else {
+						// if multiple lines for the same product (ie. multiWeight), then accumulate quantities.
+						csaOrder.quantity += o.quantity;
+					}
+				}
+			}
+			return csaOrder;
 		};
 		view.startdate = subscription.startDate;
 		view.enddate = subscription.endDate;
