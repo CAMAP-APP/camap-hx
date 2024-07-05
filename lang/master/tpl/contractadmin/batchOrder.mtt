@@ -1,0 +1,11 @@
+::use 'design.mtt'::
+		<div id="batch-order" style="margin-right: 15px; margin-left: 15px;"></div>
+		<script>
+				document.addEventListener("DOMContentLoaded", function(event) {
+					neo.createNeoModule("batch-order", "batchOrder", {
+						catalogId: ::c.id::,
+				});
+			});
+		</script>
+		
+::end::

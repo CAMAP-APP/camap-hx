@@ -33,10 +33,8 @@ class ContractAdmin extends Controller
 		super();
 		if (!app.user.isContractManager()) throw Error("/", t._("You don't have the authorization to manage contracts"));
 		view.nav = ["contractadmin"];
-		
-
 	}
-	
+
 	public function sendNav(c){
 		var navbar = new Array<Link>();
 		var e = Nav(navbar,"contractAdmin",c.id);
@@ -1008,6 +1006,14 @@ class ContractAdmin extends Controller
 			view.distributions = c.getDistribs(true);
 		}
 		
+	}
+
+	@tpl("contractadmin/batchOrder.mtt")
+	function doBatchOrder(c:db.Catalog, ?args:{old:Bool}) {
+		view.nav.push("orders");
+		sendNav(c);
+		
+		view.c = c;
 	}
 
 	@tpl("contractadmin/tmpBaskets.mtt")
