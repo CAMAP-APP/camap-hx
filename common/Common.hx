@@ -198,6 +198,7 @@ typedef UserOrder = {
 	invertSharedOrder:Bool,
 	?canceled:Bool,	
 	?canModify:Bool,
+	?wasMoved:Bool,
 	
 	catalogId:Int,
 	catalogName:String,

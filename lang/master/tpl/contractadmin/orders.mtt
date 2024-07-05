@@ -139,6 +139,9 @@
 							::if o.userName2!=null::
 								<span class="glyphicon glyphicon-refresh"></span> ::_("alternated with"):: ::o.userName2::
 							::end::
+							::if o.wasMoved::
+								<u data-toggle="tooltip" data-placement="top" title="::_("was moved from an other distribution")::">⇵</u>
+							::end::
 						</td>
 						<td>
 							::formatNum(o.productPrice)::&nbsp;::currency()::
