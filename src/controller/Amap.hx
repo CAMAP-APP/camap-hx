@@ -61,7 +61,7 @@ class Amap extends Controller
 			group.update();
 			throw Ok("/amapadmin", t._("The group has been updated."));
 		}
-		CamapForm.addRichText(form, "textarea");
+		CamapForm.addRichText(form, 'textarea:not([name$=\\"_txtDistrib\\"])');
 		view.form = form;
 	}
 
