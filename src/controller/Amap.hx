@@ -40,7 +40,7 @@ class Amap extends Controller
 
 		//keep only HidePhone, PhoneRequired and AddressRequired
 		var flags = form.getElement("flags");
-		untyped flags.excluded = [0,1,2,3,4,5,9,10];
+		untyped flags.excluded = [0,1,2,3,4,5,9,10,11,12];
 		untyped flags.excluded.push(2);
 
 		if (form.checkToken()) {
