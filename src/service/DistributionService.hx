@@ -2,6 +2,7 @@ package service;
 import Common;
 import db.Distribution;
 import db.Subscription;
+import db.VolunteerRole;
 import service.PaymentService.PaymentContext;
 import tink.core.Error;
 
@@ -406,6 +407,8 @@ class DistributionService
 		shift a distribution 
 	**/
 	public static function shiftDistribution(d:db.Distribution,newMd:db.MultiDistrib,dispatchEvent:Bool){
+
+		App.log("Shifting distribution "+ d.id);
 		//We prevent others from modifying it
 		var t = sugoi.i18n.Locale.texts;
 
@@ -453,7 +456,38 @@ class DistributionService
 			d.orderStartDate = newMd.orderStartDate;
 			d.orderEndDate = newMd.orderEndDate;
 			d.update();
+
+			App.log("ids " + ' ' + oldMd.id + ' ' + newMd.id);
 		}
+
+		/**
+		 * Update roles 
+		 */
+		oldMd.lock();
+		newMd.lock();
+		
+		// get roles from oldMd linked to distribution to move
+		var roles = oldMd.getVolunteerRoles();
+
+		// loop on roles to get roles lined to catalog
+		var mdRoles = newMd.getVolunteerRoles();
+		var rolesToMove = [];
+		var catalogRoles = service.VolunteerService.getRolesFromContract(d.catalog);
+		
+		for (role in roles) {
+			if (Lambda.has(catalogRoles, role)) {
+				rolesToMove.push(role);
+			}
+		}
+
+		// remove roles from oldMd linked to distribution
+		oldMd.volunteerRolesIds = oldMd.volunteerRolesIds.split(",").filter(r -> rolesToMove.map(r -> Std.string(r.id)).indexOf(r) == -1).join(",");
+
+		// add enabled catalog roles to newMd
+		newMd.volunteerRolesIds = newMd.volunteerRolesIds.split(",").concat(rolesToMove.map(r -> Std.string(r.id))).join(",");
+
+		oldMd.update();
+		newMd.update();	
 
 		/* 
 		FORBID THIS WITH CREDIT CARD PAYMENTS 
@@ -491,6 +525,15 @@ class DistributionService
 			if(sub.endDate.getTime() < newMd.getDate().getTime()){
 				ss.updateSubscription( sub, sub.startDate, newMd.getDate() );
 			}					
+		}
+
+		// add roles from old multidistribution to new multidistribution, without user to new multidistribution
+		var roles = service.VolunteerService.getUsedRolesInMultidistribs([oldMd]);
+
+		for (role in roles) {
+			if (role.catalog == null) {
+				newMd.volunteerRolesIds = newMd.volunteerRolesIds + "," + role.id;
+			}
 		}
 		/**
 		2020-03-04 francois :
