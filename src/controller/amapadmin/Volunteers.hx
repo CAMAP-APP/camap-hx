@@ -124,7 +124,7 @@ class Volunteers extends controller.Controller
 				if (md.getDate().getTime() < Date.now().getTime()) continue;
 
 				// if role is not already in the multidistrib
-				if (rolesIds.indexOf(role.id.string()) == -1) {
+				if (rolesIds.has(role.id.string())) {
 					md.lock();
 					rolesIds.push(role.id.string());
 					md.volunteerRolesIds = rolesIds.join(",");

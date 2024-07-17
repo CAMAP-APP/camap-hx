@@ -523,6 +523,7 @@ class Distribution extends Controller {
 				var groupRoles = VolunteerService
 				.getRolesFromGroup(app.user.getGroup())
 				.filter(function(role) return role.catalog == null)
+				.filter(function(role) return role.enabledByDefault)
 				.map(function(x) return x.id.string());
 
 				distrib.lock();
