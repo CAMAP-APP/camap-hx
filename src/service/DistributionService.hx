@@ -408,7 +408,6 @@ class DistributionService
 	**/
 	public static function shiftDistribution(d:db.Distribution,newMd:db.MultiDistrib,dispatchEvent:Bool){
 
-		App.log("Shifting distribution "+ d.id);
 		//We prevent others from modifying it
 		var t = sugoi.i18n.Locale.texts;
 
@@ -457,7 +456,6 @@ class DistributionService
 			d.orderEndDate = newMd.orderEndDate;
 			d.update();
 
-			App.log("ids " + ' ' + oldMd.id + ' ' + newMd.id);
 		}
 
 		/**
@@ -469,7 +467,7 @@ class DistributionService
 		// get roles from oldMd linked to distribution to move
 		var roles = oldMd.getVolunteerRoles();
 
-		// loop on roles to get roles lined to catalog
+		// loop on roles to get roles linked to catalog
 		var mdRoles = newMd.getVolunteerRoles();
 		var rolesToMove = [];
 		var catalogRoles = service.VolunteerService.getRolesFromContract(d.catalog);
@@ -477,6 +475,15 @@ class DistributionService
 		for (role in roles) {
 			if (Lambda.has(catalogRoles, role)) {
 				rolesToMove.push(role);
+			}
+		}
+		
+		// remove Volunters affected by the shift (postponed distribution)
+		var volunteers = oldMd.getVolunteers();
+		for (volunteer in volunteers) {
+			if (rolesToMove.has(volunteer.volunteerRole)) {
+				volunteer.lock();
+				volunteer.delete();
 			}
 		}
 
@@ -527,14 +534,6 @@ class DistributionService
 			}					
 		}
 
-		// add roles from old multidistribution to new multidistribution, without user to new multidistribution
-		var roles = service.VolunteerService.getUsedRolesInMultidistribs([oldMd]);
-
-		for (role in roles) {
-			if (role.catalog == null) {
-				newMd.volunteerRolesIds = newMd.volunteerRolesIds + "," + role.id;
-			}
-		}
 		/**
 		2020-03-04 francois :
 		il peut se produire un bug pour une souscription concernée par la distrib reportée, si cette souscription est terminée de maniere anticipée.
