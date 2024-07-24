@@ -185,6 +185,23 @@ class ContractAdmin extends Controller
 			role.catalog = contract;
 			role.enabledByDefault = true;
 			role.insert();
+
+			 // add new role to futures distribsmd.volunteerRolesIds
+			var distribs = contract.getDistribs();
+			for ( d in distribs) {
+				var md = d.multiDistrib;
+
+				// if multidistrib is in the future, add the role to the multidistrib
+				if (md.getDate().getTime() > Date.now().getTime()) {
+					md.lock();
+
+					var newRolesIds = md.volunteerRolesIds.split(",");
+					newRolesIds.push(role.id.string());
+					md.volunteerRolesIds = newRolesIds.join(",");
+
+					md.update();
+				}
+			}
 			throw Ok("/contractAdmin/roles/"+contract.id, t._("Volunteer Role has been successfully added"));
 			
 		}

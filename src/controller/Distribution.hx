@@ -1,15 +1,15 @@
 package controller;
 
-import tools.ArrayTool;
+import Common;
+import service.DistributionService;
+import service.VolunteerService;
 import sugoi.BaseApp;
-import tools.ObjectListTool;
 import sugoi.form.Form;
 import sugoi.form.elements.IntSelect;
-import sugoi.form.elements.TextArea;
 import sugoi.form.elements.NativeDatePicker.NativeDatePickerType;
-import Common;
-import service.VolunteerService;
-import service.DistributionService;
+import sugoi.form.elements.TextArea;
+import tools.ArrayTool;
+import tools.ObjectListTool;
 
 using Formatting;
 using Std;
@@ -470,6 +470,8 @@ class Distribution extends Controller {
 	function doInviteFarmers(distrib:db.MultiDistrib) {
 		var form = new sugoi.form.Form("invite");
 
+		var oldVendorNb = distrib.getVendors().length;
+
 		// vendors to add
 		var regularVendors = [];
 		var checked = [];
@@ -514,6 +516,19 @@ class Distribution extends Controller {
 				}
 			}
 
+			// if was no vendor before, add the group role
+			if (oldVendorNb == 0 && distrib.getVendors().length > 0) {
+
+				var groupRoles = VolunteerService
+				.getRolesFromGroup(app.user.getGroup())
+				.filter(function(role) return role.catalog == null)
+				.filter(function(role) return role.enabledByDefault)
+				.map(function(x) return x.id.string());
+
+				distrib.lock();
+				distrib.volunteerRolesIds = distrib.volunteerRolesIds.split(",").concat(groupRoles).join(",");
+				distrib.update();
+		}
 			throw Ok("/distribution", "La liste des producteurs invités à été mise à jour");
 		}
 
