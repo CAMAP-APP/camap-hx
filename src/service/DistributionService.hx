@@ -2,6 +2,7 @@ package service;
 import Common;
 import db.Distribution;
 import db.Subscription;
+import db.VolunteerRole;
 import service.PaymentService.PaymentContext;
 import tink.core.Error;
 
@@ -406,6 +407,7 @@ class DistributionService
 		shift a distribution 
 	**/
 	public static function shiftDistribution(d:db.Distribution,newMd:db.MultiDistrib,dispatchEvent:Bool){
+
 		//We prevent others from modifying it
 		var t = sugoi.i18n.Locale.texts;
 
@@ -453,7 +455,46 @@ class DistributionService
 			d.orderStartDate = newMd.orderStartDate;
 			d.orderEndDate = newMd.orderEndDate;
 			d.update();
+
 		}
+
+		/**
+		 * Update roles 
+		 */
+		oldMd.lock();
+		newMd.lock();
+		
+		// get roles from oldMd linked to distribution to move
+		var roles = oldMd.getVolunteerRoles();
+
+		// loop on roles to get roles linked to catalog
+		var mdRoles = newMd.getVolunteerRoles();
+		var rolesToMove = [];
+		var catalogRoles = service.VolunteerService.getRolesFromContract(d.catalog);
+		
+		for (role in roles) {
+			if (Lambda.has(catalogRoles, role)) {
+				rolesToMove.push(role);
+			}
+		}
+		
+		// remove Volunters affected by the shift (postponed distribution)
+		var volunteers = oldMd.getVolunteers();
+		for (volunteer in volunteers) {
+			if (rolesToMove.has(volunteer.volunteerRole)) {
+				volunteer.lock();
+				volunteer.delete();
+			}
+		}
+
+		// remove roles from oldMd linked to distribution
+		oldMd.volunteerRolesIds = oldMd.volunteerRolesIds.split(",").filter(r -> rolesToMove.map(r -> Std.string(r.id)).indexOf(r) == -1).join(",");
+
+		// add enabled catalog roles to newMd
+		newMd.volunteerRolesIds = newMd.volunteerRolesIds.split(",").concat(rolesToMove.map(r -> Std.string(r.id))).join(",");
+
+		oldMd.update();
+		newMd.update();	
 
 		/* 
 		FORBID THIS WITH CREDIT CARD PAYMENTS 
@@ -492,6 +533,7 @@ class DistributionService
 				ss.updateSubscription( sub, sub.startDate, newMd.getDate() );
 			}					
 		}
+
 		/**
 		2020-03-04 francois :
 		il peut se produire un bug pour une souscription concernée par la distrib reportée, si cette souscription est terminée de maniere anticipée.
