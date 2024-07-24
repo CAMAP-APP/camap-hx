@@ -1,8 +1,8 @@
 package controller.api;
 import Common.StockTracking;
-import service.AbsencesService;
 import haxe.Json;
 import neko.Web;
+import service.AbsencesService;
 import service.SubscriptionService;
 import tink.core.Error;
 
@@ -93,15 +93,20 @@ class Catalog extends Controller
 		
         var post =  sugoi.Web.getPostData();
         if(post!=null){
+					  // we pass adminMode in absencesServicesbecause admin can add absences, contrary to target user
+						// this is used in batchOrders page
+						var adminMode = app.user.canManageContract( sub.catalog );
+
             /*
             POST payload should be like {"absentDistribIds":[1,2,3]}
             */
             var newAbsentDistribIds:Array<Int> = Json.parse(StringTools.urlDecode(post)).absentDistribIds;
-            if (newAbsentDistribIds==null || newAbsentDistribIds.length==0) {
+            
+						if (newAbsentDistribIds==null || (newAbsentDistribIds.length==0 && !adminMode)) {
                 throw new Error(BadRequest,"bad parameter");
             }
-            
-            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, false );
+						
+            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, adminMode );
         }
 
         /**
