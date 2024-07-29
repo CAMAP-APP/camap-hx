@@ -93,20 +93,20 @@ class Catalog extends Controller
 		
         var post =  sugoi.Web.getPostData();
         if(post!=null){
-					  // we pass adminMode in absencesServicesbecause admin can add absences, contrary to target user
+					  // we pass isContractManager in absencesServicesbecause admin can add absences, contrary to target user
 						// this is used in batchOrders page
-						var adminMode = app.user.canManageContract( sub.catalog );
+						var isContractManager = app.user.canManageContract( sub.catalog );
 
             /*
             POST payload should be like {"absentDistribIds":[1,2,3]}
             */
             var newAbsentDistribIds:Array<Int> = Json.parse(StringTools.urlDecode(post)).absentDistribIds;
             
-						if (newAbsentDistribIds==null || (newAbsentDistribIds.length==0 && !adminMode)) {
+						if (newAbsentDistribIds==null || (newAbsentDistribIds.length==0 && !isContractManager)) {
                 throw new Error(BadRequest,"bad parameter");
             }
 						
-            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, adminMode );
+            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, isContractManager );
         }
 
         /**
