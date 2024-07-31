@@ -682,12 +682,7 @@ class OrderService
 				distrib = multiDistrib.getDistributionForContract(catalog);
 			}
 
-			if ( catalog.type == db.Catalog.TYPE_VARORDER ) {
-				orders = catalog.getUserOrders( user, distrib, false );
-			} else {
-				orders = SubscriptionService.getCSARecurrentOrders( subscription, null );
-			}
-				
+			orders = catalog.getUserOrders( user, distrib, false );	
 		}
 
 		return orders;

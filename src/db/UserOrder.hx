@@ -82,7 +82,7 @@ class UserOrder extends Object
 	public function hasInvertSharedOrder():Bool{
 		return flags.has(InvertSharedOrder);
 	}
-	
+
 	/**
 	 * On peut modifier si ça na pas deja été payé + commande encore ouvertes
 	 */

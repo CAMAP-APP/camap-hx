@@ -1,5 +1,14 @@
 ::use 'contractadmin/design.mtt'::
 
+<style>
+	.faded, .faded .disabled {
+		background-color: #EEE;
+		color:gray;
+	}
+	.faded .btn-default {
+		background-color: hsl(21deg 82% 65%);
+	}
+</style>
 <h2>Participation aux distributions</h2>
 
 	<p>
@@ -16,16 +25,10 @@
 		::set now = now().getTime()::
 
 		::foreach md multidistribs::
-		
-			::if md.getDate().getTime() < now::
-				::set style = "opacity:0.5;"::
-			::else::
-				::set style = ""::
-			::end::
 
 			::set d = md.getDistributionForContract(contract)::
 
-			<tr style="::style::" >
+			<tr ::attr class if(md.getDate().getTime() < now) "faded"::>
 
 				::if(d==null)::
 					<td colspan="2" class="disabled">

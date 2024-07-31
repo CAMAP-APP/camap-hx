@@ -1,15 +1,15 @@
 package controller;
 
-import tools.ArrayTool;
+import Common;
+import service.DistributionService;
+import service.VolunteerService;
 import sugoi.BaseApp;
-import tools.ObjectListTool;
 import sugoi.form.Form;
 import sugoi.form.elements.IntSelect;
-import sugoi.form.elements.TextArea;
 import sugoi.form.elements.NativeDatePicker.NativeDatePickerType;
-import Common;
-import service.VolunteerService;
-import service.DistributionService;
+import sugoi.form.elements.TextArea;
+import tools.ArrayTool;
+import tools.ObjectListTool;
 
 using Formatting;
 using Std;
@@ -336,6 +336,7 @@ class Distribution extends Controller {
 		if (d.catalog.isConstantOrdersCatalog()) {
 			text += "<li>Provoquer l'extension des souscriptions pour prendre en compte la nouvelle date tout en préservant le même nombre de distributions. Pensez à vérifier les souscriptions après avec effectué cette action.</li>";
 		}
+		text += "<li>Si le catalogue participe déjà à la distribution ciblée, Provoquer la combinaison des commandes des 2 distributions et perturber les alternances d'utilisateurs partageant une souscription.</li>";
 		text += "</ul></div>";
 		view.text = text;
 
@@ -347,9 +348,7 @@ class Distribution extends Controller {
 		var mds = db.MultiDistrib.getFromTimeRange(d.catalog.group, from, to);
 		// remove the current one
 		mds = mds.filter(md -> return md.id != d.multiDistrib.id);
-		// remove already attended distribs
-		mds = mds.filter(md -> return md.getDistributionForContract(d.catalog) == null);
-		var mds = mds.map(md -> return {label: view.hDate(md.getDate()), value: md.id});
+		var mds = mds.map(md -> return {label: view.hDate(md.getDate()) + (md.getDistributionForContract(d.catalog) == null ? "" : " (Combiner les commandes)"), value: md.id});
 		var e = new sugoi.form.elements.IntSelect("md", "Reporter la distribution au ", mds, d.multiDistrib.id);
 		form.addElement(e, 1);
 
@@ -471,6 +470,8 @@ class Distribution extends Controller {
 	function doInviteFarmers(distrib:db.MultiDistrib) {
 		var form = new sugoi.form.Form("invite");
 
+		var oldVendorNb = distrib.getVendors().length;
+
 		// vendors to add
 		var regularVendors = [];
 		var checked = [];
@@ -515,6 +516,19 @@ class Distribution extends Controller {
 				}
 			}
 
+			// if was no vendor before, add the group role
+			if (oldVendorNb == 0 && distrib.getVendors().length > 0) {
+
+				var groupRoles = VolunteerService
+				.getRolesFromGroup(app.user.getGroup())
+				.filter(function(role) return role.catalog == null)
+				.filter(function(role) return role.enabledByDefault)
+				.map(function(x) return x.id.string());
+
+				distrib.lock();
+				distrib.volunteerRolesIds = distrib.volunteerRolesIds.split(",").concat(groupRoles).join(",");
+				distrib.update();
+		}
 			throw Ok("/distribution", "La liste des producteurs invités à été mise à jour");
 		}
 
