@@ -1098,7 +1098,6 @@ class ContractAdmin extends Controller
 	function doDelete(c:db.Catalog) {
 		
 		if (!app.user.canManageAllContracts()) throw Error("/contractAdmin", t._("Forbidden access"));
-		
 		if (checkToken()) {
 			c.lock();
 			
@@ -1118,6 +1117,12 @@ class ContractAdmin extends Controller
 					ua.removeRight(ContractAdmin(c.id));
 					ua.update();	
 				}			
+			}
+
+		  // remove roles
+			var roles = db.VolunteerRole.manager.search($catalogId == c.id);
+			for ( r in roles) {
+				r.delete();
 			}
 			
 			app.event(DeleteContract(c));
