@@ -4,6 +4,8 @@
 				document.addEventListener("DOMContentLoaded", function(event) {
 					neo.createNeoModule("batch-order", "batchOrder", {
 						catalogId: ::c.id::,
+						catalogName: "::c.name::",
+						groupId: ::groupId::,
 				});
 			});
 		</script>
