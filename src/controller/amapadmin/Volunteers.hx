@@ -115,23 +115,23 @@ class Volunteers extends controller.Controller
 	}
 
 	function addRoleToFuturesDistribs(role:db.VolunteerRole){
-		// add new role to futures distribs
-		for (contracts in app.user.getGroup().getActiveContracts()) {
-			for (distribs in contracts.getDistribs()) {
-				var md = distribs.multiDistrib;
+		var multidistribs = app.user.getGroup().getActiveMultiDistribs();
+
+		 // loop over multidistribs
+			for (md in multidistribs) {
 				var rolesIds = md.volunteerRolesIds.split(",");
 
+		    // add new role only to futures distribs
 				if (md.getDate().getTime() < Date.now().getTime()) continue;
 
 				// if role is not already in the multidistrib
-				if (rolesIds.has(role.id.string())) {
+				if (!rolesIds.has(role.id.string())) {
 					md.lock();
 					rolesIds.push(role.id.string());
 					md.volunteerRolesIds = rolesIds.join(",");
 					md.update();
 				}
 			}
-		}
 	}
 	/**
 	 * Edit a volunteer role
