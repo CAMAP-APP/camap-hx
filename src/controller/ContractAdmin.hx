@@ -1031,6 +1031,7 @@ class ContractAdmin extends Controller
 		sendNav(c);
 		
 		view.c = c;
+		view.groupId = c.group.id;
 	}
 
 	@tpl("contractadmin/tmpBaskets.mtt")
