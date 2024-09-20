@@ -356,7 +356,7 @@ class Catalog extends Object
 		if(from == null && this.firstDistrib != null) from = this.firstDistrib.distribStartDate ;
 		if(from == null) from = Date.now();
 		var to = this.endDate;
-		var distribs = db.MultiDistrib.manager.search($distribStartDate >= from && (to == null || $distribStartDate <= to) && $group == group, false);
+		var distribs = db.MultiDistrib.manager.search($distribStartDate >= from && (to == null || $distribStartDate <= to) && $group == group, { orderBy:distribStartDate }, false);
 		var out = [];
 		for (distrib in distribs) {
 			out.push({label:Formatting.dDate(distrib.distribStartDate), value:distrib.id });
