@@ -103,7 +103,7 @@ class Volunteers extends controller.Controller
 
 			if (role.enabledByDefault) {
 				// add new role to futures distribs
-				addRoleToFuturesDistribs(role);
+				updateRoleToFuturesDistribs(role, role.enabledByDefault);
 			}
 
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully added"));
@@ -114,9 +114,8 @@ class Volunteers extends controller.Controller
 
 	}
 
-	function addRoleToFuturesDistribs(role:db.VolunteerRole){
+	function updateRoleToFuturesDistribs(role:db.VolunteerRole, enable: Bool){
 		var multidistribs = app.user.getGroup().getActiveMultiDistribs();
-
 		 // loop over multidistribs
 			for (md in multidistribs) {
 				var rolesIds = md.volunteerRolesIds.split(",");
@@ -124,13 +123,29 @@ class Volunteers extends controller.Controller
 		    // add new role only to futures distribs
 				if (md.getDate().getTime() < Date.now().getTime()) continue;
 
-				// if role is not already in the multidistrib
-				if (!rolesIds.has(role.id.string())) {
-					md.lock();
-					rolesIds.push(role.id.string());
-					md.volunteerRolesIds = rolesIds.join(",");
-					md.update();
+				if (enable)
+				{
+					// if role is not already in the multidistrib
+					if (!rolesIds.has(role.id.string())) {
+						md.lock();
+						rolesIds.push(role.id.string());
+						md.volunteerRolesIds = rolesIds.join(",");
+						md.update();
+					}
 				}
+				else 
+				{
+					if (rolesIds.has(role.id.string())) {
+						// remove volunteer registered for this role in this multidistrib
+						VolunteerService.removeVolunteerFromMultiDistrib(md, role);
+
+						md.lock();
+						rolesIds.remove(role.id.string());
+						md.volunteerRolesIds = rolesIds.join(",");
+						md.update();
+					}
+				}
+				
 			}
 	}
 	/**
@@ -152,10 +167,7 @@ class Volunteers extends controller.Controller
 			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.update();
 
-			if (role.enabledByDefault) {
-				// add new role to futures distribs
-				addRoleToFuturesDistribs(role);
-			}
+			updateRoleToFuturesDistribs(role, role.enabledByDefault);
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully updated"));
 			
 		}

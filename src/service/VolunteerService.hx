@@ -1,9 +1,8 @@
 package service;
 import Common;
+import Common;
 import sugoi.mail.Mail;
 import tink.core.Error;
-
-import Common;
 
 /**
  * Volunteer Service
@@ -109,6 +108,19 @@ class VolunteerService
 			throw new Error(t._("This role is already filled by a volunteer!"));
 		}				
 		
+	}
+
+	public static function removeVolunteerFromMultiDistrib(multidistrib: db.MultiDistrib, role: db.VolunteerRole) {
+		var t = sugoi.i18n.Locale.texts;
+		if ( multidistrib != null && role != null ) {
+			var volunteer = multidistrib.getVolunteerForRole(role);
+			if ( volunteer != null ) {
+				volunteer.lock();
+				volunteer.delete();
+			}
+		} else {
+			throw new Error(t._("Missing distribution or role"));
+		}			
 	}
 
 	public static function removeUserFromRole(user: db.User, multidistrib: db.MultiDistrib, role: db.VolunteerRole, reason: String ) {
