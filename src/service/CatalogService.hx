@@ -55,7 +55,7 @@ class CatalogService{
 			form.removeElement(form.getElement("catalogMinOrdersTotal"));
 
 			form.getElement("orderEndHoursBeforeDistrib").label = "Délai minimum pour saisir une souscription (nbre d'heures avant prochaine distribution)";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
+		    form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
 
 			absencesIndex = 9;
 		}
@@ -161,7 +161,9 @@ class CatalogService{
 			
 			var orderEndHoursBeforeDistrib = form.getValueOf("orderEndHoursBeforeDistrib");
 			if( orderEndHoursBeforeDistrib == null || orderEndHoursBeforeDistrib == 0 ) {
-				throw new Error( 'Vous devez obligatoirement définir un nombre d\'heures avant distribution pour la fermeture des commandes.');
+				catalog.orderEndHoursBeforeDistrib = 72;
+				App.current.session.addMessage(("Attention, le nombre d\'heures avant distribution pour la fermeture des commandes ne peut pas être vide ou égal à 0. Il a été positionné à 72h."), true );
+				//throw new Error( 'Vous devez obligatoirement définir un nombre d\'heures avant distribution pour la fermeture des commandes.');
 			}
 		}
 
