@@ -23,7 +23,8 @@ class Catalog extends Object
 	@formPopulate("populateVendor") @:relation(vendorId) public var vendor : Vendor;
 	
 	public var startDate:SDateTime;
-	public var endDate :SDateTime;
+	@formPopulate("populateDistribs") @:relation(firstDistribId) public var firstDistrib:SNull<MultiDistrib>;
+	public var endDate :SNull<SDateTime>;
 	public var description:SNull<SText>;
 	
 	@hideInForms @:relation(groupId) public var group:db.Group;
@@ -344,6 +345,24 @@ class Catalog extends Object
 		}
 		return out;
 	}
+
+	/**
+	 * get a MultiDistrib list as form data
+	 * @return
+	 */
+	public function populateDistribs():FormData<Int>{
+		if(this.group==null) return [];
+		var from = this.startDate;
+		if(from == null && this.firstDistrib != null) from = this.firstDistrib.distribStartDate ;
+		if(from == null) from = Date.now();
+		var to = this.endDate;
+		var distribs = db.MultiDistrib.manager.search($distribStartDate >= from && (to == null || $distribStartDate <= to) && $group == group, { orderBy:distribStartDate }, false);
+		var out = [];
+		for (distrib in distribs) {
+			out.push({label:Formatting.dDate(distrib.distribStartDate), value:distrib.id });
+		}
+		return out;
+	}
 	
 	public static function getLabels() {
 
@@ -352,6 +371,7 @@ class Catalog extends Object
 		return [
 			"name" 				=> t._("Catalog name"),
 			"startDate" 		=> t._("Start date"),
+			"firstDistrib" 		=> t._("First distribution date"),
 			"endDate" 			=> t._("End date"),
 			"description" 		=> t._("Description"),
 			"distributorNum" 	=> t._("Number of required volunteers during a distribution"),

@@ -1,4 +1,5 @@
 package service;
+import service.SubscriptionService.CSAOrder;
 import Common;
 import db.MultiDistrib;
 import db.Basket;
@@ -115,62 +116,47 @@ class OrderService
 		if (order.product.stock != null) {
 			var c = order.product.catalog;
 			if (c.hasStockManagement()) {
-				var orderDate = order.distribution.date;
-				var now = Date.now();
-				var availableStock = order.product.stock;
-				var actualOrders;
-									
-				// Calculer le stock de la distri concernée
-				// Commande en cours dans la distri
-				var totOrdersQt : Float = 0;
-				// Attention: si multiweight, la quantité des commandes existantes de l'utilisateur
-				// n'est pas cummulée dans la quantité totale (quantity), le controle de stock est donc inopérant
-				// il faut inclure les commandes précédentes du user
-				if (order.product.multiWeight) {
-					//if (App.config.DEBUG){
-					//	var msg="Multiweight";
-					//	App.current.session.addMessage (msg);
-					//}
-					actualOrders = db.UserOrder.manager.search($product==order.product && $distributionId==order.distribution.id, true);
-				} else {
-					actualOrders = db.UserOrder.manager.search($product==order.product && $user!=order.user && $distributionId==order.distribution.id, true);
-				}
-				for (actualOrder in actualOrders) {
-					totOrdersQt += actualOrder.quantity;
-					//if (App.config.DEBUG){
-					//	var msg= '${DateTools.format(order.distribution.date,"%d/%m/%Y")} Commandes présentes : ' +totOrdersQt+ ' ' +order.product.name+ 'pour l\'utilisateur' +user.id;
-					//	App.current.session.addMessage (msg);
-					//}
-				}
-				// Stock dispo = stock - commandes en cours
-				if (order.product.multiWeight){
-					totOrdersQt -= quantity;
-					availableStock -= totOrdersQt;
-				} else {
-					availableStock -= totOrdersQt;
-				}
-				
-				//if (App.config.DEBUG){
-				//	var msg = "stock départ: " +order.product.stock+ "tot Orders: " +totOrdersQt+ " stock disponible: " +availableStock;
-				//	App.current.session.addMessage (msg,true);
-				//}
+				var availableStock = order.product.getAvailableStock(order.distribution.id, order.id);
+				// multiWeight always count as 1 regarding the stocks, no matter the weight
+				var orderedQuantity = order.product.multiWeight && order.quantity > 0 ? 1 : order.quantity;
 
 				// si stock à 0 annuler commande
-				if (availableStock == 0) {
+				if (availableStock == 0 && orderedQuantity > 0) {
 					order.quantity = 0;
 					order.update();
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
-				} else if (availableStock - order.quantity < 0) {
-				// si stock insuffisant, cancel
-					var canceled = order.quantity - availableStock;
-					order.quantity -= canceled;
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé pour cette date.');	
+				} else if (availableStock != null && orderedQuantity > availableStock) {
+					// si stock insuffisant, prend le max disponible
+					order.quantity = availableStock;
 					order.update();
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}');	
 				}
 			}	
 		}
 
+
 		return order;
+	}
+
+	public static function assertStocksAvailable(catalog:db.Catalog, ordersByDistrib:Map<db.Distribution,Array<CSAOrder>>) {
+		if (catalog.hasStockManagement()) {
+			var keys = ordersByDistrib.keys();
+			for ( distrib in keys ) {
+				for ( o in ordersByDistrib[distrib] ) {
+					var product = db.Product.manager.get(o.productId);
+					var availableStock = product.getAvailableStock(distrib.id);
+					// multiWeight always count as 1 regarding the stocks, no matter the weight
+					var orderedQuantity = product.multiWeight && o.quantity > 0 ? 1 : o.quantity;
+
+					// si stock à 0 annuler commande
+					if (availableStock == 0 && orderedQuantity > 0) {
+						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.');	
+					} else if (availableStock != null && orderedQuantity > availableStock) {
+						throw new Error(Forbidden, '${DateTools.format(distrib.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${product.name}');	
+					}
+				}
+			}
+		}	
 	}
 
 
@@ -211,28 +197,26 @@ class OrderService
 		}
 
 		//stocks
-		
-		if (order.product.stock != null) {
-			var c = order.product.catalog;
-			
+		var product = order.product;
+		if (product.stock != null) {
+			var c = product.catalog;
+
 			if (c.hasStockManagement()) {
-				var totOrdersQt : Float = 0;
-				var actualOrders = db.UserOrder.manager.search($productId==order.product.id && $distributionId==order.distribution.id, true);
-				for (actualOrder in actualOrders) {
-					totOrdersQt += actualOrder.quantity;
-				}
-				totOrdersQt -= order.quantity;
-				// Stock dispo = stock - commandes en cours
-				var availableStock = order.product.stock - totOrdersQt;
-				if (availableStock == 0 && newquantity != 0) {
+				var availableStock = product.getAvailableStock(order.distribution.id, order.id);
+				// multiWeight always count as 1 regarding the stocks, no matter the weight
+				var quantityAsStockUnits = order.product.multiWeight && order.quantity > 0 ? 1 : newquantity;
+				
+				if (availableStock == 0 && quantityAsStockUnits != 0) {
 					newquantity = 0;
-					throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} est épuisé');	
-				} else if (newquantity >= order.quantity && availableStock - newquantity < 0) {
+					throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} est épuisé pour cette date.');	
+				} else if (availableStock != null && quantityAsStockUnits > availableStock) {
 						//stock is not enough, cancel
-						newquantity = availableStock;
+						var qt:Float = 1;
+						if (order.product.qt != null) qt = order.product.qt; // product.qt can be null, consider 1 if null
+						newquantity = availableStock * qt; // availableStock is a unit quantity (ie. 1x300g of tomato is 1 quantity), but the contributed quantity can be of any unit (ie. 0.3 Kg)
 						order.quantity = newquantity;
 						order.update();
-						throw new Error('Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${order.product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
+						throw new Error(Forbidden, 'Erreur: ${DateTools.format(order.distribution.date,"%d/%m/%Y")}: le stock de ${product.name} n\'est pas suffisant, vous ne pouvez commander plus de ${availableStock} ${order.product.name}.');
 				}
 			}	
 		}
@@ -698,12 +682,7 @@ class OrderService
 				distrib = multiDistrib.getDistributionForContract(catalog);
 			}
 
-			if ( catalog.type == db.Catalog.TYPE_VARORDER ) {
-				orders = catalog.getUserOrders( user, distrib, false );
-			} else {
-				orders = SubscriptionService.getCSARecurrentOrders( subscription, null );
-			}
-				
+			orders = catalog.getUserOrders( user, distrib, false );	
 		}
 
 		return orders;
@@ -866,6 +845,7 @@ class OrderService
 			} catch(e:tink.core.Error) {
 				var msg = e.message;
 				App.current.session.addMessage(msg, true);	
+				throw new Error(e.message);
 			}
 		} else {
 			throw new Error("Order not found.");
@@ -891,12 +871,15 @@ class OrderService
 			total += fees;
 		}
 
+		var productQt:Float = 1;
+		if (updatedUserOrder.product.qt != null) productQt = updatedUserOrder.product.qt;
+
 		return { 
 			subTotal: Formatting.formatNum(subTotal), 
 			total: Formatting.formatNum(total), 
 			fees: fees == 0 ? '' : Formatting.formatNum(fees), 
 			basketTotal: Formatting.formatNum(updatedUserOrder.basket.total),
-			nextQt: Formatting.formatNum(updatedUserOrder.quantity * updatedUserOrder.product.qt)
+			nextQt: Formatting.formatNum(updatedUserOrder.quantity * productQt)
 		 };
 	}
 }

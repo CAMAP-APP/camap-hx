@@ -3,6 +3,7 @@ import Common;
 import sugoi.form.ListData.FormData;
 import sys.db.Object;
 import sys.db.Types;
+
 using tools.DateTool;
 
 enum GroupFlags {
@@ -17,6 +18,8 @@ enum GroupFlags {
 	AddressRequired;//address required for delivery at home
 	__UnUsed;
 	__Show3rdCategoryLevel; //@deprecated Show the third category level in the shop (Only for shop V2)
+	AllowInformationNotifs;  // Allow to send permanence information to volunteers
+	AllowAlertNotifs; // Allow to send permanence alert to free volunteers
 }
 
 //user registration options
@@ -80,6 +83,7 @@ class Group extends Object
 	@hideInForms public var allowMoneyPotWithNegativeBalance:SNull<SBool>;
 
 	//Volunteers for duty periods
+	@hideInForms public var daysAfterClosingBeforeHidingDutyPeriods: STinyUInt;
 	@hideInForms public var volunteersMailDaysBeforeDutyPeriod: STinyInt;
 	@hideInForms public var volunteersMailContent: SText;
 	@hideInForms public var vacantVolunteerRolesMailDaysBeforeDutyPeriod: STinyInt;
@@ -101,6 +105,7 @@ class Group extends Object
 		
 		//duty periods props
 		daysBeforeDutyPeriodsOpen = 60;
+		daysAfterClosingBeforeHidingDutyPeriods = 30;
 		volunteersMailContent = "<b>Rappel : Vous êtes inscrit·e à la permanence du [DATE_DISTRIBUTION],</b><br/>
 		Lieu de distribution : [LIEU_DISTRIBUTION]<br/>
 		<br/>
@@ -187,6 +192,13 @@ class Group extends Object
 	}
 	
 	/**
+	 * Renvoi la liste des multidistributions actives
+	 */
+	public function getActiveMultiDistribs(){
+		return db.MultiDistrib.manager.search($group == this, false);
+	}
+	
+	/**
 	 * récupere les produits des contracts actifs
 	 */
 	public function getProducts() {
@@ -243,7 +255,6 @@ class Group extends Object
 	public function getGroupAdmins():Array<db.UserGroup>{
 
 		var users = db.UserGroup.manager.search($rights != null && $rights != "[]" && $group == this, false);
-		
 		//cleaning 
 		/*for ( u in users.array()) {
 			

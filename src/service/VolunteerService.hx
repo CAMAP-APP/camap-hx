@@ -1,5 +1,6 @@
 package service;
 import Common;
+import Common;
 import sugoi.mail.Mail;
 import tink.core.Error;
 
@@ -107,6 +108,19 @@ class VolunteerService
 			throw new Error(t._("This role is already filled by a volunteer!"));
 		}				
 		
+	}
+
+	public static function removeVolunteerFromMultiDistrib(multidistrib: db.MultiDistrib, role: db.VolunteerRole) {
+		var t = sugoi.i18n.Locale.texts;
+		if ( multidistrib != null && role != null ) {
+			var volunteer = multidistrib.getVolunteerForRole(role);
+			if ( volunteer != null ) {
+				volunteer.lock();
+				volunteer.delete();
+			}
+		} else {
+			throw new Error(t._("Missing distribution or role"));
+		}			
 	}
 
 	public static function removeUserFromRole(user: db.User, multidistrib: db.MultiDistrib, role: db.VolunteerRole, reason: String ) {
@@ -232,6 +246,13 @@ class VolunteerService
 					throw new Error(t._("The number of days before the duty periods to send the vacant roles mail to all members needs to be greater than 1 day."));
 				} else if ( numberOfDays > 15 ) {
 					throw new Error(t._("The number of days before the duty periods to send the instructions mail to all members needs to be lower than 15 days."));
+				}
+
+			case "daysAfterClosingBeforeHidingDutyPeriods":
+				if ( numberOfDays < 0 ) {
+					throw new Error(t._("The number of days before hiding a volunteer role in a catalog needs to be positive."));
+				} else if ( numberOfDays > 255 ) {
+					throw new Error(t._("The number of days before hiding a volunteer role in a catalog needs to be at most 255 days."));
 				}
 		}
 		
@@ -378,11 +399,15 @@ class VolunteerService
 
 		// Let's find all the unique volunteer roles for this set of multidistribs
 		var uniqueRolesIds = [];
+		var group:Null<db.Group> = null;
 		for (md in multidistribs) {
-			uniqueRolesIds = uniqueRolesIds.concat(md.getVolunteerRoleIds());			
+			uniqueRolesIds = uniqueRolesIds.concat(md.getVolunteerRoleIds());
+			if (group == null && md != null) group = md.group;
 		}
+		var daysBeforeHidingDuties = 0;
+		if (group != null) daysBeforeHidingDuties = group.daysAfterClosingBeforeHidingDutyPeriods;
 		var uniqueRoles = tools.ArrayTool.deduplicate(uniqueRolesIds).map( rid -> return db.VolunteerRole.manager.get(rid,false));
-		uniqueRoles = uniqueRoles.filter(u -> u!=null);
+		uniqueRoles = uniqueRoles.filter(u -> u!=null && (u.catalog == null || Date.now().getTime() < u.catalog.endDate.getTime() + DateTools.days(daysBeforeHidingDuties)));
 
 		//sort by catalog id and role name
 		uniqueRoles.sort(function(b, a) {

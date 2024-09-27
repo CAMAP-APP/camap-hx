@@ -12,9 +12,8 @@
 			::_("Volunteer Role")::
 		</th>
 		<th>
-			::_("Related catalog")::
+			::_("Enabled by default on all distributions")::
 		</th>
-		<th></th>
 	</tr>
 	
 	::foreach role volunteerRoles::
@@ -23,12 +22,8 @@
 			<span>::role.name::</span>
 		</td>
 		<td>
-			::if role._catalog!=null ::
-				<span>::role._catalog.name::</span>
-            ::else::
-				<span>::_("None")::</span>
-            ::end::
-		</td>
+			::if role.enabledByDefault:: <span>::_("Yes")::</span> ::else:: <span>::_("No")::</span> ::end::
+			</td>
 		<td>
 			<div class="btn-group">
 			$$edit(::_("Edit")::,/amapadmin/volunteers/editRole/::role.id::)
@@ -43,23 +38,31 @@
 
 $$insert(::_("Add a role")::,/amapadmin/volunteers/insertRole)
 
-
-<h3>
-	::_("Delays and messages")::
-</h3>		
-
 ::raw form::
 
-
-<script src="/js/tinymce/tinymce.min.js"></script>
+<!-- Management of alert fields state (enabled / disabled) -->
 <script>
-	tinymce.init({ 
-		selector:'textarea',
-		plugins: "autolink textcolor emoticons image",
-		toolbar: "styleselect bold italic alignleft aligncenter emoticons image bullist outdent indent forecolor",
-		language: '::session.lang::',
-	
-	});	
+	document.addEventListener("DOMContentLoaded", function() {
+		// notifs info
+		let allowInfoNotifsToggle = document.getElementById("msg_allowInformationNotifs"); 
+		function handleInfoNotifChange() { 
+			_Camap.setReadonly(document.getElementById("msg_maildays"), !allowInfoNotifsToggle.checked);
+			_Camap.setReadonly(document.getElementById("msg_volunteersMailContent"), !allowInfoNotifsToggle.checked);
+		} 
+		allowInfoNotifsToggle.addEventListener("change", handleInfoNotifChange); 
+		handleInfoNotifChange();
+
+		// notifs alert
+		let allowAlertNotifsToggle = document.getElementById("msg_allowAlertNotifs"); 
+		function handleAlertNotifChange() { 
+			_Camap.setReadonly(document.getElementById("msg_alertmaildays"),!allowAlertNotifsToggle.checked);
+			_Camap.setReadonly(document.getElementById("msg_alertMailContent"),!allowAlertNotifsToggle.checked);
+		} 
+		allowAlertNotifsToggle.addEventListener("change", handleAlertNotifChange); 
+		handleAlertNotifChange();
+
+
+	});
 </script>
 
 ::end::

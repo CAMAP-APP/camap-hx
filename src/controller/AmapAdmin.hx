@@ -79,7 +79,10 @@ class AmapAdmin extends Controller
 	
 	@tpl("amapadmin/rights.mtt")
 	public function doRights() {
-		view.users = app.user.getGroup().getGroupAdmins();
+        var admins = app.user.getGroup().getGroupAdmins();
+        // Sort admins by last name (case-insensitive)
+		admins.sort((a, b) -> a.user.lastName.toUpperCase() < b.user.lastName.toUpperCase() ? -1 : 1);
+		view.users = admins;
 		addBc('rights','Droits d\'administration','/amapadmin/rights');
 	}
 	

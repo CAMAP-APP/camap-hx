@@ -6,10 +6,12 @@ import db.Catalog;
 import db.UserOrder;
 import form.CamapDatePicker;
 import form.CamapDatePicker;
+import form.CamapForm;
 import service.CatalogService;
 import service.OrderService;
 import service.ProductService;
 import service.SubscriptionService;
+import service.VolunteerService;
 import sugoi.form.Form;
 import sugoi.form.elements.Checkbox;
 import sugoi.form.elements.IntInput;
@@ -31,10 +33,8 @@ class ContractAdmin extends Controller
 		super();
 		if (!app.user.isContractManager()) throw Error("/", t._("You don't have the authorization to manage contracts"));
 		view.nav = ["contractadmin"];
-		
-
 	}
-	
+
 	public function sendNav(c){
 		var navbar = new Array<Link>();
 		var e = Nav(navbar,"contractAdmin",c.id);
@@ -147,9 +147,107 @@ class ContractAdmin extends Controller
 			} 
 			throw Ok( "/contractAdmin/view/" + catalog.id,  text );
 		}
+
+		CamapForm.addRichText(form, 'textarea');
 		 
 		view.form = form;
 	}
+
+	/**
+	 * Manage roles
+	 */
+	 @tpl("contractadmin/roles.mtt")
+	 function doRoles(contract:db.Catalog,?args:{?enable:String,?disable:String}) {
+		checkToken();
+
+		view.nav.push("roles");
+		sendNav(contract);
+
+		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(app.user.getGroup());
+		view.volunteerRolesWithCatalog = volunteerRolesGroup.filter(function(role) return role.catalog == contract);
+
+		view.c = contract;
+	 }
+
+	 	/**
+		Insert a volunteer role
+	**/
+	@tpl("form.mtt")
+	function doInsertRole(contract:db.Catalog) {
+		var role = new db.VolunteerRole();
+		var form = new sugoi.form.Form("volunteerrole");
+
+		form.addElement( new StringInput("name", t._("Volunteer role name"), null, true) );
+
+		if (form.isValid()) {
+			role.name = form.getValueOf("name");
+			role.group = app.user.getGroup();
+			role.catalog = contract;
+			role.enabledByDefault = true;
+			role.insert();
+
+			 // add new role to futures distribsmd.volunteerRolesIds
+			var distribs = contract.getDistribs();
+			for ( d in distribs) {
+				var md = d.multiDistrib;
+
+				// if multidistrib is in the future, add the role to the multidistrib
+				if (md.getDate().getTime() > Date.now().getTime()) {
+					md.lock();
+
+					var newRolesIds = md.volunteerRolesIds.split(",");
+					newRolesIds.push(role.id.string());
+					md.volunteerRolesIds = newRolesIds.join(",");
+
+					md.update();
+				}
+			}
+			throw Ok("/contractAdmin/roles/"+contract.id, t._("Volunteer Role has been successfully added"));
+			
+		}
+
+		view.title = t._("Create a volunteer role");
+		view.form = form;
+	}
+
+	 /**
+	 * Edit a volunteer role
+	 */
+	@tpl('form.mtt')
+	function doEditRole(role:db.VolunteerRole) {
+		var form = new sugoi.form.Form("volunteerrole");
+	
+		form.addElement( new StringInput("name", t._("Volunteer role name"), role.name, true) );
+
+		if (form.isValid()) {
+			role.lock();
+			role.name = form.getValueOf("name");
+			role.update();
+
+			throw Ok("/contractAdmin/roles/"+role.catalog.id, t._("Volunteer Role has been successfully updated"));
+		}
+		
+		view.title = t._("Edit a volunteer role");
+		view.form = form;
+	}
+
+	/**
+	 * Delete a volunteer role
+	 */
+	 function doDeleteRole(role: db.VolunteerRole, args: { token:String , ?force:Bool, ?catalogId:String}) {
+		if ( checkToken() ) {
+			try {
+				VolunteerService.deleteVolunteerRole(role,args.force);
+			}
+			catch(e: tink.core.Error){
+				throw Error("/contractAdmin/roles/"+args.catalogId, e.message);
+			}
+
+			throw Ok("/contractAdmin/roles/"+args.catalogId, t._("Volunteer Role has been successfully deleted"));
+		} else {
+			throw Redirect("/contractAdmin/roles/"+args.catalogId);
+		}
+}
 
 	/**
 	 * Manage products
@@ -165,22 +263,7 @@ class ContractAdmin extends Controller
 			
 			if (nextDistribs[0] != null){
 				view.stockDate = DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-				// debug
-				// var msg = "Distri calcul stock: " +DateTools.format(nextDistribs[0].date,"%d/%m/%Y");
-				// App.current.session.addMessage(msg, true);
-				// end debug
-				for (product in contract.getProducts(false)){
-					var actualOrders = db.UserOrder.manager.search($productId==product.id && $distributionId==nextDistribs[0].id, true);
-					var totOrdersQt : Float = 0;
-					for (actualOrder in actualOrders) {
-						totOrdersQt += actualOrder.quantity;
-					}
-					// Stock dispo = stock - commandes en cours
-					if (product.stock != null)  {
-						var availableStock = product.stock - totOrdersQt;
-						product.stock = availableStock;
-					}
-				}
+				view.nextDistribId = nextDistribs[0].id;
 			}
 		}
 		view.c = contract;
@@ -202,7 +285,25 @@ class ContractAdmin extends Controller
 		//generate a token
 		checkToken();
 	}
-		
+
+	
+	/**
+	 * View stocks
+	 */
+	@tpl("contractadmin/stocks.mtt")
+	function doStocks(contract:db.Catalog, ?args:{?enable:String, ?disable:String}) {
+		view.nav.push("stocks");
+		sendNav(contract);
+		if (!app.user.canManageContract(contract))
+			throw Error("/", t._("Access forbidden"));
+		if (!contract.hasStockManagement())
+			throw Error("/", t._("Please activate stock management to access this screen."));
+
+		var now = Date.now();
+		var nextDistribs = contract.getDistribs();
+		view.distributions = nextDistribs;
+		view.c = contract;
+	}
 	
 	/**
 	 *  - hidden page -
@@ -729,6 +830,18 @@ class ContractAdmin extends Controller
 					}
 				}
 			}
+
+			// copy roles
+			var roles = VolunteerService.getRolesFromGroup(app.user.getGroup())
+				.filter(function(role) return role.catalog == catalog);
+			for ( r in roles) {
+				var role = new db.VolunteerRole();
+				role.name = r.name;
+				role.catalog = nc;
+				role.group = nc.group;
+				role.enabledByDefault = r.enabledByDefault;
+				role.insert();
+			}
 			
 			app.event(DuplicateContract(catalog));
 			
@@ -788,16 +901,17 @@ class ContractAdmin extends Controller
 		
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("You do not have the authorization to manage this contract"));
 
-		var now = Date.now();
-		//snap to beggining of the month , end is 3 month later 
-		var from = new Date(now.getFullYear(),now.getMonth(),1,0,0,0);
-		var to = new Date(now.getFullYear(),now.getMonth()+3,-1,23,59,59);
-		var timeframe = new tools.Timeframe(from,to);
+		var fromFirstDistrib = contract.firstDistrib != null ? contract.firstDistrib.distribStartDate : contract.startDate;
+		var toEndDate = contract.endDate;
+		// a timeframe that can be overriden by url params
+		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+		// a timeframe that always match exactly the participation dates
+		var participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
 
-		var multidistribs =  db.MultiDistrib.getFromTimeRange(contract.group,timeframe.from , timeframe.to);
 
 		if(args!=null && args.participateToAllDistributions){
-			for( d in multidistribs){
+			var participatingMultidistribs =  db.MultiDistrib.getFromTimeRange(contract.group, participationTimeframe.from , participationTimeframe.to);
+			for( d in participatingMultidistribs){
 				if( d.getDistributionForContract(contract)==null ){
 					try{
 						service.DistributionService.participate(d,contract);
@@ -806,14 +920,15 @@ class ContractAdmin extends Controller
 					}
 				}				
 			}
-			app.session.addMessage(contract.vendor.name+" participe maintenant à toutes les distributions");
+			app.session.addMessage('${contract.vendor.name} participe maintenant à toutes les distributions du ${Formatting.dDate(participationTimeframe.from)} au ${Formatting.dDate(participationTimeframe.to)}');
 		}
 		
-		view.multidistribs = multidistribs;
+		var displayedMultidistribs =  db.MultiDistrib.getFromTimeRange(contract.group, displayTimeframe.from , displayTimeframe.to, false);
+		view.multidistribs = displayedMultidistribs;
 		view.c = contract;
 		view.contract = contract;
-		view.timeframe = timeframe;
-
+		view.timeframe = displayTimeframe;
+		view.participationTimeframe = participationTimeframe;
 				
 	}
 
@@ -910,6 +1025,15 @@ class ContractAdmin extends Controller
 		
 	}
 
+	@tpl("contractadmin/batchOrder.mtt")
+	function doBatchOrder(c:db.Catalog, ?args:{old:Bool}) {
+		view.nav.push("orders");
+		sendNav(c);
+		
+		view.c = c;
+		view.groupId = c.group.id;
+	}
+
 	@tpl("contractadmin/tmpBaskets.mtt")
 	function doTmpBaskets(md:db.MultiDistrib){
 		view.md = md;
@@ -975,7 +1099,6 @@ class ContractAdmin extends Controller
 	function doDelete(c:db.Catalog) {
 		
 		if (!app.user.canManageAllContracts()) throw Error("/contractAdmin", t._("Forbidden access"));
-		
 		if (checkToken()) {
 			c.lock();
 			
@@ -995,6 +1118,12 @@ class ContractAdmin extends Controller
 					ua.removeRight(ContractAdmin(c.id));
 					ua.update();	
 				}			
+			}
+
+		  // remove roles
+			var roles = db.VolunteerRole.manager.search($catalogId == c.id);
+			for ( r in roles) {
+				r.delete();
 			}
 			
 			app.event(DeleteContract(c));

@@ -1,30 +1,45 @@
 package controller.amapadmin;
+import form.CamapForm;
+import service.VolunteerService;
+import sugoi.form.elements.Checkbox;
+import sugoi.form.elements.Html;
 import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
 import sugoi.form.elements.TextArea;
-import service.VolunteerService;
 
 class Volunteers extends controller.Controller
 {
 	@tpl("amapadmin/volunteers/default.mtt")
 	function doDefault() {
 
-		view.volunteerRoles = VolunteerService.getRolesFromGroup(app.user.getGroup());
-		
-		checkToken();
+		var userGroup = app.user.getGroup();
 
-		var form = new sugoi.form.Form("msg");
-		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 365)"), app.user.getGroup().daysBeforeDutyPeriodsOpen, true) );
+		var volunteerRolesGroup = VolunteerService.getRolesFromGroup(userGroup);
+		view.volunteerRoles = volunteerRolesGroup.filter(function(role) return role.catalog == null);
+
+		checkToken();
 		
-		form.addElement( new IntInput("maildays", t._("Number of days before duty period to send mail"), app.user.getGroup().volunteersMailDaysBeforeDutyPeriod, true) );
-		form.addElement( new TextArea("volunteersMailContent", t._("Email body sent to volunteers"), app.user.getGroup().volunteersMailContent, true, null, "style='height:300px;'") );
+		var form = new sugoi.form.Form("msg"); // don't change this name, it's used in the template view.mtt
+
+		form.addElement( new form.RawHtml("title1", '<h3>${t._("Duties configuration")}</h3>'));
+		form.addElement( new IntInput("daysAfterClosingBeforeHidingDutyPeriods", t._("Masquer les catalogues expirés depuis plus de… (jours)"), userGroup.daysAfterClosingBeforeHidingDutyPeriods, true) );
+
+
+		form.addElement( new form.RawHtml("title2", '<h3>${t._("Delays and messages")}</h3>'));
+
+		form.addElement( new IntInput("dutyperiodsopen", t._("Number of days before duty periods open to volunteers (between 7 and 365)"), userGroup.daysBeforeDutyPeriodsOpen, true) );
+		form.addElement( new Checkbox("allowInformationNotifs", t._("Authorize the sending of information emails to volunteers"), userGroup.flags.has(db.Group.GroupFlags.AllowInformationNotifs)));		
+		form.addElement( new IntInput("maildays", t._("Number of days before duty period to send mail"), userGroup.volunteersMailDaysBeforeDutyPeriod, true) );
+		form.addElement( new TextArea("volunteersMailContent", t._("Email body sent to volunteers"), userGroup.volunteersMailContent, true, null, "style='height:300px;'") );
 		form.addElement( new sugoi.form.elements.Html("html1","<b>Variables utilisables dans l'email :</b><br/>
 				[DATE_DISTRIBUTION] : Date de la distribution<br/>
 				[LIEU_DISTRIBUTION] : Lieu de la distribution<br/> 
 				[LISTE_BENEVOLES] : Liste des bénévoles inscrits à cette permanence"));
-		form.addElement( new IntInput("alertmaildays", t._("Number of days before duty period to send mail for vacant volunteer roles"), app.user.getGroup().vacantVolunteerRolesMailDaysBeforeDutyPeriod, true) );
-		form.addElement( new TextArea("alertMailContent", t._("Alert email body"), app.user.getGroup().alertMailContent, true, null, "style='height:300px;'") );
+				
+		form.addElement( new Checkbox("allowAlertNotifs", t._("Authorize the sending of alert emails to free volunteers"), userGroup.flags.has(db.Group.GroupFlags.AllowAlertNotifs)));
+		form.addElement( new IntInput("alertmaildays", t._("Number of days before duty period to send mail for vacant volunteer roles"), userGroup.vacantVolunteerRolesMailDaysBeforeDutyPeriod, true) );
+		form.addElement( new TextArea("alertMailContent", t._("Alert email body"), userGroup.alertMailContent, true, null, "style='height:300px;'") );
 		form.addElement( new sugoi.form.elements.Html("html2","<b>Variables utilisables dans l'email :</b><br/>
 				[DATE_DISTRIBUTION] : Date de la distribution<br/>
 				[LIEU_DISTRIBUTION] : Lieu de la distribution<br/> 
@@ -36,23 +51,32 @@ class Volunteers extends controller.Controller
 				VolunteerService.isNumberOfDaysValid( form.getValueOf("dutyperiodsopen"), "volunteersCanJoin" );
 				VolunteerService.isNumberOfDaysValid( form.getValueOf("maildays"), "instructionsMail" );
 				VolunteerService.isNumberOfDaysValid( form.getValueOf("alertmaildays"), "vacantRolesMail" );
+				VolunteerService.isNumberOfDaysValid( form.getValueOf("daysAfterClosingBeforeHidingDutyPeriods"), "daysAfterClosingBeforeHidingDutyPeriods" );
 			}
 			catch(e: tink.core.Error) {
 				throw Error("/amapadmin/volunteers", e.message);
 			}			
 
-			var group  = app.user.getGroup();
+			var group  = userGroup;
 			group.lock();
+			group.daysAfterClosingBeforeHidingDutyPeriods = form.getValueOf("daysAfterClosingBeforeHidingDutyPeriods");
 			group.daysBeforeDutyPeriodsOpen = form.getValueOf("dutyperiodsopen");
 			group.volunteersMailDaysBeforeDutyPeriod = form.getValueOf("maildays");
 			group.volunteersMailContent = form.getValueOf("volunteersMailContent");
 			group.vacantVolunteerRolesMailDaysBeforeDutyPeriod = form.getValueOf("alertmaildays");
 			group.alertMailContent = form.getValueOf("alertMailContent");
+			
+			// notifs
+			form.getValueOf("allowInformationNotifs") ? group.flags.set(db.Group.GroupFlags.AllowInformationNotifs) : group.flags.unset(db.Group.GroupFlags.AllowInformationNotifs);
+			form.getValueOf("allowAlertNotifs") ? group.flags.set(db.Group.GroupFlags.AllowAlertNotifs) : group.flags.unset(db.Group.GroupFlags.AllowAlertNotifs);
+
 			group.update();
 			
 			throw Ok("/amapadmin/volunteers", t._("Your changes have been successfully saved."));
 			
 		}
+
+		CamapForm.addRichText(form, 'textarea');
 		
 		view.form = form;
 		view.nav.push( 'volunteers' );
@@ -64,64 +88,91 @@ class Volunteers extends controller.Controller
 	**/
 	@tpl("form.mtt")
 	function doInsertRole() {
-
 		var role = new db.VolunteerRole();
 		var form = new sugoi.form.Form("volunteerrole");
 
 		form.addElement( new StringInput("name", t._("Volunteer role name"), null, true) );
-		var activeContracts = Lambda.array(Lambda.map(app.user.getGroup().getActiveContracts(), function(contract) return { label: contract.name, value: contract.id }));
-		form.addElement( new IntSelect('contract',t._("Related catalog"), activeContracts, null, false, t._("None")) );
-	                                                
+		form.addElement( new Checkbox("enabledByDefault", t._("Enabled by default on all distributions"), false, true) );
+
 		if (form.isValid()) {
-			
 			role.name = form.getValueOf("name");
 			role.group = app.user.getGroup();
-			var contractId = form.getValueOf("contract");
-		
-			if (contractId != null)  
-			{
-				role.catalog = db.Catalog.manager.get(contractId);
-			}
+			role.catalog = null;
+			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.insert();
-			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully added"));
-			
-		}
 
+			if (role.enabledByDefault) {
+				// add new role to futures distribs
+				updateRoleToFuturesDistribs(role, role.enabledByDefault);
+			}
+
+			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully added"));
+		}
+		
 		view.title = t._("Create a volunteer role");
 		view.form = form;
 
 	}
 
+	function updateRoleToFuturesDistribs(role:db.VolunteerRole, enable: Bool){
+		var multidistribs = app.user.getGroup().getActiveMultiDistribs();
+		 // loop over multidistribs
+			for (md in multidistribs) {
+				var rolesIds = md.volunteerRolesIds.split(",");
+
+		    // add new role only to futures distribs
+				if (md.getDate().getTime() < Date.now().getTime()) continue;
+
+				if (enable)
+				{
+					// if role is not already in the multidistrib
+					if (!rolesIds.has(role.id.string())) {
+						md.lock();
+						rolesIds.push(role.id.string());
+						md.volunteerRolesIds = rolesIds.join(",");
+						md.update();
+					}
+				}
+				else 
+				{
+					if (rolesIds.has(role.id.string())) {
+						// remove volunteer registered for this role in this multidistrib
+						VolunteerService.removeVolunteerFromMultiDistrib(md, role);
+
+						md.lock();
+						rolesIds.remove(role.id.string());
+						md.volunteerRolesIds = rolesIds.join(",");
+						md.update();
+					}
+				}
+				
+			}
+	}
 	/**
 	 * Edit a volunteer role
 	 */
 	@tpl('form.mtt')
 	function doEditRole(role:db.VolunteerRole) {
-
 		var form = new sugoi.form.Form("volunteerrole");
 
 		form.addElement( new StringInput("name", t._("Volunteer role name"), role.name, true) );
-		var activeContracts = Lambda.array(Lambda.map(app.user.getGroup().getActiveContracts(), function(contract) return { label: contract.name, value: contract.id }));
-		var defaultContractId = role.catalog != null ? role.catalog.id : null;
-		form.addElement( new IntSelect('contract',t._("Related catalog"), activeContracts, defaultContractId, false, t._("None")) );
-	                                                
+		form.addElement( new Checkbox("enabledByDefault", t._("Enabled by default on all distributions"), role.enabledByDefault, true) );
+
 		if (form.isValid()) {
 			
 			role.lock();
-
 			role.name = form.getValueOf("name");
-			var contractId = form.getValueOf("contract");
-			role.catalog = contractId != null ? db.Catalog.manager.get(contractId) : null;
-			
+			role.group = app.user.getGroup();
+			role.catalog = null;
+			role.enabledByDefault = form.getValueOf("enabledByDefault") == true;
 			role.update();
 
+			updateRoleToFuturesDistribs(role, role.enabledByDefault);
 			throw Ok("/amapadmin/volunteers", t._("Volunteer Role has been successfully updated"));
 			
 		}
-
-		view.title = t._("Create a volunteer role");
+		view.title = t._("Edit a volunteer role");
 		view.form = form;
-
 	}
 
 	/**

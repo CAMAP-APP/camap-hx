@@ -33,6 +33,10 @@
 				<td>::_("End date")::</td>
 				<td>::dDate(contract.endDate)::</td>
 			</tr>
+			<tr>
+				<td>::_("First distribution date")::</td>
+				<td>::if contract._firstDistrib != null:: ::dDate(contract._firstDistrib.distribStartDate):: ::else:: ::dDate(contract.startDate):: ::end::</td>
+			</tr>
 		</table>
 
 		<div>

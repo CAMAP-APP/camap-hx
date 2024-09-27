@@ -332,6 +332,7 @@ $$browserDetection()
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+		pointer-events: all;
 	}
 
 	.productModal-title {
@@ -340,7 +341,7 @@ $$browserDetection()
 		line-height: 1.2rem;
 	}
 
-	.modal-image img {
+	img.leftImage {
         max-width: 100%;
         object-fit: scale-down;
         float: left;
@@ -385,7 +386,7 @@ $$browserDetection()
 			<div class="modal" id="img-::m.fileId::" tabindex="-1"
 					 aria-labelledby="imglabel-::m.fileId::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
-					<img src="::file(m.fileId)::" alt="" />
+					<img src="::file(m.fileId)::" alt="" class="leftImage" />
 				</div>
 			</div>
 			::end::
@@ -519,16 +520,17 @@ $$browserDetection()
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::group.txtIntro==null || group.txtIntro==""::"
 				aria-controls="panel-nextDeliveries"
 				id="tab-nextDeliveries"
-				tabindex="-1">
+				tabindex="-1"
+				::cond md!=null::>
 				<span class="glyphicon glyphicon-time"></span><span>::_("Next deliveries")::</span>
 			</button>
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::(group.txtIntro==null || group.txtIntro=="") && md == null::"
 				aria-controls="panel-documents"
 				id="tab-documents"
 				tabindex="-1"
@@ -539,7 +541,7 @@ $$browserDetection()
 			<button
 				class="tabButton"
 				role="tab"
-				aria-selected="false"
+				aria-selected="::(group.txtIntro==null || group.txtIntro=="") && md == null && visibleGroupDocuments.length == 0::"
 				aria-controls="panel-suppliersAndProducts"
 				id="tab-suppliersAndProducts"
 				tabindex="-1">
@@ -547,9 +549,9 @@ $$browserDetection()
 			</button>
 		</div>
 		<div id="panel-description" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-description" ::cond group.txtIntro!=null && group.txtIntro!=""::>
-			::raw nl2br(group.txtIntro)::
+			::raw sanitize(group.txtIntro)::
 		</div>
-		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" hidden="hidden">
+		<div id="panel-nextDeliveries" class="panel deliveries" role="tabpanel" tabindex="0" aria-labelledby="tab-nextDeliveries" ::attr hidden group.txtIntro!=null && group.txtIntro!="":: ::cond md!=null::>
 			::foreach del group.getDeliveries(4)::
 			::set d = del._multiDistrib::
 			<div class="dateBox">
@@ -577,12 +579,12 @@ $$browserDetection()
 			</div>
 			::end::
 		</div>
-		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" hidden="hidden" ::cond visibleGroupDocuments.length != 0::>
+		<div id="panel-documents" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-documents" ::attr hidden (group.txtIntro!=null && group.txtIntro!="") || md!=null:: ::cond visibleGroupDocuments.length != 0::>
 			::foreach doc visibleGroupDocuments::
 			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
 			::end::
 		</div>
-		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" hidden="hidden">
+		<div id="panel-suppliersAndProducts" class="panel" role="tabpanel" tabindex="0" aria-labelledby="tab-suppliersAndProducts" ::attr hidden (group.txtIntro!=null && group.txtIntro!="") || md!=null || visibleGroupDocuments.length != 0::>
 			<p>
 				::_("Non-complete extract of available products:")::
 			</p>
@@ -613,13 +615,13 @@ $$browserDetection()
 			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
 				<div class="modal-dialog modal-image">
 					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt="" />
+						<img src="::p.getImage()::" alt="" class="leftImage" />
 						<div class="productModal-description">
 							<div class="productModal-title">::p.name::</div>
 							<div class="productLabelIcon" ::cond p.organic::>
 								<i class="icons icon-bio"></i>
 							</div>
-							<div ::cond p.desc != null::>::raw nl2br(p.desc)::</div>
+							<div ::cond p.desc != null::>::raw sanitize(p.desc)::</div>
 						</div>
 					</div>
 				</div>

@@ -24,6 +24,10 @@ class Distribution extends Object
 	@hideInForms public var orderStartDate : SDateTime; 
 	@hideInForms public var orderEndDate : SDateTime; //cannot be null since CSA contracts also have orderEndDate
 	
+	// When recreating orders from this distrib, how many times the recurrent order must be created
+	// Allows a distrib to be merged to another distrib while keeping the orders count
+	@hideInForms public var quantities : Int = 1;
+	
 	public static var DISTRIBUTION_VALIDATION_LIMIT = 10;
 	
 	public function new() 
@@ -65,26 +69,6 @@ class Distribution extends Object
 		return out;
 	}
 	
-	/*public function hasEnoughDistributors() {
-		var n = contract.distributorNum;
-		
-		var d = 0;
-		if (distributor1 != null) d++;
-		if (distributor2 != null) d++;
-		if (distributor3 != null) d++;
-		if (distributor4 != null) d++;
-		
-		return (d >= n) ;
-	}
-	
-	public function isDistributor(u:User) {
-		if (u == null) return false;
-		return (distributor1!=null && u.id == distributor1.id) || 
-			(distributor2!=null && u.id == distributor2.id) || 
-			(distributor3!=null && u.id == distributor3.id) || 
-			(distributor4!=null && u.id == distributor4.id);
-	}*/
-	
 	/**
 	 * String to identify this distribution (debug use only)
 	 */
@@ -93,14 +77,7 @@ class Distribution extends Object
 	}
 	
 	public function getOrders() {
-			
-		// if ( this.catalog.type == db.Catalog.TYPE_CONSTORDERS){
-		// 	var pids = db.Product.manager.search($catalog == this.catalog, false);
-		// 	var pids = Lambda.map(pids, function(x) return x.id);		
-		// 	return db.UserOrder.manager.search( ($productId in pids), false); 
-		// }else{
 		return db.UserOrder.manager.search($distribution == this, false); 
-		// }
 	}
 
 	/**
@@ -186,49 +163,6 @@ class Distribution extends Object
 			
 		}
 	}
-
-	/**
-	 * Get next multi-devliveries
-	 * ( deliveries including more than one vendors )
-	 */
-	/*public static function getNextMultiDeliveries(){
-
-		var out = new Map<String,{place:Place,startDate:Date,endDate:Date,active:Bool,products:Array<ProductInfo>}>();
-		return Lambda.array(manager.search($orderStartDate <= Date.now() && $orderEndDate >= Date.now() && $contract==contract,false));
-
-		var now = Date.now();
-
-		var contracts = Contract.getActiveContracts(App.current.user.getGroup());
-		var cids = Lambda.map(contracts, function(p) return p.id);
-
-		//available deliveries + some of the next deliveries
-
-		var distribs = db.Distribution.manager.search(($catalogId in cids) && $orderEndDate >= now, { orderBy:date }, false);
-		var inOneMonth = DateTools.delta(now, 1000.0 * 60 * 60 * 24 * 30);
-		for (d in distribs) {
-
-			var o = out.get(d.getKey());
-			if (o == null) o = {place:d.place, startDate:d.date,active:null, endDate:d.end, products:[]};
-			for ( p in d.contract.getProductsPreview(8)){
-				if (o.products.length >= 8) break;
-				o.products.push(	p.infos() );
-			}
-
-			if (d.orderStartDate.getTime() <= now.getTime() ){
-				//order currently open
-				o.active = true;
-			}else if (d.orderStartDate.getTime() <= inOneMonth.getTime() ){
-				//open soon
-				o.active = false;
-			}else{
-				continue;
-
-			}
-
-			out.set(d.getKey(), o);
-		}
-		return Lambda.array(out);
-	}*/
 
 	override public function update(){
 		if(this.date!=null){

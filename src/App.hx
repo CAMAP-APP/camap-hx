@@ -19,7 +19,7 @@ class App extends sugoi.BaseApp {
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
 	 */ 
-	public static var VERSION = ([1,1,1]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	public static var VERSION = ([2,0,0]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 	
 	public function new(){
 		super();
@@ -319,6 +319,16 @@ class App extends sugoi.BaseApp {
 		out.set("variablePrice", "Prix variable selon pesée");	
 		out.set("VATAmount", "Montant TVA");	
 		out.set("VATRate", "Taux TVA");
+
+		// stock tracking
+		out.set("Disabled", "Désactivé");
+		out.set("Global", "Global");
+		out.set("PerDistribution", "Par distribution");
+
+		// stock tracking per distribution
+		out.set("AlwaysTheSame", "Stock identique à chaque distribution");
+		out.set("FrequencyBased", "Stock disponible à fréquence régulière");
+		out.set("PerPeriod", "Stock disponible par période");
 	
 		return out;
 	}

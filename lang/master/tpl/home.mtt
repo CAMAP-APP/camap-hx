@@ -362,7 +362,7 @@ $$browserDetection()
 		</div>
 		
 		::if amap.txtHome!=null && amap.txtHome!=""::
-		::raw nl2br(amap.txtHome)::
+		::raw sanitize(amap.txtHome)::
 		::end::
 
 	</div>

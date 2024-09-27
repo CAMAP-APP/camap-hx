@@ -1,4 +1,5 @@
 package controller;
+import form.CamapForm;
 import service.PaymentService;
 import service.SubscriptionService;
 import sugoi.form.elements.Html;
@@ -39,7 +40,7 @@ class Amap extends Controller
 
 		//keep only HidePhone, PhoneRequired and AddressRequired
 		var flags = form.getElement("flags");
-		untyped flags.excluded = [0,1,2,3,4,5,9,10];
+		untyped flags.excluded = [0,1,2,3,4,5,9,10,11,12];
 		untyped flags.excluded.push(2);
 
 		if (form.checkToken()) {
@@ -60,7 +61,7 @@ class Amap extends Controller
 			group.update();
 			throw Ok("/amapadmin", t._("The group has been updated."));
 		}
-		
+		CamapForm.addRichText(form, 'textarea:not([name$=\\"_txtDistrib\\"])');
 		view.form = form;
 	}
 

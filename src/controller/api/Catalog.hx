@@ -1,7 +1,8 @@
 package controller.api;
-import service.AbsencesService;
+import Common.StockTracking;
 import haxe.Json;
 import neko.Web;
+import service.AbsencesService;
 import service.SubscriptionService;
 import tink.core.Error;
 
@@ -12,6 +13,8 @@ class Catalog extends Controller
         get a catalog
     **/
 	public function doDefault(catalog:db.Catalog){
+		var distributions = catalog.getDistribs(false).array().map(d -> d.getInfos());
+		var products = catalog.getProducts();
 
         var ss = new SubscriptionService();
         var out = {
@@ -22,14 +25,15 @@ class Catalog extends Controller
             startDate   : catalog.startDate,
             endDate     : catalog.endDate,
             vendor:catalog.vendor.getInfos(),
-            products:catalog.getProducts().array().map( p -> p.infos() ),
+            products: products.array().map( p -> p.infos() ),
             contact: catalog.contact==null ? null : catalog.contact.infos(),
             documents : catalog.getVisibleDocuments(app.user).array().map(ef -> {name:ef.file.name,url:"/file/"+sugoi.db.File.makeSign(ef.file.id)}),
-            distributions : catalog.getDistribs(false).array().map( d -> d.getInfos() ),
+            distributions : distributions,
             constraints : SubscriptionService.getContractConstraints(catalog),
             absences : AbsencesService.getAbsencesDescription(catalog),
             absentDistribsMaxNb : catalog.absentDistribsMaxNb,
             distribMinOrdersTotal : catalog.distribMinOrdersTotal,
+            hasStockManagement: catalog.hasStockManagement()
         }
 
         json(out);
@@ -47,6 +51,26 @@ class Catalog extends Controller
             possibleAbsentDistribs : AbsencesService.getContractAbsencesDistribs(catalog).map(d -> d.getInfos())
         });
     }
+    
+	public function doStocksPerProductDistribution( catalog:db.Catalog ) {
+
+		var stocksPerProductDistribution:Map<Int, Map<Int, Float>> = null;
+        if (catalog.hasStockManagement()) {
+			stocksPerProductDistribution = new Map<Int, Map<Int, Float>>();
+			for (product in catalog.getProducts()) {
+				var stocksPerDistrib = new Map<Int, Float>();
+				for (distrib in catalog.getDistribs()) {
+					if (product.stockTracking != StockTracking.Disabled) {
+						stocksPerDistrib.set(distrib.id, product.getAvailableStock(distrib.id));
+					}
+				}
+				stocksPerProductDistribution.set(product.id, stocksPerDistrib);
+			}
+		}
+		json(Formatting.mapToObject(stocksPerProductDistribution));
+
+	}
+
 
     /**
         Get and set asbences of a Subscription
@@ -54,11 +78,11 @@ class Catalog extends Controller
     public function doSubscriptionAbsences(sub:db.Subscription){
 
 		if ( !app.user.canManageContract(sub.catalog) && !(app.user.id==sub.user.id) ){
-			throw new Error(403,t._('Access forbidden') );
+			throw new Error(Forbidden,t._('Access forbidden') );
 		} 
 		
 		if( !sub.catalog.hasAbsencesManagement() ) {
-			throw new Error(403,t._('no absences management in this catalog') );
+			throw new Error(Forbidden,t._('no absences management in this catalog') );
 		}
 		
 		var absenceDistribs = sub.getAbsentDistribs();
@@ -69,15 +93,20 @@ class Catalog extends Controller
 		
         var post =  sugoi.Web.getPostData();
         if(post!=null){
+					  // we pass isContractManager in absencesServicesbecause admin can add absences, contrary to target user
+						// this is used in batchOrders page
+						var isContractManager = app.user.canManageContract( sub.catalog );
+
             /*
             POST payload should be like {"absentDistribIds":[1,2,3]}
             */
             var newAbsentDistribIds:Array<Int> = Json.parse(StringTools.urlDecode(post)).absentDistribIds;
-            if (newAbsentDistribIds==null || newAbsentDistribIds.length==0) {
-                throw new Error(500,"bad parameter");
-            }
             
-            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, false );
+						if (newAbsentDistribIds==null || (newAbsentDistribIds.length==0 && !isContractManager)) {
+                throw new Error(BadRequest,"bad parameter");
+            }
+						
+            AbsencesService.updateAbsencesDates( sub, newAbsentDistribIds, isContractManager );
         }
 
         /**

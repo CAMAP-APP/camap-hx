@@ -47,7 +47,7 @@ class MultiDistrib extends Object
 		return db.MultiDistrib.manager.select($distribStartDate>=start && $distribStartDate<=end && $place==place,lock);
 	}
 
-	public static function getFromTimeRange( group: db.Group, from: Date, to: Date ) : Array<MultiDistrib> {
+	public static function getFromTimeRange( group: db.Group, from: Date, to: Date, useCache:Bool = true ) : Array<MultiDistrib> {
 
 		var multidistribs = new Array<db.MultiDistrib>();
 		var start = tools.DateTool.setHourMinute(from, 0, 0);
@@ -62,7 +62,7 @@ class MultiDistrib extends Object
 
 		//trigger event
 		for(md in multidistribs) {
-			md.useCache = true;
+			if (useCache) md.useCache = true;
 			App.current.event(GetMultiDistrib(md));
 		}
 

@@ -37,6 +37,7 @@ www/css/.sass-cache
 !www/js/libs.prod.js
 !www/js/fetch.umd.js
 !www/js/browser-detect.js
+!www/js/tinymce
 
 devLibs/
 

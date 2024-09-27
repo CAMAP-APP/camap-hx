@@ -811,6 +811,16 @@ div.reportHeader {
   color: #ffffff !important;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
 /* categories */
 .tag {
   color: white;

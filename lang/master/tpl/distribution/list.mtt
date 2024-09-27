@@ -41,7 +41,7 @@
 
 	<p ::cond distrib._catalog._group.txtDistrib!=null::>
 		<b>::_("Instructions"):: : </b>
-		::raw nl2br(distrib._catalog._group.txtDistrib)::
+		::raw sanitize(distrib._catalog._group.txtDistrib)::
 	</p>
 	
 	<table class="table table-bordered table-hover"  style="width:100%;">

@@ -1,27 +1,131 @@
 ::use 'contractadmin/design.mtt'::
+<script>_Camap.handleScrolling("stocks-scroll-container", "stock-left", "stock-right", 300);</script>
+
+::raw'
+<style>
+.stocks {
+	overflow-x:scroll;
+	overflow-y:visible;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	width:calc(100% - 200px); 
+	margin-left:200px;
+}
+.stocks table {
+  table-layout: fixed; 
+  width: auto;
+  max-width: 100%;
+}
+.stocks td, .stocks th {
+  width: 150px;
+  height: 80px;
+  scroll-snap-align: start;
+}
+.stocks .table-head {
+  position:absolute;
+  left:0; 
+  width: 200px;
+  line-height:1.25;
+}
+.arrow {
+    font-family: Cabin, Arial, Helvetica, sans-serif;
+    font-weight: 500;
+	vertical-align: middle;
+    padding: 6px 9px 0px 9px;
+    border-radius: 4px;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border: 1px solid rgba(235, 112, 47, 0.5);
+    color: rgb(235, 112, 47);
+	background-color: white;
+    min-width: auto;
+    width: 150px;
+	margin-bottom: 12px;
+	svg {
+		width:1.5rem;
+		fill: rgb(235, 112, 47);
+	}
+}
+.arrow[disabled] {
+	color: rgba(0, 0, 0, 0.26);
+	border: 1px solid rgba(0, 0, 0, 0.26);
+	svg {
+		fill: rgba(0, 0, 0, 0.26);
+	}
+}
+</style>
+'::
+	<h3>::_("Stocks")::</h3>
 	
-		
-	<h3>::_("Products")::</h3>
-	
-	<table class="table">
-		::foreach p c.getProducts()::
+	<div style="position:relative;">
+		<button id="stock-left" class="arrow">
+			<svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowBackIcon"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+		</button>
+		<button id="stock-right" class="arrow" style="position: absolute;right:0">
+			<svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ArrowForwardIcon"><path d="m12 4-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
+		</button>
+	<div class="stocks" id="stocks-scroll-container" tabindex="0">
+	<table class="table table-striped table-hover">
 		<tr>
-			<td>
+			<th class="table-head">::_("Name")::</th>
+			<th style="width:80px;">
+				::_("Stock tracking")::
+			</th>
+			::foreach distrib distributions::
+			<th>::__("Distribution of the ::date::, from ::from:: to ::to::",{date:dDate(distrib.date),from:hHour(distrib.date),to:hHour(distrib.end)})::</th>
+			::end::
+		</tr>
+		::foreach p c.getProducts(false)::
+		
+		::if p.active==false:: 
+		::set opacity=0.4::
+		::else::
+		::set opacity=1::
+		::end::
+		
+		<tr style="opacity: ::opacity::">
+			<td class="table-head">
+				<b>::p.name::</b>
 				
-				<img src="::p.getImage()::" style="width:64px;height:64px;" />
-				
+				::if p._unitType!=null && p.qt!=null::
+				::p.qt::&nbsp;::unit(p._unitType,false)::
+				::end::
+				<div style="color:#AAA">
+				::if p.organic ::<i class="icon icon-bio"></i>::end::
+				::if p.variablePrice ::<i class="icon icon-scale"></i>::end::
+				</div>
 			</td>
-			<td>$$nullSafe(::p.ref::)</td>
-			<td>::p.name::</td>
-			<td>::p.stock::</td>
-
+			<td style="text-align:center;font-size:90%;line-height:1;padding-top:12px">
+				<span ::cond p.stockTracking != null && p.stockTracking == 1::>::_("Global")::</span>
+				<span ::cond p.stockTracking != null && p.stockTracking == 2::>::_("PerDistribution")::</span>
+			</td>
+			::foreach distrib distributions::
 			<td>
-				$$edit(modifier,/product/edit/::p.id::)
+			::set availableStock = p.getAvailableStock(distrib.id, null, true)::
+			::set distribStock = p.getDistribStock(distrib.id)::
+			::if !p.hasStockTracking()::
+				-
+			::elseif distribStock == null::
+				<span style="color:red;font-weight:bold;">
+					Le stock initial a besoin d'être renseigné.
+				</span>
+			::elseif availableStock==null::
+				<span style="color:red;font-weight:bold;">
+					Erreur technique.
+				</span>
+			::else::
+				::if availableStock <= 10::
+					<span style="color:red;font-weight:bold;">
+						::availableStock:: / ::distribStock::
+					</span>
+				::else::
+					::availableStock:: / ::distribStock::
+				::end::
+			::end::
 			</td>
-
+			::end::
 		</tr>
 		::end::
 	</table>
-
-
+	</div>
+	</div>
 ::end::

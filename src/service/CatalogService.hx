@@ -1,4 +1,5 @@
 package service;
+import Common.StockTracking;
 import sugoi.form.elements.IntInput;
 import tools.DateTool;
 import db.Catalog;
@@ -54,7 +55,7 @@ class CatalogService{
 			form.removeElement(form.getElement("catalogMinOrdersTotal"));
 
 			form.getElement("orderEndHoursBeforeDistrib").label = "Délai minimum pour saisir une souscription (nbre d'heures avant prochaine distribution)";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
+		    form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#champs-d%C3%A9lai-minimum-pour-saisir-une-souscription";
 
 			absencesIndex = 9;
 		}
@@ -86,10 +87,16 @@ class CatalogService{
 		
 		form.addElement( new sugoi.form.elements.Html( "vendorHtml", '<b>${catalog.vendor.name}</b> ( ${catalog.vendor.zipCode} ${catalog.vendor.city} )', t._( "Vendor" ) ), 3 );
 
+		// move contact field
 		var contact = form.getElement("userId");
 		form.removeElement( contact );
 		form.addElement( contact, 4 );
 		contact.required = true;
+
+		// move firstDistrib field
+		var firstDistrib = form.getElement("firstDistribId");
+		form.removeElement( firstDistrib );
+		form.addElement( firstDistrib, 6 );
 
 		return form;
     }
@@ -154,7 +161,9 @@ class CatalogService{
 			
 			var orderEndHoursBeforeDistrib = form.getValueOf("orderEndHoursBeforeDistrib");
 			if( orderEndHoursBeforeDistrib == null || orderEndHoursBeforeDistrib == 0 ) {
-				throw new Error( 'Vous devez obligatoirement définir un nombre d\'heures avant distribution pour la fermeture des commandes.');
+				catalog.orderEndHoursBeforeDistrib = 72;
+				App.current.session.addMessage(("Attention, le nombre d\'heures avant distribution pour la fermeture des commandes ne peut pas être vide ou égal à 0. Il a été positionné à 72h."), true );
+				//throw new Error( 'Vous devez obligatoirement définir un nombre d\'heures avant distribution pour la fermeture des commandes.');
 			}
 		}
 
@@ -167,7 +176,7 @@ class CatalogService{
 			if ( catalog.hasStockManagement()) {
 
 				for ( p in catalog.getProducts()) {
-					if ( p.stock == null ) {
+					if ( p.stockTracking != StockTracking.Disabled && p.stock == null ) {
 						App.current.session.addMessage(t._("Warning about management of stock. Please fill the field \"stock\" for all your products"), true );
 						break;
 					}
