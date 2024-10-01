@@ -556,9 +556,9 @@ $$browserDetection()
 			::set d = del._multiDistrib::
 			<div class="dateBox">
 				::if isToday(d.distribStartDate)::
-				$$today(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				$$today(::getDate(d.distribStartDate).dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
 				::else::
-				$$date(::s.dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
+				$$date(::getDate(d.distribStartDate).dow::,::getDate(d.distribStartDate)::,::getDate(d.distribEndDate)::)
 				::end::
 				<div class="deliveryCatalogs">
 					<ul>
