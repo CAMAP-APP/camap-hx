@@ -41,10 +41,10 @@ class CatalogService{
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {
 			//VAR
 			form.addElement( new sugoi.form.elements.Html( 'constraints', '<h4>Engagement</h4>', '' ), 10 );
-			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat (0 = pas d\'engagement). <br/><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable#engagements" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
+			form.addElement( new sugoi.form.elements.Html( 'constraintsHtml', 'Définissez ici l\'engagement minimum pour ce contrat (0 = pas d\'engagement). <br/><a href="https://wiki.amap44.org/fr/app/admin-contrat-variable#engagement" target="_blank"><i class="icon icon-info"></i> Pour plus d\'informations, consultez la documentation</a>.', '' ), 11 );
 
-			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#ouverture-et-fermeture-de-commande";
-			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#ouverture-et-fermeture-de-commande";				
+			form.getElement("orderStartDaysBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#options";
+			form.getElement("orderEndHoursBeforeDistrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-variable#options";				
 			// form.getElement("catalogMinOrdersTotal").docLink = "";
 			
 		} else { 
@@ -82,8 +82,8 @@ class CatalogService{
 			form.getElement("endDate").value = DateTools.delta( Date.now(), 365.25 * 24 * 60 * 60 * 1000 );
 		}
 
-		form.getElement("startDate").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#dates-de-d%C3%A9but-et-dates-de-fins";
-		form.getElement("endDate").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#dates-de-d%C3%A9but-et-dates-de-fins";
+		form.getElement("startDate").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#date-de-d%C3%A9but-date-de-premi%C3%A8re-distribution-date-de-fins";
+		form.getElement("endDate").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#date-de-d%C3%A9but-date-de-premi%C3%A8re-distribution-date-de-fins";
 		
 		form.addElement( new sugoi.form.elements.Html( "vendorHtml", '<b>${catalog.vendor.name}</b> ( ${catalog.vendor.zipCode} ${catalog.vendor.city} )', t._( "Vendor" ) ), 3 );
 
@@ -97,6 +97,7 @@ class CatalogService{
 		var firstDistrib = form.getElement("firstDistribId");
 		form.removeElement( firstDistrib );
 		form.addElement( firstDistrib, 6 );
+		form.getElement("firstDitrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#date-de-d%C3%A9but-date-de-premi%C3%A8re-distribution-date-de-fins";
 
 		return form;
     }

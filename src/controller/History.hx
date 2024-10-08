@@ -129,7 +129,7 @@ class History extends Controller
 		if (ug == null) throw Error("/", t._("You are not a member of this group"));
 
 		var user = subscription.user;
-		view.subscriptionTotal = /*subscription.getTotalOperation()*/service.SubscriptionService.createOrUpdateTotalOperation( subscription );		
+		view.subscriptionTotal = service.SubscriptionService.createOrUpdateTotalOperation( subscription );		
 		view.payments = db.Operation.manager.search( $subscription == subscription && $type == OperationType.Payment, { orderBy : -date }, false );
 		view.member = user;
 		view.subscription = subscription;
