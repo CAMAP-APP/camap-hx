@@ -97,8 +97,7 @@ class CatalogService{
 		var firstDistrib = form.getElement("firstDistribId");
 		form.removeElement( firstDistrib );
 		form.addElement( firstDistrib, 6 );
-		form.getElement("firstDitrib").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#date-de-d%C3%A9but-date-de-premi%C3%A8re-distribution-date-de-fins";
-
+		// form.getElement("firstDitribId").docLink = "https://wiki.amap44.org/fr/app/admin-contrat-classique#date-de-d%C3%A9but-date-de-premi%C3%A8re-distribution-date-de-fins";
 		return form;
     }
     
