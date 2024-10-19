@@ -561,50 +561,51 @@ msgid "You can only remove yourself from a role."
 msgstr ""
 
 #: ../src/controller/Distribution.hx:36347
-msgid "Reason for leaving the role"
+msgid ""
+"Reason for leaving the role. Please note: a withdrawal notification including the content of this message will be sent by email to all members of the group"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:36699
+#: ../src/controller/Distribution.hx:36787
 msgid "You have been successfully removed from this role."
 msgstr ""
 
-#: ../src/controller/Distribution.hx:36782
+#: ../src/controller/Distribution.hx:36870
 msgid "Enter the reason why you are leaving this role."
 msgstr ""
 
-#: ../src/controller/Distribution.hx:37641
+#: ../src/controller/Distribution.hx:37729
 msgid "You have been successfully assigned to the selected role."
 msgstr ""
 
-#: ../src/controller/Distribution.hx:40560
+#: ../src/controller/Distribution.hx:40648
 msgid "Undelivered product"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:40823 ../src/controller/Distribution.hx:42340
+#: ../src/controller/Distribution.hx:40911 ../src/controller/Distribution.hx:42428
 msgid "Please select a product"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:41208
+#: ../src/controller/Distribution.hx:41296
 msgid "The undelivered product has been removed from ::n:: orders."
 msgstr ""
 
-#: ../src/controller/Distribution.hx:41333
+#: ../src/controller/Distribution.hx:41421
 msgid "Remove an undelivered product from orders"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:41973
+#: ../src/controller/Distribution.hx:42061
 msgid "Product which price has changed"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:42097
+#: ../src/controller/Distribution.hx:42185
 msgid "New price"
 msgstr ""
 
-#: ../src/controller/Distribution.hx:42901
+#: ../src/controller/Distribution.hx:42989
 msgid "The price of ::product:: has been modified to ::price:: in orders."
 msgstr ""
 
-#: ../src/controller/Distribution.hx:43062
+#: ../src/controller/Distribution.hx:43150
 msgid "Change the price of a product in orders"
 msgstr ""
 
@@ -1391,23 +1392,23 @@ msgid ""
 "distribution. Impossible de réaliser l'opération car cela modifierait l'engagement."
 msgstr ""
 
-#: ../src/service/DistributionService.hx:20509
+#: ../src/service/DistributionService.hx:20525
 msgid "Deletion not possible: orders are recorded for ::vendorName:: on ::date::."
 msgstr ""
 
-#: ../src/service/DistributionService.hx:22081
+#: ../src/service/DistributionService.hx:22097
 msgid "daysBeforeOrderEnd or daysBeforeOrderStart is null"
 msgstr ""
 
-#: ../src/service/DistributionService.hx:23148
+#: ../src/service/DistributionService.hx:23164
 msgid "this distributionCycle has not been recorded"
 msgstr ""
 
-#: ../src/service/DistributionService.hx:26709
+#: ../src/service/DistributionService.hx:26725
 msgid "The date of the delivery must be prior to the end of the contract (::contractEndDate::)"
 msgstr ""
 
-#: ../src/service/DistributionService.hx:26943
+#: ../src/service/DistributionService.hx:26959
 msgid "The date of the delivery must be after the begining of the contract (::contractBeginDate::)"
 msgstr ""
 
