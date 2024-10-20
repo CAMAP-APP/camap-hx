@@ -285,7 +285,23 @@ class SubscriptionAdmin extends controller.Controller
 
 				subscriptionService.updateSubscription( subscription, startDate, endDate, ordersData);
 				
-				if(absenceDistribIds.join("-") != subscription.getAbsentDistribIds().join("-")){
+				// Test if absences have been updated
+				// Reason of the bug Mantisbt #223 ?
+				// todo: only compare absenceDistribsIds in the future before updating AbsencesDates
+				for ( id in absenceDistribIds ) {
+					var newDistribution = db.Distribution.manager.get( id );
+					if (newDistribution.date.getTime() < Date.now().getTime() ) {
+						absenceDistribIds.remove( id );
+					}
+				}
+				var oldDistributionIds = subscription.getAbsentDistribIds();
+				for ( id in oldDistributionIds ) {
+					var oldDistribution = db.Distribution.manager.get( id );
+					if (oldDistribution.date.getTime() < Date.now().getTime() ) {
+						oldDistributionIds.remove( id );
+					}
+				}
+				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
 
