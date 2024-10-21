@@ -286,8 +286,7 @@ class SubscriptionAdmin extends controller.Controller
 				subscriptionService.updateSubscription( subscription, startDate, endDate, ordersData);
 				
 				// Test if absences have been updated
-				// Reason of the bug Mantisbt #223 ?
-				// todo: only compare absenceDistribsIds in the future before updating AbsencesDates
+				// Mantisbt #223: only compare absenceDistribsIds in the future before updating AbsencesDates
 				for ( id in absenceDistribIds ) {
 					var newDistribution = db.Distribution.manager.get( id );
 					if (newDistribution.date.getTime() < Date.now().getTime() ) {
