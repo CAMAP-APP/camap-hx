@@ -986,7 +986,7 @@ class Distribution extends Controller {
 			throw Error(returnUrl, t._("You can only remove yourself from a role."));
 		}
 
-		form.addElement(new TextArea("unsubscriptionreason", t._("Reason for leaving the role"), null, true, null, "style='width:500px;height:350px;'"));
+		form.addElement(new TextArea("unsubscriptionreason", t._("Reason for leaving the role. Please note: a withdrawal notification including the content of this message will be sent by email to all members of the group"), null, true, null, "style='width:500px;height:350px;'"));
 
 		if (form.isValid()) {
 			try {

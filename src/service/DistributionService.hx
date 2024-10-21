@@ -526,7 +526,7 @@ class DistributionService
 		ss.adminMode = true;
 
 		//get subscriptions that were concerned by this distribution
-		var subscriptions = Subscription.manager.search($catalog==d.catalog && $startDate <= d.date && $endDate >= d.date , true );
+		var subscriptions = Subscription.manager.search($catalog==d.catalog && $startDate <= d.date && $endDate >= oldMd.distribStartDate , true );
 		for ( sub in subscriptions ){
 			//if the subscription is closing before the new date, extends it
 			if(sub.endDate.getTime() < newMd.getDate().getTime()){
