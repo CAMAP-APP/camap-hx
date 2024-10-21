@@ -336,7 +336,7 @@ class Distribution extends Controller {
 		if (d.catalog.isConstantOrdersCatalog()) {
 			text += "<li>Provoquer l'extension des souscriptions pour prendre en compte la nouvelle date tout en préservant le même nombre de distributions. Pensez à vérifier les souscriptions après avec effectué cette action.</li>";
 		}
-		text += "<li>Si le catalogue participe déjà à la distribution ciblée, Provoquer la combinaison des commandes des 2 distributions et perturber les alternances d'utilisateurs partageant une souscription.</li>";
+		text += "<li>Si le catalogue participe déjà à la distribution ciblée, <u>provoquer la combinaison des commandes des 2 distributions</u> et perturber les alternances d'utilisateurs partageant une souscription. <b>La combinaison des commandes sera <u>irréversible</u></b></li>";
 		text += "</ul></div>";
 		view.text = text;
 
