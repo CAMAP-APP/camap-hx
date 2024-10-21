@@ -85,7 +85,7 @@
 		</div>
 		<div class="alert alert-warning">
 			<i class="icon icon-info"></i>
-			Le référencement ou la création d'un nouveau producteur se fait via la page Catalogues / Chercher un Producteur.</br>
+			Le référencement ou la création d'un nouveau producteur se fait via la page Catalogues / Chercher un Producteur.<br/>
 			<a href="https://wiki.amap44.org/fr/app/admin-producteur" target="_blank">Consultez le wiki</a>
 		</div>
 	</div>
