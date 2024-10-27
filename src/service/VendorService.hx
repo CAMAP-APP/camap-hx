@@ -27,8 +27,11 @@ class VendorService{
 		var vendors = [];
 		var names = [];
 		var where = [];
-		var sanitizedString = search.name.split ("\"").join("");
-		if(sanitizedString !=null && sanitizedString != ""){
+		var sanitizedString = "";
+		if ( search.name != null && search.name != "") {
+			sanitizedString = search.name.split ("\"").join("");
+		}
+		if(sanitizedString != null && sanitizedString != ""){
 			for( n in sanitizedString.split(" ")){
 				n = n.toLowerCase();
 				if(Lambda.has(["le","la","les","du","de","l'","a","à","au","en","sur","qui","ferme","GAEC","EARL","SCEA","jardin","jardins"],n)) continue;
