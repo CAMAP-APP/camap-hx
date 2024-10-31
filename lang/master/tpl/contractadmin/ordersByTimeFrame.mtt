@@ -73,10 +73,10 @@
 						::short(m.productName,40)::
 					</td>
 					<td>
-						::formatNum(m.productPrice)<!--::&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
+						::formatNum(m.productPrice)::<!--&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
 					</td>
 					<td>
-						::formatNum(m.subTotal)<!--::&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
+						::formatNum(m.subTotal)::<!--&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
 					</td>
 					<!--ne pas afficher colonne fees-->
 					<!--
