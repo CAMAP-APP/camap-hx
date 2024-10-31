@@ -45,7 +45,7 @@
 						<th>::_("Product")::</th>
 						<th><a href="#" data-toggle="tooltip" data-placement="top" title="::_("Unit price incl. VAT")::">::_("U.P.")::</a></th>
 						<th>::_("Sub-total")::</th>
-						<th>::_("Fees")::</th>
+						<!-- <th>::_("Fees")::</th> --><!--ne pas afficher colonne fees-->
 						<th>::_("Total")::</th>
 						<th>::_("Paid")::</th>
 					</tr>
@@ -73,19 +73,21 @@
 						::short(m.productName,40)::
 					</td>
 					<td>
-						::formatNum(m.productPrice)::&nbsp;::currency()::
+						::formatNum(m.productPrice)<!--::&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
 					</td>
 					<td>
-						::formatNum(m.subTotal)::&nbsp;::currency()::
+						::formatNum(m.subTotal)<!--::&nbsp;::currency()::--><!--ne pas afficher € pour copier/coller dans tableur-->
 					</td>
+					<!--ne pas afficher colonne fees-->
+					<!--
 					<td>
-						<!-- fees -->
 						::if m.percentageValue!=null::
 						<a href="#" data-toggle="tooltip" data-placement="top" title="::m.percentageName:: : ::m.percentageValue:: %">
 							::formatNum(m.fees)::&nbsp;::currency()::
 						</a>
 						::end::
 					</td>
+					-->
 					<td>
 						<!-- total -->
 						::formatNum(m.total)::&nbsp;::currency()::
