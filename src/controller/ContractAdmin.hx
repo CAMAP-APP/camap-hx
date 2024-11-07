@@ -906,13 +906,11 @@ class ContractAdmin extends Controller
 		
 		// a timeframe that can be overriden by url params
 
-		var displayTimeframe;
+		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate); ;
 
 		if (toEndDate.getFullYear() > fromFirstDistrib.getFullYear()+1) {
 			var toDisplayEndDate = new Date(fromFirstDistrib.getFullYear()+1,fromFirstDistrib.getMonth(),fromFirstDistrib.getDate(),0,0,0);
-			var displayTimeFrame = new tools.Timeframe(fromFirstDistrib,toDisplayEndDate);
-		} else {
-			var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+			displayTimeFrame = new tools.Timeframe(fromFirstDistrib,toDisplayEndDate);
 		}
 		
 		// a timeframe that always match exactly the participation dates
