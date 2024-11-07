@@ -910,9 +910,9 @@ class ContractAdmin extends Controller
 
 		if (toEndDate.getFullYear() > fromFirstDistrib.getFullYear()+1) {
 			var toDisplayEndDate = new Date(fromFirstDistrib.getFullYear()+1,fromFirstDistrib.getMonth(),fromFirstDistrib.getDate(),0,0,0);
-			displayTimeFrame = new tools.Timeframe(fromFirstDistrib,toDisplayEndDate);
+			var displayTimeFrame = new tools.Timeframe(fromFirstDistrib,toDisplayEndDate);
 		} else {
-			displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+			var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
 		}
 		
 		// a timeframe that always match exactly the participation dates
