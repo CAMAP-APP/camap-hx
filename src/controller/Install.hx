@@ -33,7 +33,7 @@ class Install extends controller.Controller
 			var user = new db.User();
 			user.firstName = f.getValueOf("userFirstName");
 			user.lastName = f.getValueOf("userLastName");
-			user.email = "admin@camap.localdomain";
+			user.email = "admin@camap.tld";
 			user.setPass("admin");
 			user.rights.set(Admin);
 			user.insert();
@@ -64,7 +64,7 @@ class Install extends controller.Controller
 			
 			var vendor = new db.Vendor();
 			vendor.name = t._("Harry Covert");
-			vendor.email = "harry.covert@camap.localdomain";
+			vendor.email = "harry.covert@camap.tld";
 			vendor.zipCode = "44670";
 			vendor.city = "Juigné-les-Moutiers";
 			vendor.insert();
@@ -97,7 +97,7 @@ class Install extends controller.Controller
 			App.current.user = null;
 			// App.current.session.data.amapId  = amap.id;
 			
-			throw Ok("/", t._("Group and user 'admin' created. Your email is 'admin@camap.localdomain' and your password is 'admin'"));
+			throw Ok("/", t._("Group and user 'admin' created. Your email is 'admin@camap.tld' and your password is 'admin'"));
 		}	
 		
 		view.form = f;
