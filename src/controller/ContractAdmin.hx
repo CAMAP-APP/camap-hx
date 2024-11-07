@@ -905,15 +905,17 @@ class ContractAdmin extends Controller
 		var toEndDate = contract.endDate;
 		
 		// a timeframe that can be overriden by url params
+		var displayTimeframe;
 		try {
-			var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+			displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
 		}catch(e:tink.core.Error){
 			throw Error("/contractAdmin/distributions/"+contract.id,e.message);
 		}
 
+		var participationTimeframe;
 		// a timeframe that always match exactly the participation dates
 		try {
-			var participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
+			participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
 		}catch(e:tink.core.Error){
 			throw Error("/contractAdmin/distributions/"+contract.id,e.message);
 		}
