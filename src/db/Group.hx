@@ -34,6 +34,7 @@ enum RegOption{
 abstract GroupDisabledReason(String) {
   var BLOCKED_BY_ADMIN = "BLOCKED_BY_ADMIN";
   var MOVED = "MOVED";
+  var SUSPENDED = "SUSPENDED";
 }
 
 /**
