@@ -11,12 +11,10 @@
 </style>
 <h2>Participation aux distributions</h2>
 
-	<!--
 	<p>
 		$$timeframe(::timeframe::)
 	</p>
-	-->
-	
+
 	<p>
 		<a href="/contractAdmin/distributions/::c.id::?participateToAllDistributions=1&_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default">
 			<i class="icon icon-check"></i> Participer à toutes les distributions du ::dDate(participationTimeframe.from):: au ::dDate(participationTimeframe.to)::
