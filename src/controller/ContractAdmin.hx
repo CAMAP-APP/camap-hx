@@ -906,7 +906,7 @@ class ContractAdmin extends Controller
 		
 		// a timeframe that can be overriden by url params
 
-		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate); ;
+		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
 
 		if (toEndDate.getFullYear() > fromFirstDistrib.getFullYear()+1) {
 			var toDisplayEndDate = new Date(fromFirstDistrib.getFullYear()+1,fromFirstDistrib.getMonth(),fromFirstDistrib.getDate(),0,0,0);
