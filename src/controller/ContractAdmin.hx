@@ -899,19 +899,24 @@ class ContractAdmin extends Controller
 		view.nav.push("distributions");
 		sendNav(contract);
 		
-		if (contract == null) throw Error("/", "Impossible de trouver ce catalogue");
-
 		if (!app.user.canManageContract(contract)) throw Error("/", t._("You do not have the authorization to manage this contract"));
 
 		var fromFirstDistrib = contract.firstDistrib != null ? contract.firstDistrib.distribStartDate : contract.startDate;
 		var toEndDate = contract.endDate;
 		
 		// a timeframe that can be overriden by url params
-		var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
-		
-		// a timeframe that always match exactly the participation dates
-		var participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
+		try {
+			var displayTimeframe = new tools.Timeframe(fromFirstDistrib,toEndDate);
+		}catch(e:tink.core.Error){
+			throw Error("/contractAdmin/distributions/"+contract.id,e.message);
+		}
 
+		// a timeframe that always match exactly the participation dates
+		try {
+			var participationTimeframe = new tools.Timeframe(fromFirstDistrib, toEndDate, false);
+		}catch(e:tink.core.Error){
+			throw Error("/contractAdmin/distributions/"+contract.id,e.message);
+		}
 
 		if(args!=null && args.participateToAllDistributions){
 			var participatingMultidistribs =  db.MultiDistrib.getFromTimeRange(contract.group, participationTimeframe.from , participationTimeframe.to);
