@@ -119,7 +119,7 @@ class AbsencesService {
 		for ( id in oldAbsentDistribIds ) {
 			var oldDistribution = db.Distribution.manager.get(id);
 			var message = "Old distribution date: " + oldDistribution.date.getTime() + " - Current date: " + Date.now().getTime();
-			App.current.session.addMessage(msg, true);
+			App.current.session.addMessage(message, true);
 			if (oldDistribution.date.getTime() < Date.now().getTime()) {
 				// Distribution passée trouvée dans la liste des anciennes absences
 				// On vérifie qu'elle n'a pas été modifiée dans la liste des nouvelles absences
