@@ -278,8 +278,7 @@ class SubscriptionAdmin extends controller.Controller
 				var absenceDistribIds = [];
 				for( i in 1...subscription.catalog.absentDistribsMaxNb+1){
 					var p = app.params.get('absence'+i).parseInt();
-					//if(p!=null && p>0){
-					if (p!=null){
+					if(p!=null && p>0){
 						absenceDistribIds.push(p);
 					}
 				}
