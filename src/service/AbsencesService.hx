@@ -118,7 +118,7 @@ class AbsencesService {
 		// AC 20/10/2024 : don't update absences on closed distributions
 		for ( id in oldAbsentDistribIds ) {
 			var oldDistribution = db.Distribution.manager.get(id);
-			var message = "Old distribution id: " + oldDistribution
+			var message = "Old distribution id: " + oldDistribution;
 			App.current.session.addMessage(message, true);
 			if (oldDistribution.date.getTime() < Date.now().getTime()) {
 				// Distribution passée trouvée dans la liste des anciennes absences
