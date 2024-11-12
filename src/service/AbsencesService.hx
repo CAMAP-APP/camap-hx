@@ -115,19 +115,7 @@ class AbsencesService {
 		
 		var oldAbsentDistribIds = subscription.getAbsentDistribIds();
 
-		for (id in newAbsentDistribIds) {
-			var newDistribution = db.Distribution.manager.get(id);
-			var message = "New distribution id: " + newDistribution;
-			App.current.session.addMessage(message, true);
-		}
-		for ( id in oldAbsentDistribIds ) {
-			var oldDistribution = db.Distribution.manager.get(id);
-			var message = "Old distribution id: " + oldDistribution;
-			App.current.session.addMessage(message, true);
-		}
-
-		// AC 20/10/2024 : don't update absences on closed distributions
-		
+		// AC 12/11/2024 : don't update absences on closed distributions
 		for ( id in oldAbsentDistribIds ) {
 			var oldDistribution = db.Distribution.manager.get(id);
 			if (oldDistribution.date.getTime() < Date.now().getTime()) {
@@ -139,7 +127,6 @@ class AbsencesService {
 			}
 		}
 		
-
 		subscription.lock();
 		setAbsences( subscription, newAbsentDistribIds, adminMode );
 		subscription.update();

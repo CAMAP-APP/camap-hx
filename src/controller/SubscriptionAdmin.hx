@@ -273,7 +273,6 @@ class SubscriptionAdmin extends controller.Controller
 					}
 				}
 				
-
 				//absences
 				var absenceDistribIds = [];
 				for( i in 1...subscription.catalog.absentDistribsMaxNb+1){
@@ -286,33 +285,10 @@ class SubscriptionAdmin extends controller.Controller
 				subscriptionService.updateSubscription( subscription, startDate, endDate, ordersData);
 				
 				// Test if absences have been updated
-				// Mantisbt #223: only compare absenceDistribsIds in the future before updating AbsencesDates
-				/*
-				for ( id in absenceDistribIds ) {
-					var newDistribution = db.Distribution.manager.get( id );
-					if (newDistribution.date.getTime() < Date.now().getTime() ) {
-						absenceDistribIds.remove( id );
-					}
-				}
-				*/
 				var oldDistributionIds = subscription.getAbsentDistribIds();
-				/*
-				for ( id in oldDistributionIds ) {
-					var oldDistribution = db.Distribution.manager.get( id );
-					if (oldDistribution.date.getTime() < Date.now().getTime() ) {
-						oldDistributionIds.remove( id );
-					}
-				}
-				*/
-				
-				var message = "New distribs :" +absenceDistribIds.join("-") +"Old distribs: " + oldDistributionIds.join("-");
-				App.current.session.addMessage(message, true);
-				
 				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
-				
-
 				subscription.update();
 
 			} catch( error : Error ) {				
