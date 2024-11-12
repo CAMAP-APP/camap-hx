@@ -127,7 +127,7 @@ class AbsencesService {
 		}
 
 		// AC 20/10/2024 : don't update absences on closed distributions
-		/*
+		
 		for ( id in oldAbsentDistribIds ) {
 			var oldDistribution = db.Distribution.manager.get(id);
 			if (oldDistribution.date.getTime() < Date.now().getTime()) {
@@ -138,8 +138,8 @@ class AbsencesService {
 				}
 			}
 		}
-		*/
 		
+
 		subscription.lock();
 		setAbsences( subscription, newAbsentDistribIds, adminMode );
 		subscription.update();
