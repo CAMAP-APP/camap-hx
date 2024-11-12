@@ -304,9 +304,14 @@ class SubscriptionAdmin extends controller.Controller
 					}
 				}
 				*/
+				
+				var message = "New distribs :" +absenceDistribIds.join("-") +"Old distribs: " + oldDistributionIds.join("-");
+				App.current.session.addMessage(message, true);
+				/*
 				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
+				*/
 
 				subscription.update();
 
