@@ -117,11 +117,13 @@ class AbsencesService {
 
 		// AC 20/10/2024 : don't update absences on closed distributions
 		for ( id in oldAbsentDistribIds ) {
-			var oldDistribution = db.Distribution.manager.get( id );
-			if (oldDistribution.date.getTime() < Date.now().getTime() ) {
+			var oldDistribution = db.Distribution.manager.get(id);
+			var message = "Old distribution date: " + oldDistribution.date.getTime() + " - Current date: " + Date.now().getTime();
+			App.current.session.addMessage(msg, true);
+			if (oldDistribution.date.getTime() < Date.now().getTime()) {
 				// Distribution passée trouvée dans la liste des anciennes absences
 				// On vérifie qu'elle n'a pas été modifiée dans la liste des nouvelles absences
-				if ( !newAbsentDistribIds.has( id ) ) {
+				if ( !newAbsentDistribIds.has(id) ) {
 					throw new Error( 'Impossible de modifier les absences d\'une distribution passée' );
 				}
 			}
