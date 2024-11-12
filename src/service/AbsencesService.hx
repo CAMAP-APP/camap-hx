@@ -119,7 +119,11 @@ class AbsencesService {
 		for ( id in oldAbsentDistribIds ) {
 			var oldDistribution = db.Distribution.manager.get( id );
 			if (oldDistribution.date.getTime() < Date.now().getTime() ) {
-				throw new Error( 'Impossible de modifier les absences d\'une distribution passée' );
+				// Distribution passée trouvée dans la liste des anciennes absences
+				// On vérifie qu'elle n'a pas été modifiée dans la liste des nouvelles absences
+				if ( !newAbsentDistribIds.has( id ) ) {
+					throw new Error( 'Impossible de modifier les absences d\'une distribution passée' );
+				}
 			}
 		}
 
