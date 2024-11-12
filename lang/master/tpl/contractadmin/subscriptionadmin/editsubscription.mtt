@@ -147,7 +147,7 @@
 								<select name="absence::i::" id="absence::i::" class="form-control">
 								<option value="" >-</option>
 								::foreach d lockedDistribs::
-									<option value="::d.id::" ::attr selected if(isSelected(i,d)) '1':: disabled="disabled" >::dDate(d.date):: </option>
+									<option value="::d.id::" ::attr selected if(isSelected(i,d)) '1'::>::dDate(d.date):: </option>
 								::end::
 								::foreach d possibleAbsences::							
 									<option value="::d.id::" ::attr selected if(isSelected(i,d)) '1'::>::dDate(d.date)::</option>
