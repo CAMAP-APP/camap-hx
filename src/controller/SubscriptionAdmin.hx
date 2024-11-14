@@ -287,7 +287,7 @@ class SubscriptionAdmin extends controller.Controller
 
 				for (id in absenceDistribIds){
 					var d = db.Distribution.manager.get(id,false);
-					if(d!=null && d.date.getTime()>endDate.getTime()){
+					if((d!=null && d.date.getTime()>endDate.getTime())|| (d!=null && d.date.getTime()<startDate.getTime())){
 						throw Error( '/contractAdmin/subscriptions/edit/' + subscription.id, "Vous ne pouvez pas sélectionner une absence postérieure à la date de fin de souscription. Vous devez d'abord modifier l'absence." );
 					}
 				}
