@@ -289,6 +289,7 @@ class SubscriptionAdmin extends controller.Controller
 					var d = db.Distribution.manager.get(id,false);
 					if(d!=null && d.date.getTime()>subscription.endDate.getTime()){
 						throw Error( '/contractAdmin/subscriptions/edit/' + subscription.id, "Vous ne pouvez pas sélectionner une absence postérieure à la date de fin de souscription. Vous devez d'abord modifier l'absence." );
+					}
 				}
 
 				subscriptionService.updateSubscription( subscription, startDate, endDate, ordersData);
@@ -296,8 +297,6 @@ class SubscriptionAdmin extends controller.Controller
 				// Test if absences have been updated
 				var oldDistributionIds = subscription.getAbsentDistribIds();
 				
-				
-
 				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
