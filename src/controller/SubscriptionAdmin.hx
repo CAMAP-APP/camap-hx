@@ -282,10 +282,21 @@ class SubscriptionAdmin extends controller.Controller
 					}
 				}
 
+				// Vérifier qu'on n'a pas d'absence postérieure à la date de fin de souscription
+				// en cas de modification de la souscription
+
+				for (id in absenceDistribIds){
+					var d = db.Distribution.manager.get(id,false);
+					if((d!=null && d.date.getTime()>endDate.getTime())|| (d!=null && d.date.getTime()<startDate.getTime())){
+						throw Error( '/contractAdmin/subscriptions/edit/' + subscription.id, "Une date d'absence est en dehors de la période de souscription. Veuillez modifier les dates d'absence avant de modifier les dates de souscription." );
+					}
+				}
+
 				subscriptionService.updateSubscription( subscription, startDate, endDate, ordersData);
 				
 				// Test if absences have been updated
 				var oldDistributionIds = subscription.getAbsentDistribIds();
+
 				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
