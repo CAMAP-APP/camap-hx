@@ -296,7 +296,7 @@ class SubscriptionAdmin extends controller.Controller
 				
 				// Test if absences have been updated
 				var oldDistributionIds = subscription.getAbsentDistribIds();
-				
+
 				if(absenceDistribIds.join("-") != oldDistributionIds.join("-")){
 					AbsencesService.updateAbsencesDates(subscription,absenceDistribIds, true);
 				}
