@@ -21,9 +21,7 @@ class App extends sugoi.BaseApp {
 	 */ 
 
 
-
-	public static var VERSION = ([2,0,6]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
-
+	public static var VERSION = ([2,0,7]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 
 
 	
