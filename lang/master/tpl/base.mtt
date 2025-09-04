@@ -46,9 +46,6 @@
         integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
         crossorigin="" />
 
-    <!-- polyfill for IE11 : Object.assign() doesnt exists in IE11 , error in libs.prod.js -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-
     <!-- Haxe JS + libs bundled with browserify -->
     <script type="text/javascript" src="/js/::getVariable('js')::/fetch.umd.js"></script>
 
