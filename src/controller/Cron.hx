@@ -613,19 +613,22 @@ class Cron extends Controller
 	
 	function sendOrdersLists(task:TransactionWrappedTask) {
 	
-		/* trouver toutes les distributions dont les commandes variables viennent de fermer  */
+		/* trouver toutes les distributions dont les commandes viennent de fermer  */
 		var range = tools.DateTool.getLastHourRange( now );
 		task.log('Commandes fermant entre ${range.from} et ${range.to}');
 		var distribs = db.Distribution.manager.unsafeObjects(
 		'SELECT Distribution.* 
 		FROM Distribution INNER JOIN Catalog
 		ON Distribution.catalogId = Catalog.id
-		WHERE Catalog.type = 1
 		AND Distribution.orderEndDate >= \'${range.from}\'
 		AND Distribution.orderEndDate < \'${range.to}\';', false );
 			
 		/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
 		for (distri in distribs){
+			
+			if ( // pour les commandes constantes on ne fait un envoi que si l'option a été choisie dans les parametres
+				!distri.catalog.shouldNotifyVendorOnOrderEnd()
+			) continue;
 			/* Générer le bon de commande et l'envoyer par mail au vendeur */
 			var contrat = distri.catalog;
 			var vendeur = contrat.vendor;

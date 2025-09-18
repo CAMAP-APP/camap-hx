@@ -9,6 +9,8 @@ enum CatalogFlags {
 	StockManagement; 		//gestion des commandes
 	PercentageOnOrders;		//calcul d'une commission supplémentaire 
 	DisplayPricesOnGroupPage; //affiche les prix des produits sur la page publique du groupe
+	NotifyVendorOnOrderEnd; //envoyer un mail au producteur à la cloture des commandes
+	NotifyContactOnOrderEnd;//envoyer un mail au coorinateur à la cloture des commandes
 }
 
 @:index(startDate,endDate)
@@ -154,6 +156,13 @@ class Catalog extends Object
 		}else{
 			return false;
 		}
+	}
+
+	public function shouldNotifyVendorOnOrderEnd() : Bool{
+		return isVariableOrdersCatalog() || flags.has(NotifyVendorOnOrderEnd);
+	}
+	public function shouldNotifyContactOnOrderEnd() : Bool{
+		return flags.has(NotifyContactOnOrderEnd);
 	}
 
 	/**
