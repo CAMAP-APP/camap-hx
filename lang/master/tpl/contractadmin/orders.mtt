@@ -24,7 +24,7 @@
 
 	<div style="margin:8px 0;display: flex; gap:10px;flex-wrap: wrap;">
 
-		::if(!catalog.isConstantOrdersCatalog())::
+		::if(catalog.isVariableOrdersCatalog())::
 		<a class="btn btn-default btn-sm"
 			onclick="_Camap.initOrderBox(null,::multiDistribId::,::distribution._catalog.id::,::catalog.type::,'::escapeJS(hDate(distribution.date))::','::escapeJS(distribution._place.toString())::',null,'::user.getGroup().currency::', '/contractAdmin/orders/::catalog.id::?d=::distribution.id::', ::user.getGroup().id::)">
 			<i class="icon icon-plus"></i>
@@ -33,6 +33,7 @@
 		::end::
 
 		$$export(/contractAdmin/orders/::catalog.id::?csv=1&d=::distribution.id::)
+
 		<a href="/contractAdmin/ordersByProduct/::catalog.id::?d=::distribution.id::" class="btn btn-default btn-sm">
 			<i class="icon icon-products"></i>
 			::_("Summary by products")::
@@ -82,15 +83,15 @@
 
 						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a>
 					</td>
+					::if(catalog.isVariableOrdersCatalog())::
 					<td>
-						::if(!catalog.isConstantOrdersCatalog())::
 						<a class="btn btn-default btn-xs"
 							onclick="_Camap.initOrderBox(::basket.userId::,::multiDistribId::,::distribution._catalog.id::,::distribution._catalog.type::,'::escapeJS(hDate(distribution.date))::','::escapeJS(distribution._place.toString())::','::escapeJS(basket._user.getName())::','::user.getGroup().currency::', '/contractAdmin/orders/::c.id::?d=::distribution.id::', ::user.getGroup().id::, ::basket.id::)">
 							<i class="icon icon-edit"></i>
 							::_("Edit")::
 						</a>
-						::end::
 					</td>
+					::end::
 				</tr>
 				<tr>
 					<th class="col-md-1">::_("Prod. ID")::</th>
@@ -100,7 +101,7 @@
 					<th class="col-md-1 text-nowrap">Ss-total</th>
 					<th class="col-md-1">::_("Fees")::</th>
 					<th class="col-md-1">::_("Total")::</th>
-					<th class="col-md-1"></th>
+					::if(catalog.isVariableOrdersCatalog())::<th class="col-md-1"></th>::end::
 				</tr>
 
 				::foreach o distribOrders::
@@ -159,22 +160,23 @@
 							::formatNum(o.total)::&nbsp;::currency()::
 							::set total = total + o.total::
 						</td>
+						::if(catalog.isVariableOrdersCatalog())::
 						<td>
 							::if(o.quantity==0)::
-								&nbsp;&nbsp;&nbsp;&nbsp;
 								<a href="/contractAdmin/orders/::c.id::?d=::distribution.id::&delete=::o.id::&token=::token::" $$confirm(::__("Do you really want to delete this order row for the product \"::productName::\"?",{productName:o.productName})::) class="btn btn-danger btn-xs" >
 									<i class="icon icon-delete"></i>
 									::_("Delete")::
 								</a>
 							::end::
 						</td>
+						::end::
 					</tr>
 				::end::
 
 				<tr style="background:#DDD;">
 					<th colspan="6">::_("Total")::</th>
 					<th id="basket_::basket.num::_total">::formatNum(total)::&nbsp;::currency()::</th>
-					<th></th>
+					::if(catalog.isVariableOrdersCatalog())::<th></th>::end::
 				</tr>
 			</table>
 			::end::
