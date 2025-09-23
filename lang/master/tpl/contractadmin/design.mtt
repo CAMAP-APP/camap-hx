@@ -1,5 +1,16 @@
 ::use 'design.mtt'::
 
+<style>
+	.faded, .faded .disabled {
+		background-color: #EEE;
+		color:gray;
+	}
+	.faded .btn-default {
+		background-color: hsl(21deg 82% 65%);
+		border-color: transparent;
+	}
+</style>
+
 <div class="col-md-12">
 	<h2>::c.name:: - ::c._vendor.name::</h2>
 </div>

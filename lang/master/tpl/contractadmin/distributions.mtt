@@ -1,14 +1,5 @@
 ::use 'contractadmin/design.mtt'::
 
-<style>
-	.faded, .faded .disabled {
-		background-color: #EEE;
-		color:gray;
-	}
-	.faded .btn-default {
-		background-color: hsl(21deg 82% 65%);
-	}
-</style>
 <h2>Participation aux distributions</h2>
 
 	<p>
