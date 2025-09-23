@@ -1,30 +1,34 @@
 ::use 'mail/layout-group.mtt'::
 
-   	<h3>Récapitulatif de commande par produits</h3>
+   	<h3>Mise à jour de la distribution du ::dDate(distributionOrders[0].distrib.date)::</h3>
 
-    <p>
-		Les commandes du catalogue <b>::contract.name::</b> ont fermé le <b>::hDate(distribution.orderEndDate)::</b>.
-	</p>
-
-   <table class="table table-striped">
+    <table class="table table-striped">
 		<tr>
 			<td>
 				Date de livraison
 			</td>
 			<td>
-				::dDate(distribution.date):: de ::hHour(distribution.date):: à ::hHour(distribution.end)::
+				::dDate(distributionOrders[0].distrib.date):: de ::hHour(distributionOrders[0].distrib.date):: à ::hHour(distributionOrders[0].distrib.end)::
 			</td>
 		</tr>
 		<tr>
 			<td>Adresse</td>
 			<td>
-				::distribution._place.getFullAddress()::
+				::distributionOrders[0].distrib._place.getFullAddress()::
 			</td>				
 		</tr>		
 	</table>
 
-	<br/>
-	<br/>
+	<p>
+		<i>Vous recevez cette notification car les catalogues suivants ont l'option
+		<b>Envoi au coordinateur d’une notification par mail à la fermeture de la commande.</b></i>
+	</p>
+
+	::foreach distOrd distributionOrders::
+    <p>
+		Les commandes du catalogue <b>::distOrd.catalog.name::</b> ont fermé le <b>::hDate(distOrd.distrib.orderEndDate)::</b>.<br/>
+		Récapitulatif transmis à ::distOrd.vendor.name:::
+	</p>
 	
 	<!-- produits -->
 	<table class="table table-bordered table-hover" >
@@ -37,7 +41,7 @@
 			<th>Total</th>
 		</tr>
 		::set total = 0::
-			::foreach m orders::
+			::foreach m distOrd.orders::
 			<tr>
 				<td>::raw m.weightOrVolume::</td>
 				<td>
@@ -66,17 +70,17 @@
 			</tr>
 	</table>
 
-	<!-- nouveaux arrivants -->
-	::if newSubscriptions.length > 0::
+	::if distOrd.newSubs.length > 0::
 	<p>Il y a de nouvelles souscriptions à ce contrat depuis la dernière livraison:</p>
 	<ul>
-		<li ::repeat sub newSubscriptions::>
+		<li ::repeat sub distOrd.newSubs::>
 			::sub.user::
 			<ul>
 				<li ::repeat o sub.orders::>::o::</li>
 			</ul>
 		</li>
 	</ul>
+	::end::
 	::end::
 	
 			

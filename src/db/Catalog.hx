@@ -298,6 +298,14 @@ class Catalog extends Object
 		}
 	}
 
+	public function getLastDistrib() : Null<Distribution> {
+		return Distribution.manager.search(
+			$catalog == this && $date <= Date.now(),
+			{ orderBy: -date, limit: 1 },
+			false
+		).first();
+	}
+
 	public function getVisibleDocuments( user : db.User ) : List<sugoi.db.EntityFile> {
 
 		var isSubscribedToCatalog = false;

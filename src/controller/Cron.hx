@@ -4,6 +4,9 @@ import db.Catalog;
 import db.MultiDistrib;
 import haxe.CallStack;
 import haxe.crypto.Md5;
+import service.DistributionService;
+import service.OrderService;
+import service.SubscriptionService;
 import sugoi.Web;
 import sugoi.db.Cache;
 import sugoi.mail.Mail;
@@ -622,9 +625,22 @@ class Cron extends Controller
 		ON Distribution.catalogId = Catalog.id
 		AND Distribution.orderEndDate >= \'${range.from}\'
 		AND Distribution.orderEndDate < \'${range.to}\';', false );
-			
-		/* Pour chaque distribution avec commandes variables closes dans l'heure passée */
-		for (distri in distribs){
+		
+		// Keep a dictionary of all distrib grouped by distri.catalog.contact.id
+		var distribsByContact = new Map<Int, Array<{
+				distrib: db.Distribution,
+				catalog: Catalog,
+				orders: Array<OrderByProduct>,
+				vendor: db.Vendor,
+				newSubs: Array<{ user:String, orders: Array<String> }>
+			}>>();
+		for (distri in distribs) {
+			var contact = distri.catalog.contact;
+			if (!distribsByContact.exists(contact.id)) {
+				distribsByContact.set(contact.id, []);
+			}
+			var distribOrders = { distrib: distri, catalog: distri.catalog, vendor: distri.catalog.vendor, orders: [], newSubs: [] }
+			distribsByContact.get(contact.id).push(distribOrders);
 			
 			if ( // pour les commandes constantes on ne fait un envoi que si l'option a été choisie dans les parametres
 				!distri.catalog.shouldNotifyVendorOnOrderEnd()
@@ -635,7 +651,14 @@ class Cron extends Controller
 			var amap = contrat.group;
 			var dest = vendeur.email;
 			var sujet = '[${amap.name}] Commandes ${contrat.name} distribution du ${Formatting.dDate(distri.date)}';
-			var orders = service.ReportService.getOrdersByProduct(distri);
+			distribOrders.orders = service.ReportService.getOrdersByProduct(distri);
+			var lastDistrib = contrat.getLastDistrib();
+			if(lastDistrib != null)
+				distribOrders.newSubs = SubscriptionService.getNewCatalogSubscriptions( contrat, lastDistrib.date )
+					.map(sub -> {
+						user: sub.user.getCoupleName(),
+						orders: OrderService.getUserOrders(sub.user,contrat,distri.multiDistrib,sub).map(o -> '${o.quantity} ${o.product.getName()}')
+					});
 			if (dest != null) {
 				var m = new Mail();
 				m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
@@ -646,12 +669,13 @@ class Cron extends Controller
 				var html = App.current.processTemplate("mail/ordersByProduct.mtt", { 
 					contract:contrat,
 					distribution:distri,
-					orders:orders,
+					orders:distribOrders.orders,
 					formatNum:Formatting.formatNum,
 					currency:App.current.view.currency,
 					dDate:Formatting.dDate,
 					hHour:Formatting.hHour,
-					group:amap
+					group:amap,
+					newSubscriptions: distribOrders.newSubs
 				} );
 				
 				m.setHtmlBody(html);
@@ -660,6 +684,30 @@ class Cron extends Controller
 				task.log(m.getHtmlBody());
 			}
 			
+		}
+
+		for (contactId in distribsByContact.keys()) {
+			var distributionOrders = distribsByContact.get(contactId).filter(d -> d.catalog.shouldNotifyContactOnOrderEnd());
+			if(distributionOrders.length == 0) continue;
+			var contact = distributionOrders[0].distrib.catalog.contact;
+			var amap = distributionOrders[0].distrib.catalog.group;
+			var sujet = '[${amap.name}] Commandes mises à jour, distribution du ${Formatting.dDate(distributionOrders[0].distrib.date)}';
+			var m = new Mail();
+			m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+			m.addRecipient(contact.email, contact.getName());
+			m.setSubject(sujet);
+			var html = App.current.processTemplate("mail/ordersForGroupContact.mtt", { 
+				group:amap,
+				distributionOrders:distributionOrders,
+				formatNum:Formatting.formatNum,
+				currency:App.current.view.currency,
+				dDate:Formatting.dDate,
+				hHour:Formatting.hHour
+			} );
+			m.setHtmlBody(html);
+			App.sendMail(m , amap);
+			task.log(sujet);
+			task.log(m.getHtmlBody());
 		}
 	}
 	
