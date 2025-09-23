@@ -1,11 +1,11 @@
 package service;
-import service.SubscriptionService.CSAOrder;
 import Common;
-import db.MultiDistrib;
-import db.Basket;
 import db.Basket.BasketStatus;
-import tink.core.Error;
+import db.Basket;
+import db.MultiDistrib;
+import service.SubscriptionService.CSAOrder;
 import sugoi.Web;
+import tink.core.Error;
 
 
 /**
@@ -74,6 +74,8 @@ class OrderService
 		var order = new db.UserOrder();
 		order.product = product;
 		order.quantity = quantity;
+		order.quantityBase = product.qt;
+		order.quantityUnitType = product.unitType;
 		order.productPrice = product.price;
 		if ( product.catalog.hasPercentageOnOrders() ){
 			order.feesRate = product.catalog.percentageValue;
@@ -352,8 +354,8 @@ class OrderService
 			//deprecated
 			x.productId = o.product.id;
 			x.productRef = o.product.ref;
-			x.productQt = o.product.qt;
-			x.productUnit = o.product.unitType;
+			x.productQt = o.quantityBase;
+			x.productUnit = o.quantityUnitType;
 			x.productPrice = o.productPrice;
 			x.productImage = o.product.getImage();
 			x.productHasVariablePrice = o.product.variablePrice;
@@ -361,7 +363,9 @@ class OrderService
 			x.product = o.product.infos();
 			x.product.price = o.productPrice;//do not use current price, but price of the order
 			x.quantity = o.quantity;
-			
+			x.quantityBase = o.quantityBase;
+			x.quantityUnitType = o.quantityUnitType;
+
 			//smartQt
 			if (x.quantity == 0.0){
 				x.smartQt = t._("Canceled");
@@ -526,7 +530,7 @@ class OrderService
 	 *  WARNING : its for one distrib, not for a whole basket !
 	 */
 	public static function sendOrderSummaryToMembers(d:db.Distribution){
-
+		
 		var title = '[${d.catalog.group.name}] Votre commande pour le ${App.current.view.dDate(d.date)} (${d.catalog.name})';
 
 		for( user in d.getUsers() ){
