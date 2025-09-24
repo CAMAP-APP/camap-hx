@@ -11,6 +11,6 @@ var fs = require('fs');
         var po = gettextParser.po.parse(input);
         var mo = gettextParser.mo.compile(po);
         fs.writeFileSync(path.join(dir, path.basename(f,'.po')+'.mo'), mo);
-        console.log('\tCompiled', path.basename(f,'.po')+'.mo'));
+        console.log('\tCompiled', path.basename(f,'.po')+'.mo');
     }
 })();
