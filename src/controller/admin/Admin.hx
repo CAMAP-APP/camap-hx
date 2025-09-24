@@ -1,15 +1,15 @@
 package controller.admin;
 
-import haxe.Json;
-import sugoi.form.elements.TextArea;
-import sugoi.form.elements.Checkbox;
 import Common;
 import db.BufferedJsonMail;
 import db.Catalog;
 import db.MultiDistrib;
+import haxe.Json;
 import haxe.web.Dispatch;
 import sugoi.Web;
 import sugoi.db.Variable;
+import sugoi.form.elements.Checkbox;
+import sugoi.form.elements.TextArea;
 import sys.FileSystem;
 import tools.ObjectListTool;
 import tools.Timeframe;
@@ -42,7 +42,7 @@ class Admin extends Controller {
 	function doTheme() {
 		var f = new sugoi.form.Form("theme");
 
-		f.addElement(new sugoi.form.elements.TextArea("theme", "theme", Json.stringify(app.getTheme()), true, null, "style='height:800px;'"));
+		f.addElement(new sugoi.form.elements.TextArea("theme", "theme", Json.stringify(app.getTheme(), null, "  "), true, null, "style='height:800px;'"));
 		f.addElement(new sugoi.form.elements.Html("html", "<a href='https://www.jsonlint.com/' target='_blank'>jsonlint.com</a>"));
 
 		if (f.isValid()) {

@@ -9,6 +9,8 @@ enum CatalogFlags {
 	StockManagement; 		//gestion des commandes
 	PercentageOnOrders;		//calcul d'une commission supplémentaire 
 	DisplayPricesOnGroupPage; //affiche les prix des produits sur la page publique du groupe
+	NotifyVendorOnOrderEnd; //envoyer un mail au producteur à la cloture des commandes
+	NotifyContactOnOrderEnd;//envoyer un mail au coorinateur à la cloture des commandes
 }
 
 @:index(startDate,endDate)
@@ -156,6 +158,13 @@ class Catalog extends Object
 		}
 	}
 
+	public function shouldNotifyVendorOnOrderEnd() : Bool{
+		return isVariableOrdersCatalog() || flags.has(NotifyVendorOnOrderEnd);
+	}
+	public function shouldNotifyContactOnOrderEnd() : Bool{
+		return flags.has(NotifyContactOnOrderEnd);
+	}
+
 	/**
 	 * computes a 'percentage' fee
 	 */
@@ -287,6 +296,14 @@ class Catalog extends Object
 		}else{
 			return Distribution.manager.search( $catalog == this, { orderBy:date,limit:limit } ,false);
 		}
+	}
+
+	public function getLastDistrib() : Null<Distribution> {
+		return Distribution.manager.search(
+			$catalog == this && $date <= Date.now(),
+			{ orderBy: -date, limit: 1 },
+			false
+		).first();
 	}
 
 	public function getVisibleDocuments( user : db.User ) : List<sugoi.db.EntityFile> {

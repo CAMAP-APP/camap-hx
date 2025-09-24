@@ -25,13 +25,15 @@ a {
 ol.breadcrumb {
   padding: 0;
   margin: 0 0 8px 0px;
-  background: none;
 }
 ol.breadcrumb li + li:before {
-  color: #deceb3;
+  color: rgb(222.3553299492, 206.3096446701, 178.6446700508);
 }
 ol.breadcrumb a {
-  color: #b89559;
+  color: rgb(184.1700507614, 149.3553299492, 89.3299492386);
+}
+ol.breadcrumb {
+  background: none;
 }
 
 .hidden {
@@ -263,14 +265,14 @@ span.panel-title {
 }
 
 /* product in shop */
+table.product td {
+  padding: 8px;
+  vertical-align: top;
+}
 table.product {
   width: 100%;
   height: 135px;
   overflow: auto;
-}
-table.product td {
-  padding: 8px;
-  vertical-align: top;
 }
 table.product .desc {
   font-size: 90%;
@@ -283,11 +285,6 @@ table.product a.productName {
 }
 
 /* GLOBAL TABLE SKINNING */
-table.table {
-  /*tr.disabled td,tr.inactive td{
-  	opacity:0.4;
-  }*/
-}
 table.table tr.head > td,
 table.table thead tr td,
 table.table tr.head > th {
@@ -300,13 +297,16 @@ table.table tr.darkhead > td,
 table.table tr.darkhead > th {
   background-color: #777;
   color: white;
-  height: 30px;
-  font-size: 120%;
-  vertical-align: bottom;
 }
 table.table tr.darkhead > td a:not(.btn),
 table.table tr.darkhead > th a:not(.btn) {
   color: white;
+}
+table.table tr.darkhead > td,
+table.table tr.darkhead > th {
+  height: 30px;
+  font-size: 120%;
+  vertical-align: bottom;
 }
 table.table tr.greyhead > td,
 table.table tr.greyhead > th {
@@ -317,6 +317,11 @@ table.table tr.greyhead > th {
 }
 table.table tr.subrow {
   background-color: #eee;
+}
+table.table {
+  /*tr.disabled td,tr.inactive td{
+  	opacity:0.4;
+  }*/
 }
 
 table.listing tr td {
@@ -388,14 +393,14 @@ div.reportHeader {
 }
 .clickable:hover {
   cursor: pointer;
-  background-color: #eee5d6;
+  background-color: rgb(237.6294416244, 229.0913705584, 214.3705583756);
   text-decoration: none;
   transition: all 0.15s ease;
 }
 .clickable:active {
   cursor: pointer;
   background-color: #f0d277;
-  border-color: #ebc349;
+  border-color: rgb(234.9337748344, 194.8013245033, 73.0662251656);
   text-decoration: none;
   transform: scale(0.95);
 }
@@ -594,7 +599,6 @@ div.reportHeader {
   margin: 0;
   padding: 4px;
   box-shadow: 4px 4px 0px #292929;
-  /* place link */
 }
 .dateBox .box {
   line-height: 22px;
@@ -605,6 +609,9 @@ div.reportHeader {
   text-align: center;
   margin: 0px;
   border-radius: 4px;
+}
+.dateBox {
+  /* place link */
 }
 .dateBox a {
   color: #ffffff !important;
@@ -834,12 +841,12 @@ div.productSelect div.product {
   background-color: #f5e3ac;
   padding: 8px;
   border-top: 1px solid #ccc;
-  color: #634e0c;
+  color: rgb(99.064516129, 77.5806451613, 11.935483871);
   cursor: pointer;
   font-style: italic;
 }
 .tt-suggestion:hover {
-  background-color: #f0d47e;
+  background-color: rgb(239.5161290323, 211.6451612903, 126.4838709677);
 }
 
 div.basketNumber {
@@ -895,7 +902,7 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
 a.btn-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
-  border-color: #ae894a;
+  border-color: rgb(173.7258883249, 137.2182741117, 74.2741116751);
 }
 
 i.icon {

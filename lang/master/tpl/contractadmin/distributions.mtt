@@ -1,14 +1,5 @@
 ::use 'contractadmin/design.mtt'::
 
-<style>
-	.faded, .faded .disabled {
-		background-color: #EEE;
-		color:gray;
-	}
-	.faded .btn-default {
-		background-color: hsl(21deg 82% 65%);
-	}
-</style>
 <h2>Participation aux distributions</h2>
 
 	<p>
@@ -29,39 +20,36 @@
 			::set d = md.getDistributionForContract(contract)::
 
 			<tr ::attr class if(md.getDate().getTime() < now) "faded"::>
-
-				::if(d==null)::
-					<td colspan="2" class="disabled">
-						Ne participe pas à la distribution
-						<br/>
-						du ::hDate(md.getDate())::
-					</td>
-					<td>
-						<a href="/contractAdmin/participate/::md.id::/::c.id::?_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default btn-sm">
-							<i class="icon icon-plus"></i> ::_("Participate")::
-						</a>
-					</td>
-				::else::
-					<span style="display:none;">::d.populate()::</span>
-					<td>
+				<td>
+					::if d != null::
 						::if d.distributionCycleId!=null::
-						<i class="icon icon-refresh"></i>  
+						<i class="icon icon-refresh"></i>
 						::end::
-						
 						::dDate(d.date):: 
 						<br/><span class="disabled">de ::hHour(d.date):: à ::hHour(d.end)::</span>
-					</td>
-					<td>
-						::md._place.name::
-					</td>
-					<td>
-						<div class="btn-group">
+					::else::
+						::hDate(md.getDate())::
+					::end::
+				</td>
+				<td>
+					::md._place.name::
+				</td>
+				<td style="width: 0.1%; white-space: nowrap; text-align: right">
+					::if(d==null)::
+						<td>
+							<a href="/contractAdmin/participate/::md.id::/::c.id::?_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default btn-sm">
+								<i class="icon icon-plus"></i> ::_("Participate")::
+							</a>
+						</td>
+					::else::
+						<span style="display:none;">::d.populate()::</span>
+						<!-- <div class="btn-group" style="white-space: nowrap"> -->
 
 							<a href="/contractAdmin/orders/::d._catalog.id::?d=::d.id::" class="btn btn-default btn-sm">
 								<i class="icon icon-basket"></i>&nbsp;::_("Orders")::
 							</a>
 
-							<div class="btn-group">
+							<div class="dropdown" style="display:inline-block;">
 								<button type="button" class="btn-noAntiDoubleClick btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="caret"></span> ::_("Dates"):: 
 								</button>
@@ -90,9 +78,9 @@
 								<i class="icon icon-delete"></i>&nbsp;Ne plus participer
 							</a>
 
-						</div>
-					</td>
-				::end::
+						<!-- </div> -->
+					::end::
+				</td>
 			</tr>
 			
 		::end::

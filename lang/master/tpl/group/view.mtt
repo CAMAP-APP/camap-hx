@@ -595,38 +595,42 @@ $$browserDetection()
 				$$nullSafe(::catalog._vendor.city::)<br/>
 
 				::set productsPreview = catalog.getProductsPreview(6)::
-			<div class="groupProductList">
-				::foreach p productsPreview::
-				<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
-					<img src="::p.getImage()::" alt="" />
-					<div class="productLabelIcon" style="margin-top: -10px;margin-bottom: -10px;" ::cond p.organic::>
-							<i class="icons icon-bio"></i>
-					</div>
-					<div class="groupProductCard_text">
-						<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
-						<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
-							::formatNum(p.price)::&nbsp;::currency()::
-						</div>
-					</div>
-				</button>
-				::end::
-			</div>
-			::foreach p productsPreview::
-			<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
-				<div class="modal-dialog modal-image">
-					<div class="modal-image-background">
-						<img src="::p.getImage()::" alt="" class="leftImage" />
-						<div class="productModal-description">
-							<div class="productModal-title">::p.name::</div>
-							<div class="productLabelIcon" ::cond p.organic::>
+				<div class="groupProductList">
+					::foreach p productsPreview::
+					<button type="button" class="groupProductCard" data-toggle="modal" data-target="#img-::p.id::" title="::p.name::">
+						<img src="::p.getImage()::" alt="" />
+						<div class="productLabelIcon" style="margin-top: -10px;margin-bottom: -10px;" ::cond p.organic::>
 								<i class="icons icon-bio"></i>
+						</div>
+						<div class="groupProductCard_text">
+							<div id="imglabel-::p.id::">::p.name:: <span ::cond p.price > 0::>(::if p.qt==null::1::else::::p.qt::::end::&nbsp;::unit(p._unitType,false)::)</span></div>
+							<div class="groupProductCard_price" ::cond p.price > 0 && catalog.displayPricesOnGroupPage()::>
+								::formatNum(p.price)::&nbsp;::currency()::
 							</div>
-							<div ::cond p.desc != null::>::raw sanitize(p.desc)::</div>
+						</div>
+					</button>
+					::end::
+				</div>
+				::foreach p productsPreview::
+				<div class="modal productModal" id="img-::p.id::" tabindex="-1" aria-labelledby="imglabel-::p.id::" aria-hidden="true">
+					<div class="modal-dialog modal-image">
+						<div class="modal-image-background">
+							<img src="::p.getImage()::" alt="" class="leftImage" />
+							<div class="productModal-description">
+								<div class="productModal-title">::p.name::</div>
+								<div class="productLabelIcon" ::cond p.organic::>
+									<i class="icons icon-bio"></i>
+								</div>
+								<div ::cond p.desc != null::>::raw sanitize(p.desc)::</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			::end::
+				::end::
+
+				::foreach doc visibleCatalogsDocuments.get(catalog.id)::
+					<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">  ::doc._file.name::</a><br/>
+				::end::
 			</p>
 			<br/>
 			::end::

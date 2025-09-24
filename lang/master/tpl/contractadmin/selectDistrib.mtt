@@ -1,35 +1,56 @@
 ::use 'contractadmin/design.mtt'::
 		
+		::if c.isVariableOrdersCatalog()::
+		<a href="/contractAdmin/batchOrder/::c.id::" class="btn btn-default btn">
+			<i class="icon icon-edit"></i> ::_("Batch order entry")::
+		</a>
+		::end::
+
 		::if distributions.length>0::
 			
 			<h3>::_("Orders")::</h3>
 		
-			<table class="table table-bordered table-hover table-striped">
+			<table class="table table-bordered table-hover table-striped" style="table-layout: auto">
 				<tr>
 					<th>::_("Date")::</th>
 					<th>::_("Location")::</th>
 					<th></th>
 				</tr>
-			::foreach d distributions::
+				
+				<tr 
+					::repeat d distributions::
+					::attr class if(d.date!=null && d.date.getTime() < now().getTime()) "faded" else null::
+				>
 			
-				::if d.date!=null && d.date.getTime() < now().getTime()::
-					::set style = "opacity:0.5;"::
-				::else::
-					::set style = ""::
-				::end::
-				<tr  style="::style::" >
-			
-					<td>::hDate(d.date)::</td>
-					<td>::d._place.name::</td>
-					<td>
+					<td style="vertical-align: middle">::hDate(d.date)::</td>
+					<td style="vertical-align: middle">::d._place.name::</td>
+					<td style="vertical-align: middle; width: 0.1%; white-space: nowrap">
 						<a href="/contractAdmin/orders/::c.id::?d=::d.id::" class="btn btn-default">
 							<i class="icon icon-basket"></i>
-							::_("Orders")::
+							Détails
 						</a>
-						
+						<a href="/contractAdmin/ordersByProduct/::c.id::?d=::d.id::" class="btn btn-default">
+							<i class="icon icon-products"></i>
+							Récapitulatif
+						</a>
+						<a href="::url::" class="btn btn-default" title="::_("Excel/CSV Export")::">
+							<i class="icon icon-download"></i>
+						</a>
+						<div class="dropdown" style="display:inline-block;">
+							<button 
+								class="btn btn-default dropdown-toggle btn-noAntiDoubleClick"
+								type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							>
+								<i class="icon icon-print"></i>&nbsp<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu pull-right" aria-labelledby="dropdownMenu1">
+								<li><a href="/distribution/csaList/::d.id::">Liste d'émargement AMAP</a></li>
+								<li><a href="/distribution/listByProductUser/::d.id::"> ::_("By Product-User")::</a></li>
+								<li><a href="/contractAdmin/ordersByProductList/::c.id::?d=::d.id::">::_("Order form")::</a></li>
+							</ul>
+						</div>
 					</td>
 				</tr>
-			::end::
 			</table>
 			
 		::else::
@@ -46,11 +67,6 @@
 		<a href="?old=1" class="btn btn-default btn-sm">
 				<i class="icon icon-archive"></i> ::_("Old orders")::
 		</a>
-				::if c.type==TYPE_VARORDER::
-					<a href="/contractAdmin/batchOrder/::c.id::" class="btn btn-default btn-sm">
-						<i class="icon icon-archive"></i> ::_("Batch order entry")::
-					</a>
-				::end::
 
 	</div>
 

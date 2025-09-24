@@ -1,13 +1,13 @@
 package service;
-import db.Product;
 import Common;
 import controller.Distribution;
 import db.Catalog;
 import db.Group.RegOption;
 import db.Operation.OperationType;
+import db.Product;
 import db.Subscription;
-import tink.core.Error;
 import service.PaymentService;
+import tink.core.Error;
 
 using Lambda;
 using tools.DateTool;
@@ -37,8 +37,16 @@ class SubscriptionService
 	/**
 		get subscriptions of a catalog
 	**/
-	public static function getCatalogSubscriptions( catalog : db.Catalog ) {
+	public static function getCatalogSubscriptions( catalog : db.Catalog ): Array<db.Subscription> {
 		return db.Subscription.manager.search( $catalogId == catalog.id, {orderBy:id},false ).array();
+	}
+
+	public static function getNewCatalogSubscriptions( catalog : db.Catalog, since: Date ): Array<db.Subscription> {
+		return db.Subscription.manager.search(
+			$catalogId == catalog.id && $startDate > since,
+			{orderBy: id},
+			false
+		).array();
 	}
 
 	/**
