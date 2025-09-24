@@ -410,7 +410,8 @@
 				<i class="icon icon-chevron-right"></i>
 			</a>
 		</div>
-	</macro>	
+	</macro>
+	<macro name="timeframeQueryParams(from,to)">_from=::from.toString().substr(0,10)::&_to=::to.toString().substr(0,10)::</macro>
 	
 	<macro name="footer()">
 		::if(theme!=null && theme.footer!=null)::
