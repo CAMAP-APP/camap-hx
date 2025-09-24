@@ -7,9 +7,10 @@
 	</p>
 
 	<p>
-		<a href="/contractAdmin/distributions/::c.id::?participateToAllDistributions=1&_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default">
-			<i class="icon icon-check"></i> Participer à toutes les distributions du ::dDate(participationTimeframe.from):: au ::dDate(participationTimeframe.to)::
-		</a>		
+		<a href="/contractAdmin/distributions/::c.id::?participateToAllDistributions=1&$$timeframeQueryParams(::timeframe.from::,::timeframe.to::)" class="btn btn-default">
+			<i class="icon icon-check"></i> Participer à toutes les distributions
+		</a>
+		&nbsp&nbspdu ::dDate(participationTimeframe.from):: au ::dDate(participationTimeframe.to)::
 	</p>
 
 	<table class="table">
@@ -36,11 +37,9 @@
 				</td>
 				<td style="width: 0.1%; white-space: nowrap; text-align: right">
 					::if(d==null)::
-						<td>
-							<a href="/contractAdmin/participate/::md.id::/::c.id::?_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default btn-sm">
-								<i class="icon icon-plus"></i> ::_("Participate")::
-							</a>
-						</td>
+						<a href="/contractAdmin/participate/::md.id::/::c.id::?$$timeframeQueryParams(::timeframe.from::,::timeframe.to::)" class="btn btn-default btn-sm">
+							<i class="icon icon-plus"></i> ::_("Participate")::
+						</a>
 					::else::
 						<span style="display:none;">::d.populate()::</span>
 						<!-- <div class="btn-group" style="white-space: nowrap"> -->
@@ -74,7 +73,7 @@
 								<i class="icon icon-print"></i>&nbsp;::_("Distribution list")::
 							</a>-->
 
-							<a href="/distribution/delete/::d.id::?_from=::timeframe.from.toString()::&_to=::timeframe.to.toString()::" class="btn btn-default btn-sm">
+							<a href="/distribution/delete/::d.id::?$$timeframeQueryParams(::timeframe.from::,::timeframe.to::)" class="btn btn-default btn-sm">
 								<i class="icon icon-delete"></i>&nbsp;Ne plus participer
 							</a>
 

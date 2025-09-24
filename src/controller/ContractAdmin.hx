@@ -941,13 +941,15 @@ class ContractAdmin extends Controller
 	}
 
 	function doParticipate(md:db.MultiDistrib,contract:db.Catalog){
+		var timeframe = '_from=${app.params.get("_from")}&_to=${app.params.get("_to")}';
+
 		try{
 			service.DistributionService.participate(md,contract);
 		}catch(e:tink.core.Error){
-			throw Error("/contractAdmin/distributions/"+contract.id,e.message);
+			throw Error('/contractAdmin/distributions/${contract.id}?${timeframe}',e.message);
 		}
 		
-		throw Ok('/contractAdmin/distributions/${contract.id}?_from=${app.params.get("_from")}&_to=${app.params.get("_to")}',t._("Distribution date added"));
+		throw Ok('/contractAdmin/distributions/${contract.id}?${timeframe}',t._("Distribution date added"));
 	}
 	
 	@tpl("contractadmin/view.mtt")
