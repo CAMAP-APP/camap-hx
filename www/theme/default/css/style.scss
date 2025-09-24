@@ -707,9 +707,12 @@ background-color: $state-info-bg-alpha;
 
 .header {
   .accountBlock {
-    div.pull-right {
+    .links {
       margin-right: 16px;
       margin-top: 16px;
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 1em;
     }
     a {
       color: $gray-base;
@@ -718,11 +721,11 @@ background-color: $state-info-bg-alpha;
 	    color: $brand-primary;
     }
     .btn-default {
-	background-color: transparent;
-	}
-	.css-wkfemu {
-		background-color: $brand-primary
-	}
+	    background-color: transparent;
+	  }
+	  .css-wkfemu {
+		  background-color: $brand-primary
+	  }
   }
 }
 

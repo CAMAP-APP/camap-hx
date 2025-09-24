@@ -92,20 +92,22 @@ a {
 ol.breadcrumb {
   padding: 0;
   margin: 0 0 8px 0px;
-  background: none;
 }
 ol.breadcrumb li + li:before {
-  color: #666666;
+  color: rgb(102.255, 102.255, 102.255);
 }
 ol.breadcrumb a {
-  color: #262626;
+  color: rgb(38.25, 38.25, 38.25);
+}
+ol.breadcrumb {
+  background: none;
 }
 
 body.cpro ol.breadcrumb li + li:before {
-  color: #70cf95;
+  color: rgb(112.3209876543, 207.1790123457, 149.1666666667);
 }
 body.cpro ol.breadcrumb a {
-  color: #309055;
+  color: rgb(48.1975308642, 143.8024691358, 85.3333333333);
 }
 
 .hidden {
@@ -119,7 +121,7 @@ div.footer-info {
 
 .greenBg {
   color: #3db66c;
-  background-color: #f2fbf6;
+  background-color: rgb(242.1925925926, 250.7074074074, 245.5);
   border-color: #3db66c;
 }
 
@@ -129,7 +131,7 @@ div.footer-info {
 
 .redBg {
   color: #e15339;
-  background-color: #f8dad4;
+  background-color: rgb(248.4868421053, 217.6578947368, 212.0131578947);
   border-color: #e15339;
 }
 
@@ -138,7 +140,7 @@ div.footer-info {
 }
 
 form p.desc {
-  color: #666666;
+  color: rgb(102.255, 102.255, 102.255);
   font-size: 0.9em;
 }
 
@@ -186,7 +188,7 @@ form p.desc {
 }
 
 ul.nav.admin {
-  background-color: #eeeeee;
+  background-color: rgb(238.425, 238.425, 238.425);
 }
 ul.nav.admin li.active > a {
   background-color: #e0e0e0 !important;
@@ -195,7 +197,7 @@ ul.nav li {
   font-size: 1em;
 }
 ul.nav li a {
-  color: #777777;
+  color: rgb(119.085, 119.085, 119.085);
 }
 ul.nav li.active > a {
   background-color: #eee !important;
@@ -217,13 +219,13 @@ ul.nav li.active > a {
 
 .alert-success {
   color: #3db66c;
-  background-color: #f2fbf6;
+  background-color: rgb(242.1925925926, 250.7074074074, 245.5);
   border-color: #3db66c;
 }
 
 .alert-danger {
   color: #e15339;
-  background-color: #f8dad4;
+  background-color: rgb(248.4868421053, 217.6578947368, 212.0131578947);
   border-color: #e15339;
 }
 
@@ -362,14 +364,14 @@ span.panel-title {
 }
 
 /* product in shop */
+table.product td {
+  padding: 8px;
+  vertical-align: top;
+}
 table.product {
   width: 100%;
   height: 135px;
   overflow: auto;
-}
-table.product td {
-  padding: 8px;
-  vertical-align: top;
 }
 table.product .desc {
   font-size: 90%;
@@ -382,11 +384,6 @@ table.product a.productName {
 }
 
 /* GLOBAL TABLE SKINNING */
-table.table {
-  /*tr.disabled td,tr.inactive td{
-  	opacity:0.4;
-  }*/
-}
 table.table tr.head > td,
 table.table thead tr td,
 table.table tr.head > th {
@@ -399,13 +396,16 @@ table.table tr.darkhead > td,
 table.table tr.darkhead > th {
   background-color: #777;
   color: white;
-  height: 30px;
-  font-size: 120%;
-  vertical-align: bottom;
 }
 table.table tr.darkhead > td a:not(.btn),
 table.table tr.darkhead > th a:not(.btn) {
   color: white;
+}
+table.table tr.darkhead > td,
+table.table tr.darkhead > th {
+  height: 30px;
+  font-size: 120%;
+  vertical-align: bottom;
 }
 table.table tr.greyhead > td,
 table.table tr.greyhead > th {
@@ -416,6 +416,11 @@ table.table tr.greyhead > th {
 }
 table.table tr.subrow {
   background-color: #eee;
+}
+table.table {
+  /*tr.disabled td,tr.inactive td{
+  	opacity:0.4;
+  }*/
 }
 
 table.listing tr td {
@@ -487,14 +492,14 @@ div.reportHeader {
 }
 .clickable:hover {
   cursor: pointer;
-  background-color: #b3b3b3;
+  background-color: rgb(178.5, 178.5, 178.5);
   text-decoration: none;
   transition: all 0.15s ease;
 }
 .clickable:active {
   cursor: pointer;
   background-color: #eb7334;
-  border-color: #d75815;
+  border-color: rgb(214.8340807175, 87.8385650224, 21.1659192825);
   text-decoration: none;
   transform: scale(0.95);
 }
@@ -565,7 +570,7 @@ div.reportHeader {
   overflow: hidden;
   vertical-align: top;
   position: relative;
-  border: solid 1px #9f3385;
+  border: solid 1px rgb(158.5536585366, 51.1463414634, 132.9804878049);
   font-size: 0.8em;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
   background-color: rgba(93, 30, 78, 0.1);
@@ -589,6 +594,11 @@ div.reportHeader {
   vertical-align: top;
   position: relative;
   background: #bad096;
+}
+.proBlock:hover {
+  background: rgb(162.8486842105, 192.2302631579, 114.7697368421);
+}
+.proBlock {
   /*span.cpro{
   	position: absolute;
   	right:0px;
@@ -600,13 +610,13 @@ div.reportHeader {
   	font-weight: bold;
   }*/
 }
-.proBlock:hover {
-  background: #a3c073;
-}
 
-.header .accountBlock div.pull-right {
+.header .accountBlock .links {
   margin-right: 16px;
   margin-top: 16px;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
 }
 .header .accountBlock a {
   color: #000;
@@ -748,7 +758,7 @@ div.reportHeader {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  background-color: #eb7639;
+  background-color: rgb(235.4573991031, 118.201793722, 56.6426008969);
   color: #ffffff;
   font-size: 13px;
   line-height: 13px;
@@ -757,8 +767,7 @@ div.reportHeader {
   width: 166px;
   margin: 0;
   padding: 2px;
-  box-shadow: 2px 2px 0px #fdf3ee;
-  /* place link */
+  box-shadow: 2px 2px 0px rgb(253.2959641256, 243.0717488789, 237.7040358744);
 }
 .dateBox .box {
   display: flex;
@@ -803,6 +812,9 @@ div.reportHeader {
   color: #5d1e4e;
   font-size: 28px;
   font-weight: bold;
+}
+.dateBox {
+  /* place link */
 }
 .dateBox a {
   color: #ffffff !important;
@@ -920,7 +932,7 @@ div.reportHeader {
   border-top-right-radius: 8px;
   border: 2px solid #eb7334;
   color: #5d1e4e;
-  background-color: #fef9f7;
+  background-color: rgb(254.2107623318, 249.4753363229, 246.9892376682);
   margin: 0;
   padding: 6px 6px 6px 166px;
   min-height: 70px;
@@ -974,7 +986,7 @@ div.reportHeader {
   padding: 12px;
 }
 .distrib .content.myorder {
-  border-bottom: 1px solid #d275bc;
+  border-bottom: 1px solid rgb(210.3658536585, 116.6341463415, 188.0487804878);
   background-color: rgba(93, 30, 78, 0.1);
   color: #5d1e4e;
   padding: 8px 8px 8px 20px;
@@ -992,7 +1004,7 @@ div.reportHeader {
 }
 .distrib .content .alert-danger {
   color: #e15339;
-  background-color: #f8dad4;
+  background-color: rgb(248.4868421053, 217.6578947368, 212.0131578947);
   border-color: #e15339;
 }
 .distrib .content .orderFooter {
@@ -1021,7 +1033,7 @@ div.reportHeader {
 .btn-primary {
   color: #ffffff;
   background-color: #eb7334;
-  border-color: #e05c16;
+  border-color: rgb(224.1192825112, 91.6349775785, 22.0807174888);
 }
 
 /*
@@ -1038,7 +1050,7 @@ div.reportHeader {
   border-radius: 3px;
   color: #ffffff;
   background-color: #eb7334;
-  border-color: #e05c16;
+  border-color: rgb(224.1192825112, 91.6349775785, 22.0807174888);
   margin: 2px;
 }
 .btn-group .btn-default.disabled {
@@ -1146,7 +1158,7 @@ div.productBox .price {
   font-style: italic;
 }
 .tt-suggestion:hover {
-  background-color: #e6e6e6;
+  background-color: rgb(229.5, 229.5, 229.5);
 }
 
 #pInput .txpProduct {
@@ -1239,7 +1251,7 @@ i.icon {
 }
 
 .subPanel {
-  border-color: #eeeeee !important;
+  border-color: rgb(238.425, 238.425, 238.425) !important;
   border-width: 3px !important;
   text-align: center;
 }
