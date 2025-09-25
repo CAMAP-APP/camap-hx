@@ -7,7 +7,7 @@ msgstr ""
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.5\n"
 
@@ -32,10 +32,8 @@ msgid "Delays and messages"
 msgstr "Délais et messages"
 
 #: ../src/controller/amapadmin/Volunteers.hx:1225
-msgid ""
-"Number of days before duty periods open to volunteers (between 7 and 365)"
-msgstr ""
-"Ouverture des inscriptions aux permanences (en jours avant la distribution)"
+msgid "Number of days before duty periods open to volunteers (between 7 and 365)"
+msgstr "Ouverture des inscriptions aux permanences (en jours avant la distribution)"
 
 #: ../src/controller/amapadmin/Volunteers.hx:1412
 msgid "Authorize the sending of information emails to volunteers"
@@ -53,12 +51,10 @@ msgstr "Corps du courriel envoyé aux bénévoles"
 
 #: ../src/controller/amapadmin/Volunteers.hx:2227
 msgid "Authorize the sending of alert emails to free volunteers"
-msgstr ""
-"Autoriser l'envoi de courriels d'alerte pour les rôles de bénévoles libres"
+msgstr "Autoriser l'envoi de courriels d'alerte pour les rôles de bénévoles libres"
 
 #: ../src/controller/amapadmin/Volunteers.hx:2403
-msgid ""
-"Number of days before duty period to send mail for vacant volunteer roles"
+msgid "Number of days before duty period to send mail for vacant volunteer roles"
 msgstr ""
 "Nombre de jours avant la permanence pour envoyer un courriel pour les rôles "
 "de bénévole vacants"
@@ -151,8 +147,7 @@ msgstr "Gestion des catalogues"
 
 #: ../src/controller/AmapAdmin.hx:5554
 msgid "You cannot strip yourself of admin rights."
-msgstr ""
-"Vous ne pouvez pas vous enlever vous-même les droits de gestion du groupe."
+msgstr "Vous ne pouvez pas vous enlever vous-même les droits de gestion du groupe."
 
 #: ../src/controller/AmapAdmin.hx:5722
 msgid "Rights removed"
@@ -279,8 +274,7 @@ msgid "New catalog created"
 msgstr "Nouveau catalogue créé"
 
 #: ../src/controller/Contract.hx:5239
-msgid ""
-"This delivery has already taken place, you can no longer modify the order."
+msgid "This delivery has already taken place, you can no longer modify the order."
 msgstr ""
 "Cette distribution s'est déjà déroulée, vous ne pouvez plus modifier la "
 "commande."
@@ -290,9 +284,9 @@ msgid ""
 "<br/>As the manager of the catalog you can modify the order from this page: "
 "<a href='/contractAdmin'>Catalog management</a>"
 msgstr ""
-"<br/>En tant que gestionnaire de catalogue vous pouvez modifier une commande "
-"depuis la page de gestion des commandes dans l'onglet <a href='/"
-"contractAdmin'>Catalogues</a>"
+"<br/>En tant que gestionnaire de catalogue vous pouvez modifier une "
+"commande depuis la page de gestion des commandes dans l'onglet <a "
+"href='/contractAdmin'>Catalogues</a>"
 
 #: ../src/controller/Contract.hx:6744
 msgid "Error, could not find the order"
@@ -467,10 +461,8 @@ msgid "::date:: from ::startHour:: to ::endHour::"
 msgstr "::date:: de ::startHour:: à ::endHour::"
 
 #: ../src/controller/Cron.hx:18000
-msgid ""
-"Do not forget the delivery on <b>::day::</b> from ::from:: to ::to::<br/>"
-msgstr ""
-"N'oubliez pas la distribution le <b>::day::</b> de ::from:: à ::to::<br/>"
+msgid "Do not forget the delivery on <b>::day::</b> from ::from:: to ::to::<br/>"
+msgstr "N'oubliez pas la distribution le <b>::day::</b> de ::from:: à ::to::<br/>"
 
 #: ../src/controller/Cron.hx:18202
 msgid "Your products to collect :"
@@ -581,10 +573,8 @@ msgid "Start time"
 msgstr "Heure de début"
 
 #: ../src/controller/Distribution.hx:21451
-msgid ""
-"The distribution has been recorded, please define which roles are needed."
-msgstr ""
-"La distribution a été enregistrée, définissez quels rôles sont nécéssaires."
+msgid "The distribution has been recorded, please define which roles are needed."
+msgstr "La distribution a été enregistrée, définissez quels rôles sont nécéssaires."
 
 #: ../src/controller/Distribution.hx:21677
 msgid "Create a general distribution"
@@ -673,8 +663,8 @@ msgid ""
 "of the group"
 msgstr ""
 "Raison pour laquelle vous vous désistez. Attention: une notification de "
-"désistement comprenant le contenu de ce message sera diffusé par mail a tous "
-"les adhérents du groupe"
+"désistement comprenant le contenu de ce message sera diffusé par mail a "
+"tous les adhérents du groupe"
 
 #: ../src/controller/Distribution.hx:36787
 msgid "You have been successfully removed from this role."
@@ -727,8 +717,8 @@ msgstr "Laissez un message"
 
 #: ../src/controller/Group.hx:3134
 msgid ""
-"Your subscription to the waiting list has been recorded. You will receive an "
-"e-mail as soon as your request is processed."
+"Your subscription to the waiting list has been recorded. You will receive "
+"an e-mail as soon as your request is processed."
 msgstr ""
 "Votre demande d'enregistrement en liste d'attente a été prise en compte. "
 "Vous recevrez un courriel dès que votre demande sera traitée."
@@ -792,14 +782,6 @@ msgstr "Gros panier de légumes"
 msgid "Small basket of vegetables"
 msgstr "Petit panier de légumes"
 
-#: ../src/controller/Install.hx:2717
-msgid ""
-"Group and user 'admin' created. Your email is 'admin@camap.localdomain' and "
-"your password is 'admin'"
-msgstr ""
-"Groupe et utilisateur « admin » créé. Votre courriel est « admin@camap."
-"localdomain » et votre mot de passe est « admin »"
-
 #: ../src/controller/Main.hx:1250
 msgid "The link \"::link::\" does not exists."
 msgstr "Le lien \"::link::\" n'existe pas."
@@ -809,8 +791,8 @@ msgid ""
 "You're now a member of \"::group::\" ! You'll receive an email as soon as "
 "next order will open"
 msgstr ""
-"Vous êtes maintenant membre de « ::group:: » ! Vous recevrez un courriel dès "
-"que la prochaine commande ouvrira"
+"Vous êtes maintenant membre de « ::group:: » ! Vous recevrez un courriel "
+"dès que la prochaine commande ouvrira"
 
 #: ../src/controller/Member.hx:1127
 msgid "This person does not belong to your group"
@@ -826,12 +808,13 @@ msgstr "Vous ne pouvez pas vous effacer vous-même."
 
 #: ../src/controller/Member.hx:3549
 msgid ""
-"Warning, this account has orders. <a class='btn btn-default btn-xs' href='/"
-"member/delete/::userid::?token=::argstoken::&confirm=1'>Remove anyway</a>"
+"Warning, this account has orders. <a class='btn btn-default btn-xs' "
+"href='/member/delete/::userid::?token=::argstoken::&confirm=1'>Remove "
+"anyway</a>"
 msgstr ""
 "Attention, ce compte a des commandes. <a class='btn btn-default btn-xs' "
-"href='/member/delete/::userid::?token=::argstoken::&confirm=1'>Retirer quand "
-"même</a>"
+"href='/member/delete/::userid::?token=::argstoken::&confirm=1'>Retirer "
+"quand même</a>"
 
 #: ../src/controller/Member.hx:3886
 msgid "::user:: has been removed from your group"
@@ -894,8 +877,7 @@ msgid "Key-in a new product"
 msgstr "Enregistrer un nouveau produit"
 
 #: ../src/controller/Product.hx:3284
-msgid ""
-"Not possible to delete this product because some orders are referencing it"
+msgid "Not possible to delete this product because some orders are referencing it"
 msgstr "Impossible d'effacer ce produit car des commandes y sont rattachées"
 
 #: ../src/controller/Product.hx:3482
@@ -934,8 +916,8 @@ msgstr "Paiement enregistré"
 msgid "Record a payment for ::user::"
 msgstr "Saisir un paiement pour ::user::"
 
-#. label or name for a payment
 #: ../src/controller/Transaction.hx:810 ../src/controller/Transaction.hx:3390
+#. label or name for a payment
 msgid "Label"
 msgstr "Libellé"
 
@@ -985,11 +967,13 @@ msgstr "Vous faites déjà partie de ce groupe."
 
 #: ../src/controller/User.hx:7974
 msgid ""
-"A new member joined the group without ordering : <br/><strong>::newMember::</"
-"strong><br/> <a href='::url::'>See contact details</a>"
+"A new member joined the group without ordering : "
+"<br/><strong>::newMember::</strong><br/> <a href='::url::'>See contact "
+"details</a>"
 msgstr ""
-"Un nouveau membre vient de rejoindre le groupe: <br/><strong>::newMember::</"
-"strong><br/> <a href='::url::'>Voir le détail</a>"
+"Un nouveau membre vient de rejoindre le groupe: "
+"<br/><strong>::newMember::</strong><br/> <a href='::url::'>Voir le "
+"détail</a>"
 
 #: ../src/controller/User.hx:8209
 msgid "New member"
@@ -1418,8 +1402,7 @@ msgstr "la date de début de l'alternance des stocks est obligatoire."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:2620
 msgid "il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
-msgstr ""
-"il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
+msgstr "il faut choisir un fréquence d'alternance des stocks (1/2, 1/3 ou 1/4)."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:3258
 msgid ""
@@ -1436,8 +1419,7 @@ msgstr "A chaque distribution, le stock défini sera disponible à la vente."
 #: ../src/form/StockTrackingPerDistribForm.hx:6291
 #: ../src/form/StockTrackingPerDistribForm.hx:9398
 msgid "Cette fonctionnalité nécessite que des distributions soient planifiées."
-msgstr ""
-"Cette fonctionnalité nécessite que des distributions soient planifiées."
+msgstr "Cette fonctionnalité nécessite que des distributions soient planifiées."
 
 #: ../src/form/StockTrackingPerDistribForm.hx:6405
 msgid ""
@@ -1510,11 +1492,10 @@ msgid "Vendor"
 msgstr "Producteur"
 
 #: ../src/service/CatalogService.hx:8234
-msgid ""
-"If you would like to add fees to the order, define a rate (%) and a label."
+msgid "If you would like to add fees to the order, define a rate (%) and a label."
 msgstr ""
-"Si vous souhaitez ajouter des frais au pourcentage de la commande, spécifiez "
-"le pourcentage et son libellé."
+"Si vous souhaitez ajouter des frais au pourcentage de la commande, "
+"spécifiez le pourcentage et son libellé."
 
 #: ../src/service/CatalogService.hx:8528
 msgid ""
@@ -1533,8 +1514,8 @@ msgid ""
 "This distribution should have an order opening date and an order closing "
 "date."
 msgstr ""
-"Cette distribution doit avoir une date d'ouverture des commandes et une date "
-"de fermeture des commandes."
+"Cette distribution doit avoir une date d'ouverture des commandes et une "
+"date de fermeture des commandes."
 
 #: ../src/service/DistributionService.hx:1250
 msgid "The orders end date must be set after the orders start date"
@@ -1547,21 +1528,21 @@ msgid ""
 "There is already a distribution at this place overlapping with the time "
 "range you've selected."
 msgstr ""
-"Il y a déjà une distribution à cet endroit qui chevauche la période que vous "
-"avez sélectionnée."
+"Il y a déjà une distribution à cet endroit qui chevauche la période que "
+"vous avez sélectionnée."
 
 #: ../src/service/DistributionService.hx:3948
 msgid ""
-"The date of the delivery must be prior to the end of the catalog (::"
-"contractEndDate::)"
+"The date of the delivery must be prior to the end of the catalog "
+"(::contractEndDate::)"
 msgstr ""
 "La date de distribution doit être antérieure à la date de fin du catalogue "
 "(::contractEndDate::)"
 
 #: ../src/service/DistributionService.hx:4173
 msgid ""
-"The date of the delivery must be after the begining of the catalog (::"
-"contractBeginDate::)"
+"The date of the delivery must be after the begining of the catalog "
+"(::contractBeginDate::)"
 msgstr ""
 "La date de distribution doit être postérieure à la date de début du "
 "catalogue (::contractBeginDate::)"
@@ -1584,11 +1565,13 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas participer à cette distribution car aucune date "
 "d'ouverture de commande n'a été définie . <a href='::url::' "
-"target='_blank'>Merci de mettre à jour la distribution générale d'abord.</a>."
+"target='_blank'>Merci de mettre à jour la distribution générale "
+"d'abord.</a>."
 
 #: ../src/service/DistributionService.hx:12521
 msgid ""
-"The distribution date is different from the date of the general distribution."
+"The distribution date is different from the date of the general "
+"distribution."
 msgstr ""
 "La date de distribution est différente de la date de la distribution "
 "principale."
@@ -1597,12 +1580,10 @@ msgstr ""
 msgid ""
 "The distribution place is different from the place of the general "
 "distribution."
-msgstr ""
-"Le lieu de distribution est différent du lieu de la distribution principale."
+msgstr "Le lieu de distribution est différent du lieu de la distribution principale."
 
 #: ../src/service/DistributionService.hx:14865
-msgid ""
-"The new distribution date is not between the catalog start and end date."
+msgid "The new distribution date is not between the catalog start and end date."
 msgstr ""
 "La nouvelle date de distribution doit être comprise entre la date de début "
 "et la date de fin du catalogue."
@@ -1618,8 +1599,7 @@ msgstr ""
 "modifierait l'engagement."
 
 #: ../src/service/DistributionService.hx:20525
-msgid ""
-"Deletion not possible: orders are recorded for ::vendorName:: on ::date::."
+msgid "Deletion not possible: orders are recorded for ::vendorName:: on ::date::."
 msgstr ""
 "Effacement impossible : des commandes sont enregistrées pour ::vendorName:: "
 "pour le ::date::."
@@ -1634,24 +1614,23 @@ msgstr "Ce cycle de distribution n'a pas été enregistré"
 
 #: ../src/service/DistributionService.hx:26725
 msgid ""
-"The date of the delivery must be prior to the end of the contract (::"
-"contractEndDate::)"
+"The date of the delivery must be prior to the end of the contract "
+"(::contractEndDate::)"
 msgstr ""
-"La date de distribution doit être antérieure à la date de fin du contrat (::"
-"contractEndDate::)"
+"La date de distribution doit être antérieure à la date de fin du contrat "
+"(::contractEndDate::)"
 
 #: ../src/service/DistributionService.hx:26959
 msgid ""
-"The date of the delivery must be after the begining of the contract (::"
-"contractBeginDate::)"
+"The date of the delivery must be after the begining of the contract "
+"(::contractBeginDate::)"
 msgstr ""
 "La date de distribution doit être postérieure à la date de début du contrat "
 "(::contractBeginDate::)"
 
 #: ../src/service/OrderService.hx:1267
 msgid "Error : product \"::product::\" quantity should be integer"
-msgstr ""
-"Erreur : La quantité du produit \"::product::\" doit être un nombre entier"
+msgstr "Erreur : La quantité du produit \"::product::\" doit être un nombre entier"
 
 #: ../src/service/OrderService.hx:1537
 msgid "multi-weighing products should be ordered only with integer quantities"
@@ -1690,13 +1669,12 @@ msgstr "distributions"
 
 #: ../src/service/ProductService.hx:7970
 msgid "Please fill the field \"stock\" or disable stockTracking."
-msgstr ""
-"Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."
+msgstr "Merci de remplir le champ \"stock\" ou de désactiver le suivi des stocks."
 
 #: ../src/service/ProductService.hx:8418
 msgid ""
-"Stock can't be less than ::minStock:: for ::product:: on distribution ::"
-"ddate:: because of existing orders."
+"Stock can't be less than ::minStock:: for ::product:: on distribution "
+"::ddate:: because of existing orders."
 msgstr ""
 "Le stock ne peut pas être inférieur à ::minStock:: pour ::product:: sur la "
 "distribution du ::ddate:: à cause des commandes en cours."
@@ -1714,8 +1692,7 @@ msgid "You need to first select the volunteer roles for this distribution."
 msgstr "Vous devez d'abord définir des rôles pour cette distribution."
 
 #: ../src/service/VolunteerService.hx:3116
-msgid ""
-"A volunteer can't be assigned to multiple roles for the same distribution!"
+msgid "A volunteer can't be assigned to multiple roles for the same distribution!"
 msgstr ""
 "Un bénévole ne peut pas être assigné à plusieurs rôles pour la même "
 "distribution !"
@@ -1810,8 +1787,8 @@ msgstr ""
 
 #: ../src/service/WaitingListService.hx:516
 msgid ""
-"<p><b>::name::</b> suscribed to the waiting list of <b>::group::</b> on ::"
-"date::</p>"
+"<p><b>::name::</b> suscribed to the waiting list of <b>::group::</b> on "
+"::date::</p>"
 msgstr ""
 "<p><b>::name::</b> s'est inscrit à la liste d'attente de <b>::group::</b> "
 "le ::date::</p>"
@@ -1832,39 +1809,39 @@ msgstr "Vous devez être connecté(e)."
 msgid "You are not in the waiting list of this group"
 msgstr "Vous n'êtes pas sur la liste d'attente de ce groupe"
 
-#. kilogramms
 #: ../src/View.hx:3389 ../common/Formatting.hx:1099
+#. kilogramms
 msgid "Kg."
 msgstr "kg"
 
-#. gramms
 #: ../src/View.hx:3428 ../common/Formatting.hx:1140
+#. gramms
 msgid "g."
 msgstr "g"
 
-#. unit of a product)
 #: ../src/View.hx:3481
+#. unit of a product)
 msgid "pieces"
 msgstr "pièces"
 
-#. unit of a product)
 #: ../src/View.hx:3520 ../common/Formatting.hx:1024
 #: ../common/Formatting.hx:1176
+#. unit of a product)
 msgid "piece"
 msgstr "pièce"
 
-#. liter
 #: ../src/View.hx:3570 ../common/Formatting.hx:1227
+#. liter
 msgid "L."
 msgstr "L"
 
-#. centiliter
 #: ../src/View.hx:3609 ../common/Formatting.hx:1267
+#. centiliter
 msgid "cl."
 msgstr "cL"
 
-#. milliliter
 #: ../src/View.hx:3654
+#. milliliter
 msgid "ml."
 msgstr "mL"
 
@@ -1949,8 +1926,7 @@ msgid "no date set"
 msgstr "aucune date"
 
 #: ../lang/master/tpl/admin/emails.mtt:106
-msgid ""
-"Emails are temporarily stored in a buffer, waiting to be sent by the cron"
+msgid "Emails are temporarily stored in a buffer, waiting to be sent by the cron"
 msgstr ""
 "Les courriels sont temporairement stockés dans cette liste d'attente, en "
 "attendant d'être envoyés"
@@ -1994,11 +1970,11 @@ msgstr "Définir un logo"
 
 #: ../lang/master/tpl/amapadmin/default.mtt:571
 msgid ""
-"Your group has a public page, You can use it as a micro-website.<br/>Copy-"
-"paste the address of this page and share it !"
+"Your group has a public page, You can use it as a "
+"micro-website.<br/>Copy-paste the address of this page and share it !"
 msgstr ""
-"Votre groupe a une page publique, vous pouvez l'utiliser comme un micro site "
-"web.<br/>Copiez-collez cette adresse et partagez-la !"
+"Votre groupe a une page publique, vous pouvez l'utiliser comme un micro "
+"site web.<br/>Copiez-collez cette adresse et partagez-la !"
 
 #: ../lang/master/tpl/amapadmin/default.mtt:1063
 msgid "Display"
@@ -2021,11 +1997,11 @@ msgstr "Permanences"
 msgid "Currency"
 msgstr "Monnaie"
 
-#. short version for delete
 #: ../lang/master/tpl/amapadmin/places.mtt:501
 #: ../lang/master/tpl/contractadmin/distributions.mtt:3631
 #: ../lang/master/tpl/contractadmin/products.mtt:5364
 #: ../lang/master/tpl/contractadmin/subscriptionpayments.mtt:2072
+#. short version for delete
 msgid "Del."
 msgstr "Suppr."
 
@@ -2240,8 +2216,7 @@ msgstr "Nous n'avons pas trouvé de producteur correspondant à votre recherche"
 
 #: ../lang/master/tpl/contractadmin/defineVendor.mtt:1330
 msgid "if you have not found your vendor, enter a new record"
-msgstr ""
-"Si vous n'avez pas trouvé votre producteur, saisissez une nouvelle fiche"
+msgstr "Si vous n'avez pas trouvé votre producteur, saisissez une nouvelle fiche"
 
 #: ../lang/master/tpl/contractadmin/design.mtt:352
 #: ../lang/master/tpl/contractadmin/view.mtt:46
@@ -2381,19 +2356,18 @@ msgstr "Qté"
 msgid "Unit price including taxes"
 msgstr "Prix unitaire TTC"
 
-#. price per unit
 #: ../lang/master/tpl/contractadmin/orders.mtt:4350
 #: ../lang/master/tpl/history/basket.mtt:540
 #: ../lang/master/tpl/history/csaorders.mtt:924
+#. price per unit
 msgid "U.P"
 msgstr "P.U"
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:7113
 msgid ""
-"Do you really want to delete this order row for the product \"::productName::"
-"\"?"
-msgstr ""
-"Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
+"Do you really want to delete this order row for the product "
+"\"::productName::\"?"
+msgstr "Voulez-vous vraiment effacer cette commande du produit \"::productName::\" ?"
 
 #: ../lang/master/tpl/contractadmin/ordersByDate.mtt:273
 msgid "Validated"
@@ -2477,12 +2451,12 @@ msgstr "Livraison du <b>::date::</b>"
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1202
 msgid ""
 "Be careful, if the price of the product was modified during the sale, every "
-"order of a member is taken into account with the price as it was at the time "
-"of the creation of the order"
+"order of a member is taken into account with the price as it was at the "
+"time of the creation of the order"
 msgstr ""
 "Attention, si le prix du produit a évolué au fil de la vente, chaque "
-"commande de membre est prise en compte avec le prix au moment où la commande "
-"a été faite"
+"commande de membre est prise en compte avec le prix au moment où la "
+"commande a été faite"
 
 #: ../lang/master/tpl/contractadmin/ordersByProduct.mtt:578
 #: ../lang/master/tpl/contractadmin/ordersByProductList.mtt:1544
@@ -2677,9 +2651,9 @@ msgstr "Calendrier des permanences"
 msgid "Duty periods participations"
 msgstr "Participation aux Permanences"
 
-#. Delivery from 18:00 to 19:30
 #: ../lang/master/tpl/distribution/default.mtt:2679
 #: ../lang/master/tpl/home.mtt:3613
+#. Delivery from 18:00 to 19:30
 msgid "Delivery from ::start:: to ::end::"
 msgstr "Distribution de ::start:: à ::end::"
 
@@ -2718,8 +2692,8 @@ msgstr "Bénévoles inscrits"
 #: ../lang/master/tpl/distribution/default.mtt:9941
 msgid "Order start date is different from general distribution"
 msgstr ""
-"La date d'ouverture des commandes est différente de celle de la distribution "
-"principale"
+"La date d'ouverture des commandes est différente de celle de la "
+"distribution principale"
 
 #: ../lang/master/tpl/distribution/default.mtt:10301
 msgid "Order end date is different from general distribution"
@@ -2811,8 +2785,7 @@ msgid "If the website is unavailable, please try again in few minutes."
 msgstr "Si le site est indisponible, merci de revenir dans quelques minutes."
 
 #: ../lang/master/tpl/error.mtt:544
-msgid ""
-"If this happen repeatedly, please let us know so we can solve the issue."
+msgid "If this happen repeatedly, please let us know so we can solve the issue."
 msgstr ""
 "En cas d'erreurs répétées, merci de nous contacter de façon à ce que nous "
 "corrigions votre problème."
@@ -2843,8 +2816,8 @@ msgstr "Demande d'adhésion"
 
 #: ../lang/master/tpl/group/view.mtt:8570
 msgid ""
-"This group accepts subscriptions on waiting list. A coordinator will contact "
-"you."
+"This group accepts subscriptions on waiting list. A coordinator will "
+"contact you."
 msgstr ""
 "Ce groupe prend les inscriptions sur liste d'attente. Un coordinateur vous "
 "contactera."
@@ -2906,9 +2879,9 @@ msgstr "Cotisation à jour"
 msgid "Membership to renew"
 msgstr "Cotisation à renouveler"
 
-#. full sentence : Membership up to date for the period 2017-2018
 #: ../lang/master/tpl/history/default.mtt:1357
 #: ../lang/master/tpl/member/view.mtt:4970
+#. full sentence : Membership up to date for the period 2017-2018
 msgid "for the period"
 msgstr "pour la période"
 
@@ -3062,7 +3035,8 @@ msgstr "Un nouveau mot de passe a été défini pour ::site::"
 
 #: ../lang/master/tpl/mail/newPasswordConfirmed.mtt:183
 msgid ""
-"You can use the following emails to log into your account : <b>::emails::</b>"
+"You can use the following emails to log into your account : "
+"<b>::emails::</b>"
 msgstr ""
 "Vous pouvez utiliser les courriels suivants pour vous connecter à votre "
 "compte : <b>::emails::</b>"
@@ -3159,9 +3133,9 @@ msgid ""
 "filled.<br/>If data are not in line or not corresponding to the right "
 "column, it means that your CSV file is not correct."
 msgstr ""
-"Avant de valider cet import, vérifiez que le tableau est correctement rempli."
-"<br/>Si les données semblent incorrectes ou ne sont pas dans la bonne "
-"colonne, cela veut dire que votre fichier CSV est incorrect."
+"Avant de valider cet import, vérifiez que le tableau est correctement "
+"rempli.<br/>Si les données semblent incorrectes ou ne sont pas dans la "
+"bonne colonne, cela veut dire que votre fichier CSV est incorrect."
 
 #: ../lang/master/tpl/product/import.mtt:1391
 msgid "Import these products in the database"
@@ -3218,8 +3192,8 @@ msgid ""
 "Fill correctly this file, or modify your existing file to respect strictly "
 "the order of columns"
 msgstr ""
-"Remplissez ce fichier, ou modifiez un fichier existant en respectant l'ordre "
-"des colonnes du fichier de démonstration"
+"Remplissez ce fichier, ou modifiez un fichier existant en respectant "
+"l'ordre des colonnes du fichier de démonstration"
 
 #: ../lang/master/tpl/product/import.mtt:3096
 msgid ""
@@ -3231,11 +3205,11 @@ msgstr ""
 
 #: ../lang/master/tpl/product/import.mtt:3213
 msgid ""
-"Choose the following options: separation characters: <b>comma</b>, encoding: "
-"<b>Unicode UTF8<b/>"
+"Choose the following options: separation characters: <b>comma</b>, "
+"encoding: <b>Unicode UTF8<b/>"
 msgstr ""
-"Choisissez les options suivantes : caractère de séparation : <b>virgule</b>, "
-"encodage : <b>Unicode UTF8</b>"
+"Choisissez les options suivantes : caractère de séparation : "
+"<b>virgule</b>, encodage : <b>Unicode UTF8</b>"
 
 #: ../lang/master/tpl/product/import.mtt:3337
 msgid "Save your file"
@@ -3259,8 +3233,8 @@ msgstr "dont ::vat::% de TVA"
 msgid "included"
 msgstr "inclus"
 
-#. product has a variable weight
 #: ../lang/master/tpl/shop/productInfo.mtt:913
+#. product has a variable weight
 msgid "about ::qt:: ::unit::"
 msgstr "environ ::qt:: ::unit::"
 
@@ -3314,6 +3288,23 @@ msgstr "Bravo, votre mot de passe est modifié !"
 msgid "Log in with your new password"
 msgstr "Connectez-vous avec votre nouveau mot de passe"
 
+msgid ""
+"Group and user 'admin' created. Your email is 'admin@camap.tld' and your "
+"password is 'admin'"
+msgstr ""
+"Le groupe et l'utilisateur 'admin' ont été créés. Voitre email est "
+"admin@camap.tld et le mot de passe 'admin'."
+
+msgid ""
+"Click in the amount field to prefill the amount with the member's "
+"outstanding balance or "
+msgstr ""
+"Cliquez dans le champs Montant pour le remplir automatiquement avec le "
+"solde du membre ou "
+
+msgid "Prefill all amounts"
+msgstr "Préremplir tous les montants"
+
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
 
@@ -3335,8 +3326,7 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgid "This distribution has already been validated"
 #~ msgstr "La distribution a déjà été validée"
 
-#~ msgid ""
-#~ "There is no more '::productName::' in stock, we removed it from your order"
+#~ msgid "There is no more '::productName::' in stock, we removed it from your order"
 #~ msgstr ""
 #~ "Il n'y a plus de '::productName::' en stock, nous l'avons donc retiré de "
 #~ "votre commande"
@@ -3349,8 +3339,7 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ "articles car il n'y a plus de stock disponible"
 
 #~ msgid "You cannot edit a distribution which has been already validated."
-#~ msgstr ""
-#~ "Vous ne pouvez pas modifier une distribution qui a déjà été validée."
+#~ msgstr "Vous ne pouvez pas modifier une distribution qui a déjà été validée."
 
 #~ msgid "New farmer"
 #~ msgstr "Nouveau producteur"
@@ -3382,8 +3371,7 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgid "You basket has been canceled"
 #~ msgstr "Votre panier a été annulé"
 
-#~ msgid ""
-#~ "You do not have sufficient funds to pay this order with your money pot."
+#~ msgid "You do not have sufficient funds to pay this order with your money pot."
 #~ msgstr ""
 #~ "Vous n'avez pas suffisamment d'argent sur votre compte pour payer cette "
 #~ "commande avec votre cagnotte."
@@ -3399,8 +3387,8 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ "group. If you want him to update his profile, please ask him to do so."
 #~ msgstr ""
 #~ "Vous ne pouvez pas modifer ce producteur car il est actif dans plusieurs "
-#~ "groupes CAMAP. Si vous souhaitez mettre à jour son profil, demandez lui "
-#~ "de le mettre à jour lui-même."
+#~ "groupes CAMAP. Si vous souhaitez mettre à jour son profil, demandez lui de "
+#~ "le mettre à jour lui-même."
 
 #~ msgid "Create a catalog"
 #~ msgstr "Créer un catalogue"
@@ -3424,23 +3412,21 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ "For security reasons, you cannot modify the e-mail of this person because "
 #~ "this person is a member of more than 1 group."
 #~ msgstr ""
-#~ "Par sécurité, vous ne pouvez pas modifier le courriel de cette personne "
-#~ "car elle est membre de plusieurs groupes."
+#~ "Par sécurité, vous ne pouvez pas modifier le courriel de cette personne car "
+#~ "elle est membre de plusieurs groupes."
 
 #~ msgid "Phone number is required in this group."
 #~ msgstr "Le numéro de téléphone est obligatoire pour ce groupe."
 
 #~ msgid ""
-#~ "This e-mail was used by another user account. As this user account was "
-#~ "not used, it has been merged into the current user account."
+#~ "This e-mail was used by another user account. As this user account was not "
+#~ "used, it has been merged into the current user account."
 #~ msgstr ""
-#~ "Ce courriel était utilisé dans une autre fiche de membre, comme cette "
-#~ "fiche était inutilisée, elle a été fusionnée avec la fiche courante."
+#~ "Ce courriel était utilisé dans une autre fiche de membre, comme cette fiche "
+#~ "était inutilisée, elle a été fusionnée avec la fiche courante."
 
-#~ msgid ""
-#~ "Warning, this e-mail or this name already exists for another account : "
-#~ msgstr ""
-#~ "Attention, ce courriel ou ce nom existe déjà pour un autre compte : "
+#~ msgid "Warning, this e-mail or this name already exists for another account : "
+#~ msgstr "Attention, ce courriel ou ce nom existe déjà pour un autre compte : "
 
 #~ msgid "These accounts can't be merged because the second account has orders"
 #~ msgstr ""
@@ -3455,14 +3441,14 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 
 #~ msgid ""
 #~ "This action allows you to merge two accounts (when you have duplicates in "
-#~ "the database for example).<br/>Orders of account 2 will be moved to "
-#~ "account 1, and account 2 will be deleted. Warning, it is not possible to "
-#~ "cancel this action."
+#~ "the database for example).<br/>Orders of account 2 will be moved to account "
+#~ "1, and account 2 will be deleted. Warning, it is not possible to cancel "
+#~ "this action."
 #~ msgstr ""
-#~ "Cette action permet de fusionner deux comptes (quand vous avez des "
-#~ "doublons dans la base de données par exemple).<br/>Les commandes du "
-#~ "compte 2 seront rattachés au compte 1, puis le compte 2 sera effacé.<br/"
-#~ ">Attention cette action n'est pas annulable."
+#~ "Cette action permet de fusionner deux comptes (quand vous avez des doublons "
+#~ "dans la base de données par exemple).<br/>Les commandes du compte 2 seront "
+#~ "rattachés au compte 1, puis le compte 2 sera effacé.<br/>Attention cette "
+#~ "action n'est pas annulable."
 
 #~ msgid "Account 1"
 #~ msgstr "Compte 1"
@@ -3507,8 +3493,8 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgstr "Poulet"
 
 #~ msgid ""
-#~ "Members of this group should provide a phone number. <a href='/"
-#~ "account'>Please click here to update your account</a>."
+#~ "Members of this group should provide a phone number. <a "
+#~ "href='/account'>Please click here to update your account</a>."
 #~ msgstr ""
 #~ "Les membres de ce groupe doivent fournir un numéro de téléphone. <a "
 #~ "href='/account'>Cliquez ici pour mettre à jour votre compte</a>."
@@ -3520,8 +3506,7 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgstr "Ce panier contient des produits d'un autre groupe"
 
 #~ msgid "This distribution does not supply the product <b>::pname::</b>"
-#~ msgstr ""
-#~ "Le produit <b>::pname::</b> n'est pas disponible pour cette distribution"
+#~ msgstr "Le produit <b>::pname::</b> n'est pas disponible pour cette distribution"
 
 #~ msgid "Order of ::pname:: reduced to ::oquantity:: to match remaining stock"
 #~ msgstr ""
@@ -3548,14 +3533,13 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ "différentes des quantités commandées</li>"
 
 #~ msgid ""
-#~ "<li>Confirm the reception of payments (checks, cash, transfers) in order "
-#~ "to mark orders as 'paid'</li></ul>"
+#~ "<li>Confirm the reception of payments (checks, cash, transfers) in order to "
+#~ "mark orders as 'paid'</li></ul>"
 #~ msgstr ""
-#~ "<li>Confirmer la réception des paiements (chèques, espèces, virements) "
-#~ "afin de classer les commandes comme 'payées'</li></ul>"
+#~ "<li>Confirmer la réception des paiements (chèques, espèces, virements) afin "
+#~ "de classer les commandes comme 'payées'</li></ul>"
 
-#~ msgid ""
-#~ "<p>Your distribution just finished, don't forget to <b>validate</b> it</p>"
+#~ msgid "<p>Your distribution just finished, don't forget to <b>validate</b> it</p>"
 #~ msgstr ""
 #~ "<p>Votre distribution vient de se terminer, n'oubliez pas de la "
 #~ "<b>valider</b></p>"
@@ -3567,12 +3551,12 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgstr "[::group::] Validation de la distribution du ::date::"
 
 #~ msgid ""
-#~ "<p>As you did not validate it manually after 10 days, <br/>the delivery "
-#~ "of the ::deliveryDate:: has been validated automatically</p>"
+#~ "<p>As you did not validate it manually after 10 days, <br/>the delivery of "
+#~ "the ::deliveryDate:: has been validated automatically</p>"
 #~ msgstr ""
-#~ "<p>A défaut d'une validation manuelle de votre part au bout de 10 jours,"
-#~ "<br/> la distribution du ::deliveryDate:: a été automatiquement validée.</"
-#~ "p>"
+#~ "<p>A défaut d'une validation manuelle de votre part au bout de 10 "
+#~ "jours,<br/> la distribution du ::deliveryDate:: a été automatiquement "
+#~ "validée.</p>"
 
 #~ msgid "Operation validated"
 #~ msgstr "Opération validée"
@@ -3643,8 +3627,8 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ " You can look at the delivery planning or make a new order."
 #~ msgstr ""
 #~ "Bienvenue sur la cagette de ::name:: !\n"
-#~ " Vous pouvez consulter votre planning de distribution ou faire une "
-#~ "nouvelle commande."
+#~ " Vous pouvez consulter votre planning de distribution ou faire une nouvelle "
+#~ "commande."
 
 #~ msgid "Your order has been recorded !"
 #~ msgstr "Votre commande a été enregistrée !"
@@ -3662,11 +3646,11 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgstr "IBAN :"
 
 #~ msgid ""
-#~ "Mention this reference in the label of the transfer in order to "
-#~ "facilitate its process:"
+#~ "Mention this reference in the label of the transfer in order to facilitate "
+#~ "its process:"
 #~ msgstr ""
-#~ "Indiquez cette référence dans le libellé du virement afin de faciliter "
-#~ "son traitement :"
+#~ "Indiquez cette référence dans le libellé du virement afin de faciliter son "
+#~ "traitement :"
 
 #~ msgid "Check my orders"
 #~ msgstr "Vérifier mes commandes"
@@ -3683,16 +3667,13 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgid "Amount to pay"
 #~ msgstr "Montant à payer"
 
-#~ msgid ""
-#~ "Your basket has been recorded, please select a payment method to confirm "
-#~ "it."
+#~ msgid "Your basket has been recorded, please select a payment method to confirm it."
 #~ msgstr ""
 #~ "Votre panier a été enregistré, merci de sélectionner une méthode de "
 #~ "paiement pour le confirmer."
 
 #~ msgid "Currently no payment method has been defined for this group."
-#~ msgstr ""
-#~ "Actuellement, aucune méthode de paiement n'a été définie pour ce groupe."
+#~ msgstr "Actuellement, aucune méthode de paiement n'a été définie pour ce groupe."
 
 #~ msgid "You chose to pay with your money pot."
 #~ msgstr "Vous avez choisi de payer avec votre cagnotte."
@@ -3760,10 +3741,8 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ msgid "Role"
 #~ msgstr "Rôle"
 
-#~ msgid ""
-#~ "Duty periods open for volunteers ::days:: days before the duty period"
-#~ msgstr ""
-#~ "Permanences ouvertes aux inscriptions ::days:: jours avant la permanence"
+#~ msgid "Duty periods open for volunteers ::days:: days before the duty period"
+#~ msgstr "Permanences ouvertes aux inscriptions ::days:: jours avant la permanence"
 
 #~ msgid "There are no distributions in the specified time range"
 #~ msgstr "Il n'y a pas de distributions sur cette période"
@@ -3779,8 +3758,8 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 
 #~ msgid "The vendor you want to work with is not in this list ?"
 #~ msgstr ""
-#~ "Le producteur avec lequel vous souhaitez travailler n'est pas dans la "
-#~ "liste ?"
+#~ "Le producteur avec lequel vous souhaitez travailler n'est pas dans la liste "
+#~ "?"
 
 #~ msgid "Update"
 #~ msgstr "Mise à jour"
@@ -3827,16 +3806,16 @@ msgstr "Connectez-vous avec votre nouveau mot de passe"
 #~ "groups of categories in order to sort products as we wish."
 #~ msgstr ""
 #~ "Les catégories permettent de classer vos produits par catégories, par "
-#~ "exemple \"légumes, viande, boulangerie, etc.\"<br/>Il est possible de "
-#~ "créer plusieurs groupes de catégories afin de pouvoir classer les "
-#~ "produits comme on veut."
+#~ "exemple \"légumes, viande, boulangerie, etc.\"<br/>Il est possible de créer "
+#~ "plusieurs groupes de catégories afin de pouvoir classer les produits comme "
+#~ "on veut."
 
 #~ msgid ""
 #~ "You currently have no category. Would you like to create the list of "
 #~ "categories by default ?"
 #~ msgstr ""
-#~ "Vous n'avez aucune catégorie pour l'instant. Voulez-vous créer la liste "
-#~ "de catégories par défaut ?"
+#~ "Vous n'avez aucune catégorie pour l'instant. Voulez-vous créer la liste de "
+#~ "catégories par défaut ?"
 
 #~ msgid "Create the list of default categories"
 #~ msgstr "Créer la liste de catégories par défaut"
