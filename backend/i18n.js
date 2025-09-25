@@ -35,7 +35,7 @@ const diff = async (file1, file2, verbose) => {
             var maybe2 = ref && Object.values(tr2).find(t2 => t2.comments?.reference == ref)
             // console.log(ref);
             if(maybe2)
-                console.log(`\x1b[46m\x1b[30m<>\x1b[0m\t< ${k}\t${tr1[k].msgstr[0]}\n\t >${maybe2.msgid}\t${maybe2.msgstr[0]}`)
+                console.log(`\x1b[46m\x1b[30m<>\x1b[0m\t< ${k}\t${tr1[k].msgstr[0]}\n\t> ${maybe2.msgid}\t${maybe2.msgstr[0]}`)
             else
                 console.log(`\x1b[41m\x1b[30m--\x1b[0m\t${k}`)
         }
@@ -46,8 +46,12 @@ const diff = async (file1, file2, verbose) => {
     }
     for(const k in tr2) {
         if(!tr1[k]){
+            var ref = tr2[k].comments?.reference;
+            var maybe1 = ref && Object.values(tr1).find(t1 => t1.comments?.reference == ref)
             // console.log(tr2[k].comments?.reference);
-            console.log(`\x1b[42m\x1b[30m++\x1b[0m\t${k}`);
+            if(!maybe1)
+                console.log(`\x1b[42m\x1b[30m++\x1b[0m\t${k}`);
+            // else we already outputed the inverse relation
         }
     }
 };
@@ -72,6 +76,7 @@ const update = async (potFile, poFile) => {
             console.log(`\x1b[42m\x1b[30m++\x1b[0m\t${k}`);
             const msgstr = await input.question(`[${lang}]> `);
             po.translations[lang][k] = {
+                ...pot.translations[''][k],
                 msgid: k,
                 msgstr: [msgstr]
             }

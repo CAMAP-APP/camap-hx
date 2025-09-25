@@ -3288,22 +3288,25 @@ msgstr "Bravo, votre mot de passe est modifié !"
 msgid "Log in with your new password"
 msgstr "Connectez-vous avec votre nouveau mot de passe"
 
+#: ../src/controller/Install.hx:2602
 msgid ""
 "Group and user 'admin' created. Your email is 'admin@camap.tld' and your "
 "password is 'admin'"
 msgstr ""
-"Le groupe et l'utilisateur 'admin' ont été créés. Voitre email est "
-"admin@camap.tld et le mot de passe 'admin'."
+"Le groupe et l'utilisateur 'admin' ont été créés avec l'email "
+"'admin@camap.tld' et le mot de passe 'admin'"
 
+#: ../lang/master/tpl/contractadmin/masspayments.mtt:941
 msgid ""
 "Click in the amount field to prefill the amount with the member's "
-"outstanding balance or "
+"outstanding balance or"
 msgstr ""
-"Cliquez dans le champs Montant pour le remplir automatiquement avec le "
-"solde du membre ou "
+"Cliquez dans le champs montant d'une ligne pour le remplir automatiquement "
+"avec le solde du membre, ou "
 
+#: ../lang/master/tpl/contractadmin/masspayments.mtt:1114
 msgid "Prefill all amounts"
-msgstr "Préremplir tous les montants"
+msgstr "Péremplir tous les montants"
 
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
