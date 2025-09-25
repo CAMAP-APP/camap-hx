@@ -14,7 +14,10 @@
     "build:sass": "./buildSass.sh",
     "dev:sass": "sass ../www/theme",
     "watch": "haxe-watchify --program haxe --hxml build.hxml --src ../src --src ../js --src ../common",
-    "i18n:compile": "node compile-i18n.js"
+    "i18n:extract": "mv ../www/lang/allTexts.pot ../www/lang/allTexts.pot.bak && haxe potGeneration.hxml && npm run i18n:diff -- ../www/lang/allTexts.pot.bak ../www/lang/allTexts.pot",
+    "i18n:diff": "node i18n.js diff",
+    "i18n:translate": "node i18n.js update ../www/lang/allTexts.pot ../www/lang/texts_fr.po",
+    "i18n:compile": "node i18n.js compile"
   },
   "dependencies": {
     "gettext-parser": "^8.0.0",
