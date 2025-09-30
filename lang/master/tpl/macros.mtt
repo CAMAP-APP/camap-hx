@@ -13,14 +13,20 @@
 			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i> Admin</a>::end::
 			::if user != null::
 				<!-- Home -->			
-				<div class="dropdown pull-right text-right">
-					
-					<a  class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
-						<i class="icon icon-user"></i>
-						::user.getName()::
-						::if user.firstName2!=null::
-							::_("et"):: ::user.lastName2:: ::user.firstName2::  						
-						::end::
+				<div class="dropdown pull-right text-right username-dropdown">
+					<a class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
+						<div class="usernames">
+							<div class="username">
+								<i class="icon icon-user"></i>
+								::user.getName()::
+							</div>
+							::if user.firstName2!=null::
+							<div class="username">
+								::_("et")::
+								::user.lastName2:: ::user.firstName2::
+							</div>
+							::end::
+						</div>
 						<i class="icon icon-chevron-down"></i>
 					</a>
 
