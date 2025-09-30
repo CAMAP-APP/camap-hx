@@ -612,11 +612,43 @@ div.reportHeader {
 }
 
 .header .accountBlock .links {
-  margin-right: 16px;
+  margin-right: calc(16px - 1em);
   margin-top: 16px;
   display: flex;
   flex-flow: row nowrap;
   gap: 1em;
+}
+.header .accountBlock .links > * {
+  flex: 0 0 auto;
+}
+.header .accountBlock .links .username-dropdown {
+  flex-shrink: 1;
+  min-width: 0;
+}
+.header .accountBlock .links .username-dropdown > a {
+  margin: -0.5em;
+  margin-right: 0;
+  padding: 0.5em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0.2em;
+}
+.header .accountBlock .links .username-dropdown > a:hover {
+  text-decoration: none;
+  background: #e0e0e0 !important;
+}
+.header .accountBlock .links .username-dropdown > a .usernames {
+  display: flex;
+  flex-flow: column;
+  flex: 0 1 auto;
+  overflow: hidden;
+}
+.header .accountBlock .links .username-dropdown > a .username {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .header .accountBlock a {
   color: #000;
