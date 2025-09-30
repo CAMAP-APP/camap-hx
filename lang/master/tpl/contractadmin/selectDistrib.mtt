@@ -33,7 +33,7 @@
 							<i class="icon icon-products"></i>
 							Récapitulatif
 						</a>
-						<a href="::url::" class="btn btn-default" title="::_("Excel/CSV Export")::">
+						<a href="/contractAdmin/orders/::c.id::?csv=1&d=::d.id::" class="btn btn-default" title="::_("Excel/CSV Export")::">
 							<i class="icon icon-download"></i>
 						</a>
 						<div class="dropdown" style="display:inline-block;">
