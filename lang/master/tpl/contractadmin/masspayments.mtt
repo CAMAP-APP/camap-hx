@@ -83,6 +83,8 @@
                             <td>
                                 ::if balance < 0::
                                     ::set preferedAmount = -balance::
+                                ::else::
+                                    ::set preferedAmount = null::
                                 ::end::
                                 <div class="input-group">
                                     <input type="number" step="0.01"
