@@ -58,7 +58,7 @@
                                 <span style="white-space: nowrap">au ::dateToString(subscription.endDate)::</span>
                             </td>
                             
-                            ::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
+                            ::set balance = subscription.getBalance()::
                             ::set background = ""::
                             ::if balance < 0::
                                 ::set background = "redBg"::
@@ -81,11 +81,7 @@
                             </td>
                                 
                             <td>
-                                ::if balance < 0::
-                                    ::set preferedAmount = -balance::
-                                ::else::
-                                    ::set preferedAmount = null::
-                                ::end::
+                                ::set preferedAmount = subscription.getSettlement()::
                                 <div class="input-group">
                                     <input type="number" step="0.01"
                                         name="sub::subscription.id::_amount"
@@ -94,7 +90,6 @@
                                     />
                                     <script>
                                         document.getElementsByName("sub::subscription.id::_amount")[0].onclick = function(e) {
-                                            console.log(::balance::);
                                             if(e.target.value == "")
                                                 e.target.value = ::preferedAmount::;
                                         }
