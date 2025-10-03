@@ -483,7 +483,7 @@ class User extends Object {
 	public static function getUsers_Contracts(?index:Int,?limit:Int):List<db.User> {
 		var productsIds = App.current.user.getGroup().getProducts().map(function(x) return x.id);
 		if (productsIds.length == 0) return new List();
-		return db.User.manager.unsafeObjects("select u.* from User u, UserOrder uc where uc.productId IN(" + productsIds.join(",") + ") AND (uc.userId=u.id OR uc.userId2=u.id) group by u.id  ORDER BY u.lastName COLLATE NOCASE", false);	
+		return db.User.manager.unsafeObjects("select u.* from User u, UserOrder uc where uc.productId IN(" + productsIds.join(",") + ") AND (uc.userId=u.id OR uc.userId2=u.id) group by u.id  ORDER BY u.lastName", false);	
 	}
 	
 	
