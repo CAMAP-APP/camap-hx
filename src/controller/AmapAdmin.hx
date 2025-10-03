@@ -1,18 +1,19 @@
 package controller;
-import sugoi.form.elements.Html;
-import sugoi.form.elements.Checkbox;
-import haxe.EnumFlags;
 import Common;
 import datetime.DateTime;
 import db.Group.GroupFlags;
 import db.UserGroup;
+import haxe.EnumFlags;
 import neko.Web;
 import sugoi.form.Form;
+import sugoi.form.elements.Checkbox;
 import sugoi.form.elements.FloatInput;
+import sugoi.form.elements.Html;
 import sugoi.form.elements.Input.InputType;
 import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
+
 using tools.DateTool;
 
 class AmapAdmin extends Controller
@@ -81,7 +82,7 @@ class AmapAdmin extends Controller
 	public function doRights() {
         var admins = app.user.getGroup().getGroupAdmins();
         // Sort admins by last name (case-insensitive)
-		admins.sort((a, b) -> a.user.lastName.toUpperCase() < b.user.lastName.toUpperCase() ? -1 : 1);
+		admins.sort((a, b) -> db.User.sortCompare(a.user, b.user));
 		view.users = admins;
 		addBc('rights','Droits d\'administration','/amapadmin/rights');
 	}

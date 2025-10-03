@@ -243,7 +243,7 @@ class Group extends Object
 	}
 	
 	public function getMembers() {
-		return User.manager.unsafeObjects("Select u.* from User u,UserGroup ua where u.id=ua.userId and ua.groupId="+this.id+" order by u.lastName", false);
+		return User.manager.unsafeObjects("Select u.* from User u,UserGroup ua where u.id=ua.userId and ua.groupId="+this.id+" order by u.lastName COLLATE NOCASE", false);
 	}
 	
 	public function getMembersNum():Int{

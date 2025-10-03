@@ -1,11 +1,12 @@
 package db;
+import Common;
+import db.Basket.BasketStatus;
+import haxe.Json;
 import sys.db.Object;
 import sys.db.Types;
-import Common;
-using tools.ObjectListTool;
+
 using Lambda;
-import haxe.Json;
-import db.Basket.BasketStatus;
+using tools.ObjectListTool;
 
 
 /**
@@ -331,8 +332,8 @@ class MultiDistrib extends Object
 
 		//sort by user lastname
 		baskets.sort((a,b)-> {
-			if(a.user==null || b.user==null) return -1;
-			return a.user.lastName > b.user.lastName ? 1 : -1 ;
+			if(a.user==null || b.user==null) return 0;
+			return User.sortCompare(a.user, b.user);
 		});
 
 		return baskets;
