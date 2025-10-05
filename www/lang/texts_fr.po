@@ -323,7 +323,7 @@ msgstr "Produits copiés de "
 #: ../src/controller/ContractAdmin.hx:11561 ../src/db/Catalog.hx:12684
 #: ../src/db/Subscription.hx:5903 ../lang/master/tpl/contractadmin/view.mtt:731
 msgid "Start date"
-msgstr "Date de début"
+msgstr "Date de début<p><i>(date de début d'accès au contrat si le catalogue est en ligne)</i></p>"
 
 #: ../src/controller/ContractAdmin.hx:11716 ../src/db/Catalog.hx:12779
 #: ../src/db/Subscription.hx:5942 ../lang/master/tpl/contractadmin/view.mtt:828
