@@ -9,6 +9,11 @@
 	</div>	
 </div>
 
+<div class="mb-3">
+	<a href="?refresh=1" class="btn btn-primary">
+		::_("Rafraîchir les soldes")::
+	</a>
+</div>
 
 <div class="col-md-4">	
 	<div class="article">
