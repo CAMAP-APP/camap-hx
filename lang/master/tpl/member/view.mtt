@@ -135,7 +135,31 @@
 
 					::set subscriptions = subscriptionsByCatalog.get(catalog)::
 					::foreach subscription subscriptions::
-						$$subscription(::subscription::,::user::)					
+						<!-- $$subscription(::subscription::,::user::) -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">
+									::if catalog.isVariableOrdersCatalog()::
+									<i class="icon icon-basket"></i>
+									::else::
+									<i class="icon icon-refresh"></i>
+									::end::
+
+									::catalog.name:: - ::catalog._vendor.name::
+								</h3>
+							</div>
+							<div class="panel-body">
+								<div id="csa-catalog-subscription-neo-container-::subscription.id::"></div>
+								<script>
+									document.addEventListener("DOMContentLoaded", function(event) {
+										neo.createNeoModule("csa-catalog-subscription-neo-container-::subscription.id::", "csaCatalogSubscription", {
+											catalogId: ::catalog.id::,
+											subscriptionId: ::subscription.id::
+										});
+									});
+								</script>
+							</div>
+						</div>
 					::end::
 				::end::
 			::end::
