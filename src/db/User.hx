@@ -220,16 +220,46 @@ class User extends Object {
 		return db.Catalog.manager.search($group == getGroup() && $contact == this, false);
 	}
 	
+	public function getFormattedLastName() {
+		return lastName.toUpperCase();
+	}
+	public function getFormattedFirstName() {
+		return firstName.substr(0, 1).toUpperCase() + firstName.substr(1);
+	}
+
 	public function getName() {
-		return lastName.toUpperCase() + " " + firstName;
+		return getFormattedLastName() + " " + getFormattedFirstName();
 	}
 	
-	public function getCoupleName() {
-		var n = lastName.toUpperCase() + " " + firstName;
+	public function getFormattedLastName2() {
+		if(lastName2 == null) return "";
+		return lastName2.toUpperCase();
+	}
+	public function getFormattedFirstName2() {
+		if(firstName2 == null) return "";
+		return firstName2.substr(0, 1).toUpperCase() + firstName2.substr(1);
+	}
+
+	public function getName2() {
+		return getFormattedLastName2() + " " + getFormattedFirstName2();
+	}
+	
+	public function getCoupleName(?separator: String = "/") {
+		var n = getName();
 		if (lastName2 != null) {
-			n = n + " / " + lastName2.toUpperCase() + " " + firstName2;
+			n = n += " " + separator + " ";
+			if(lastName2 != lastName)
+				n += getFormattedLastName2() + " ";
+			n += getFormattedFirstName2();
 		}
 		return n;
+	}
+
+	public function getSortingKey() {
+		return (lastName+" "+firstName).toUpperCase();
+	}
+	public static function sortCompare(a:User, b:User) {
+		return a.getSortingKey() < b.getSortingKey() ? -1 : 1;
 	}
 	
 	/**
@@ -299,7 +329,7 @@ class User extends Object {
 	public function getGroups():Array<db.Group> {
 		var ugs = db.UserGroup.manager.search($user == this, false);
 		var groups = db.Group.manager.search($id in (ugs.map(ug->return untyped ug.groupId)),false).array();
-		groups.sort(function(a,b) return a.name>b.name?1:-1 );
+		groups.sort(function(a,b) return a.name.toUpperCase()>b.name.toUpperCase()?1:-1 );
 		return groups;
 
 	}

@@ -44,7 +44,7 @@ class CamapForm extends Form {
 	public static function renderDDate(name: String, label: String, value: Dynamic, ?required: Bool) {
 		// hack
 		var namesToOpenInYear = ['birthdate','birthday'];
-		var openTo = "date";
+		var openTo = "day";
 		if (namesToOpenInYear.indexOf(name.toLowerCase()) != -1) {
 			openTo = "year";
 		}

@@ -1,9 +1,9 @@
 package service;
 import Common.StockTracking;
-import sugoi.form.elements.IntInput;
-import tools.DateTool;
 import db.Catalog;
+import sugoi.form.elements.IntInput;
 import tink.core.Error;
+import tools.DateTool;
 
 class CatalogService{
 
@@ -35,7 +35,6 @@ class CatalogService{
 		
 		form.removeElementByName("percentageValue");
 		form.removeElementByName("percentageName");
-		untyped form.getElement("flags").excluded = [2];// remove unused "PercentageOnOrders" flag
 
 		var absencesIndex = 16;
 		if ( catalog.type == Catalog.TYPE_VARORDER ) {
@@ -59,6 +58,16 @@ class CatalogService{
 
 			absencesIndex = 9;
 		}
+
+
+		var excludeFlags = [
+			Type.enumIndex(CatalogFlags.PercentageOnOrders), // unused
+		];
+		if(catalog.isVariableOrdersCatalog()) {
+			excludeFlags.push(Type.enumIndex(CatalogFlags.NotifyVendorOnOrderEnd)); // Vendor is always notified
+			form.addElement(new sugoi.form.elements.Html( 'notice_notification', 'Contrat variable: le producteur reçoit obligatoirement une notification par mail à la fermeture de la commande.', '' ), 8 );
+		}
+		cast(form.getElement("flags"), sugoi.form.elements.Flags<Dynamic>).excluded = excludeFlags;
 		
 		
 		/** v1.0.5 Suppression de la valeur par défaut lors de la création du catalogue afin d'appliquer par défaut les valeurs définies dans le cycle de distribution **/

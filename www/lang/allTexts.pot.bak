@@ -2419,10 +2419,10 @@ msgstr ""
 #: ../lang/master/tpl/contractadmin/masspayments.mtt:941
 msgid ""
 "Click in the amount field to prefill the amount with the member's outstanding "
-"balance or"
+"balance or "
 msgstr ""
 
-#: ../lang/master/tpl/contractadmin/masspayments.mtt:1113
+#: ../lang/master/tpl/contractadmin/masspayments.mtt:1114
 msgid "Prefill all amounts"
 msgstr ""
 
