@@ -259,7 +259,7 @@ class User extends Object {
 		return (lastName+" "+firstName).toUpperCase();
 	}
 	public static function sortCompare(a:User, b:User) {
-		return a.lastName.toUpperCase() > b.lastName.toUpperCase() ? 1 : -1;
+		return a.getSortingKey() < b.getSortingKey() ? -1 : 1;
 	}
 	
 	/**
