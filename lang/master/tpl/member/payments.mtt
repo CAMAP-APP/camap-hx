@@ -4,11 +4,7 @@
 	<h2>::_("Contact informations")::</h2>
 	<div class="article">
 		
-		<div style="font-weight:bold;font-size:120%;">::member.firstName:: ::member.lastName::
-		::if member.firstName2!=null && member.lastName2!=null::
-			& ::member.firstName2:: ::member.lastName2::
-			
-		::end::</div>
+		<div style="font-weight:bold;font-size:120%;">::member.getCoupleName(_("et"))::</div>
 		
 		$$nullSafe(::member.address1::)<br/>
 		$$nullSafe(::member.address2::)<br/>

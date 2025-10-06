@@ -31,7 +31,7 @@
 	<p>
 		::set cc = c._contact::
 		::set cv = c._vendor::
-		<b>Responsable contrat : </b>  ::cc.firstName:: ::cc.lastName::, ::cc.email::, 
+		<b>Responsable contrat : </b>  ::cc.getName()::, ::cc.email::, 
 		::if cc.phone!=null :: ::cc.phone:: ::end::
 	</p>
 	<p>

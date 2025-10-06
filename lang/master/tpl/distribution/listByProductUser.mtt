@@ -22,13 +22,12 @@
 	<p>
 		::set c = contract._contact::
 		::set v = contract._vendor::
-		<b>::_("Contact in charge of the catalog") :</b>  ::c.firstName:: ::c.lastName::, ::c.email::, ::c.phone::
+		<b>::_("Contact in charge of the catalog"):::</b>
+		::c.getName()::::if c.email!=null::, ::c.email:: ::end::::if c.phone!=null::, ::c.phone:: ::end::
 	</p>
 	<p>
-		<b>::_("Farmer"):: : </b>
-		::v.name:: , 
-		::if v.email!=null :: ::v.email:: ::end::, 
-		::if v.phone!=null :: ::v.phone:: ::end::
+		<b>::_("Farmer"):::</b>
+		::v.name::::if v.email!=null::, ::v.email:: ::end::::if v.phone!=null::, ::v.phone:: ::end::
 	</p>
 	<!--<p>	
 		<b>::_("Members on duty"):: : </b>
@@ -58,7 +57,7 @@
 					::set basket = getBasket2(user.id,distrib._multiDistrib)::							
 					<span ::cond basket!=null::>N°::basket.num:: - </span>	
 
-					::user.getCoupleName()::
+					::user.getCoupleName(_("et"))::
 					
 				</th>
 				::foreach p products::

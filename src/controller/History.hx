@@ -4,8 +4,8 @@ import db.MultiDistrib;
 import db.Operation;
 import db.Subscription;
 import service.OrderService;
-import service.SubscriptionService;
 import service.PaymentService;
+import service.SubscriptionService;
 import sugoi.form.Form;
 import sugoi.form.elements.StringSelect;
 
@@ -63,27 +63,6 @@ class History extends Controller
 		view.basket = basket;
 		view.orders = service.OrderService.prepare(basket.getOrders(type));
 		view.print = app.params["print"]!=null;
-	}
-	
-	/**
-	 * user payments history -----> a quel moment c'est utilisé ça ?
-	 */
-	@logged
-	@tpl('history/payments.mtt')
-	function doPayments(){
-		var m = app.user;
-		var browse:Int->Int->List<Dynamic>;
-		
-		//default display
-		browse = function(index:Int, limit:Int) {
-			return db.Operation.getOperationsWithIndex(m,app.user.getGroup(),index,limit,true);
-		}
-		
-		var count = db.Operation.countOperations(m,app.user.getGroup());
-		var rb = new sugoi.tools.ResultsBrowser(count, 10, browse);
-		view.rb = rb;
-		view.member = m;
-		view.balance = db.UserGroup.get(m,app.user.getGroup()).balance;
 	}
 
 	/**

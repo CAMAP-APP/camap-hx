@@ -23,7 +23,10 @@
 							::if user.firstName2!=null::
 							<div class="username">
 								::_("et")::
-								::user.lastName2:: ::user.firstName2::
+								::if user.lastName2 != null && user.getFormattedLastName() != user.getFormattedLastName2()::
+									::user.getFormattedLastName2()::
+								::end::
+								::user.getFormattedFirstName2()::
 							</div>
 							::end::
 						</div>
@@ -307,7 +310,7 @@
 		<i class="icon-user"></i>
 		
 		::if u!=null::
-			<b>::u.firstName:: ::u.lastName::</b><br/>
+			<b>::u.getName()::</b><br/>
 			<span ::cond u.email!=null::>
 					<i class="icon icon-mail"></i> <a href="mailto: ::u.email::">::u.email::</a><br/>			
 			</span>

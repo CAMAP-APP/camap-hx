@@ -1,13 +1,13 @@
 package controller;
-import service.AbsencesService;
-import sugoi.form.elements.Html;
-import service.PaymentService;
-import sugoi.Web;
-import payment.Check;
-import sugoi.db.Cache;
 import db.Catalog;
 import db.Operation.OperationType;
+import payment.Check;
+import service.AbsencesService;
+import service.PaymentService;
 import service.SubscriptionService;
+import sugoi.Web;
+import sugoi.db.Cache;
+import sugoi.form.elements.Html;
 import tink.core.Error;
 
 class SubscriptionAdmin extends controller.Controller
@@ -29,7 +29,7 @@ class SubscriptionAdmin extends controller.Controller
 		//subs sorting
 		var orderBy = app.params.get("orderBy");
 		if(orderBy=="userName" || orderBy==null){
-			catalogSubscriptions.sort( (a,b) -> a.user.lastName.toUpperCase() > b.user.lastName.toUpperCase() ? 1 : -1);
+			catalogSubscriptions.sort((a,b) -> db.User.sortCompare(a.user, b.user));
 			orderBy = "userName";
 		}
 		view.orderBy = orderBy;
@@ -474,13 +474,7 @@ class SubscriptionAdmin extends controller.Controller
 		view.catalog = catalog;
 		view.c = catalog;
 		view.subscriptions = catalogSubscriptions;
-		catalogSubscriptions.sort(function(a,b){
-			if( a.user.lastName.toUpperCase() > b.user.lastName.toUpperCase() ){
-				return 1;
-			}else{
-				return -1;
-			}
-		});
+		catalogSubscriptions.sort((a, b) -> db.User.sortCompare(a.user, b.user));
 		
 		var paymentTypes = service.PaymentService.getPaymentTypes(PCManualEntry, catalog.group);
 		var out = [];

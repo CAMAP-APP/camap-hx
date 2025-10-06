@@ -24,7 +24,7 @@
 	::set v = contract._vendor::
 	
 	<p ::cond c!=null::>		
-		<b>::_("Contact in charge of the catalog") :</b>  ::c.firstName:: ::c.lastName::, ::c.email::, ::c.phone::
+		<b>::_("Contact in charge of the catalog") :</b>  ::c.getName()::, ::c.email::, ::c.phone::
 	</p>
 	<p>
 		<b>::_("Farmer"):: : </b>
