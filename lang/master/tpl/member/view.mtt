@@ -5,7 +5,7 @@
 	<h3>::_("Contact informations")::</h3>
 	<div class="article">
 		
-		<div style="font-weight:bold;font-size:120%;">member.getCoupleName(::_("et")::)</div>
+		<div style="font-weight:bold;font-size:120%;">::member.getCoupleName(_("et"))::</div>
 		<p>
 			$$nullSafe(::member.address1::)<br/>
 			$$nullSafe(::member.address2::)<br/>
