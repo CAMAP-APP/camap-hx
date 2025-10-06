@@ -3301,12 +3301,12 @@ msgid ""
 "Click in the amount field to prefill the amount with the member's "
 "outstanding balance or"
 msgstr ""
-"Cliquez dans le champs montant d'une ligne pour le remplir automatiquement "
+"Cliquez dans le champ montant d'une ligne pour le remplir automatiquement "
 "avec le solde du membre, ou "
 
 #: ../lang/master/tpl/contractadmin/masspayments.mtt:1114
 msgid "Prefill all amounts"
-msgstr "Péremplir tous les montants"
+msgstr "Pré-remplir tous les montants"
 
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
