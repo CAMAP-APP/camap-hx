@@ -1,20 +1,19 @@
 package react.order.redux.components;
 
+import react.ReactComponent;
+import react.ReactMacro.jsx;
 import Common.Unit;
 import Common.UserInfo;
 import Common.UserOrder;
-import js.html.Console;
+import react.product.Product;
+import react.order.redux.actions.OrderBoxAction;
+import mui.core.input.InputAdornmentPosition;
 import mui.core.Checkbox;
 import mui.core.FormControlLabel;
-import mui.core.InputAdornment;
-import mui.core.NativeSelect;
-import mui.core.OutlinedInput;
 import mui.core.TextField;
-import mui.core.input.InputAdornmentPosition;
-import react.ReactComponent;
-import react.ReactMacro.jsx;
-import react.order.redux.actions.OrderBoxAction;
-import react.product.Product;
+import mui.core.InputAdornment;
+import mui.core.OutlinedInput;
+import mui.core.NativeSelect;
 
 
 typedef OrderProps = {
@@ -30,6 +29,7 @@ typedef OrderProps = {
 }
 
 typedef OrderState = {
+
 	var quantityInputValue : String;
 	var paid : Bool;
 	var userId2Value : Int;
@@ -49,24 +49,13 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 	public function new(props) {
 
 		super(props);
-		state = {
-			quantityInputValue : getDisplayQuantity(),
-			paid : props.order.paid,
-			userId2Value : props.order.userId2,
-			invertSharedOrder : props.order.invertSharedOrder
-		};
+		if (props.order.product.qt == null) props.order.product.qt = 1;
+		state = { quantityInputValue : getDisplayQuantity(), paid : props.order.paid, userId2Value : props.order.userId2, invertSharedOrder : props.order.invertSharedOrder };
 	}
 	
 	override public function render() {
 
-        Console.log(props.order.quantityUnitType, props.order.product.unitType, props.order.quantityBase, props.order.product.qt);
-
-        var canEdit = (props.order.quantityUnitType == null || props.order.quantityUnitType == props.order.product.unitType) && (props.order.quantityBase == null || props.order.quantityBase == props.order.product.qt);
-        var deleteButton = (canEdit || state.quantityInputValue == '0') ? null : jsx('<button onClick=${emptyQuantity}>X</button>');
-		var inputProps = { 
-            endAdornment: jsx('<InputAdornment position={End}>${getProductUnit()} ${deleteButton}</InputAdornment>'),
-            disabled: !canEdit
-        };
+		var inputProps = { endAdornment: jsx('<InputAdornment position={End}>${getProductUnit()}</InputAdornment>') };
 		var input =  isSmartQtInput() ?
 		jsx('<TextField key=${"input-" + props.order.id} variant={Outlined} type={Text} value=${state.quantityInputValue} onChange=${updateQuantity} InputProps=${cast inputProps} />') :
 		jsx('<TextField key=${"input-" + props.order.id} variant={Outlined} type={Text} value=${state.quantityInputValue} onChange=${updateQuantity} /> ');
@@ -82,7 +71,7 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 						<option value="0">-</option>
 						$options						
 					</NativeSelect>
-					<FormControlLabel key=${"label-" + props.order.id} control=${ cast checkboxProps } label="Inverser l\'alternance" />
+					<FormControlLabel key=${"label-" + props.order.id} control=${ cast checkboxProps } label="Inverser l\'alternance" />					
 				</div>');		
 
 		}
@@ -145,7 +134,7 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 
 			jsx('
 			<div className="infos">
-				<b> ${getProductQuantity()} </b> x <b>${getQuantityBase()} ${getProductUnit()} </b> ${props.order.product.name}
+				<b> ${getProductQuantity()} </b> x <b>${props.order.product.qt} ${getProductUnit()} </b> ${props.order.product.name}
 			</div>');
 		}
 		else {
@@ -158,13 +147,6 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 		return props.order.product.variablePrice || props.order.product.bulk;
 	}
 
-    function emptyQuantity( e: js.html.Event ) {		
-        e.preventDefault();		
-
-		setState( { quantityInputValue : "0" } );
-        props.updateOrderQuantity(0);
-    }
-
 	function updateQuantity( e: js.html.Event ) {		
 
 		e.preventDefault();		
@@ -174,8 +156,9 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 
 		var orderQuantity : Float = Formatting.parseFloat(value);
 		if ( isSmartQtInput() ) {
+
 			//the value is a smart qt, so we need re-compute the quantity
-			orderQuantity = orderQuantity / getQuantityBase();
+			orderQuantity = orderQuantity / props.order.product.qt;
 		}				
 		props.updateOrderQuantity(orderQuantity); 
 	}	
@@ -212,17 +195,16 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 	}	
 
 	function getProductUnit() : String {
-		
-		var unit = props.order.quantityUnitType != null
-			? props.order.quantityUnitType
-			: props.order.product.unitType != null ? props.order.product.unitType : Piece;
-		return Formatting.unit( unit );
+
+		var productUnit : Unit = props.order.product.unitType != null ? props.order.product.unitType : Piece;
+		return Formatting.unit( productUnit ); 		
 	}
 
 	function getDisplayQuantity() : String {
 
 		if ( isSmartQtInput() ) {
-			return Std.string( round( props.order.quantity * getQuantityBase() ) );
+
+			return Std.string( round( props.order.quantity * props.order.product.qt ) );
 		}
 		else {
 
@@ -231,15 +213,9 @@ class Order extends react.ReactComponentOfPropsAndState<OrderProps, OrderState>
 
 	}
 
-	function getQuantityBase() {
-		return props.order.quantityBase != null
-			? props.order.quantityBase
-			: (props.order.product.qt != null ? props.order.product.qt : 1);
-	}
-
 	function getProductQuantity() : String {
 
-		return Std.string( round(  Formatting.parseFloat(state.quantityInputValue) / getQuantityBase() ) );
+		return Std.string( round(  Formatting.parseFloat(state.quantityInputValue) / props.order.product.qt ) );
 	}
 
 	static function mapStateToProps( state : react.order.redux.reducers.OrderBoxReducer.OrderBoxState ) : react.Partial<OrderProps> {	
