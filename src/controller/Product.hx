@@ -63,9 +63,14 @@ class Product extends Controller
 			checkToken();
 			var qt = f.getElement("qt");
 			f.addElement(new sugoi.form.elements.Html(
-				qt.name,
-				t._("Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>Vous pouvez cependant le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>",
+				"quantity_immutable",
+				t._(
+					"::qt:: ::unitType::<br/>
+					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>
+					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>",
 				{
+					qt: product.qt,
+					unitType: product.unitType,
 					url: "/product/copyAndDiscard/"+product.id+"?token="+view.token
 				}),
 				qt.label ),
