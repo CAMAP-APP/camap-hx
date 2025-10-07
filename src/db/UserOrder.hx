@@ -18,14 +18,11 @@ class UserOrder extends Object
 	public var user2 : SNull<User>;
 	
 	public var quantity : SFloat;
-
-	public var quantityBase : SNull<SFloat>; // When placing an order, fix the product base quantity and unit so that does not change if product is modified
-	public var quantityUnitType : SNull<SEnum<Unit>>; // Kg / L / g / units
 	
 	@formPopulate("populateProducts") @:relation(productId)
 	public var product : Product;
 	
-	// store price (1 unit price without fees) and fees (percentage not amount) rate when the order is done
+	//store price (1 unit price without fees) and fees (percentage not amount) rate when the order is done
 	public var productPrice : SFloat;
 	public var feesRate : SFloat; //fees in percentage
 	

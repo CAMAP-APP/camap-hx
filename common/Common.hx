@@ -185,8 +185,6 @@ typedef UserOrder = {
 	?product:ProductInfo,
 
 	quantity:Float,
-    quantityBase:Null<Float>,
-	quantityUnitType:Null<Unit>,
 	smartQt:String,
 	subTotal:Float,
 	
