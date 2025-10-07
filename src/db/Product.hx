@@ -1,8 +1,9 @@
 package db;
-import thx.Error;
+import Common;
 import sys.db.Object;
 import sys.db.Types;
-import Common;
+import thx.Error;
+
 using tools.FloatTool;
 
 /**
@@ -296,6 +297,29 @@ class Product extends Object
 	override public function insert(){
 		check();
 		super.insert();
+	}
+
+	public function clone(): db.Product {
+		var p = new Product();
+		p.name = this.name;
+		p.ref = this.ref;
+		p.catalog = this.catalog;
+		p.price = this.price;
+		p.vat = this.vat;
+		p.desc = this.desc;
+		p.qt = this.qt;
+		p.unitType = this.unitType;
+		p.stockTracking = this.stockTracking;
+		p.stockTrackingPerDistrib = this.stockTrackingPerDistrib;
+		p.stock = this.stock;
+		p.organic = this.organic;
+		p.variablePrice = this.variablePrice;
+		p.multiWeight = this.multiWeight;
+		p.bulk = this.bulk;
+		p.image = this.image;
+		p.active = true;
+
+		return p;
 	}
 
 	public static function getLabels(){
