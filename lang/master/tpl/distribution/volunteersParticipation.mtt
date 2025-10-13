@@ -41,7 +41,7 @@
 				::end::
 				<tr class="::class::">
 					<td>
-						::getUser(userId).getCoupleName()::
+						::getUser(userId).getCoupleName(_("et"))::
 					</td>
 					<td>
 						::if(done >= toBeDone)::

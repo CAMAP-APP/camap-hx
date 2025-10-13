@@ -12,7 +12,7 @@
 						#::u.id::
 					</td>
 					<td>
-						<a href="/admin/user/view/::u.id::">::u.getCoupleName()::</a>
+						<a href="/admin/user/view/::u.id::">::u.getCoupleName(_("et"))::</a>
 					</td>
 					<td>
 						::u.email::						
