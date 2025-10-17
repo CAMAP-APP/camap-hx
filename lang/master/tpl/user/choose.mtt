@@ -18,8 +18,12 @@
 		</h2>				
 	</div>
 
+	<div class="col-md-12" style="background-color: #aaaaff" ::cond (user.isVendor() || user.claimableVendors().length > 0)::>
+		$$neoModule(vendor-widget-container, vendorHomeWidget, {})
+	</div>
+
 	<div class="col-md-12" >
-		<p>Vous êtes membre des <b>groupes ::theme.name::</b> suivants :</p>
+		<h4>Vous êtes membre des <b>groupes ::theme.name::</b> suivants :</h4>
 	</div>
 
 	<!-- groups -->

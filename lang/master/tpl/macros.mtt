@@ -1,5 +1,14 @@
 <macros>
 
+	<macro name="neoModule(containerId, neoModule, args)">
+		<div id="::containerId::"></div>
+		<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+	neo.createNeoModule("::containerId::", "::neoModule::", {::args::});
+});
+		</script>
+	</macro>
+
 	<macro name="jsConfirm(?text)">confirm(::if text==null::'Confirmer cette action ?'::else::'::escapeJS(text)::'::end::)</macro>
 	
 	<macro name="confirm(?text)" onclick="return $$jsConfirm(::text::)"/>

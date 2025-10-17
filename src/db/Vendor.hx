@@ -18,6 +18,10 @@ class Vendor extends Object
 {
 	public var id : SId;
 	public var name : SString<128>;	//Business name 
+
+	@:relation(userId)
+	public var user : SNull<User>;	
+
 	public var peopleName : SNull<SString<128>>; //Business owner(s) name
 	
 	@hideInForms public var profession : SNull<SInt>;
@@ -159,6 +163,13 @@ class Vendor extends Object
 		var contracts = getActiveContracts();
 		var groups = Lambda.map(contracts,function(c) return c.group);
 		return tools.ObjectListTool.deduplicate(groups);
+	}
+
+	public function getGroupContactMailto():String {
+		var groups = getGroups();
+		return groups.flatMap(g -> if(g.contact != null) [g.contact.email] else [])
+			.map(email -> StringTools.urlEncode(email))
+			.join(";");
 	}
 
 	public static function getLabels(){
