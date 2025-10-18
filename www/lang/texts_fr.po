@@ -3308,8 +3308,14 @@ msgstr ""
 msgid "Prefill all amounts"
 msgstr "Pré-remplir tous les montants"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+#: ../src/controller/Install.hx:2602
+msgid ""
+"Group and user 'admin' created. Your email is 'admin@camap.tld' and your "
+"password is 'admin'"
+msgstr ""
+"Le groupe et l'utilisateur 'admin' ont été créés avec l'email "
+"'admin@camap.tld' et le mot de passe 'admin'"
+
 #: ../src/controller/Vendor.hx:499
 msgid "Vendor is no Longer available"
 msgstr "Ce producteur n'est plus référencé"
@@ -3334,19 +3340,6 @@ msgstr "Espace Producteur"
 msgid "Your activity in the group ::group::"
 msgstr "Votre activité dans le groupe ::group::"
 
-#: ../src/controller/Product.hx:1214
-msgid ""
-"::price::<br/>\n"
-"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
-"pouvez pas modifier son prix.<br/>\n"
-"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
-"btn-sm\">Désactiver et créer une copie</a>"
-msgstr ""
-"::price::<br/>Ce produit a déja des commandes passées ou en cours, vous ne "
-"pouvez pas modifier son prix.<br/>Vous pouvez le <a "
-"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
-"copie</a>"
-
 #: ../src/controller/Product.hx:1706
 msgid ""
 "\n"
@@ -3361,10 +3354,6 @@ msgstr ""
 "href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
 "copie</a>"
 
-=======
->>>>>>> 3488730 (v2.0.7 (#94))
-=======
->>>>>>> 3488730 (v2.0.7 (#94))
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
 
