@@ -92,16 +92,14 @@ class Distribution extends Controller {
 		// products
 		var products = tools.ObjectListTool.deduplicate(products);
 		products.sort(function(b, a) {
-			return (a.name < b.name) ? 1 : -1;
+			return (a.name.toUpperCase() < b.name.toUpperCase()) ? 1 : -1;
 		});
 		view.products = products;
 
 		// users
 		var users = d.getUsers().array();
 		// var usersMap = tools.ObjectListTool.toIdMap(users);
-		users.sort(function(b, a) {
-			return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? 1 : -1;
-		});
+		users.sort(db.User.sortCompare);
 		view.users = users;
 		// view.usersMap = usersMap;
 

@@ -707,9 +707,45 @@ background-color: $state-info-bg-alpha;
 
 .header {
   .accountBlock {
-    div.pull-right {
-      margin-right: 16px;
+    .links {
+      margin-right: calc(16px - 1em);
       margin-top: 16px;
+      display: flex;
+      flex-flow: row nowrap;
+      gap: 1em;
+
+      & > * {
+        flex: 0 0 auto;
+      }
+      .username-dropdown {
+        flex-shrink: 1;
+        min-width: 0;
+        & > a {
+          margin: -0.5em;
+          margin-right: 0;
+          padding: 0.5em;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          gap: 0.2em;
+          &:hover {
+            text-decoration: none;
+            background: #e0e0e0 !important;
+          }
+          .usernames {
+            display: flex;
+            flex-flow: column;
+            flex: 0 1 auto;
+            overflow: hidden;
+          }
+          .username {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            min-width: 0;
+          }
+        }
+      }
     }
     a {
       color: $gray-base;
@@ -718,11 +754,11 @@ background-color: $state-info-bg-alpha;
 	    color: $brand-primary;
     }
     .btn-default {
-	background-color: transparent;
-	}
-	.css-wkfemu {
-		background-color: $brand-primary
-	}
+	    background-color: transparent;
+	  }
+	  .css-wkfemu {
+		  background-color: $brand-primary
+	  }
   }
 }
 

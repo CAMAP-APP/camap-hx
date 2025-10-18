@@ -21,9 +21,7 @@ class App extends sugoi.BaseApp {
 	 */ 
 
 
-
-	public static var VERSION = ([2,0,6]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
-
+	public static var VERSION = ([2,0,7]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 
 
 	
@@ -272,6 +270,8 @@ class App extends sugoi.BaseApp {
 		out.set("UsersCanOrder", "Les membres peuvent saisir leur commande en ligne");
 		out.set("StockManagement", "Gestion des stocks");
 		out.set("DisplayPricesOnGroupPage", "Afficher les prix des produits sur la page publique du groupe");
+		out.set("NotifyVendorOnOrderEnd", "Envoi au producteur d’une notification par mail à la fermeture de la commande.");
+		out.set("NotifyContactOnOrderEnd", "Envoi au coordinateur d’une notification par mail à la fermeture de la commande.");
 		out.set("contact", "Responsable");
 		out.set("PercentageOnOrders", "Ajouter des frais au pourcentage de la commande");
 		out.set("percentageValue", "Pourcentage des frais");

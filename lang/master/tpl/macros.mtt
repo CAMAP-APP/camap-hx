@@ -5,37 +5,46 @@
 	<macro name="confirm(?text)" onclick="return $$jsConfirm(::text::)"/>
 	
 	<macro name="userMenu(user)">
-		::if user != null::
-			<!-- Home -->			
-			<div class="dropdown pull-right text-right">
-				
-				<a  class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
-					<i class="icon icon-user"></i>
-					::user.getName()::
-					::if user.firstName2!=null::
-						::_("et"):: ::user.lastName2:: ::user.firstName2::  						
-					::end::
-				</a>
-
-				<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
-					<li><a href="/account"><i class="icon icon-user"></i> ::_("My account")::</a></li>
-					<li><a href="/user/logout"><i class="icon icon-sign-out"></i> ::_("Log out")::</a></li>
-				</ul>
-				
-			</div>			
-		::else::
-			<div class="pull-right text-right">
-				<a href="/user/login" class="btn btn-default btn-sm"><i class="icon icon-user"></i> ::_("Log in")::</a>
-				<a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i> ::_("Look for another group")::</a>	
-			</div>
-		::end::
-
 		<!-- Home -->
-		<div class="pull-right">
+		<div class="pull-right links">
 			<a class="" href="/user/choose?show=1" >
 				<i class="icon icon-chevron-left"></i> ::_("Home")::
 			</a>
-			::if isAdmin::&nbsp;&nbsp;<a href="/admin"><i class="icon icon-cog"></i>  Admin</a>::end::
+			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i> Admin</a>::end::
+			::if user != null::
+				<!-- Home -->			
+				<div class="dropdown pull-right text-right username-dropdown">
+					<a class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
+						<div class="usernames">
+							<div class="username">
+								<i class="icon icon-user"></i>
+								::user.getName()::
+							</div>
+							::if user.firstName2!=null::
+							<div class="username">
+								::_("et")::
+								::if user.lastName2 != null && user.getFormattedLastName() != user.getFormattedLastName2()::
+									::user.getFormattedLastName2()::
+								::end::
+								::user.getFormattedFirstName2()::
+							</div>
+							::end::
+						</div>
+						<i class="icon icon-chevron-down"></i>
+					</a>
+
+					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
+						<li><a href="/account"><i class="icon icon-user"></i> ::_("My account")::</a></li>
+						<li><a href="/user/logout"><i class="icon icon-sign-out"></i> ::_("Log out")::</a></li>
+					</ul>
+					
+				</div>			
+			::else::
+				<div class="pull-right text-right">
+					<a href="/user/login" class="btn btn-default btn-sm"><i class="icon icon-user"></i> ::_("Log in")::</a>
+					<a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i> ::_("Look for another group")::</a>	
+				</div>
+			::end::
 		</div>
 			
 	</macro>
@@ -301,7 +310,7 @@
 		<i class="icon-user"></i>
 		
 		::if u!=null::
-			<b>::u.firstName:: ::u.lastName::</b><br/>
+			<b>::u.getName()::</b><br/>
 			<span ::cond u.email!=null::>
 					<i class="icon icon-mail"></i> <a href="mailto: ::u.email::">::u.email::</a><br/>			
 			</span>
@@ -410,7 +419,8 @@
 				<i class="icon icon-chevron-right"></i>
 			</a>
 		</div>
-	</macro>	
+	</macro>
+	<macro name="timeframeQueryParams(from,to)">_from=::from.toString().substr(0,10)::&_to=::to.toString().substr(0,10)::</macro>
 	
 	<macro name="footer()">
 		::if(theme!=null && theme.footer!=null)::

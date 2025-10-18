@@ -566,13 +566,10 @@ class OrderService
 			astr = a.userName + a.userId + a.userName2 + a.userId2 + a.catalogId + a.productName;
 			bstr = b.userName + b.userId + b.userName2 + b.userId2 + b.catalogId + a.productName;
 			
-			if (astr > bstr ) {
-				return 1;
-			}
-			if (astr < bstr ) {
+			if (astr.toUpperCase() < bstr.toUpperCase()) {
 				return -1;
 			}
-			return 0;
+			return 1;
 		});
 		return orders;
 	}
