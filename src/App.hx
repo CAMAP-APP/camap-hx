@@ -17,10 +17,14 @@ class App extends sugoi.BaseApp {
 	/**
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
-	 */
-	public static var VERSION = ([3, 0, 0] : Version) /*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	 */ 
 
-	public function new() {
+
+	public static var VERSION = ([2,0,7]  : Version)/*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+
+
+	
+	public function new(){
 		super();
 
 		breadcrumb = [];
@@ -272,6 +276,8 @@ class App extends sugoi.BaseApp {
 		out.set("UsersCanOrder", "Les membres peuvent saisir leur commande en ligne");
 		out.set("StockManagement", "Gestion des stocks");
 		out.set("DisplayPricesOnGroupPage", "Afficher les prix des produits sur la page publique du groupe");
+		out.set("NotifyVendorOnOrderEnd", "Envoi au producteur d’une notification par mail à la fermeture de la commande.");
+		out.set("NotifyContactOnOrderEnd", "Envoi au coordinateur d’une notification par mail à la fermeture de la commande.");
 		out.set("NotifyVendorOnOrderEnd", "Envoi au producteur d’une notification par mail à la fermeture de la commande.");
 		out.set("NotifyContactOnOrderEnd", "Envoi au coordinateur d’une notification par mail à la fermeture de la commande.");
 		out.set("contact", "Responsable");

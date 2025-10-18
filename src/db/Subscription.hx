@@ -62,17 +62,17 @@ class Subscription extends Object {
 	/**
 		get subscription balance
 	**/
-	public function getBalance():Float {
-		return Formatting.roundTo(this.getPaymentsTotal() - this.getTotalPrice(), 2);
+	public function getBalance() : Float {
+		return Formatting.roundTo( this.getPaymentsTotal() - this.getTotalPrice() , 2 );
 	}
 
 	/**
 		get the positive amount required to settle the account
 	**/
-	public function getSettlement():Float {
+	public function getSettlement() : Float {
 		var balance = this.getBalance();
-		if (balance < 0)
-			return Formatting.roundTo(-balance, 2);
+		if(balance < 0)
+			return Formatting.roundTo( -balance, 2 );
 		return 0;
 	}
 

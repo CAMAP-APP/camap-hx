@@ -1,31 +1,42 @@
 package controller;
-
 import Common;
 import form.CamapForm;
+import haxe.io.Bytes;
+import haxe.io.Encoding;
+import neko.Utf8;
 import service.ProductService;
+import sugoi.form.Form;
+import sugoi.form.ListData.FormData;
+import sugoi.form.elements.FloatInput;
+import sugoi.form.elements.FloatSelect;
+import sugoi.form.elements.IntSelect;
+import sugoi.form.validators.EmailValidator;
 import sugoi.form.validators.Validator;
+import sys.db.RecordInfos;
+import thx.Error;
 
 using Std;
 
-class UnchangedValidator<T> extends Validator<T> {
-	private var ref:T;
-	private var changeError:String;
-
+class UnchangedValidator<T> extends Validator<T>
+{
+	private var ref: T;
+	private var changeError: String;
 	public function new(ref:T, changeError:String) {
 		super();
 		this.ref = ref;
 		this.changeError = changeError;
 	}
-
 	override public function isValid(value) {
-		if (value != ref)
+		if(value != ref)
 			errors.add(this.changeError);
 		return value == ref;
 	}
 }
 
-class Product extends Controller {
-	public function new() {
+class Product extends Controller
+{
+	public function new()
+	{
 		super();
 		view.nav = ["contractadmin", "products"];
 	}
@@ -37,48 +48,47 @@ class Product extends Controller {
 
 		var f = ProductService.getForm(product);
 
-		var hasOrders = !db.UserOrder.manager.search($productId == product.id, {limit: 1}).isEmpty();
+		var hasOrders = !db.UserOrder.manager.search(
+					$productId == product.id,
+					{ limit: 1 }
+				)
+				.isEmpty();
 
 		var oldPrice = {
 			price: product.price,
 			qt: product.qt,
 			unitType: product.unitType
 		};
-		if (hasOrders) {
+		if(hasOrders) {
 			checkToken();
-			var dupUrl = "/product/copyAndDiscard/" + product.id + "?token=" + view.token;
-			var price = f.getElement("price");
-			f.addElement(new sugoi.form.elements.Html("price_immutable", t._("::price::<br/>
-					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son prix.<br/>
-					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {price: view.formatNum(product.price)
-					+ '&nbsp;' + view.currency(),
-					url: dupUrl
-				}), price.label), f.getElements().indexOf(price));
-			price.remove();
 			var qt = f.getElement("qt");
-			f.addElement(new sugoi.form.elements.Html("quantity_immutable", t._("
-					::qt:: ::unitType::<br/>
+			f.addElement(new sugoi.form.elements.Html(
+				"quantity_immutable",
+				t._(
+					"::qt:: ::unitType::<br/>
 					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>
-					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {
+					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>",
+				{
 					qt: product.qt,
-					unitType: Formatting.unit(product.unitType),
-					url: dupUrl
-				}), qt.label), f.getElements().indexOf(qt));
+					unitType: product.unitType,
+					url: "/product/copyAndDiscard/"+product.id+"?token="+view.token
+				}),
+				qt.label ),
+				f.getElements().indexOf(qt)
+			);
 			qt.remove();
 			f.removeElementByName("unitType");
 		}
-
+		
 		if (f.isValid()) {
 			f.toSpod(product);
 			ProductService.updateProductStocksConfiguration(f, product);
 
-			try {
-				if (hasOrders) {
-					if (product.price != oldPrice.price)
-						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son prix");
-					if (product.qt != oldPrice.qt)
+			try{
+				if(hasOrders) {
+					if(product.qt != oldPrice.qt)
 						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base");
-					if (product.unitType != oldPrice.unitType)
+					if(product.unitType != oldPrice.unitType)
 						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base");
 				}
 
@@ -165,12 +175,13 @@ class Product extends Controller {
 		}
 		throw Error("/contractAdmin", t._("Token error"));
 	}
-
+	
 	public function doCopyAndDiscard(p:db.Product) {
-		if (!app.user.canManageContract(p.catalog))
-			throw t._("Forbidden access");
 
+		if (!app.user.canManageContract(p.catalog)) throw t._("Forbidden access");
+		
 		if (checkToken()) {
+			
 			p.lock();
 			var p2 = p.clone();
 			p2.insert();
@@ -178,11 +189,12 @@ class Product extends Controller {
 			p.active = false;
 			p.update();
 
-			throw Ok("/contractAdmin/products/" + p.catalog.id, t._("Product copied"));
+			throw Ok("/contractAdmin/products/"+p.catalog.id, t._("Product copied"));
 		}
 		throw Error("/contractAdmin", t._("Token error"));
-	}
 
+	}
+	
 	@tpl('product/import.mtt')
 	function doImport(c:db.Catalog, ?args:{confirm:Bool}) {
 		if (!app.user.canManageContract(c))

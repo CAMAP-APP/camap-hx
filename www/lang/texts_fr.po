@@ -3308,6 +3308,7 @@ msgstr ""
 msgid "Prefill all amounts"
 msgstr "Pré-remplir tous les montants"
 
+<<<<<<< HEAD
 #: ../src/controller/Vendor.hx:499
 msgid "Vendor is no Longer available"
 msgstr "Ce producteur n'est plus référencé"
@@ -3359,6 +3360,8 @@ msgstr ""
 "href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
 "copie</a>"
 
+=======
+>>>>>>> 3488730 (v2.0.7 (#94))
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
 

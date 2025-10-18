@@ -19,17 +19,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			<a class="" href="/user/choose?show=1" >
 				<i class="icon icon-chevron-left"></i><span class="usermenu-no-mobile"> ::_("Home")::</span>
 			</a>
+<<<<<<< HEAD
 			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i><span class="usermenu-no-mobile"> Admin</span></a>::end::
 			::if user != null::
+=======
+			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i> Admin</a>::end::
+			::if user != null::
+				<!-- Home -->			
+>>>>>>> 3488730 (v2.0.7 (#94))
 				<div class="dropdown pull-right text-right username-dropdown">
 					<a class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
 						<div class="usernames">
 							<div class="username">
 								<i class="icon icon-user"></i>
+<<<<<<< HEAD
 								<span class="usermenu-no-mobile">::user.getName()::</span>
 							</div>
 							::if user.firstName2!=null::
 							<div class="username usermenu-no-mobile">
+=======
+								::user.getName()::
+							</div>
+							::if user.firstName2!=null::
+							<div class="username">
+>>>>>>> 3488730 (v2.0.7 (#94))
 								::_("et")::
 								::if user.lastName2 != null && user.getFormattedLastName() != user.getFormattedLastName2()::
 									::user.getFormattedLastName2()::
@@ -38,18 +51,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
 							</div>
 							::end::
 						</div>
+<<<<<<< HEAD
 						<i class="icon icon-chevron-down usermenu-no-mobile" style="margin-left: 2px; margin-bottom:-4px"></i>
+=======
+						<i class="icon icon-chevron-down"></i>
+>>>>>>> 3488730 (v2.0.7 (#94))
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
 						<li><a href="/account"><i class="icon icon-user"></i> ::_("My account")::</a></li>
+<<<<<<< HEAD
 						<li ::cond user.isVendor()::><a href="/vendor/dashboard"><i class="icon icon-farmer"></i> ::_("Vendor Dashboard")::</a></li>
+=======
+>>>>>>> 3488730 (v2.0.7 (#94))
 						<li><a href="/user/logout"><i class="icon icon-sign-out"></i> ::_("Log out")::</a></li>
 					</ul>
 					
 				</div>			
 			::else::
+<<<<<<< HEAD
 				<div style="margin-top: -6px">
+=======
+				<div class="pull-right text-right">
+>>>>>>> 3488730 (v2.0.7 (#94))
 					<a href="/user/login" class="btn btn-default btn-sm"><i class="icon icon-user"></i> ::_("Log in")::</a>
 					<a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i> ::_("Look for another group")::</a>	
 				</div>
