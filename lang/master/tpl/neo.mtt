@@ -1,0 +1,5 @@
+::use 'design.mtt'::
+
+$$neoModule(::containerId::, ::module::, ::raw args::)
+
+::end::

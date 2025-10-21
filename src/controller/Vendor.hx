@@ -1,4 +1,5 @@
 package controller;
+import haxe.Json;
 import db.Catalog;
 import haxe.crypto.Md5;
 import service.VendorService;
@@ -15,6 +16,14 @@ class Vendor extends Controller
 		
 		if (!app.user.isContractManager()) throw t._("Forbidden access");
 		
+	}
+
+	@tpl('neo.mtt')
+	function doDefault() {
+		view.noGroup = true;
+		view.containerId = "vendorDashboard";
+		view.module = "vendorDashboard";
+		view.args = view.neoArgs({});
 	}
 	
 	@tpl('vendor/addimage.mtt')

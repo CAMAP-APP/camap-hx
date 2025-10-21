@@ -21,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			</a>
 			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i> Admin</a>::end::
 			::if user != null::
-				<!-- Home -->			
 				<div class="dropdown pull-right text-right username-dropdown">
 					<a class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
 						<div class="usernames">

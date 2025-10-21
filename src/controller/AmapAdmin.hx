@@ -1,4 +1,5 @@
 package controller;
+import db.Catalog;
 import Common;
 import datetime.DateTime;
 import db.Group.GroupFlags;
@@ -13,6 +14,7 @@ import sugoi.form.elements.Input.InputType;
 import sugoi.form.elements.IntInput;
 import sugoi.form.elements.IntSelect;
 import sugoi.form.elements.StringInput;
+import sugoi.form.elements.Html;
 
 using tools.DateTool;
 
@@ -107,7 +109,7 @@ class AmapAdmin extends Controller
 		if (u != null) {
 			ua = db.UserGroup.get(u, app.user.getGroup(), true);
 			if (ua == null) throw "no user";
-			populate = ua.getRights().map(r -> r.right);
+			populate = ua.getEditableRights().map(r -> r.right);
 		}
 		
 		form.addElement( new sugoi.form.elements.CheckboxGroup("rights", t._("Rights"), data, populate, true, true) );
@@ -120,9 +122,12 @@ class AmapAdmin extends Controller
 		for (r in app.user.getGroup().getActiveContracts(true)) {
 			data.push( { label:r.name , value:"contract"+Std.string(r.id) } );
 		}
+
+		var fixedRights: String = null;
 		
-		if(ua!=null && ua.getRights()!=null && ua.getRights().length>0){
-			for ( r in ua.getRights()) {
+		if(ua!=null){
+			var uaRights = ua.getEditableRights();
+			for ( r in uaRights ) {
 				switch(r.right) {
 					case "ContractAdmin":
 						if (r.params == null) {
@@ -134,10 +139,13 @@ class AmapAdmin extends Controller
 					default://
 				}
 			}
+
+			fixedRights = ua.getAutoRights().map(r -> '<li>${ua.getJsonRightName(r)}</li>').join('\n');
 		}
 		
 
 		form.addElement( new sugoi.form.elements.CheckboxGroup("rights", t._("Catalogs management") , data, populate, true, true) );
+		if(fixedRights != null) form.addElement( new Html("fixed-rights", '<ul>${fixedRights}</ul>', t._("Vendor attributed rights")) );
 		
 		if (form.checkToken()) {
 			
@@ -172,7 +180,7 @@ class AmapAdmin extends Controller
 			
 			ua.update();
 			
-			if (ua.getRights().length == 0) {
+			if (ua.getEditableRights().length == 0) {
 				throw Ok("/amapadmin/rights", t._("Rights removed"));
 			}else {
 				throw Ok("/amapadmin/rights", t._("Rights created or modified"));

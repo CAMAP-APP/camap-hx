@@ -18,7 +18,7 @@
 		</h2>				
 	</div>
 
-	<div class="col-md-12" style="background-color: #aaaaff" ::cond (user.isVendor() || user.claimableVendors().length > 0)::>
+	<div class="col-md-12" ::cond (user.isVendor() || user.claimableVendors().length > 0)::>
 		$$neoModule(vendor-widget-container, vendorHomeWidget, {})
 	</div>
 
