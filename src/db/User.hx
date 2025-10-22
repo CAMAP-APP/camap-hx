@@ -175,6 +175,11 @@ class User extends Object {
 	 */
 	public function canManageVendor(vendor:db.Vendor) {
 		if(isAdmin()) return true;
+		
+		// vendor is claimed
+		if(vendor.user != null)
+			return vendor.user.id == this.id;
+
 		for (c in vendor.getContracts() ) {
 			if (this.canManageContract(c)) {
 				return true;
