@@ -14,7 +14,7 @@ class Vendor extends Controller
 	{
 		super();
 		
-		if (!app.user.isContractManager()) throw t._("Forbidden access");
+		// if (!app.user.isContractManager()) throw t._("Forbidden access");
 		
 	}
 
