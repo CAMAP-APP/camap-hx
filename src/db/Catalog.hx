@@ -385,7 +385,7 @@ class Catalog extends Object
 	// return the list of contracts linked to a vendor claimed by a given user
 	public static function claimedVendorContracts(userId: Int, groupId: Int): List<db.Catalog> {
 		return db.Catalog.manager.unsafeObjects(
-			'SELECT cat.* FROM Catalog cat RIGHT JOIN Vendor v ON cat.vendorId = v.id WHERE v.userId = ${userId} AND cat.groupId = ${groupId}',
+			'SELECT cat.* FROM Catalog cat JOIN Vendor v ON cat.vendorId = v.id AND v.userId = ${userId} AND cat.groupId = ${groupId}',
 			false
 		);
 	}
