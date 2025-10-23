@@ -19,7 +19,7 @@ class Vendor extends Object
 	public var id : SId;
 	public var name : SString<128>;	//Business name 
 
-	@:relation(userId)
+	@hideInForms @:relation(userId)
 	public var user : SNull<User>;	
 
 	public var peopleName : SNull<SString<128>>; //Business owner(s) name
