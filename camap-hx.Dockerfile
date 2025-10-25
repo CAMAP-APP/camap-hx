@@ -37,15 +37,11 @@ RUN haxelib setup /usr/share/haxelib \
  && cd /usr/bin && haxelib run templo
 
 # ----- haxelib partagé et init pour www-data -----
+# haxelib + templo (init pour www-data, sans exécution)
 ENV HAXELIB_PATH=/usr/share/haxelib
 RUN mkdir -p /usr/share/haxelib && chown -R www-data:www-data /usr/share/haxelib
-
-# IMPORTANT : initialiser et installer templo en tant que www-data
 USER www-data
-RUN haxelib setup /usr/share/haxelib \
- && haxelib install templo \
- && haxelib run templo
-
+RUN haxelib setup /usr/share/haxelib && haxelib install templo
 
 # code
 COPY --chown=www-data:www-data ./common/   /srv/common/
