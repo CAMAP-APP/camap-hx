@@ -64,8 +64,8 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.tag }}       # ex: staging-v1.2.3
-            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.short }}     # ex: v1.2.3
-            ${{ env.IMAGE_NAME }}:staging                             # dernier build staging
+            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.tag }}
+            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.short }}
+            ${{ env.IMAGE_NAME }}:staging
           cache-from: type=gha
           cache-to: type=gha,mode=max
