@@ -1,9 +1,12 @@
+backend/haxe_libraries/
+frontend/haxe_libraries/
 **/docs
 **/node_modules
 **/build
 **/.vscode
 **/README.md
 **/Dockerfile
+**/*.Dockerfile
 www/index.n \*_/_~
 **/.dockerignore
 .git
