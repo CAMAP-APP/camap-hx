@@ -53,13 +53,16 @@ RUN { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > robot
 # Backend (Lix + Haxe)
 # ========================
 WORKDIR /srv/backend
-RUN npx lix scope create && \
-    npx lix install haxe 4.0.5 && \
-    npx lix use haxe 4.0.5 && \
-    npx lix download && \
-    mkdir -p haxe_libraries && \
-    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml && \
-    npx lix run haxe -v build.hxml -D i18n_generation
+RUN npx lix scope create \
+ && npx lix install haxe 4.0.5 \
+ && npx lix use haxe 4.0.5 \
+ && npx lix download \
+ && mkdir -p haxe_libraries \
+ && printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml \
+ && HAXE_BIN="$(getent passwd "$(whoami)" | cut -d: -f6)/.haxe/versions/4.0.5/haxe" \
+ && "$HAXE_BIN" -version \
+ && "$HAXE_BIN" -v build.hxml -D i18n_generation
+
 
 
 # Dossiers nécessaires et droits (tmp + files)
@@ -73,14 +76,16 @@ USER www-data
 # Frontend (Lix + Haxe + npm si présent)
 # ========================
 WORKDIR /srv/frontend
-RUN npx lix scope create && \
-    npx lix install haxe 4.0.5 && \
-    npx lix use haxe 4.0.5 && \
-    npx lix download && \
-    ( [ -f package.json ] && npm install || true ) && \
-    mkdir -p haxe_libraries && \
-    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml && \
-    npx lix run haxe -v build.hxml
+RUN npx lix scope create \
+ && npx lix install haxe 4.0.5 \
+ && npx lix use haxe 4.0.5 \
+ && npx lix download \
+ && ( [ -f package.json ] && npm install || true ) \
+ && mkdir -p haxe_libraries \
+ && printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml \
+ && HAXE_BIN="$(getent passwd "$(whoami)" | cut -d: -f6)/.haxe/versions/4.0.5/haxe" \
+ && "$HAXE_BIN" -v build.hxml
+
 
 
 # ========================
