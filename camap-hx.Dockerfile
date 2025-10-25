@@ -36,6 +36,17 @@ RUN haxelib setup /usr/share/haxelib \
  && haxelib install templo \
  && cd /usr/bin && haxelib run templo
 
+# ----- haxelib partagé et init pour www-data -----
+ENV HAXELIB_PATH=/usr/share/haxelib
+RUN mkdir -p /usr/share/haxelib && chown -R www-data:www-data /usr/share/haxelib
+
+# IMPORTANT : initialiser et installer templo en tant que www-data
+USER www-data
+RUN haxelib setup /usr/share/haxelib \
+ && haxelib install templo \
+ && haxelib run templo
+
+
 # code
 COPY --chown=www-data:www-data ./common/   /srv/common/
 COPY --chown=www-data:www-data ./data/     /srv/data/
@@ -51,12 +62,6 @@ USER www-data
 
 WORKDIR /srv/www
 RUN { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > robots.txt
-
-# Debug arbo (optionnel)
-WORKDIR /srv
-RUN set -eux; \
-    echo "=== Tree (backend/frontend/lang/www) ==="; \
-    ls -la; ls -la backend; ls -la frontend; ls -la lang; ls -la www
 
 # backend
 WORKDIR /srv/backend
