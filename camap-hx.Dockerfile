@@ -24,14 +24,14 @@ RUN chown www-data:www-data /srv /var/www
 RUN haxelib setup /usr/share/haxelib && haxelib install templo && cd /usr/bin && haxelib run templo
 
 # code
-COPY --chown=www-data:www-data ./camap-hx/common/   /srv/common/
-COPY --chown=www-data:www-data ./camap-hx/data/     /srv/data/
-COPY --chown=www-data:www-data ./camap-hx/js/       /srv/js/
-COPY --chown=www-data:www-data ./camap-hx/lang/     /srv/lang/
-COPY --chown=www-data:www-data ./camap-hx/src/      /srv/src/
-COPY --chown=www-data:www-data ./camap-hx/www/      /srv/www/
-COPY --chown=www-data:www-data ./camap-hx/backend/  /srv/backend/
-COPY --chown=www-data:www-data ./camap-hx/frontend/ /srv/frontend/
+COPY --chown=www-data:www-data ./common/   /srv/common/
+COPY --chown=www-data:www-data ./data/     /srv/data/
+COPY --chown=www-data:www-data ./js/       /srv/js/
+COPY --chown=www-data:www-data ./lang/     /srv/lang/
+COPY --chown=www-data:www-data ./src/      /srv/src/
+COPY --chown=www-data:www-data ./www/      /srv/www/
+COPY --chown=www-data:www-data ./backend/  /srv/backend/
+COPY --chown=www-data:www-data ./frontend/ /srv/frontend/
 # ⚠️ plus de COPY de config.xml ici
 
 USER www-data
