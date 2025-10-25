@@ -46,9 +46,13 @@ WORKDIR /srv/frontend
 RUN lix scope create && lix use haxe 4.0.5 && lix download && npm install
 
 WORKDIR /srv/backend
-RUN haxe build.hxml -D i18n_generation && \
-    mkdir -p ../lang/master/tmp && chmod 777 ../lang/master/tmp && \
-    chown www-data:www-data ../www/file
+
+RUN haxe build.hxml -D i18n_generation
+RUN install -d -m 0777 ../lang/master/tmp
+
+USER root
+RUN install -d -o www-data -g www-data ../www/file
+USER www-data
 
 WORKDIR /srv/frontend
 RUN haxe build.hxml
