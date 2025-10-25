@@ -55,28 +55,21 @@ RUN set -eux; \
     ls -la www || true
 
 WORKDIR /srv/backend
-
 RUN set -eux; \
-  # (re)crée un scope propre et récupère les libs
+  # Scope + toolchain Haxe 4.0.5
   rm -f .haxerc; \
-  lix scope create; \
-  lix use haxe 4.0.5; \
-  lix download; \
-  # --- FIX: matérialiser le marqueur haxe ---
+  npx lix scope create; \
+  npx lix use haxe 4.0.5; \
+  npx lix download; \
+  # Marqueur attendu par certains projets (optionnel si tu retires -lib haxe du build.hxml)
   mkdir -p haxe_libraries; \
-  if [ ! -f haxe_libraries/haxe.hxml ]; then \
-    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
-  fi; \
+  [ -f haxe_libraries/haxe.hxml ] || printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
   # (optionnel) retirer une éventuelle ligne '-lib haxe' résiduelle
-  sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml || true;
-  # DEBUG
-  RUN set -eux; \
-  echo "--- .haxerc ---"; cat .haxerc || true; \
-  echo "--- haxe_libraries ---"; ls -la haxe_libraries || true; \
-  echo "--- haxe.hxml ---"; cat haxe_libraries/haxe.hxml || true
-  # DEBUG FIN
-  # build verbeux pour diagnostiquer si autre lib manque
-  RUN lix run haxe -v build.hxml -D i18n_generation
+  sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml || true; \
+  # Vérifs + build (avec binaire Haxe via lix)
+  npx lix run -- haxe -version; \
+  npx lix run -- haxe -v build.hxml -D i18n_generation
+
 
 USER root
 RUN install -d -m 0777 ../lang/master/tmp
