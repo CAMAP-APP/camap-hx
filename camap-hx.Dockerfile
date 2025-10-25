@@ -1,6 +1,10 @@
 FROM node:20.12.1
+
+# Paquets système (⚠️ on retire 'haxe' du apt-get)
 RUN apt-get update && \
-    apt-get install -y git curl imagemagick apache2 haxe neko libapache2-mod-neko libxml-twig-perl libutf8-all-perl procps && \
+    apt-get install -y git curl ca-certificates tar imagemagick apache2 \
+                       neko libapache2-mod-neko libxml-twig-perl \
+                       libutf8-all-perl procps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- installer Haxe 4.0.5 (binaire officiel) ---
@@ -26,10 +30,11 @@ RUN sed -i 's!/var/www!/srv/www!' /etc/apache2/apache2.conf
 RUN sed -i 's!Options Indexes FollowSymLinks!Options FollowSymLinks!' /etc/apache2/apache2.conf
 RUN sed -i 's!/var/www/html!/srv/www!g' /etc/apache2/sites-available/000-default.conf
 
-# haxe libs
-RUN npm install -g lix
+# haxelib + templo
 RUN chown www-data:www-data /srv /var/www
-RUN haxelib setup /usr/share/haxelib && haxelib install templo && cd /usr/bin && haxelib run templo
+RUN haxelib setup /usr/share/haxelib \
+ && haxelib install templo \
+ && cd /usr/bin && haxelib run templo
 
 # code
 COPY --chown=www-data:www-data ./common/   /srv/common/
@@ -40,45 +45,37 @@ COPY --chown=www-data:www-data ./src/      /srv/src/
 COPY --chown=www-data:www-data ./www/      /srv/www/
 COPY --chown=www-data:www-data ./backend/  /srv/backend/
 COPY --chown=www-data:www-data ./frontend/ /srv/frontend/
-# ⚠️ plus de COPY de config.xml ici
+# ⚠️ plus de COPY de config.xml ici (il sera monté au run)
 
 USER www-data
 
 WORKDIR /srv/www
 RUN { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > robots.txt
 
-WORKDIR /srv/backend
-RUN lix scope create && lix install haxe 4.0.5 && lix use haxe 4.0.5 && lix download
-
-WORKDIR /srv/frontend
-RUN lix scope create && lix use haxe 4.0.5 && lix download && npm install
-
+# Debug arbo (optionnel)
 WORKDIR /srv
 RUN set -eux; \
     echo "=== Tree (backend/frontend/lang/www) ==="; \
-    ls -la || true; \
-    ls -la backend || true; \
-    ls -la frontend || true; \
-    ls -la lang || true; \
-    ls -la www || true
+    ls -la; ls -la backend; ls -la frontend; ls -la lang; ls -la www
 
 # backend
 WORKDIR /srv/backend
-# Si ton build.hxml contient "-lib haxe", garde-le mais fournis le "marqueur" attendu :
-RUN set -eux; \
-  mkdir -p haxe_libraries; \
-  [ -f haxe_libraries/haxe.hxml ] || printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
-  haxe -v build.hxml -D i18n_generation
+# Si build.hxml contenait '-lib haxe', fournir le marqueur attendu :
+RUN mkdir -p haxe_libraries \
+ && [ -f haxe_libraries/haxe.hxml ] || printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml \
+ && haxe -v build.hxml -D i18n_generation
 
+# créer les répertoires requis avec les bons droits
 USER root
-RUN install -d -m 0777 ../lang/fr/tmp
-RUN install -d -o www-data -g www-data ../www/file
+RUN install -d -m 0777 /srv/lang/fr/tmp \
+ && install -d -o www-data -g www-data /srv/www/file
 USER www-data
 
 # frontend
 WORKDIR /srv/frontend
 RUN haxe -v build.hxml
 
+# génération des templates
 WORKDIR /srv/lang/fr/tpl/
 RUN neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
 
@@ -86,7 +83,7 @@ WORKDIR /srv
 USER root
 RUN echo "Europe/Paris" > /etc/timezone
 
-# healthcheck simple (optionnel)
+# healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --retries=5 CMD curl -fsS http://127.0.0.1/ || exit 1
 
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
