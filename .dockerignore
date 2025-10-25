@@ -1,5 +1,3 @@
-backend/haxe_libraries/
-frontend/haxe_libraries/
 **/docs
 **/node_modules
 **/build
