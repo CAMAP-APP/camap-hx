@@ -61,7 +61,7 @@ RUN npx lix scope create && \
 	npx lix install haxe 4.0.5 && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
-    npx lix exec haxe -v build.hxml -D i18n_generation
+    npx lix run haxe -v build.hxml -D i18n_generation
 
 # Dossiers nécessaires et droits (tmp + files)
 USER root
@@ -79,7 +79,7 @@ RUN npx lix scope create && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
     ( [ -f package.json ] && npm install || true ) && \
-    npx lix exec haxe -v build.hxml
+    npx lix run haxe -v build.hxml
 
 # ========================
 # Génération des templates
