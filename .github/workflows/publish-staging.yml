@@ -57,6 +57,8 @@ jobs:
 
       - name: Build & push
         uses: docker/build-push-action@v6
+        env:
+          BUILDKIT_PROGRESS: plain
         with:
           context: .
           file: ./camap-hx.Dockerfile

@@ -1,7 +1,7 @@
 FROM node:20.12.1
 RUN apt-get update && \
-    apt-get install -y git curl imagemagick apache2 haxe libapache2-mod-neko libxml-twig-perl libutf8-all-perl procps && \
-    apt-get clean
+    apt-get install -y git curl imagemagick apache2 haxe neko libapache2-mod-neko libxml-twig-perl libutf8-all-perl procps && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV TZ="Europe/Paris"
 ENV APACHE_RUN_USER=www-data
@@ -45,12 +45,23 @@ RUN lix scope create && lix install haxe 4.0.5 && lix use haxe 4.0.5 && lix down
 WORKDIR /srv/frontend
 RUN lix scope create && lix use haxe 4.0.5 && lix download && npm install
 
+WORKDIR /srv
+RUN set -eux; \
+    echo "=== Tree (backend/frontend/lang/www) ==="; \
+    ls -la || true; \
+    ls -la backend || true; \
+    ls -la frontend || true; \
+    ls -la lang || true; \
+    ls -la www || true
+
 WORKDIR /srv/backend
 
-RUN haxe build.hxml -D i18n_generation
-RUN install -d -m 0777 ../lang/master/tmp
+#RUN haxe build.hxml -D i18n_generation
+RUN set -eux; \
+    lix run haxe -v build.hxml -D i18n_generation
 
 USER root
+RUN install -d -m 0777 ../lang/master/tmp
 RUN install -d -o www-data -g www-data ../www/file
 USER www-data
 
