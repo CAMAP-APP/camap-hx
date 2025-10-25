@@ -33,7 +33,7 @@ jobs:
     needs: verify-staging
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: ghcr.io/<OWNER>/camap-hx
+      IMAGE_NAME: ghcr.io/camap-app/camap-hx
     steps:
       - uses: actions/checkout@v4
 
@@ -69,4 +69,3 @@ jobs:
             ${{ env.IMAGE_NAME }}:staging                             # dernier build staging
           cache-from: type=gha
           cache-to: type=gha,mode=max
-		  
