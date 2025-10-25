@@ -9,3 +9,7 @@ www/index.n \*_/_~
 .git
 .gitattributes
 .gitignore
+camaphx-config.xml
+camapts.env
+mysql/dumps/
+node_modules/
