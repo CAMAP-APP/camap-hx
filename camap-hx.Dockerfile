@@ -56,10 +56,27 @@ RUN set -eux; \
 
 WORKDIR /srv/backend
 
-# Retire "-lib haxe" si présent (ligne pure ou avec espaces)
 RUN set -eux; \
-    sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml; \
-    lix run haxe -v build.hxml -D i18n_generation
+  # (re)crée un scope propre et récupère les libs
+  rm -f .haxerc; \
+  lix scope create; \
+  lix use haxe 4.0.5; \
+  lix download; \
+  # --- FIX: matérialiser le marqueur haxe ---
+  mkdir -p haxe_libraries; \
+  if [ ! -f haxe_libraries/haxe.hxml ]; then \
+    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
+  fi; \
+  # (optionnel) retirer une éventuelle ligne '-lib haxe' résiduelle
+  sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml || true;
+  # DEBUG
+  RUN set -eux; \
+  echo "--- .haxerc ---"; cat .haxerc || true; \
+  echo "--- haxe_libraries ---"; ls -la haxe_libraries || true; \
+  echo "--- haxe.hxml ---"; cat haxe_libraries/haxe.hxml || true
+  # DEBUG FIN
+  # build verbeux pour diagnostiquer si autre lib manque
+  RUN lix run haxe -v build.hxml -D i18n_generation
 
 USER root
 RUN install -d -m 0777 ../lang/master/tmp
