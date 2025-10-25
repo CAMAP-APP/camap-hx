@@ -53,15 +53,14 @@ RUN { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > robot
 # Backend (Lix + Haxe)
 # ========================
 WORKDIR /srv/backend
-# 1) Créer un scope Lix local
-# 2) Sélectionner Haxe 4.0.5 pour ce scope
-# 3) Télécharger toolchain + dépendances depuis haxe_libraries/*
-# 4) Compiler via le binaire Haxe fourni par Lix
 RUN npx lix scope create && \
-	npx lix install haxe 4.0.5 && \
+    npx lix install haxe 4.0.5 && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
+    mkdir -p haxe_libraries && \
+    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml && \
     npx lix run haxe -v build.hxml -D i18n_generation
+
 
 # Dossiers nécessaires et droits (tmp + files)
 USER root
@@ -75,11 +74,14 @@ USER www-data
 # ========================
 WORKDIR /srv/frontend
 RUN npx lix scope create && \
-	npx lix install haxe 4.0.5 && \
+    npx lix install haxe 4.0.5 && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
     ( [ -f package.json ] && npm install || true ) && \
+    mkdir -p haxe_libraries && \
+    printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml && \
     npx lix run haxe -v build.hxml
+
 
 # ========================
 # Génération des templates
