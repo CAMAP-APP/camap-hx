@@ -56,19 +56,18 @@ RUN set -eux; \
 
 WORKDIR /srv/backend
 RUN set -eux; \
-  # Scope + toolchain Haxe 4.0.5
   rm -f .haxerc; \
   npx lix scope create; \
   npx lix use haxe 4.0.5; \
   npx lix download; \
-  # Marqueur attendu par certains projets (optionnel si tu retires -lib haxe du build.hxml)
+  # (optionnel) marquer la version si ton projet attend -lib haxe
   mkdir -p haxe_libraries; \
   [ -f haxe_libraries/haxe.hxml ] || printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
-  # (optionnel) retirer une éventuelle ligne '-lib haxe' résiduelle
+  # (optionnel) retirer une éventuelle ligne '-lib haxe'
   sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml || true; \
-  # Vérifs + build (avec binaire Haxe via lix)
-  npx lix run -- haxe -version; \
-  npx lix run -- haxe -v build.hxml -D i18n_generation
+  # 👉 Appeler Haxe via npx (pas via lix run)
+  npx haxe -version; \
+  npx haxe -v build.hxml -D i18n_generation
 
 
 USER root
@@ -77,7 +76,11 @@ RUN install -d -o www-data -g www-data ../www/file
 USER www-data
 
 WORKDIR /srv/frontend
-RUN haxe build.hxml
+RUN set -eux; \
+  npx lix scope create; \
+  npx lix use haxe 4.0.5; \
+  npx lix download; \
+  npx haxe -v build.hxml
 
 WORKDIR /srv/lang/fr/tpl/
 RUN neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
