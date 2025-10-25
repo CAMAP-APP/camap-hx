@@ -39,10 +39,6 @@ COPY --chown=www-data:www-data ./www/      /srv/www/
 COPY --chown=www-data:www-data ./backend/  /srv/backend/
 COPY --chown=www-data:www-data ./frontend/ /srv/frontend/
 
-# Si ton contexte de build est un repo parent, garde tes chemins d’origine :
-# COPY --chown=www-data:www-data ./camap-hx/common/   /srv/common/
-# ...
-
 USER www-data
 
 # robots.txt minimal
@@ -53,16 +49,22 @@ RUN { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > robot
 # Backend (Lix + Haxe)
 # ========================
 WORKDIR /srv/backend
-RUN npx lix scope create \
- && npx lix install haxe 4.0.5 \
- && npx lix use haxe 4.0.5 \
- && npx lix download \
- && mkdir -p haxe_libraries \
- && printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml \
- && ls -la node_modules/.bin || true \
- && ./node_modules/.bin/haxe -version \
- && ./node_modules/.bin/haxe -v build.hxml -D i18n_generation
-
+RUN set -eux; \
+  # 0) S'assurer d'avoir un package.json pour installer haxeshim
+  if [ ! -f package.json ]; then printf '{ "name":"camap-hx-backend","private":true }' > package.json; fi; \
+  # 1) Installer le shim Haxe (fournit npx haxe / haxelib)
+  npm i -D haxeshim --no-audit --no-fund; \
+  # 2) Préparer Lix (scope + toolchain Haxe + libs depuis haxe_libraries/*)
+  npx lix scope create; \
+  npx lix install haxe 4.0.5; \
+  npx lix use haxe 4.0.5; \
+  npx lix download; \
+  # 3) Marqueur de version attendu par certains projets
+  mkdir -p haxe_libraries; \
+  printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
+  # 4) Compiler via le shim (utilise la toolchain Lix sélectionnée)
+  npx haxe -version; \
+  npx haxe -v build.hxml -D i18n_generation
 
 
 
@@ -78,16 +80,23 @@ USER www-data
 # Frontend (Lix + Haxe + npm si présent)
 # ========================
 WORKDIR /srv/frontend
-RUN npx lix scope create \
- && npx lix install haxe 4.0.5 \
- && npx lix use haxe 4.0.5 \
- && npx lix download \
- && ( [ -f package.json ] && npm install || true ) \
- && mkdir -p haxe_libraries \
- && printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml \
- && ls -la node_modules/.bin || true \
- && ./node_modules/.bin/haxe -version \
- && ./node_modules/.bin/haxe -v build.hxml
+RUN set -eux; \
+  # 0) S'assurer d'avoir un package.json (le tien existe a priori déjà)
+  if [ ! -f package.json ]; then printf '{ "name":"camap-hx-frontend","private":true }' > package.json; fi; \
+  # 1) Installer le shim Haxe
+  npm i -D haxeshim --no-audit --no-fund; \
+  # 2) Préparer Lix
+  npx lix scope create; \
+  npx lix install haxe 4.0.5; \
+  npx lix use haxe 4.0.5; \
+  npx lix download; \
+  # 3) Dépendances JS éventuelles
+  ( [ -f package.json ] && npm install --no-audit --no-fund || true ); \
+  # 4) Marqueur Haxe
+  mkdir -p haxe_libraries; \
+  printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
+  # 5) Compiler
+  npx haxe -v build.hxml
 
 
 
