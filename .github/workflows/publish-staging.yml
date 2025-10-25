@@ -8,7 +8,6 @@ on:
       - 'staging-[0-9]*-rc*'    # ex: staging-2.0.8-rc1
       - 'staging-v[0-9]*-rc*'   # ex: staging-v2.0.8-rc1
 
-
 permissions:
   contents: read
   packages: write
@@ -60,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          # Si ton Dockerfile n'est pas à la racine, précise: file: ./camap-hx.Dockerfile
+          file: ./camap-hx.Dockerfile
           push: true
           platforms: linux/amd64
           tags: |
