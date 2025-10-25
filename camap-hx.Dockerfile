@@ -56,19 +56,10 @@ RUN set -eux; \
 
 WORKDIR /srv/backend
 
-#RUN haxe build.hxml -D i18n_generation
+# Retire "-lib haxe" si présent (ligne pure ou avec espaces)
 RUN set -eux; \
-  # 1) Crée (ou écrase) un scope local et force .haxerc local à 4.0.5
-  rm -f .haxerc; \
-  lix scope create; \
-  lix use haxe 4.0.5; \
-  # 2) Télécharge TOUTES les libs (dont la std Haxe) pour CE scope
-  lix download; \
-  # 3) Vérifie que le fichier attendu existe bien
-  ls -l haxe_libraries || true; \
-  test -f haxe_libraries/haxe.hxml; \
-  # 4) Build verbeux pour diagnostiquer en cas d'échec
-  lix run haxe -v build.hxml -D i18n_generation
+    sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml; \
+    lix run haxe -v build.hxml -D i18n_generation
 
 USER root
 RUN install -d -m 0777 ../lang/master/tmp
