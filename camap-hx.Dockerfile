@@ -58,6 +58,7 @@ WORKDIR /srv/backend
 # 3) Télécharger toolchain + dépendances depuis haxe_libraries/*
 # 4) Compiler via le binaire Haxe fourni par Lix
 RUN npx lix scope create && \
+	npx lix install haxe 4.0.5 && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
     npx lix exec haxe -v build.hxml -D i18n_generation
@@ -74,6 +75,7 @@ USER www-data
 # ========================
 WORKDIR /srv/frontend
 RUN npx lix scope create && \
+	npx lix install haxe 4.0.5 && \
     npx lix use haxe 4.0.5 && \
     npx lix download && \
     ( [ -f package.json ] && npm install || true ) && \
