@@ -3,6 +3,14 @@ RUN apt-get update && \
     apt-get install -y git curl imagemagick apache2 haxe neko libapache2-mod-neko libxml-twig-perl libutf8-all-perl procps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# --- installer Haxe 4.0.5 (binaire officiel) ---
+RUN set -eux; \
+  curl -fsSL https://github.com/HaxeFoundation/haxe/releases/download/4.0.5/haxe-4.0.5-linux64.tar.gz -o /tmp/haxe.tgz; \
+  mkdir -p /opt/haxe-4.0.5 && tar -xzf /tmp/haxe.tgz -C /opt/haxe-4.0.5 --strip-components=1; \
+  ln -sf /opt/haxe-4.0.5/haxe /usr/local/bin/haxe; \
+  ln -sf /opt/haxe-4.0.5/haxelib /usr/local/bin/haxelib; \
+  haxe -version
+
 ENV TZ="Europe/Paris"
 ENV APACHE_RUN_USER=www-data
 ENV APACHE_RUN_GROUP=www-data
@@ -54,33 +62,22 @@ RUN set -eux; \
     ls -la lang || true; \
     ls -la www || true
 
+# backend
 WORKDIR /srv/backend
+# Si ton build.hxml contient "-lib haxe", garde-le mais fournis le "marqueur" attendu :
 RUN set -eux; \
-  rm -f .haxerc; \
-  npx lix scope create; \
-  npx lix use haxe 4.0.5; \
-  npx lix download; \
-  # (optionnel) marquer la version si ton projet attend -lib haxe
   mkdir -p haxe_libraries; \
   [ -f haxe_libraries/haxe.hxml ] || printf -- '-D haxe=4.0.5\n' > haxe_libraries/haxe.hxml; \
-  # (optionnel) retirer une éventuelle ligne '-lib haxe'
-  sed -i -E '/^[[:space:]]*-lib[[:space:]]+haxe[[:space:]]*$/d' build.hxml || true; \
-  # 👉 Appeler Haxe via npx (pas via lix run)
-  npx haxe -version; \
-  npx haxe -v build.hxml -D i18n_generation
-
+  haxe -v build.hxml -D i18n_generation
 
 USER root
-RUN install -d -m 0777 ../lang/master/tmp
+RUN install -d -m 0777 ../lang/fr/tmp
 RUN install -d -o www-data -g www-data ../www/file
 USER www-data
 
+# frontend
 WORKDIR /srv/frontend
-RUN set -eux; \
-  npx lix scope create; \
-  npx lix use haxe 4.0.5; \
-  npx lix download; \
-  npx haxe -v build.hxml
+RUN haxe -v build.hxml
 
 WORKDIR /srv/lang/fr/tpl/
 RUN neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
