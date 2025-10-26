@@ -4,6 +4,8 @@ set -eu
 CONFIG="/srv/config.xml"
 OUT="/srv/lang/master/tmp"
 MARK="$OUT/.config.md5"
+TPL="/srv/lang/master/tpl"
+GEN="/usr/local/lib/camap/temploc2.n"   # 👈 chemin absolu
 
 mkdir -p "$OUT"
 
@@ -17,10 +19,13 @@ fi
 
 if [ "$need_regen" -eq 1 ]; then
   echo "[camap-hx] (re)génération des templates Templo…"
-  cd /srv/lang/master/tpl
-  neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
+  if [ ! -f "$GEN" ]; then
+    echo "[camap-hx] ERREUR: $GEN introuvable" >&2
+    exit 1
+  fi
+  cd "$TPL"
+  neko "$GEN" -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
   [ -f /tmp/config.md5 ] && mv /tmp/config.md5 "$MARK" || true
 fi
 
-# Lancer Apache
 exec /usr/sbin/apache2ctl -D FOREGROUND
