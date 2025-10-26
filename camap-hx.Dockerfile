@@ -1,7 +1,7 @@
 # ===========================
 # Stage 1 : builder (Haxe via lix)
 # ===========================
-FROM node:20.12.1 AS builder
+FROM node:20.12.1-slim AS builder
 
 # Outils build (git/SSL) + Neko (pour temploc2.n)
 RUN apt-get update && \
@@ -95,6 +95,13 @@ RUN set -eux; \
 # ===========================
 FROM debian:bookworm-slim
 
+LABEL org.opencontainers.image.authors="InterAMAP44 inter@amap44.org"
+LABEL org.opencontainers.image.vendor="InterAMAP 44"
+LABEL org.opencontainers.image.source="https://github.com/CAMAP-APP/camap-hx"
+LABEL org.opencontainers.image.licenses="GPL-3.0-or-later"
+LABEL description="Camap neko container"
+LABEL org.opencontainers.image.description="Container 1/3 de l'application Camap (camap-hx)"
+
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       apache2 libapache2-mod-neko neko curl ca-certificates \
@@ -119,7 +126,9 @@ WORKDIR /srv
 # On ne copie QUE les artefacts utiles
 COPY --from=builder /srv/www  /srv/www
 COPY --from=builder /srv/lang  /srv/lang
-# (Note : pas de /srv/config.xml dans l'image finale)
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 RUN set -eux; \
     [ -f /srv/www/robots.txt ] || { echo "User-agent: *"; echo "Disallow: /"; echo "Allow: /group/"; } > /srv/www/robots.txt; \
@@ -128,4 +137,4 @@ RUN set -eux; \
 
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=5s --retries=5 CMD curl -fsS http://127.0.0.1/ || exit 1
-ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT ["/entrypoint.sh"]

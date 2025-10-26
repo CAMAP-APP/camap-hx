@@ -16,7 +16,7 @@
 	cachetpl="0"
 	key="n5dzdNw2DaWnd1TrVsif"
 
-	camap_api="http://localhost:3010"
+	camap_api="http://nest-camap:3010"
 	camap_bridge_api="http://nest-camap:3010"
 	
 	mapbox_server_token="foobar"
