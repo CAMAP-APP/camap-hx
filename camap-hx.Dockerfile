@@ -122,14 +122,12 @@ RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     sed -i 's!Options Indexes FollowSymLinks!Options FollowSymLinks!' /etc/apache2/apache2.conf && \
     sed -i 's!/var/www/html!/srv/www!g' /etc/apache2/sites-available/000-default.conf
 
-# Fichiers de conf supplémentaires
+# Activer modules/proxy + copier la conf overlay
+RUN a2enmod headers rewrite proxy proxy_http >/dev/null 2>&1 || true
 COPY apache/camap-static.conf /etc/apache2/conf-available/camap-static.conf
-
-# Modules et conf requis pour servir les assets correctement
-RUN a2enmod headers >/dev/null 2>&1 && \
-    a2enmod rewrite neko >/dev/null 2>&1 && \
-    a2enconf camap-static >/dev/null 2>&1
-
+RUN a2enconf camap-static >/dev/null 2>&1 || true \
+ && printf "ServerName localhost\n" > /etc/apache2/conf-available/servername.conf \
+ && a2enconf servername >/dev/null 2>&1 || true
 
 WORKDIR /srv
 # On ne copie QUE les artefacts utiles
