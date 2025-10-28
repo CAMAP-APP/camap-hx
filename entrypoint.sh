@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+umask 022
 ENVJS="/srv/www/env.js"
 DOTENV="/srv/camapts.env"
 
