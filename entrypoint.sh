@@ -2,7 +2,7 @@
 set -e
 
 # ----------------------------------------------------------------------
-# 0) Variables chemins
+# 0) Chemins
 # ----------------------------------------------------------------------
 ENVJS="/srv/www/env.js"
 DOTENV="/srv/camapts.env"
@@ -10,16 +10,29 @@ DOTENV="/srv/camapts.env"
 echo "[entrypoint] Starting CAMAP container…"
 
 # ----------------------------------------------------------------------
-# 1) Charger camapts.env si présent
+# 1) Charger camapts.env si présent (sans l'écraser)
+#    - Normalise EOL (\r Windows)
+#    - Convertit facultativement 'KEY: value' -> 'KEY=value'
+#    - Source depuis /tmp pour éviter les soucis de bind-mount
 # ----------------------------------------------------------------------
 if [ -f "$DOTENV" ]; then
   echo "[entrypoint] Loading environment from $DOTENV"
 
-  # Normaliser fin de lignes Windows → Unix
-  tr -d '\r' < "$DOTENV" > "${DOTENV}.tmp" && mv "${DOTENV}.tmp" "$DOTENV"
+  SANITIZED="/tmp/camapts.env.$$"
+  trap 'rm -f "$SANITIZED" "$SANITIZED.tmp" 2>/dev/null || true' EXIT
 
+  # 1) Normaliser CRLF -> LF dans une copie en /tmp
+  tr -d '\r' < "$DOTENV" > "$SANITIZED"
+
+  # 2) Si le fichier semble au format YAML-like (KEY: value), convertir
+  if grep -qE '^[[:space:]]*[A-Za-z_][A-Za-z0-9_]*[[:space:]]*:' "$SANITIZED"; then
+    echo "[entrypoint] Detected YAML-like env; converting to KEY=VALUE"
+    sed -E 's/^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*:[[:space:]]*/\1=/' -i "$SANITIZED"
+  fi
+
+  # 3) Exporter toutes les variables depuis la copie
   set -a
-  . "$DOTENV"
+  . "$SANITIZED"
   set +a
 else
   echo "[entrypoint] No $DOTENV found — skipping"
@@ -40,10 +53,7 @@ FRONT_GRAPHQL_URL_RT="${FRONT_GRAPHQL_URL:-}"
 echo "[entrypoint] Generating env.js at $ENVJS"
 
 # ----------------------------------------------------------------------
-# 3) Générer env.js (JavaScript valide)
-#    - pas de virgules finales
-#    - échappement minimal
-#    - valeurs vides ignorées
+# 3) Générer env.js (JavaScript valide, sans virgule orpheline)
 # ----------------------------------------------------------------------
 {
   printf '(function (w, cfg) { w.__APP_CONFIG__ = Object.assign({}, w.__APP_CONFIG__ || {}, cfg); })(window, {'
@@ -53,7 +63,7 @@ echo "[entrypoint] Generating env.js at $ENVJS"
     key="$1"; val="$2"
     [ -n "$val" ] || return 0
 
-    # Échappement simple JS
+    # Échappement minimal pour JS (", \, newline)
     esc=${val//\\/\\\\}
     esc=${esc//\"/\\\"}
     esc=${esc//$'\n'/\\n}
@@ -81,7 +91,7 @@ echo "[entrypoint] env.js generated. Size: $(wc -c < "$ENVJS") bytes"
 head -n 10 "$ENVJS" || true
 
 # ----------------------------------------------------------------------
-# 4) Lancer Apache
+# 4) Démarrer Apache
 # ----------------------------------------------------------------------
 echo "[entrypoint] Starting Apache…"
 exec /usr/sbin/apache2ctl -D FOREGROUND
