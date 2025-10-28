@@ -1,94 +1,87 @@
-#!/bin/sh
-set -eu
+#!/bin/bash
+set -e
 
-CONFIG="/srv/config.xml"
-OUT="/srv/lang/master/tmp"
-MARK="$OUT/.config.md5"
-TPL="/srv/lang/master/tpl"
-GEN="/usr/local/lib/camap/temploc2.n"
-
-mkdir -p "$OUT"
-
-need_regen=1
-if [ -f "$CONFIG" ]; then
-  md5sum "$CONFIG" | awk '{print $1}' > /tmp/config.md5
-  if [ -f "$MARK" ] && cmp -s /tmp/config.md5 "$MARK"; then
-    need_regen=0
-  fi
-fi
-
-if [ "$need_regen" -eq 1 ]; then
-  echo "[camap-hx] (re)génération des templates Templo…"
-  if [ ! -f "$GEN" ]; then
-    echo "[camap-hx] ERREUR: $GEN introuvable" >&2
-    exit 1
-  fi
-  cd "$TPL"
-  neko "$GEN" -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
-  [ -f /tmp/config.md5 ] && mv /tmp/config.md5 "$MARK" || true
-fi
-
-# ====== Génération de /srv/www/env.js (depuis /srv/camapts.env) ======
-set -eu
-
+# ----------------------------------------------------------------------
+# 0) Variables chemins
+# ----------------------------------------------------------------------
 ENVJS="/srv/www/env.js"
 DOTENV="/srv/camapts.env"
 
-# 1) Charger les variables depuis camapts.env si présent (priorité runtime > fichier)
-#    ⚠️ le fichier doit être maîtrisé (pas d'input non fiable)
+echo "[entrypoint] Starting CAMAP container…"
+
+# ----------------------------------------------------------------------
+# 1) Charger camapts.env si présent
+# ----------------------------------------------------------------------
 if [ -f "$DOTENV" ]; then
-  # exporte toutes les variables définies dans le fichier
+  echo "[entrypoint] Loading environment from $DOTENV"
+
+  # Normaliser fin de lignes Windows → Unix
+  tr -d '\r' < "$DOTENV" > "${DOTENV}.tmp" && mv "${DOTENV}.tmp" "$DOTENV"
+
   set -a
-  # shellcheck disable=SC1090
   . "$DOTENV"
   set +a
+else
+  echo "[entrypoint] No $DOTENV found — skipping"
 fi
 
-# 2) Appliquer éventuellement une priorité aux variables d'env explicites
-#    (si tu continues d'en passer via docker-compose, elles écrasent le .env)
-API_HOSTNAME_RT="${API_HOSTNAME:-${API_HOSTNAME:-}}"
-API_PORT_RT="${API_PORT:-${API_PORT:-}}"
-CAMAP_HOST_RT="${CAMAP_HOST:-${CAMAP_HOST:-}}"
-CAMAP_BRIDGE_API_RT="${CAMAP_BRIDGE_API:-${CAMAP_BRIDGE_API:-}}"
-FRONT_URL_RT="${FRONT_URL:-${FRONT_URL:-}}"
-FRONT_GRAPHQL_URL_RT="${FRONT_GRAPHQL_URL:-${FRONT_GRAPHQL_URL:-}}"
-PUBLIC_PATH_RT="${PUBLIC_PATH:-/neostatic/}"  # défaut sûr
+# ----------------------------------------------------------------------
+# 2) Préparer valeurs runtime (fallbacks)
+# ----------------------------------------------------------------------
+PUBLIC_PATH_RT="${PUBLIC_PATH:-/neostatic/}"
 
-# 3) Écrire /srv/www/env.js (JSON sécurisé via printf + python json.dumps si dispo)
-mkdir -p /srv/www
-cat > "$ENVJS" <<'EOF'
-(function (w, cfg) {
-  w.__APP_CONFIG__ = Object.assign({}, w.__APP_CONFIG__ || {}, cfg);
-})(window, {
-EOF
+API_HOSTNAME_RT="${API_HOSTNAME:-}"
+API_PORT_RT="${API_PORT:-}"
+CAMAP_HOST_RT="${CAMAP_HOST:-}"
+CAMAP_BRIDGE_API_RT="${CAMAP_BRIDGE_API:-}"
+FRONT_URL_RT="${FRONT_URL:-}"
+FRONT_GRAPHQL_URL_RT="${FRONT_GRAPHQL_URL:-}"
 
-json_quote() { python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))'; }
+echo "[entrypoint] Generating env.js at $ENVJS"
 
-append_kv () {
-  key="$1"; val="$2"
-  [ -n "$val" ] || return 0
-  printf '  %s: %s,\n' "$key" "$(printf '%s' "$val" | json_quote)" >> "$ENVJS"
-}
+# ----------------------------------------------------------------------
+# 3) Générer env.js (JavaScript valide)
+#    - pas de virgules finales
+#    - échappement minimal
+#    - valeurs vides ignorées
+# ----------------------------------------------------------------------
+{
+  printf '(function (w, cfg) { w.__APP_CONFIG__ = Object.assign({}, w.__APP_CONFIG__ || {}, cfg); })(window, {'
 
-append_kv "PUBLIC_PATH"         "$PUBLIC_PATH_RT"
-append_kv "API_HOSTNAME"        "$API_HOSTNAME_RT"
-append_kv "API_PORT"            "$API_PORT_RT"
-append_kv "CAMAP_HOST"          "$CAMAP_HOST_RT"
-append_kv "CAMAP_BRIDGE_API"    "$CAMAP_BRIDGE_API_RT"
-append_kv "FRONT_URL"           "$FRONT_URL_RT"
-append_kv "FRONT_GRAPHQL_URL"   "$FRONT_GRAPHQL_URL_RT"
+  first=1
+  emit() {
+    key="$1"; val="$2"
+    [ -n "$val" ] || return 0
 
-printf '});\n' >> "$ENVJS"
+    # Échappement simple JS
+    esc=${val//\\/\\\\}
+    esc=${esc//\"/\\\"}
+    esc=${esc//$'\n'/\\n}
 
-# 4) Désactiver le cache côté Apache pour env.js (mise à jour immédiate)
-a2enmod headers >/dev/null 2>&1 || true
-cat >/etc/apache2/conf-available/camap-envjs.conf <<'APACHE'
-<Files "env.js">
-  Header set Cache-Control "no-store, must-revalidate"
-  Header set Pragma "no-cache"
-</Files>
-APACHE
-a2enconf camap-envjs >/dev/null 2>&1 || true
+    if [ "$first" -eq 1 ]; then
+      printf '\n  %s: "%s"' "$key" "$esc"
+      first=0
+    else
+      printf ',\n  %s: "%s"' "$key" "$esc"
+    fi
+  }
 
+  emit "PUBLIC_PATH"       "$PUBLIC_PATH_RT"
+  emit "API_HOSTNAME"      "$API_HOSTNAME_RT"
+  emit "API_PORT"          "$API_PORT_RT"
+  emit "CAMAP_HOST"        "$CAMAP_HOST_RT"
+  emit "CAMAP_BRIDGE_API"  "$CAMAP_BRIDGE_API_RT"
+  emit "FRONT_URL"         "$FRONT_URL_RT"
+  emit "FRONT_GRAPHQL_URL" "$FRONT_GRAPHQL_URL_RT"
 
+  printf '\n});\n'
+} > "$ENVJS"
+
+echo "[entrypoint] env.js generated. Size: $(wc -c < "$ENVJS") bytes"
+head -n 10 "$ENVJS" || true
+
+# ----------------------------------------------------------------------
+# 4) Lancer Apache
+# ----------------------------------------------------------------------
+echo "[entrypoint] Starting Apache…"
 exec /usr/sbin/apache2ctl -D FOREGROUND
