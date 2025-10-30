@@ -4,7 +4,7 @@
 		<div id="::containerId::"></div>
 		<script>
 document.addEventListener("DOMContentLoaded", function(event) {
-	neo.createNeoModule("::containerId::", "::neoModule::", {::args::});
+	neo.createNeoModule("::containerId::", "::neoModule::", {::raw args::});
 });
 		</script>
 	</macro>

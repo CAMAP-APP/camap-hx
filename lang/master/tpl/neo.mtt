@@ -1,5 +1,5 @@
 ::use 'design.mtt'::
 
-$$neoModule(::containerId::, ::module::, ::raw args::)
+$$neoModule(::containerId::, ::module::, ::raw neoArgs(args)::)
 
 ::end::

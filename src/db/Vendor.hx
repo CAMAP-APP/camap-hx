@@ -47,7 +47,7 @@ class Vendor extends Object
 	@hideInForms public var directory 	: SBool;
 	@hideInForms public var longDesc 	: SNull<SText>;
 	
-	@hideInForms @:relation(imageId) 	public var image : SNull<sugoi.db.File>;
+	@hideInForms @:relation(imageId) public var image : SNull<sugoi.db.File>;
 	
 	@hideInForms public var disabled : SNull<SEnum<DisabledReason>>; // vendor is disabled
 	
@@ -119,20 +119,24 @@ class Vendor extends Object
 		}
 		var vendor = this;
 		var out : VendorInfos = {
-			id : id,
-			name : vendor.name,
-			profession:null,
-			email:vendor.email,
-			image : file(vendor.imageId),
-			images : cast {},
+			id: id,
+			name: vendor.name,
+			// TODO flag allow show name
+			// peopleName: vendor.
+			profession: null,
+			email: vendor.email,
+			// TODO flag allow show phone
+			// phone: vendor.phone
+			image: file(vendor.imageId),
+			images: cast {},
 			address1: vendor.address1,
 			address2: vendor.address2,
-			zipCode : vendor.zipCode,
-			city : vendor.city,
-			linkText:vendor.linkText,
-			linkUrl:vendor.linkUrl,
-			desc:vendor.desc,
-			longDesc:vendor.longDesc,
+			zipCode: vendor.zipCode,
+			city: vendor.city,
+			linkText: vendor.linkText,
+			linkUrl: vendor.linkUrl,
+			desc: vendor.desc,
+			longDesc: vendor.longDesc,
 		};
 
 		if(this.profession!=null){
@@ -237,5 +241,7 @@ class Vendor extends Object
 	public function getImageId(){
         return this.imageId;
     }
+
+	public function isClaimed() { return this.user != null; }
 
 }

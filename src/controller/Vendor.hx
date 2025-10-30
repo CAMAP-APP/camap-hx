@@ -13,17 +13,40 @@ class Vendor extends Controller
 	public function new()
 	{
 		super();
-		
-		// if (!app.user.isContractManager()) throw t._("Forbidden access");
-		
+	}
+
+	function doDefault() {
+		throw Redirect("/home");
+	}
+
+	// asking for dispatch in first argument allows us to use BrowserRouter in front
+	@tpl('neoPublic.mtt')
+	function doView(d: haxe.web.Dispatch, vendor:db.Vendor) {
+		if(vendor.disabled != null)
+			throw t._("Vendor is no Longer available");
+
+		view.container = 'container-fluid';
+		view.og = {
+			path: 'vendor/view/${vendor.id}',
+			description: vendor.desc,
+			title: vendor.name
+		}
+		view.containerId = "vendorProfile";
+		view.module = "vendorProfile";
+		view.args = {
+			vendor: vendor.getInfos(true),
+			basePath: '/vendor/view/${vendor.id}'
+		};
 	}
 
 	@tpl('neo.mtt')
-	function doDefault() {
+	function doDashboard() {
+		if(!app.user.isVendor())
+			throw Redirect("/home");
 		view.noGroup = true;
 		view.containerId = "vendorDashboard";
 		view.module = "vendorDashboard";
-		view.args = view.neoArgs({});
+		view.args = {};
 	}
 	
 	@tpl('vendor/addimage.mtt')

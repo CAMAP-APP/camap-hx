@@ -277,10 +277,23 @@ class View extends sugoi.BaseView {
 	}
 
 	public function neoArgs(args:Dynamic) {
-		var buf = [];
-		for(f in Reflect.fields(args))
-			buf.push('${f}: ${haxe.Json.stringify(Reflect.field(args, f))}');
-		return buf.join(',');
+		function safeNeoArg(arg:Dynamic) {
+			var buf: Array<String> = [];
+			for(k in Reflect.fields(arg)) {
+				var v = Reflect.field(arg, k);
+				if(Std.is(v, String) || Std.is(v, Int) || Std.is(v, Float) || v == null) {
+					buf.push('${k}: ${haxe.Json.stringify(v)}');
+				} else {
+					var str = '${k}: {';
+					str += safeNeoArg(v);
+					str += '}';
+					buf.push(str);
+				}
+			}
+			return buf.join(',');
+		}
+		
+		return safeNeoArg(args);
 	}
 
 	/** 

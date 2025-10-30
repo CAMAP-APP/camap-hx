@@ -81,7 +81,7 @@
 				::foreach v vendors::
 				<tr>
 					<td>::v.id::</td>
-					<td><a href='/admin/vendor/view/::v.id::'>::v.name::</a></td>
+					<td><a href='/vendor/view/::v.id::'>::v.name::</a></td>
 				</tr>
 				::end::
 			</table>

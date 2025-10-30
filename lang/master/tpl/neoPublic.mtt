@@ -1,0 +1,42 @@
+::use 'base.mtt'::
+
+$$browserDetection()
+
+<meta property="og:type"content="website" />
+<meta property="og:url" content="https://::HOST::/::og.path::" />
+<meta property="og:title" content="::og.title::" />
+<meta property="og:description" content="::og.description::" />
+<meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
+
+::raw '
+<style>
+	@media (min-width: 1440px) {
+		.container {
+			width: 1400px;
+		}
+	}
+	nav {
+		margin: 24px;
+	}
+	.charIcon {
+		font-family: monospace;
+		padding-right: 12px;
+		font-size: 20px;
+		line-height: 20px;
+	}	
+</style>
+'::
+
+<nav>
+	<ol class="breadcrumb">
+		<li><a href="/user/choose"><span class="charIcon">&lt;</span> ::_("Back")::</a></li>
+	</ol>
+</nav>
+
+$$neoModule(::containerId::, ::module::, ::raw neoArgs(args)::)
+
+<div class="col-md-12">
+	$$footer()
+</div>
+
+::end::
