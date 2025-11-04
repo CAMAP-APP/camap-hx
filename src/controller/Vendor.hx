@@ -40,13 +40,15 @@ class Vendor extends Controller
 	}
 
 	@tpl('neo.mtt')
-	function doDashboard() {
+	function doDashboard(d: haxe.web.Dispatch) {
 		if(!app.user.isVendor())
 			throw Redirect("/home");
 		view.noGroup = true;
 		view.containerId = "vendorDashboard";
 		view.module = "vendorDashboard";
-		view.args = {};
+		view.args = {
+			basePath: '/vendor/dashboard'
+		};
 	}
 	
 	@tpl('vendor/addimage.mtt')
