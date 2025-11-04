@@ -108,6 +108,7 @@
             _Camap.userId = :: user.id:: ;
             _Camap.userName = "::user.getName()::";
             _Camap.userEmail = "::user.email::";
+            _Camap.version = "::VERSION::"
             :: end::
             _Camap.antiDoubleClick();
         })
