@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
 						<li><a href="/account"><i class="icon icon-user"></i> ::_("My account")::</a></li>
+						<li ::cond user.isVendor()::><a href="/vendor/dashboard"><i class="icon icon-farmer"></i> ::_("Vendor Dashboard")::</a></li>
 						<li><a href="/user/logout"><i class="icon icon-sign-out"></i> ::_("Log out")::</a></li>
 					</ul>
 					

@@ -1,29 +1,32 @@
 ﻿::use 'base.mtt'::
+
+<style>
+</style>
 		
 		::if getParam('__redirect')!=null::
 			<!-- need to login to go to this page-->
 			<script>
-				if (window.location.pathName =! "/user/login"){
+				if (window.location.pathName != "/user/login"){
 					window.location.href = '/user/login?__redirect=::raw getParam("__redirect")::';
 				}
 			</script>
 		::end::
 
-		<div class="row header" style="margin-top:10px;">
-			<div class="col-md-8">
-				::set groupName = getCurrentGroup()::
-				::if groupName!=null && noGroup!=true::
-					<h2><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>&nbsp;::groupName::</h2>
-				::else::
-					<div style="margin-bottom:22px;" >
-						<h1><img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:87px;"/>&nbsp;CAMAP</h1><br/>
+		<div class="row header">
+			<div class="camap-title">
+				<img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:100%;"/>
+				<div style="display:flex;flex-flow:column;justify-content:center">
+					::set groupName = getCurrentGroup()::
+					::if groupName!=null && noGroup!=true::
+						<h2>::groupName::</h2>
+					::else::
+						<h1>CAMAP</h1>
 						<h4>L'application libre de gestion d'AMAP</h4>
-					</div>
-				::end::
+					::end::
+				</div>
 			</div>
-			
-			<div class="col-md-4 accountBlock">					
-				$$userMenu(::user::)				
+			<div class="accountBlock">
+				$$userMenu(::user::)
 			</div>				
 		</div>
 

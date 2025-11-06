@@ -611,6 +611,33 @@ div.reportHeader {
   }*/
 }
 
+.header {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+.header .camap-title {
+  margin-top: 4px;
+  margin-left: 8px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 24px;
+  height: 87px;
+}
+.header .camap-title h1 {
+  margin: 0 !important;
+}
+.header .camap-title h4 {
+  font-size: 18px;
+  line-height: 20px;
+  margin: 0;
+}
+.header .accountBlock {
+  margin-left: auto;
+  flex-shrink: 0;
+}
 .header .accountBlock .links {
   margin-right: calc(16px - 1em);
   margin-top: 16px;
@@ -661,6 +688,40 @@ div.reportHeader {
 }
 .header .accountBlock .css-wkfemu {
   background-color: #eb7334;
+}
+@media (max-width: 768px) {
+  .header {
+    margin-top: 0;
+  }
+  .header .camap-title {
+    height: 64px;
+    margin-bottom: 4px;
+  }
+  .header .camap-title h1 {
+    font-size: 20px;
+  }
+  .header .camap-title h2 {
+    font-size: 20px;
+  }
+  .header .camap-title h4 {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+@media (max-width: 576px) {
+  .header {
+    flex-wrap: wrap;
+  }
+  .header .camap-title {
+    height: 48px;
+    gap: 12px;
+  }
+  .header .camap-title h1 {
+    font-size: 16px;
+  }
+  .header .camap-title h2 {
+    font-size: 16px;
+  }
 }
 
 /*
