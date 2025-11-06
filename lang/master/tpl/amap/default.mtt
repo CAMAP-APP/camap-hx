@@ -1,6 +1,17 @@
 ::use 'design.mtt'::
 
-	
+<style>
+.vendorCard {
+	cursor: pointer;
+	/* border: 1px solid lightgrey; */
+	border-radius: 4px;
+	box-shadow: 0 0 2px 0 rgba(34,47,62,.2);
+}
+.vendorCard:hover {
+	background-color: #f8f8f8
+}
+</style>
+
 	<div class="col-md-3">
 		
 		<div class="block">
@@ -39,7 +50,7 @@
 				<div class="col-md-12">
 					<div class="article">
 						<div class="row">
-							<div class="col-md-3 text-center">
+							<div class="col-md-3 text-center vendorCard" onclick="window.location.href = '/vendor/view/::c._vendor.id::'">
 								<div style="background-image:url('::c._vendor.getImage()::');" class="productImg xl"/> 									
 								<p>
 									<b>::c._vendor.name::</b>
