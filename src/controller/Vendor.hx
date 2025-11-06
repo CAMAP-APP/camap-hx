@@ -43,6 +43,7 @@ class Vendor extends Controller
 	function doDashboard(d: haxe.web.Dispatch) {
 		if(!app.user.isVendor())
 			throw Redirect("/home");
+		view.container = "container-fluid";
 		view.noGroup = true;
 		view.containerId = "vendorDashboard";
 		view.module = "vendorDashboard";
