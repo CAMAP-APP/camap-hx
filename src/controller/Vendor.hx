@@ -34,7 +34,7 @@ class Vendor extends Controller
 		view.containerId = "vendorProfile";
 		view.module = "vendorProfile";
 		view.args = {
-			vendor: vendor.getInfos(true),
+			vendor: vendor.getInfos(),
 			basePath: '/vendor/view/${vendor.id}'
 		};
 	}

@@ -82,37 +82,7 @@ class Vendor extends Object
 		}
 	}
 
-	public function getImages(){
-
-		var out = {
-			logo:null,
-			portrait:null,
-			banner:null,
-			farm1:null,				
-			farm2:null,				
-			farm3:null,				
-			farm4:null,				
-		};
-
-		var files = sugoi.db.EntityFile.getByEntity("vendor",this.id);
-		for( f in files ){
-			switch(f.documentType){				
-				case "logo" 	: out.logo 		= f.getFileId();
-				case "portrait" : out.portrait 	= f.getFileId();
-				case "banner" 	: out.banner 	= f.getFileId();
-				case "farm1" 	: out.farm1 	= f.getFileId();
-				case "farm2" 	: out.farm2 	= f.getFileId();
-				case "farm3" 	: out.farm3 	= f.getFileId();
-				case "farm4" 	: out.farm4 	= f.getFileId();
-			}
-		}
-
-		if(out.logo==null) out.logo = this.imageId;
-
-		return out;
-	}
-
-	public function getInfos(?withImages=false):VendorInfos{
+	public function getInfos():VendorInfos{
 
 		var file = function(fId: Int){
 			return if(fId==null)  null else App.current.view.file(fId);
@@ -128,7 +98,6 @@ class Vendor extends Object
 			// TODO flag allow show phone
 			// phone: vendor.phone
 			image: file(vendor.imageId),
-			images: cast {},
 			address1: vendor.address1,
 			address2: vendor.address2,
 			zipCode: vendor.zipCode,
@@ -142,17 +111,7 @@ class Vendor extends Object
 		if(this.profession!=null){
 			out.profession = getProfession();
 		}
-
-		if(withImages){
-			var images = getImages();
-			out.images.logo = file(images.logo);
-			out.images.portrait = file(images.portrait);
-			out.images.banner = file(images.banner);
-			out.images.farm1 = file(images.farm1);
-			out.images.farm2 = file(images.farm2);
-			out.images.farm3 = file(images.farm3);
-			out.images.farm4 = file(images.farm4);
-		}
+		
 		return out;
 	}
 

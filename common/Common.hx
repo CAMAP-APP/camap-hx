@@ -17,17 +17,8 @@ typedef VendorInfos = {
 	name 	: String,
 	desc 	: String,
 	longDesc: String,
-	image 	: String,//logo
+	image 	: String, //logo
 	profession : String,
-	?images : {
-		logo:String,
-		portrait:String,
-		banner:String,
-		farm1:String,
-		farm2:String,
-		farm3:String,
-		farm4:String,
-	},
 	address1:String,
 	address2:String,
 	zipCode : String,
