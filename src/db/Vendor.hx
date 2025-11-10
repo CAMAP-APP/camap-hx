@@ -30,6 +30,7 @@ class Vendor extends Object
 
 	public var email:SNull<SString<128>>;
 	public var phone:SNull<SString<19>>;
+	public var showPhone:SBool;
 		
 	public var address1:SNull<SString<64>>;
 	public var address2:SNull<SString<64>>;
@@ -96,7 +97,7 @@ class Vendor extends Object
 			profession: null,
 			email: vendor.email,
 			// TODO flag allow show phone
-			phone: vendor.phone,
+			phone: vendor.showPhone ? vendor.phone : null,
 			image: file(vendor.imageId),
 			address1: vendor.address1,
 			address2: vendor.address2,
