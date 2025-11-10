@@ -910,10 +910,10 @@ div.reportHeader {
   /* place link */
 }
 .dateBox a {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 .dateBox a:hover {
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .flex-col {
