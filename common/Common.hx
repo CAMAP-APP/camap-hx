@@ -17,15 +17,17 @@ typedef VendorInfos = {
 	name 	: String,
 	desc 	: String,
 	longDesc: String,
-	image 	: String, //logo
-	profession : String,
-	address1:String,
-	address2:String,
-	zipCode : String,
-	city : String,
-	email:String,
-	linkText:String,
-	linkUrl:String,
+	image 	: String, // logo
+	profession: String,
+	address1: String,
+	address2: String,
+	zipCode: String,
+	city: String,
+	email: String,
+	linkText: String,
+	linkUrl: String,
+	lat: Float,
+	lng: Float,
 }
 
 typedef ContractInfo = {

@@ -106,6 +106,8 @@ class Vendor extends Object
 			linkUrl: vendor.linkUrl,
 			desc: vendor.desc,
 			longDesc: vendor.longDesc,
+			lat: vendor.lat,
+			lng: vendor.lng
 		};
 
 		if(this.profession!=null){
