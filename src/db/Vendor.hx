@@ -96,7 +96,7 @@ class Vendor extends Object
 			profession: null,
 			email: vendor.email,
 			// TODO flag allow show phone
-			// phone: vendor.phone
+			phone: vendor.phone,
 			image: file(vendor.imageId),
 			address1: vendor.address1,
 			address2: vendor.address2,
