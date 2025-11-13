@@ -18,6 +18,7 @@ typedef VendorInfos = {
 	desc 	: String,
 	longDesc: String,
 	image 	: String, // logo
+	companyNumber: String,
 	profession: String,
 	phone: String,
 	showPhone: Bool,

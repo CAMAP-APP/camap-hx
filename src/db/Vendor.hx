@@ -96,6 +96,7 @@ class Vendor extends Object
 			// TODO flag allow show name
 			// peopleName: vendor.
 			profession: null,
+			companyNumber: vendor.companyNumber,
 			email: vendor.showEmail ? vendor.email : '',
 			showEmail: vendor.showEmail,
 			showPhone: vendor.showPhone,

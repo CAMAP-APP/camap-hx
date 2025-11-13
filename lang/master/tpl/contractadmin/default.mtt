@@ -92,7 +92,7 @@
 	<div class="article" id="vendors">
 		<h2>::_("Farmers")::</h2>
 		<div class="row">
-			::foreach v vendors::		
+			::foreach v vendors::
 			<a href="/vendor/view/::v.id::">
 				<div class="col-md-4" style="height:unset;border-spacing: 4px;border:1px solid #e0e0e0; border-radius: 4px">
 					<div class="row">

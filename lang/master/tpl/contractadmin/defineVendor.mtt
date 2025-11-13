@@ -14,26 +14,25 @@
 
 				::foreach v vendors::
 				<div class="col-md-4 col-sm-6">
-					
-					<div class="boxed" style="height:300px">	
-						<div class="row">
-							<div class="col-md-4">													
-								<div class="productImg xl" style="background-image:url('::v.getImage()::');"></div>								
+					<a href="/vendor/view/::v.id::">
+						<div class="boxed">
+							<div class="row">
+								<div class="col-md-4">													
+									<div class="productImg xl" style="background-image:url('::v.getImage()::');"></div>								
+								</div>
+								<div class="col-md-8">								
+									<h4>
+										::v.name::
+									</h4>
+									<span style="font-size: 12px; color:black">::v.zipCode:: ::v.city::</span>
+								</div>
 							</div>
-							<div class="col-md-8">								
-								<h4>
-									::v.name::
-								</h4>
-								<p>::v.zipCode:: ::v.city::</p>									
-							</div>
-						</div>
-						
-						<p style="line-height: 38px;">
+							
 							<a href="/contract/insertChoose/::v.id::" class="btn btn-default btn-sm">
 								<i class="icon icon-plus"></i> Nouveau catalogue
 							</a>
-						</p>
-					</div>
+						</div>
+					</a>
 				</div>
 				::end::
 
