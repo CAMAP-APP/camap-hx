@@ -29,6 +29,7 @@ class Vendor extends Object
 	@hideInForms public var production3 : SNull<SInt>;
 
 	public var email:SNull<SString<128>>;
+	public var showEmail:SBool;
 	public var phone:SNull<SString<19>>;
 	public var showPhone:SBool;
 		
@@ -95,8 +96,9 @@ class Vendor extends Object
 			// TODO flag allow show name
 			// peopleName: vendor.
 			profession: null,
-			email: vendor.email,
-			// TODO flag allow show phone
+			email: vendor.showEmail ? vendor.email : '',
+			showEmail: vendor.showEmail,
+			showPhone: vendor.showPhone,
 			phone: vendor.showPhone ? vendor.phone : null,
 			image: file(vendor.imageId),
 			address1: vendor.address1,

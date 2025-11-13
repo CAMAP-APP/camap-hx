@@ -20,6 +20,8 @@ typedef VendorInfos = {
 	image 	: String, // logo
 	profession: String,
 	phone: String,
+	showPhone: Bool,
+	showEmail: Bool,
 	address1: String,
 	address2: String,
 	zipCode: String,

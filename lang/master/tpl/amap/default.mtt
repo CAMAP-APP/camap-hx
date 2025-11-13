@@ -51,7 +51,9 @@
 					<div class="article">
 						<div class="row">
 							<div class="col-md-3 text-center vendorCard" onclick="window.location.href = '/vendor/view/::c._vendor.id::'">
-								<div style="background-image:url('::c._vendor.getImage()::');" class="productImg xl"/> 									
+								<div style="background-image:url('::c._vendor.getImage()::');position:relative" class="productImg xl">
+									<i class="icon icon-search" style="position: absolute;right:0;bottom:0;color:#ccc"></i>
+								</div>
 								<p>
 									<b>::c._vendor.name::</b>
 									<br/>
