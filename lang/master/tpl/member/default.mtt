@@ -6,7 +6,8 @@
     document.addEventListener("DOMContentLoaded", function(event) {
        neo.createNeoModule("members-neo-container", "members", {
             groupId: parseInt("::user.getGroup().id::", 10),
-            token: "::token::"
+            token: "::token::",
+            basePath: "/member"
         });
     });
 </script>

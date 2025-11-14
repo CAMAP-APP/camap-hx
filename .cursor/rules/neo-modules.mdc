@@ -1,0 +1,7 @@
+---
+globs: *.mtt
+alwaysApply: false
+---
+# Neo modules integration
+
+- use the macro $$neoModule

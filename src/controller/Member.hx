@@ -25,7 +25,7 @@ class Member extends Controller
 
 	@logged
 	@tpl('member/default.mtt')
-	function doDefault(?args: { ?search:String, ?list:String } ) {
+	function doDefault(d: haxe.web.Dispatch, ?args: { ?search:String, ?list:String } ) {
 		var group = app.user.getGroup();
 		if (group==null) {
 			throw Redirect("/");

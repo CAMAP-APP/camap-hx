@@ -150,7 +150,10 @@ class Contract extends Controller
 				//Let's add the Volunteer Roles for the number of volunteers needed
 				service.VolunteerService.createRoleForContract( catalog, form.getValueOf("distributorNum") );
 				
-				//right
+				//rights
+				if( vendor.user != null ) {
+					db.UserGroup.getOrCreate( vendor.user, app.user.getGroup() );
+				}
 				if ( catalog.contact != null ) {
 					var ua = db.UserGroup.get( catalog.contact, app.user.getGroup(), true );
 					ua.giveRight(ContractAdmin( catalog.id ));

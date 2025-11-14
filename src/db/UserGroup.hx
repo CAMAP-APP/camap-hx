@@ -53,13 +53,34 @@ class UserGroup extends Object
 		return ua;
 	}
 
-	public function getRights():JsonRights{		
+	// only DB rights
+	private function parseRights():JsonRights{
 		try{
 			if(this.rights==null) return [];
 			return haxe.Json.parse(this.rights);
 		}catch(e:Dynamic){
 			return [];
 		}
+	}
+
+	// DB rights + automatic rights
+	public function getEditableRights():JsonRights{
+		return parseRights();
+	}
+
+	// DB rights + automatic rights
+	public function getAutoRights():JsonRights{
+		var rights = [];
+		var contracts = db.Catalog.claimedVendorContracts(userId, groupId);
+		for(c in contracts) {
+			rights.push({ right: "ContractAdmin", params: ['${c.id}'] });
+		}
+		return rights;
+	}
+
+	// DB rights + automatic rights
+	public function getRights():JsonRights{
+		return getEditableRights().concat(getAutoRights());
 	}
 	
 	/**
@@ -69,7 +90,7 @@ class UserGroup extends Object
 	
 		if (hasRight(r)) return;
 		lock();
-		var rights = getRights();		
+		var rights = getEditableRights();
 
 		switch(r){
 			case ContractAdmin(cid):					
@@ -93,8 +114,7 @@ class UserGroup extends Object
 	 */
 	public function removeRight(r:Right) {	
 		
-		var rights = getRights();
-		if (rights == null) rights = [];
+		var rights = getEditableRights();
 		
 		switch(r){
 			case ContractAdmin(cid):					
@@ -221,7 +241,7 @@ class UserGroup extends Object
 	}
 
 	public function canManageAllContracts(){
-		return hasRight(ContractAdmin(null));
+		return hasRight(Right.ContractAdmin(null));
 		/*if (rights == null) return false;
 		for (r in rights) {
 			switch(r) {

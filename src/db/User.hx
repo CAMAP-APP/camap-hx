@@ -174,7 +174,12 @@ class User extends Object {
 	 * Est ce que ce membre a la gestion d'au moins un catalogue de ce vendor
 	 */
 	public function canManageVendor(vendor:db.Vendor) {
+		// vendor is claimed
+		if(vendor.user != null)
+			return vendor.user.id == this.id;
+
 		if(isAdmin()) return true;
+
 		for (c in vendor.getContracts() ) {
 			if (this.canManageContract(c)) {
 				return true;
@@ -611,5 +616,16 @@ class User extends Object {
 		if(countryOfResidence != null) str.add(", "+countryOfResidence);
 		return str.toString();
 	}
-	
+
+/**
+ *  ROLE PRODUCTEUR (Vendor)
+ */
+	// Un User est un vendor si il a pris possession d'un ou plusieurs Vendor
+	public function isVendor() {
+		return !db.Vendor.manager.search($userId == this.id, { limit: 1 }).isEmpty();
+	}
+	// Un User peu prendre possession de tout Vendor non associé à un user qui a la même adresse mail que lui-même
+	public function claimableVendors() {
+		return db.Vendor.manager.search($email == this.email && $userId == null);
+	}
 }
