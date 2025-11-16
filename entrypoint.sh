@@ -20,6 +20,7 @@ else
   echo "[entrypoint] No $DOTENV found — skipping"
 fi
 
+# Valeurs runtime avec fallback
 PUBLIC_PATH_RT="${PUBLIC_PATH:-/neostatic/}"
 API_HOSTNAME_RT="${API_HOSTNAME:-}"
 API_PORT_RT="${API_PORT:-}"
@@ -27,6 +28,7 @@ CAMAP_HOST_RT="${CAMAP_HOST:-}"
 CAMAP_BRIDGE_API_RT="${CAMAP_BRIDGE_API:-}"
 FRONT_URL_RT="${FRONT_URL:-}"
 FRONT_GRAPHQL_URL_RT="${FRONT_GRAPHQL_URL:-}"
+MAPBOX_KEY_RT="${MAPBOX_KEY:-}"
 
 echo "[entrypoint] Generating env.js at $ENVJS"
 {
@@ -35,8 +37,12 @@ echo "[entrypoint] Generating env.js at $ENVJS"
   emit() {
     key="$1"; val="$2"; [ -n "$val" ] || return 0
     esc=${val//\\/\\\\}; esc=${esc//\"/\\\"}; esc=${esc//$'\n'/\\n}
-    if [ "$first" -eq 1 ]; then printf '\n  %s: "%s"' "$key" "$esc"; first=0;
-    else printf ',\n  %s: "%s"' "$key" "$esc"; fi
+    if [ "$first" -eq 1 ]; then
+      printf '\n  %s: "%s"' "$key" "$esc"
+      first=0
+    else
+      printf ',\n  %s: "%s"' "$key" "$esc"
+    fi
   }
   emit "PUBLIC_PATH"       "$PUBLIC_PATH_RT"
   emit "API_HOSTNAME"      "$API_HOSTNAME_RT"
@@ -45,6 +51,7 @@ echo "[entrypoint] Generating env.js at $ENVJS"
   emit "CAMAP_BRIDGE_API"  "$CAMAP_BRIDGE_API_RT"
   emit "FRONT_URL"         "$FRONT_URL_RT"
   emit "FRONT_GRAPHQL_URL" "$FRONT_GRAPHQL_URL_RT"
+  emit "MAPBOX_KEY"        "$MAPBOX_KEY_RT"
   printf '\n});\n'
 } > "$ENVJS"
 
