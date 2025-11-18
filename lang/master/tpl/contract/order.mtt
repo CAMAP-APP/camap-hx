@@ -1,6 +1,14 @@
 ::use 'design.mtt'::
+<style>
+@media screen and (max-width: 576px) {
+#csa-catalog-neo-container {
+	margin-left: -15px;
+	margin-right: -15px;
+}
+}
+</style>
 <div id="content" class="col-md-12" style="overflow: hidden;">
-	<h2>::catalog.name::</h2>
+	<h2 class="hidden-xs">::catalog.name::</h2>
 
 	<div id="csa-catalog-neo-container" style="margin-bottom: 24px;"></div>
 	<script>

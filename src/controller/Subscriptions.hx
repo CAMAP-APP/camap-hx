@@ -23,6 +23,7 @@ class Subscriptions extends controller.Controller
      function doContract( catalog : db.Catalog ) {
          view.catalog = catalog;
          view.userId = app.user.id;
+		 view.forceTitleMobile = catalog.name;
  
          var sub = SubscriptionService.getCurrentOrComingSubscription(app.user,catalog);
          view.subscriptionId = sub==null ? null : sub.id;

@@ -186,6 +186,38 @@ form p.desc {
   margin-bottom: 8px !important;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
+@media screen and (max-width: 576px) {
+  .navbar {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.navbar-header {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-toggle {
+  margin-left: auto;
+}
+
+.navbar-header-current {
+  font-size: 18px;
+  padding-left: 15px;
+  display: inline-block;
+  color: #777;
+}
+@media screen and (max-width: 576px) {
+  .navbar-header-current {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .navbar-header-current {
+    display: none;
+  }
+}
 
 ul.nav.admin {
   background-color: rgb(238.425, 238.425, 238.425);
@@ -275,6 +307,9 @@ ul.nav li.active > a {
 }
 #footer .cagsocialmedia li.caggithub {
   background-color: #fff333;
+}
+#footer > :last-child {
+  align-self: flex-end;
 }
 
 #subfooter {
@@ -689,7 +724,22 @@ div.reportHeader {
 .header .accountBlock .css-wkfemu {
   background-color: #eb7334;
 }
-@media (max-width: 768px) {
+@media (max-width: 576px) {
+  .header .accountBlock {
+    font-size: 14px;
+    flex-shrink: 10;
+  }
+  .header .accountBlock .links {
+    margin-top: 12px;
+  }
+  .header .accountBlock .links i {
+    font-size: 28px;
+  }
+  .header .accountBlock .usermenu-no-mobile {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
   .header {
     margin-top: 0;
   }
@@ -709,9 +759,6 @@ div.reportHeader {
   }
 }
 @media (max-width: 576px) {
-  .header {
-    flex-wrap: wrap;
-  }
   .header .camap-title {
     height: 48px;
     gap: 12px;
@@ -1150,6 +1197,43 @@ div.reportHeader {
   color: #5d1e4e;
   background-color: #ffffff;
   opacity: 1;
+}
+
+.timeframe.btn-group {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0;
+  align-items: stretch;
+  justify-content: center;
+}
+.timeframe.btn-group .btn-default {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+.timeframe.btn-group .btn-default:first-of-type {
+  margin-right: 0;
+}
+.timeframe.btn-group .btn-default:last-of-type {
+  margin-left: 0;
+}
+.timeframe.btn-group .timeframe-dates {
+  font-size: 14px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  border: 1px solid #000;
+  border-left: none;
+  border-right: none;
+  box-sizing: border-box;
+  padding: 0 8px;
+  margin: 2px 0;
+}
+.timeframe.btn-group .timeframe-dates span {
+  flex-grow: 1;
+  text-align: center;
 }
 
 div.groupImg {

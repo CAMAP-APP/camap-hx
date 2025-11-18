@@ -1,4 +1,4 @@
-::use 'design.mtt':: 
+::use 'base.mtt':: 
 
 $$browserDetection()
 
@@ -11,3 +11,5 @@ $$browserDetection()
   </script>
 </div>
 ::end::
+
+$$footer()

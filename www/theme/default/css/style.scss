@@ -1,4 +1,5 @@
-@import "variables.scss";
+@use "sass:color";
+@use "variables.scss" as *;
 
 /*
 	Cagette.net SASS stylesheet
@@ -100,7 +101,7 @@ html {
 body {
   //usefull when BS is not here
   font-family: Cabin, Arial, Helvetica, sans-serif;
-   color: $gray-dark;
+  color: $gray-dark;
 }
 
 // h1,h2,h3,h4{
@@ -131,7 +132,7 @@ ol.breadcrumb {
     color: $gray-midlight; 
   }
   a {
-    color: lighten($gray-base, 15%);
+    color: color.adjust($gray-base, $lightness: 15%);
   }
   background: none;
 }
@@ -139,10 +140,10 @@ ol.breadcrumb {
 body.cpro {
   ol.breadcrumb {
     li + li:before {
-      color: lighten(darken($brand-success, 10%), 25%); 
+      color: color.adjust(color.adjust($brand-success, $lightness: -10%), $lightness: 25%); 
     }
     a {
-      color: darken($brand-success, 10%);
+      color: color.adjust($brand-success, $lightness: -10%);
     }
   }
 }
@@ -235,6 +236,31 @@ form {
 .navbar {
   margin-bottom: 8px !important;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  @media screen and (max-width: 576px) {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.navbar-header {
+  display: flex;
+  align-items: center;
+}
+.navbar-toggle {
+  margin-left: auto;
+}
+
+.navbar-header-current {
+  font-size: 18px;
+  padding-left: 15px;
+  display: inline-block;
+  color: #777;
+  @media screen and (max-width: 576px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 }
 
 //admin buttons in navbar
@@ -335,6 +361,10 @@ border-color: $state-success-border;
         background-color: #fff333;  //HEX
       }
     }
+  }
+
+  & > :last-child {
+    align-self: flex-end;
   }
 }
 
@@ -564,7 +594,7 @@ div.reportHeader {
 
   &:hover {
     cursor: pointer;
-    background-color: lighten($gray-base, 70%);  
+    background-color: color.adjust($gray-base, $lightness: 70%);  
     //border-color:darken(#F0D277,10%);
     text-decoration: none;
     transition: all 0.15s ease;
@@ -573,7 +603,7 @@ div.reportHeader {
   &:active {
     cursor: pointer;
     background-color: $link-color;  
-    border-color: darken($link-color, 10%);
+    border-color: color.adjust($link-color, $lightness: -10%);
     text-decoration: none;
     transform: scale(0.95);
   }
@@ -691,7 +721,7 @@ background-color: $state-info-bg-alpha;
   position: relative;
   background: #bad096;  //HEX
   &:hover {
-    background: darken(#bad096, 10%); //HEX
+    background: color.adjust(#bad096, $lightness: -10%); //HEX
   }
   /*span.cpro{
 		position: absolute;
@@ -785,9 +815,23 @@ background-color: $state-info-bg-alpha;
 	  .css-wkfemu {
 		  background-color: $brand-primary
 	  }
+
+    @media (max-width: 576px) {
+      font-size: 14px;
+      flex-shrink: 10;
+      .links {
+        margin-top: 12px;
+        i {
+          font-size: 28px;
+        }
+      }
+      .usermenu-no-mobile {
+        display: none;
+      }
+    }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     margin-top: 0;
     
     .camap-title {
@@ -806,7 +850,6 @@ background-color: $state-info-bg-alpha;
     }
   }
   @media (max-width: 576px) {
-    flex-wrap: wrap;
     .camap-title {
       height: 48px;
       gap: 12px;
@@ -964,7 +1007,7 @@ background-color: $state-info-bg-alpha;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  background-color: lighten($brand-primary,1%);
+  background-color: color.adjust($brand-primary, $lightness: 1%);
   color: $white-base;
   font-size: 13px;
   line-height: 13px;
@@ -975,7 +1018,7 @@ background-color: $state-info-bg-alpha;
   width: 166px;
   margin: 0;
   padding: 2px;
-  box-shadow: 2px 2px 0px lighten($brand-primary, 40%); //HEX
+  box-shadow: 2px 2px 0px color.adjust($brand-primary, $lightness: 40%); //HEX
 
   .box {
     display:flex;
@@ -1216,7 +1259,7 @@ background-color: $state-info-bg-alpha;
     //used in home.mtt
     &.myorder {
 //       background: lighten($brand-info, 60%); 
-      border-bottom: 1px solid lighten($brand-info, 40%);
+      border-bottom: 1px solid color.adjust($brand-info, $lightness: 40%);
       background-color: $state-info-bg-alpha;
       color: $brand-info;
       padding: 8px 8px 8px 20px;
@@ -1296,11 +1339,52 @@ background-color: $state-info-bg-alpha;
     margin: 2px;
     &.disabled {
 	    color: $brand-info;
-		background-color: $white-base;
-		opacity: 1;
+		  background-color: $white-base;
+		  opacity: 1;
     }
+  }  
+}
+
+.timeframe.btn-group {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0;
+  align-items: stretch;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+
+  }
+
+  .btn-default {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    &:first-of-type{
+      margin-right: 0;
     }
-    
+    &:last-of-type{
+      margin-left: 0;
+    }
+  }
+  .timeframe-dates {
+    font-size: 14px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    text-align: center;
+    gap: 5px;
+    border: 1px solid $gray-base;
+    border-left: none;
+    border-right: none;
+    box-sizing: border-box;
+    padding: 0 8px;
+    margin: 2px 0;
+    span {
+      flex-grow: 1;
+      text-align: center;
+    }
+  }
 }
 
 div.groupImg {
@@ -1418,11 +1502,11 @@ div.productBox {
   background-color: $white-base;
   padding: 8px;
   border-top: 1px solid #ccc;  //HEX
-  color: darken($white-base, 60%);
+  color: color.adjust($white-base, $lightness: -60%);
   cursor: pointer;
   font-style: italic;
   &:hover {
-    background-color: darken($white-base, 10%);
+    background-color: color.adjust($white-base, $lightness: -10%);
   }
 }
 

@@ -72,7 +72,8 @@ class App extends sugoi.BaseApp {
                 bloc1: '<a href="http://camap.amap44.org" target="_blank">
                             <img src="/theme/default/logo.png" alt="CAMAP" style="width:105px;"/>
                         </a>',
-                bloc2: '<ul>
+                bloc2: '<div style=\"font-size: 14px\">
+						<ul>
                             <li>
                                 <a href="https://wiki.amap44.org" target="_blank">Documentation</a>
                             </li>
@@ -88,34 +89,37 @@ class App extends sugoi.BaseApp {
                             <li>
                             <a href="https://mantisbt.amap44.org" target="_blank">Signaler un bug</a>
                             </li>
-                        </ul>',
-                bloc3: 'CAMAP est hébergé <br>
-                        par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv3<br>
-                        <ul>
-                            <li>
-                               Contacter le Support: <u>support@amap44.org</u>
-                            </li>
-                         </ul>
-                        ',
-                bloc4: '
+                        </ul>
+						</div>',
+                bloc3: '<div style=\"font-size: 14px\">
+							CAMAP est hébergé <br>
+							par <b>l\'InterAMAP44</b><br/></a>et développé sous licence GPLv3<br>
+							<ul>
+								<li>
+								Contacter le Support: <u>support@amap44.org</u>
+								</li>
+							</ul>
+                        </div>',
+                bloc4: '<div style=\"text-align: center\">
 							<a href=\"http://www.amap44.org\" target=\"_blank\">
 								<img src=\"/theme/default/logo_amap44.png\" alt=\"CAMAP\" style=\"width:145px;\"/>
 							</a>
 							<br>
-							<table>
+							<table style=\"width:100%\">
 								<caption style=\"color:white\">Camap est co-financé par:</caption>
 								<tr>
-									<td>
+									<td style=\"text-align: center\">
 										<img src=\"/theme/default/Logo_NM.png\" alt=\"Logo Nantes Métropole\" style=\"width:60px;\"/>&nbsp;
 									</td>
-									<td>
+									<td style=\"text-align: center\">
 										<img src=\"/theme/default/Logo_BUPA.png\" alt=\"Logo Budget Participatif de Loire-Atlantique 2023\" style=\"width:60px;\"/>&nbsp;
 									</td>
-									<td>
+									<td style=\"text-align: center\">
 										<img src=\"/theme/default/Logo_PDL.png\" alt=\"Logo Pays-de-la-Loire\" style=\"width:60px;\"/>
 									</td>
 								</tr>
 							</table>
+						</div>
                        '
             },
             email:{
