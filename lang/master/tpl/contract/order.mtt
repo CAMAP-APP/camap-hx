@@ -1,6 +1,6 @@
 ::use 'design.mtt'::
 <style>
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 425px) {
 #csa-catalog-neo-container {
 	margin-left: -15px;
 	margin-right: -15px;
