@@ -1,7 +1,7 @@
 # ===========================
 # Stage 1 : builder (Haxe via lix)
 # ===========================
-FROM node:20.12.1-slim AS builder
+FROM node:20.19-slim AS builder
 
 # Outils build (git/SSL) + Neko (pour temploc2.n)
 RUN apt-get update && \
