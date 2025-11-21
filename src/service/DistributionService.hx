@@ -488,10 +488,14 @@ class DistributionService
 		}
 
 		// remove roles from oldMd linked to distribution
-		oldMd.volunteerRolesIds = oldMd.volunteerRolesIds.split(",").filter(r -> rolesToMove.map(r -> Std.string(r.id)).indexOf(r) == -1).join(",");
+		var oldVolunteers = oldMd.volunteerRolesIds;
+		if(oldVolunteers == null) oldVolunteers = '';
+		oldMd.volunteerRolesIds = oldVolunteers.split(",").filter(r -> rolesToMove.map(r -> Std.string(r.id)).indexOf(r) == -1).join(",");
 
 		// add enabled catalog roles to newMd
-		newMd.volunteerRolesIds = newMd.volunteerRolesIds.split(",").concat(rolesToMove.map(r -> Std.string(r.id))).join(",");
+		var newVolunteers = newMd.volunteerRolesIds;
+		if(newVolunteers == null) newVolunteers = '';
+		newMd.volunteerRolesIds = newVolunteers.split(",").concat(rolesToMove.map(r -> Std.string(r.id))).join(",");
 
 		oldMd.update();
 		newMd.update();	
