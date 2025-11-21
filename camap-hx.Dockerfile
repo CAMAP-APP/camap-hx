@@ -133,6 +133,7 @@ WORKDIR /srv
 # On ne copie QUE les artefacts utiles
 COPY --from=builder /srv/www  /srv/www
 COPY --from=builder /srv/lang  /srv/lang
+COPY --from=builder /srv/data /srv/data
 COPY --from=builder /srv/backend/temploc2.n /usr/local/lib/camap/temploc2.n
 
 COPY entrypoint.sh /entrypoint.sh
