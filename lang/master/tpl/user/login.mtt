@@ -2,6 +2,16 @@
 
 $$browserDetection()
 
+<div class="row header">
+  <div class="camap-title">
+    <img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:100%;"/>
+    <div style="display:flex;flex-flow:column;justify-content:center">
+      <h1>CAMAP</h1>
+      <h4>L'application libre de gestion d'AMAP</h4>
+    </div>
+  </div>
+</div>
+
 <div class="col-md-12" style="margin-bottom: 16px;">
   <div id='login-registration-container'></div>
   <script language="javascript">
