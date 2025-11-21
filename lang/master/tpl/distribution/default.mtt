@@ -306,7 +306,7 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<span class="caret"></span> ::_("Dates")::
 									</button>
-									<ul class="dropdown-menu">
+									<ul class="dropdown-menu dropdown-menu-right">
 										<li>
 											<a href="/distribution/shift/::dist.id::?from=distribSection">
 												<i class="icon icon-calendar"></i> Reporter la distribution
@@ -363,7 +363,7 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<span class="caret"></span> ::_("Dates")::
 									</button>
-									<ul class="dropdown-menu">
+									<ul class="dropdown-menu dropdown-menu-right">
 										<li>
 											<a href="/distribution/edit/::dist.id::?from=distribSection">
 												<i class="icon icon-calendar"></i> Personnaliser les dates d'ouverture et fermeture de commande

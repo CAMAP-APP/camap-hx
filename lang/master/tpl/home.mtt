@@ -37,9 +37,9 @@ $$browserDetection()
 		</a>
 		::end::
 	</div>
-	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;">
+	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;display:flex;justify-content:center">
 		<!-- VOLUNTEERS CALENDAR -->
-		<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
+		<a href="/distribution/volunteersCalendar" class="btn btn-default">
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 		</a>
 	</div>
@@ -52,16 +52,17 @@ $$browserDetection()
 		</div>
 
 		::foreach c openContracts::
-		<div class="col-md-4 col-sm-6">
+		<div class="col-sm-6">
 			<a href="/subscriptions/contract/::c.id::" class="clickable groupBlock" style="height:unset;">
 				::set v = c._vendor::
 				::if v.imageId!=null::
-					<div style="background-image:url('::file(v.imageId)::');float:left;margin-right:12px;" class="productImg" />
+					<div style="background-image:url('::file(v.imageId)::');float:left;margin-right:12px;" class="productImg hidden-xs" />
 				::else::
 					<div style="float:left;margin-right:12px;" class="productImg" />
 				::end::
 				::c.name::<br />
-				<div class="disabled">::v.name::</div>			
+				<div class="disabled">::v.name::</div>
+				<div class="disabled">::dDate(c.startDate)::</div>
 			</a>
 		</div>
 		::end::
@@ -289,7 +290,7 @@ $$browserDetection()
 	::end::
 	::end::
 
-	<div class="text-center" style="margin-bottom:24px;">
+	<div class="text-center" style="margin-bottom:24px;max-width:100%;overflow:hidden">
 		$$timeframe(::timeframe::)
 	</div>
 
