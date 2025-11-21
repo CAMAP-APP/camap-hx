@@ -52,32 +52,39 @@ class ContractAdmin extends Controller
 
 		var now = Date.now();
 		
+		var group = app.user.getGroup();
+
 		var contracts;
 		if (args != null && args.old) {
-			contracts = db.Catalog.manager.search($group == app.user.getGroup() && $endDate < Date.now() ,{orderBy:-startDate},false);	
-		}else {
-			contracts = db.Catalog.getActiveContracts(app.user.getGroup(), true, false);	
+			contracts = db.Catalog.manager.search($group == group && $endDate < Date.now() ,{orderBy:-startDate},false);	
+		} else {
+			contracts = db.Catalog.getActiveContracts(group, true, false);	
 		}
 
-		//filter if current user is not manager
+		// filter if current user is not manager
 		if (!app.user.isAmapManager()) {
-			for ( c in Lambda.array(contracts).copy()) {				
-				if(!app.user.canManageContract(c)) contracts.remove(c);				
+			for ( c in Lambda.array(contracts).copy()) {
+				if(!app.user.canManageContract(c)) contracts.remove(c);
 			}
+		}
+
+		var vendors = [];
+		for(c in contracts) {
+			if(!vendors.exists(v -> v.id == c.vendor.id))
+				vendors.push(c.vendor);
 		}
 		
 		view.contracts = contracts;
-		var vendors = app.user.getGroup().getActiveVendors();
 		view.vendors = vendors;
-		view.places = app.user.getGroup().getPlaces();
-		view.group = app.user.getGroup();
+
+		view.places = group.getPlaces();
+		view.group = group;
 		
 		var contractsToFix = contracts.filter(c -> c.hasPercentageOnOrders());
 
 		if(contractsToFix.length>0){
 			app.session.addMessage('Attention, la gestion des "frais au pourcentage de la commande" va disparaître le 1er Février 2023.<br/>Les catalogues suivants l\'utilisent : <b>${contractsToFix.map(c->c.name).join(", ")}</b><br/><a href="https://wiki.cagette.net/basculecommissioncatalogue" target="_blank">Cliquez ici pour connaître un alternative.</a>',true);
 		}
-		
 
 		checkToken();
 	}
