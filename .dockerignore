@@ -4,6 +4,7 @@
 **/.vscode
 **/README.md
 **/Dockerfile
+**/*.Dockerfile
 www/index.n \*_/_~
 **/.dockerignore
 .git

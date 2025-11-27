@@ -861,6 +861,38 @@ background-color: $state-info-bg-alpha;
       }
     }
   }
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+    
+    .camap-title {
+      height: 64px;
+      margin-bottom: 4px;
+      h1 {
+        font-size: 20px
+      }
+      h2 {
+        font-size: 20px
+      }
+      h4 {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+    .camap-title {
+      height: 48px;
+      gap: 12px;
+      h1 {
+        font-size: 16px
+      }
+      h2 {
+        font-size: 16px
+      }
+    }
+  }
 }
 
 /*
