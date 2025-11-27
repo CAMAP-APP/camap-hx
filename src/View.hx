@@ -276,6 +276,26 @@ class View extends sugoi.BaseView {
 		return service.BridgeService.getNeoModuleScripts();
 	}
 
+	public function neoArgs(args:Dynamic) {
+		function safeNeoArg(arg:Dynamic) {
+			var buf: Array<String> = [];
+			for(k in Reflect.fields(arg)) {
+				var v = Reflect.field(arg, k);
+				if(Std.is(v, String) || Std.is(v, Int) || Std.is(v, Float) || v == null) {
+					buf.push('${k}: ${haxe.Json.stringify(v)}');
+				} else {
+					var str = '${k}: {';
+					str += safeNeoArg(v);
+					str += '}';
+					buf.push(str);
+				}
+			}
+			return buf.join(',');
+		}
+		
+		return safeNeoArg(args);
+	}
+
 	/** 
 	 * Smart quantity (tm) : displays human readable quantity
 	 * 0.33 x Lemon 12kg => 2kg Lemon

@@ -706,7 +706,33 @@ background-color: $state-info-bg-alpha;
 }
 
 .header {
+  margin-top:10px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+
+	.camap-title {
+    margin-top: 4px;
+    margin-left: 8px;
+		margin-bottom: 22px;
+		display:flex;
+		flex-flow:row nowrap;
+		gap:24px;
+    height: 87px;
+    h1 {
+      margin: 0 !important;
+    }
+    h4 {
+      font-size: 18px;
+      line-height: 20px;
+      margin: 0;
+    }
+	}
+
   .accountBlock {
+    margin-left: auto;
+    flex-shrink: 0;
+
     .links {
       margin-right: calc(16px - 1em);
       margin-top: 16px;
@@ -759,6 +785,38 @@ background-color: $state-info-bg-alpha;
 	  .css-wkfemu {
 		  background-color: $brand-primary
 	  }
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+    
+    .camap-title {
+      height: 64px;
+      margin-bottom: 4px;
+      h1 {
+        font-size: 20px
+      }
+      h2 {
+        font-size: 20px
+      }
+      h4 {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+    .camap-title {
+      height: 48px;
+      gap: 12px;
+      h1 {
+        font-size: 16px
+      }
+      h2 {
+        font-size: 16px
+      }
+    }
   }
 }
 
@@ -970,10 +1028,10 @@ background-color: $state-info-bg-alpha;
 
   /* place link */
   a {
-    color: $white-base !important;
+    color: $white-base;
   }
   a:hover {
-    color: $white-base !important; 
+    color: $white-base;
   }
 }
 

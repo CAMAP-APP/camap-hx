@@ -3,6 +3,7 @@ import haxe.io.Encoding;
 import sugoi.form.ListData.FormData;
 import sys.db.Object;
 import sys.db.Types;
+import sys.db.Manager;
 
 enum CatalogFlags {
 	UsersCanOrder;  		//adhérents peuvent saisir eux meme la commande en ligne
@@ -379,6 +380,14 @@ class Catalog extends Object
 			out.push({label:Formatting.dDate(distrib.distribStartDate), value:distrib.id });
 		}
 		return out;
+	}
+
+	// return the list of contracts linked to a vendor claimed by a given user
+	public static function claimedVendorContracts(userId: Int, groupId: Int): List<db.Catalog> {
+		return db.Catalog.manager.unsafeObjects(
+			'SELECT cat.* FROM Catalog cat JOIN Vendor v ON cat.vendorId = v.id AND v.userId = ${userId} AND cat.groupId = ${groupId}',
+			false
+		);
 	}
 	
 	public static function getLabels() {

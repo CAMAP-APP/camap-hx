@@ -3308,6 +3308,39 @@ msgstr ""
 msgid "Prefill all amounts"
 msgstr "Pré-remplir tous les montants"
 
+#: ../src/controller/Vendor.hx:499
+msgid "Vendor is no Longer available"
+msgstr "Ce producteur n'est plus référencé"
+
+#: ../src/controller/Product.hx:1494
+msgid ""
+"::qt:: ::unitType::<br/>\n"
+"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
+"pouvez pas modifier son unité de base.<br/>\n"
+"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
+"btn-sm\">Désactiver et créer une copie</a>"
+msgstr ""
+"Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas "
+"modifier son unité de base.<br/>Vous pouvez le <a "
+"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
+"copie</a>"
+
+#: ../src/controller/Product.hx:5425
+msgid "Product copied"
+msgstr "Produit dupliqué"
+
+#: ../src/controller/AmapAdmin.hx:4816
+msgid "Vendor attributed rights"
+msgstr "En tant que producteur les droits suivants sont automatiques"
+
+#: ../lang/master/tpl/member/balance.mtt:496
+msgid "Rafraîchir les soldes"
+msgstr "Rafraîchir les soldes"
+
+#: ../lang/master/tpl/macros.mtt:1731
+msgid "Vendor Dashboard"
+msgstr "Espace Producteur"
+
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
 

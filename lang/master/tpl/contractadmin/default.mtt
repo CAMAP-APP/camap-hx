@@ -35,11 +35,14 @@
 							</div>
 						::end::
 					</td>
-					<td>
-						<div class="productImg sm" style="background-image:url('::c._vendor.getImage()::?v=2');margin:0" ></div>
+					<td style="display: flex; flex-flow: row; align-items:center">
+						<a href="/vendor/view/::c._vendor.id::" style="display: flex; flex-flow: row; align-items:center">
+							<div class="productImg sm"
+								style="background-image:url('::c._vendor.getImage()::?v=2');margin: 0 4px 0 0;">
+							</div>
+							::c._vendor.name::
+						</a>
 					</td>
-					<td>::c._vendor.name::</td>
-					
 					<td>
 						<a href="/contractAdmin/view/::c.id::">
 							::c.name::
@@ -89,30 +92,31 @@
 	<div class="article" id="vendors">
 		<h2>::_("Farmers")::</h2>
 		<div class="row">
-			::foreach v vendors::		
-			<div class="col-md-4" style="height:unset;border-spacing: 4px;">
-				<div class="row">
-					<div class="col-md-2">
-						<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
-					</div>
-					<div class="col-md-6">
-						<b>::v.name::</b><br/>
-						::v.zipCode:: ::v.city::
-
-					</div>
-					<div class="col-md-4">
-						<div class="btn-group" role="group">							
-							$$edit(Modifier,/vendor/edit/::v.id::)
-							$$edit(Image,/vendor/addImage/::v.id::)
+			::foreach v vendors::
+			<a href="/vendor/view/::v.id::">
+				<div class="col-md-4" style="height:unset;border-spacing: 4px;border:1px solid #e0e0e0; border-radius: 4px">
+					<div class="row">
+						<div class="col-md-2">
+							<div class="productImg" style="background-image:url('::v.getImage()::');width:48px;height:48px;"></div>
+						</div>
+						<div class="col-md-6">
+							<b>::v.name::</b><br/>
+							<span style="font-size: 12px; color:black">::v.zipCode:: ::v.city::</span>
+						</div>
+						<div class="col-md-4">
+							<div class="btn-group" role="group" ::cond v.userId == null::>
+								$$edit(Modifier,/vendor/edit/::v.id::)
+								$$edit(Image,/vendor/addImage/::v.id::)
+							</div>
+						</div>
+						<div class="col-md-12">
+							::if(v.isDisabled())::
+							<br/><div class="alert alert-danger"><i class="icon icon-alert"></i><b> Producteur désactivé:</b> Contactez le support<br/></div>
+							::end::
 						</div>
 					</div>
-                    <div class="col-md-12">
-				        ::if(v.isDisabled())::
-					    <br/><div class="alert alert-danger"><i class="icon icon-alert"></i><b> Producteur désactivé:</b> Contactez le support<br/></div>
-					    ::end::
-                    </div>
 				</div>
-			</div>
+			</a>
 			::end::
 		</div>
 		<br/>

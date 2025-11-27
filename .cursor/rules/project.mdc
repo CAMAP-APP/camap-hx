@@ -1,0 +1,15 @@
+---
+alwaysApply: true
+---
+
+# camap-hx
+
+## packages
+- use `backend` only for backend build and config files; source code specific to backend is in `src`
+- use `frontend` only for frontend build and config files; source code specifi to frontend is in `js`
+- Prefer placing code that is platform agnostic in `common`# camap-hx
+
+## packages
+- use `backend` only for backend build and config files; source code specific to backend is in `src`
+- use `frontend` only for frontend build and config files; source code specifi to frontend is in `js`
+- Prefer placing code that is platform agnostic in `common`

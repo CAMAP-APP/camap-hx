@@ -18,6 +18,10 @@ class Vendor extends Object
 {
 	public var id : SId;
 	public var name : SString<128>;	//Business name 
+
+	@hideInForms @:relation(userId)
+	public var user : SNull<User>;	
+
 	public var peopleName : SNull<SString<128>>; //Business owner(s) name
 	
 	@hideInForms public var profession : SNull<SInt>;
@@ -25,7 +29,9 @@ class Vendor extends Object
 	@hideInForms public var production3 : SNull<SInt>;
 
 	public var email:SNull<SString<128>>;
+	public var showEmail:SBool;
 	public var phone:SNull<SString<19>>;
+	public var showPhone:SBool;
 		
 	public var address1:SNull<SString<64>>;
 	public var address2:SNull<SString<64>>;
@@ -43,7 +49,7 @@ class Vendor extends Object
 	@hideInForms public var directory 	: SBool;
 	@hideInForms public var longDesc 	: SNull<SText>;
 	
-	@hideInForms @:relation(imageId) 	public var image : SNull<sugoi.db.File>;
+	@hideInForms @:relation(imageId) public var image : SNull<sugoi.db.File>;
 	
 	@hideInForms public var disabled : SNull<SEnum<DisabledReason>>; // vendor is disabled
 	
@@ -78,73 +84,40 @@ class Vendor extends Object
 		}
 	}
 
-	public function getImages(){
-
-		var out = {
-			logo:null,
-			portrait:null,
-			banner:null,
-			farm1:null,				
-			farm2:null,				
-			farm3:null,				
-			farm4:null,				
-		};
-
-		var files = sugoi.db.EntityFile.getByEntity("vendor",this.id);
-		for( f in files ){
-			switch(f.documentType){				
-				case "logo" 	: out.logo 		= f.getFileId();
-				case "portrait" : out.portrait 	= f.getFileId();
-				case "banner" 	: out.banner 	= f.getFileId();
-				case "farm1" 	: out.farm1 	= f.getFileId();
-				case "farm2" 	: out.farm2 	= f.getFileId();
-				case "farm3" 	: out.farm3 	= f.getFileId();
-				case "farm4" 	: out.farm4 	= f.getFileId();
-			}
-		}
-
-		if(out.logo==null) out.logo = this.imageId;
-
-		return out;
-	}
-
-	public function getInfos(?withImages=false):VendorInfos{
+	public function getInfos():VendorInfos{
 
 		var file = function(fId: Int){
 			return if(fId==null)  null else App.current.view.file(fId);
 		}
 		var vendor = this;
 		var out : VendorInfos = {
-			id : id,
-			name : vendor.name,
-			profession:null,
-			email:vendor.email,
-			image : file(vendor.imageId),
-			images : cast {},
+			id: id,
+			name: vendor.name,
+			// TODO flag allow show name
+			// peopleName: vendor.
+			profession: null,
+			companyNumber: vendor.companyNumber,
+			email: vendor.showEmail ? vendor.email : '',
+			showEmail: vendor.showEmail,
+			showPhone: vendor.showPhone,
+			phone: vendor.showPhone ? vendor.phone : null,
+			image: file(vendor.imageId),
 			address1: vendor.address1,
 			address2: vendor.address2,
-			zipCode : vendor.zipCode,
-			city : vendor.city,
-			linkText:vendor.linkText,
-			linkUrl:vendor.linkUrl,
-			desc:vendor.desc,
-			longDesc:vendor.longDesc,
+			zipCode: vendor.zipCode,
+			city: vendor.city,
+			linkText: vendor.linkText,
+			linkUrl: vendor.linkUrl,
+			desc: vendor.desc,
+			longDesc: vendor.longDesc,
+			lat: vendor.lat,
+			lng: vendor.lng
 		};
 
 		if(this.profession!=null){
 			out.profession = getProfession();
 		}
-
-		if(withImages){
-			var images = getImages();
-			out.images.logo = file(images.logo);
-			out.images.portrait = file(images.portrait);
-			out.images.banner = file(images.banner);
-			out.images.farm1 = file(images.farm1);
-			out.images.farm2 = file(images.farm2);
-			out.images.farm3 = file(images.farm3);
-			out.images.farm4 = file(images.farm4);
-		}
+		
 		return out;
 	}
 
@@ -159,6 +132,13 @@ class Vendor extends Object
 		var contracts = getActiveContracts();
 		var groups = Lambda.map(contracts,function(c) return c.group);
 		return tools.ObjectListTool.deduplicate(groups);
+	}
+
+	public function getGroupContactMailto():String {
+		var groups = getGroups();
+		return groups.flatMap(g -> if(g.contact != null) [g.contact.email] else [])
+			.map(email -> StringTools.urlEncode(email))
+			.join(";");
 	}
 
 	public static function getLabels(){
@@ -226,5 +206,7 @@ class Vendor extends Object
 	public function getImageId(){
         return this.imageId;
     }
+
+	public function isClaimed() { return this.user != null; }
 
 }

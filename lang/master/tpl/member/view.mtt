@@ -103,7 +103,7 @@
 		</p>
 
 		<p ::cond canLoginAs::>
-			<a href="/member/loginas/::member.id::" class="btn btn-danger btn-xs">
+			<a href="/member/loginas/::member.id::" class="btn btn-danger btn-xl">
 				::_("Log in as this member")::
 			</a>
 		</p>
