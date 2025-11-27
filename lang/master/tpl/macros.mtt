@@ -17,19 +17,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		<!-- Home -->
 		<div class="pull-right links">
 			<a class="" href="/user/choose?show=1" >
-				<i class="icon icon-chevron-left"></i> ::_("Home")::
+				<i class="icon icon-chevron-left"></i><span class="usermenu-no-mobile"> ::_("Home")::</span>
 			</a>
-			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i> Admin</a>::end::
+			::if isAdmin::<a href="/admin"><i class="icon icon-cog"></i><span class="usermenu-no-mobile"> Admin</span></a>::end::
 			::if user != null::
 				<div class="dropdown pull-right text-right username-dropdown">
 					<a class="dropdown-toggle" type="button" id="dropdownMenuUser" data-toggle="dropdown">
 						<div class="usernames">
 							<div class="username">
 								<i class="icon icon-user"></i>
-								::user.getName()::
+								<span class="usermenu-no-mobile">::user.getName()::</span>
 							</div>
 							::if user.firstName2!=null::
-							<div class="username">
+							<div class="username usermenu-no-mobile">
 								::_("et")::
 								::if user.lastName2 != null && user.getFormattedLastName() != user.getFormattedLastName2()::
 									::user.getFormattedLastName2()::
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 							</div>
 							::end::
 						</div>
-						<i class="icon icon-chevron-down"></i>
+						<i class="icon icon-chevron-down usermenu-no-mobile" style="margin-left: 2px; margin-bottom:-4px"></i>
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuUser">
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					
 				</div>			
 			::else::
-				<div class="pull-right text-right">
+				<div style="margin-top: -6px">
 					<a href="/user/login" class="btn btn-default btn-sm"><i class="icon icon-user"></i> ::_("Log in")::</a>
 					<a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i> ::_("Look for another group")::</a>	
 				</div>
@@ -419,11 +419,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	<macro name="timeframe(timeframe)">
 		::set next = timeframe.next()::
 		::set previous = timeframe.previous()::
-		<div class="btn-group">
+		<div class="btn-group timeframe">
 			<a href="?_from=::previous.from.toString().substr(0,10)::&_to=::previous.to.toString().substr(0,10)::" class="btn btn-default">
 				<i class="icon icon-chevron-left"></i>
 			</a>
-			<a class="btn btn-default disabled">Du ::dDate(timeframe.from):: au ::dDate(timeframe.to)::</a>
+			<div class="timeframe-dates">
+				<span>Du ::dDate(timeframe.from)::</span><span>au ::dDate(timeframe.to)::</span>
+			</div>
 			<a href="?_from=::next.from.toString().substr(0,10)::&_to=::next.to.toString().substr(0,10)::" class="btn btn-default">
 				<i class="icon icon-chevron-right"></i>
 			</a>
@@ -433,21 +435,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	<macro name="footer()">
 		::if(theme!=null && theme.footer!=null)::
-		<div class="row">
-			<div class="col-md-12">
-				<div id="footer" >
-						<div class="col-md-3" >
-							::if(theme.footer.bloc1!=null):: ::raw theme.footer.bloc1:: ::end::
-						</div>
-						<div class="col-md-3" >
-							::if(theme.footer.bloc2!=null):: ::raw theme.footer.bloc2:: ::end::
-						</div>
-						<div class="col-md-3" >
-							::if(theme.footer.bloc3!=null):: ::raw theme.footer.bloc3:: ::end::
-						</div>
-						<div class="col-md-3" >
-							::if(theme.footer.bloc4!=null):: ::raw theme.footer.bloc4:: ::end::
-						</div>
+		<div class="row" id="footer">
+			<div class="col-sm-6" >
+				<div class="row">
+					<div class="col-md-6" style="margin-bottom: 6px">
+						::if(theme.footer.bloc1!=null):: ::raw theme.footer.bloc1:: ::end::
+					</div>
+					<div class="col-md-6" style="margin-bottom: 6px">
+						::if(theme.footer.bloc2!=null):: ::raw theme.footer.bloc2:: ::end::
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6" >
+				<div class="row">
+					<div class="col-md-6" style="margin-bottom: 6px">
+						::if(theme.footer.bloc3!=null):: ::raw theme.footer.bloc3:: ::end::
+					</div>
+					<div class="col-md-6" style="margin-bottom: 6px">
+						::if(theme.footer.bloc4!=null):: ::raw theme.footer.bloc4:: ::end::
+					</div>
 				</div>
 			</div>
 		</div>

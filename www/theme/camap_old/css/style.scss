@@ -1,3 +1,4 @@
+@use "sass:color";
 /*
 	CAMAP SASS stylesheet
 	Use it with with bootstrap 3
@@ -35,10 +36,10 @@ ol.breadcrumb {
   margin: 0 0 8px 0px;
 
   li + li:before {
-    color: lighten(#8a6d3b, 40%);
+    color: color.adjust(#8a6d3b, $lightness: 40%);
   }
   a {
-    color: lighten(#8a6d3b, 15%);
+    color: color.adjust(#8a6d3b, $lightness: 15%);
   }
   background: none;
 }
@@ -432,7 +433,7 @@ div.reportHeader {
 
   &:hover {
     cursor: pointer;
-    background-color: lighten(#8a6d3b, 50%);
+    background-color: color.adjust(#8a6d3b, $lightness: 50%);
     //border-color:darken(#F0D277,10%);
     text-decoration: none;
     transition: all 0.15s ease;
@@ -441,7 +442,7 @@ div.reportHeader {
   &:active {
     cursor: pointer;
     background-color: #f0d277;
-    border-color: darken(#f0d277, 10%);
+    border-color: color.adjust(#f0d277, $lightness: -10%);
     text-decoration: none;
     transform: scale(0.95);
   }
@@ -965,11 +966,11 @@ div.productSelect {
   background-color: #f5e3ac;
   padding: 8px;
   border-top: 1px solid #ccc;
-  color: darken(#f5e3ac, 60%);
+  color: color.adjust(#f5e3ac, $lightness: -60%);
   cursor: pointer;
   font-style: italic;
   &:hover {
-    background-color: darken(#f5e3ac, 10%);
+    background-color: color.adjust(#f5e3ac, $lightness: -10%);
   }
 }
 
@@ -1031,7 +1032,7 @@ ul#subscriptionTabs.nav.nav-tabs > li.active > a {
 a.btn-warning {
   color: #8a6d3b;
   background-color: #fcf8e3;
-  border-color: lighten(#8a6d3b, 10%);
+  border-color: color.adjust(#8a6d3b, $lightness: 10%);
 }
 
 i.icon {

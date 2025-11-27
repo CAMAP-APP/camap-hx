@@ -52,7 +52,7 @@
 								<button type="button" class="btn-noAntiDoubleClick btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="caret"></span> ::_("Dates"):: 
 								</button>
-								<ul class="dropdown-menu">
+								<ul class="dropdown-menu dropdown-menu-right">
 									<li>
 										::if d._catalog.type != TYPE_CONSTORDERS::
 										<a href="/distribution/edit/::d.id::">

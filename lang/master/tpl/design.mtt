@@ -33,68 +33,99 @@
 			::if user != null && noGroup!=true && (getCurrentGroup()==null || (getCurrentGroup()!=null && getCurrentGroup().disabled==null))::
 
 			<nav class="navbar navbar-default" ::cond user.getGroup()!=null::>
-					<div class="navbar-header">
-					  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#camap-navbar">
+				::set category = breadcrumb()[1]::
+				::if(category!=null):: ::set category=category.id:: ::end::
+				::if(forceTitleMobile!=null):: ::set category=null:: ::end::
+				<div class="navbar-header">
+					<div class="navbar-header-current">
+						<span ::cond forceTitleMobile != null::>
+							::forceTitleMobile::
+						</span>
+						<span ::cond category=="home"::>
+							<i class="icon icon-basket"></i>  Commandes
+						</span>
+						<span ::cond category=="history"::>
+							<i class="icon icon-book"></i> Mes Contrats
+						</span>
+						<span ::cond category=="amap"::>
+							<i class="icon icon-farmer"></i> ::_("Farmers")::
+						</span>
+						<span ::cond category=="member"::>
+							<i class="icon icon-users"></i> ::_("Members")::
+						</span>
+						<span ::cond category=="distribution"::>
+							<i class="icon icon-calendar"></i>  ::_("Distributions")::
+						</span>
+						<span ::cond category=="contract"::>
+							<i class="icon icon-book"></i> ::_("Catalogs")::
+						</span>
+						<span ::cond category=="messages"::>
+							<i class="icon icon-mail"></i>  ::_("Messaging")::
+						</span>
+						<span ::cond category=="amapadmin"::>
+							<i class="icon icon-cog"></i>  Paramètres
+						</span>
+					</div>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#camap-navbar">
 						<span class="sr-only">Toggle navigation</span>						
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-					  </button>				  
-					</div>	
-				
-					<div class="collapse navbar-collapse" id="camap-navbar">
-						::set category = breadcrumb()[1]::
-						::if(category!=null):: ::set category=category.id:: ::end::
-						<ul class="nav navbar-nav navbar-left">
-							<li ::attr class if(category=="home") 		'active' ::>
-								<a href="/">
-									<i class="icon icon-basket"></i>  Commandes
-								</a>
-							</li>
-							<li ::attr class if(category=="history" ) 	'active' ::>
-								<a href="/history">
-									<i class="icon icon-book"></i> Mes Contrats
-								</a>
-							</li>
-							<li ::attr class if(category=="amap") 		'active' ::>
-								<a href="/amap">
-									<i class="icon icon-farmer"></i> ::_("Farmers")::
-								</a>
-							</li>
-							
-						</ul>
+					</button>				  
+				</div>	
+			
+				<div class="collapse navbar-collapse" id="camap-navbar">
+					::if(category!=null):: ::set category=category.id:: ::end::
+					<ul class="nav navbar-nav navbar-left">
+						<li ::attr class if(category=="home") 		'active' ::>
+							<a href="/">
+								<i class="icon icon-basket"></i>  Commandes
+							</a>
+						</li>
+						<li ::attr class if(category=="history" ) 	'active' ::>
+							<a href="/history">
+								<i class="icon icon-book"></i> Mes Contrats
+							</a>
+						</li>
+						<li ::attr class if(category=="amap") 		'active' ::>
+							<a href="/amap">
+								<i class="icon icon-farmer"></i> ::_("Farmers")::
+							</a>
+						</li>
 						
-						<ul class="nav navbar-nav navbar-right admin" >
-							<li id="member" ::attr class if(category=="member") 	'active' ::>								
-								<a href="/member" ::cond user.canAccessMembership()::>
-									<i class="icon icon-users"></i> ::_("Members")::
-								</a>
-							</li>
-							<li id="distributions" ::attr class if(category=="distribution") 	'active' ::>
-								<a href="/distribution" ::cond user.canManageAllContracts()::>
-									<i class="icon icon-calendar"></i>  ::_("Distributions")::
-								</a>
-							</li>
-							<li id="contractadmin" ::attr class if(category=="contract") 'active' ::>
-								<a href="/contractAdmin" ::cond user.isContractManager(null)::>
-									<i class="icon icon-book"></i> ::_("Catalogs")::
-								</a>
-							</li>
-							<li id="messages" ::attr class if(category=="messages") 	'active' ::>
-								<a href="/messages" ::cond user.canAccessMessages()::>
-									<i class="icon icon-mail"></i>  ::_("Messaging")::
-								</a>
-							</li>
-							<li id="amapadmin" ::attr class if(category=="amapadmin") 	'active' ::>
-								<a href="/amapadmin" ::cond user.isAmapManager()::>
-									<i class="icon icon-cog"></i>  Paramètres
-								</a>
-							</li>							
-						</ul>
-						
-					</div>
-				
-			</nav>
+					</ul>
+					
+					<ul class="nav navbar-nav navbar-right admin" >
+						<li id="member" ::attr class if(category=="member") 	'active' ::>								
+							<a href="/member" ::cond user.canAccessMembership()::>
+								<i class="icon icon-users"></i> ::_("Members")::
+							</a>
+						</li>
+						<li id="distributions" ::attr class if(category=="distribution") 	'active' ::>
+							<a href="/distribution" ::cond user.canManageAllContracts()::>
+								<i class="icon icon-calendar"></i>  ::_("Distributions")::
+							</a>
+						</li>
+						<li id="contractadmin" ::attr class if(category=="contract") 'active' ::>
+							<a href="/contractAdmin" ::cond user.isContractManager(null)::>
+								<i class="icon icon-book"></i> ::_("Catalogs")::
+							</a>
+						</li>
+						<li id="messages" ::attr class if(category=="messages") 	'active' ::>
+							<a href="/messages" ::cond user.canAccessMessages()::>
+								<i class="icon icon-mail"></i>  ::_("Messaging")::
+							</a>
+						</li>
+						<li id="amapadmin" ::attr class if(category=="amapadmin") 	'active' ::>
+							<a href="/amapadmin" ::cond user.isAmapManager()::>
+								<i class="icon icon-cog"></i>  Paramètres
+							</a>
+						</li>							
+					</ul>
+					
+				</div>
+			
+		</nav>
 			
 		::end::
 		
