@@ -294,7 +294,7 @@
 					<tr>
 						<td>
 							::set contract = dist._catalog::
-							<a href="/contract/view/::contract.id::">::contract.name::</a>
+							<a href="/contractAdmin/view/::contract.id::">::contract.name::</a>
 						</td>
 						<td>
 							::contract._vendor.name::
@@ -333,7 +333,7 @@
 					<tr>
 						<td>
 							::set contract = dist._catalog::
-							<a href="/contract/view/::contract.id::">::contract.name::</a>
+							<a href="/contractAdmin/view/::contract.id::">::contract.name::</a>
 						</td>
 						<td>
 							::contract._vendor.name::
