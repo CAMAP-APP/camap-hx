@@ -44,8 +44,8 @@ class Distribution extends Controller {
         return {
             id: c.id,
             cycleType: c.cycleType,
-            startDateFormatted: hDate(c.startDate, true),
-            endDateFormatted: hDate(c.endDate, true)
+            startDateFormatted: Formatting.hDate(c.startDate, true),
+            endDateFormatted: Formatting.hDate(c.endDate, true)
         };
     });
 
