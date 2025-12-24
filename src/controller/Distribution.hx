@@ -38,8 +38,19 @@ class Distribution extends Controller {
 
 		var distribs = db.MultiDistrib.getFromTimeRange(app.user.getGroup(), timeframe.from, timeframe.to);
 
+    // Formater les cycles avec les dates incluant l'année
+    var cycles = db.DistributionCycle.getFromTimeFrame(app.user.getGroup(), timeframe);
+    var cyclesFormatted = cycles.map(function(c) {
+        return {
+            id: c.id,
+            cycleType: c.cycleType,
+            startDateFormatted: Formatting.hDate(c.startDate, true),
+            endDateFormatted: Formatting.hDate(c.endDate, true)
+        };
+    });
+
 		view.distribs = distribs;
-		view.cycles = db.DistributionCycle.getFromTimeFrame(app.user.getGroup(), timeframe);
+		view.cycles = cyclesFormatted;
 		view.timeframe = timeframe;
 
 		checkToken();
