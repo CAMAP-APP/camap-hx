@@ -1,6 +1,9 @@
 {
 	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
+	"files.associations": {
+		"*.mtt": "templo"
+	},
 	"haxe.configurations": [
 		[
 			"backend/build.hxml",
@@ -28,4 +31,7 @@
 			"frontend"
 		]
 	],
+	"haxe.executable": {
+		"path": "auto"
+	},
 }

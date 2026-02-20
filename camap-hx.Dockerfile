@@ -6,7 +6,7 @@ FROM node:20.19-slim AS builder
 # Outils build (git/SSL) + Neko (pour temploc2.n)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      git curl ca-certificates neko \
+    git curl ca-certificates neko \
     && rm -rf /var/lib/apt/lists/*
 
 # lix figé
@@ -104,8 +104,8 @@ LABEL org.opencontainers.image.description="Container 1/3 de l'application Camap
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-      apache2 libapache2-mod-neko neko curl ca-certificates \
-      libxml-twig-perl libutf8-all-perl \
+    apache2 libapache2-mod-neko neko curl ca-certificates \
+    libxml-twig-perl libutf8-all-perl \
     && rm -rf /var/lib/apt/lists/*
 
 ENV TZ="Europe/Paris" \
@@ -126,8 +126,8 @@ RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
 RUN a2enmod headers rewrite proxy proxy_http >/dev/null 2>&1 || true
 COPY apache/camap-static.conf /etc/apache2/conf-available/camap-static.conf
 RUN a2enconf camap-static >/dev/null 2>&1 || true \
- && printf "ServerName localhost\n" > /etc/apache2/conf-available/servername.conf \
- && a2enconf servername >/dev/null 2>&1 || true
+    && printf "ServerName localhost\n" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername >/dev/null 2>&1 || true
 
 WORKDIR /srv
 # On ne copie QUE les artefacts utiles
@@ -135,6 +135,8 @@ COPY --from=builder /srv/www  /srv/www
 COPY --from=builder /srv/lang  /srv/lang
 COPY --from=builder /srv/data /srv/data
 COPY --from=builder /srv/backend/temploc2.n /usr/local/lib/camap/temploc2.n
+RUN echo "neko /usr/local/lib/camap/temploc2.n \$@" > /usr/bin/temploc2
+RUN chmod +x /usr/bin/temploc2
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
