@@ -770,6 +770,40 @@ div.reportHeader {
     font-size: 16px;
   }
 }
+@media (max-width: 768px) {
+  .header {
+    margin-top: 0;
+  }
+  .header .camap-title {
+    height: 64px;
+    margin-bottom: 4px;
+  }
+  .header .camap-title h1 {
+    font-size: 20px;
+  }
+  .header .camap-title h2 {
+    font-size: 20px;
+  }
+  .header .camap-title h4 {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+@media (max-width: 576px) {
+  .header {
+    flex-wrap: wrap;
+  }
+  .header .camap-title {
+    height: 48px;
+    gap: 12px;
+  }
+  .header .camap-title h1 {
+    font-size: 16px;
+  }
+  .header .camap-title h2 {
+    font-size: 16px;
+  }
+}
 
 /*
 	SHOP v1
