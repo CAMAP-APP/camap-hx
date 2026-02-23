@@ -21,7 +21,7 @@
 						<h2>::groupName::</h2>
 					::else::
 						<h1>CAMAP</h1>
-						<h4>L'application libre de gestion d'AMAP</h4>
+						<h4>L'application libre<br/>de gestion d'AMAP</h4>
 					::end::
 				</div>
 			</div>
