@@ -25,17 +25,17 @@
 
     $$googleTagManager(::getVariable("googleTagManagerId")::)
 
+    <!-- BOOTSTRAP -->
+    ::if noBootstrap::
+    ::else::
+        <link rel="stylesheet" href="/theme/::theme.id::/css/::getVariable('css')::/bootstrap.min.css" />
+    ::end::
+
     <!-- CAMAP CSS -->
     ::if(DEBUG)::
         <link rel="stylesheet" type="text/css" href="/theme/::theme.id::/css/::getVariable('css')::/style.css" />
     ::else::
         <link rel="stylesheet" type="text/css" href="/theme/::theme.id::/css/::getVariable('css')::/style.min.css" />
-    ::end::
-
-    <!-- BOOTSTRAP -->
-    ::if noBootstrap::
-    ::else::
-        <link rel="stylesheet" href="/theme/::theme.id::/css/::getVariable('css')::/bootstrap.min.css" />
     ::end::
 
     <!-- CAMAP very own icon font -->
