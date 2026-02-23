@@ -51,3 +51,5 @@ data/productTaxonomy.json
 src/db/TxpCategory.hx
 src/db/TxpProduct.hx
 src/db/TxpSubCategory.hx
+camapts.env
+www/env.js

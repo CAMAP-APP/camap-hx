@@ -11,10 +11,18 @@ if [ -f "$DOTENV" ]; then
   SANITIZED="/tmp/camapts.env.$$"
   trap 'rm -f "$SANITIZED" "$SANITIZED.tmp" 2>/dev/null || true' EXIT
   tr -d '\r' < "$DOTENV" > "$SANITIZED"
-  if grep -qE '^[[:space:]]*[A-Za-z_][A-Za-z0-9_]*[[:space:]]*:' "$SANITIZED"; then
+  if grep -qE '^[[:space:]]*(export[[:space:]]+)?[A-Za-z_][A-Za-z0-9_]*[[:space:]]*:' "$SANITIZED"; then
     echo "[entrypoint] Detected YAML-like env; converting to KEY=VALUE"
-    sed -E 's/^[[:space:]]*([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*:[[:space:]]*/\1=/' -i "$SANITIZED"
   fi
+  # Normalize common dotenv variants so the file can be safely sourced:
+  # - KEY: value   -> KEY=value
+  # - KEY = value  -> KEY=value
+  # - export KEY = value -> export KEY=value
+  sed -E -i \
+    -e 's/^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*:[[:space:]]*/\1\2=/' \
+    -e 's/^[[:space:]]*(export[[:space:]]+)?([A-Za-z_][A-Za-z0-9_]*)[[:space:]]*=[[:space:]]*/\1\2=/' \
+    -e 's/[[:space:]]+$//' \
+    "$SANITIZED"
   set -a; . "$SANITIZED"; set +a
 else
   echo "[entrypoint] No $DOTENV found — skipping"
