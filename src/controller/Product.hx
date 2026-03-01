@@ -1,4 +1,5 @@
 package controller;
+
 import Common;
 import form.CamapForm;
 import haxe.io.Bytes;
@@ -17,109 +18,106 @@ import thx.Error;
 
 using Std;
 
-class UnchangedValidator<T> extends Validator<T>
-{
-	private var ref: T;
-	private var changeError: String;
+class UnchangedValidator<T> extends Validator<T> {
+	private var ref:T;
+	private var changeError:String;
+
 	public function new(ref:T, changeError:String) {
 		super();
 		this.ref = ref;
 		this.changeError = changeError;
 	}
+
 	override public function isValid(value) {
-		if(value != ref)
+		if (value != ref)
 			errors.add(this.changeError);
 		return value == ref;
 	}
 }
 
-class Product extends Controller
-{
-	public function new()
-	{
+class Product extends Controller {
+	public function new() {
 		super();
-		view.nav = ["contractadmin","products"];
+		view.nav = ["contractadmin", "products"];
 	}
-	
+
 	@tpl('form.mtt')
 	function doEdit(product:db.Product) {
-		
-		if (!app.user.canManageContract(product.catalog)) throw t._("Forbidden access");
-		
+		if (!app.user.canManageContract(product.catalog))
+			throw t._("Forbidden access");
+
 		var f = ProductService.getForm(product);
 
-		var hasOrders = !db.UserOrder.manager.search(
-					$productId == product.id,
-					{ limit: 1 }
-				)
-				.isEmpty();
+		var hasOrders = !db.UserOrder.manager.search($productId == product.id, {limit: 1}).isEmpty();
 
 		var oldPrice = {
 			price: product.price,
 			qt: product.qt,
 			unitType: product.unitType
 		};
-		if(hasOrders) {
+		if (hasOrders) {
 			checkToken();
+			var dupUrl = "/product/copyAndDiscard/" + product.id + "?token=" + view.token;
+			var price = f.getElement("price");
+			f.addElement(new sugoi.form.elements.Html("price_immutable", t._("::price::<br/>
+					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son prix.<br/>
+					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {price: view.formatNum(product.price)
+					+ '&nbsp;' + view.currency(),
+					url: dupUrl
+				}), price.label), f.getElements().indexOf(price));
+			price.remove();
 			var qt = f.getElement("qt");
-			f.addElement(new sugoi.form.elements.Html(
-				"quantity_immutable",
-				t._(
-					"::qt:: ::unitType::<br/>
+			f.addElement(new sugoi.form.elements.Html("quantity_immutable", t._("::qt:: ::unitType::<br/>
 					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>
-					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>",
-				{
+					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {
 					qt: product.qt,
 					unitType: product.unitType,
-					url: "/product/copyAndDiscard/"+product.id+"?token="+view.token
-				}),
-				qt.label ),
-				f.getElements().indexOf(qt)
-			);
+					url: dupUrl
+				}), qt.label), f.getElements().indexOf(qt));
 			qt.remove();
 			f.removeElementByName("unitType");
 		}
-		
-		if (f.isValid()) {
 
+		if (f.isValid()) {
 			f.toSpod(product);
 			ProductService.updateProductStocksConfiguration(f, product);
 
-			try{
-				if(hasOrders) {
-					if(product.qt != oldPrice.qt)
+			try {
+				if (hasOrders) {
+					if (product.price != oldPrice.price)
+						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son prix");
+					if (product.qt != oldPrice.qt)
 						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base");
-					if(product.unitType != oldPrice.unitType)
+					if (product.unitType != oldPrice.unitType)
 						throw new tink.core.Error("Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base");
 				}
 
 				ProductService.check(product);
-			}catch(e:tink.core.Error){
-				throw Error(sugoi.Web.getURI(),e.message);
+			} catch (e:tink.core.Error) {
+				throw Error(sugoi.Web.getURI(), e.message);
 			}
 			app.event(EditProduct(product));
 			product.update();
-			throw Ok('/contractAdmin/products/'+product.catalog.id, t._("The product has been updated"));
+			throw Ok('/contractAdmin/products/' + product.catalog.id, t._("The product has been updated"));
 		} else {
 			app.event(PreEditProduct(product));
 		}
 
 		CamapForm.addRichText(f, 'textarea');
-		
+
 		view.form = f;
 		view.title = t._("Modify a product");
 	}
-	
-	@tpl("form.mtt")
-	public function doInsert(contract:db.Catalog ) {
-		
-		if (!app.user.isContractManager(contract)) throw Error("/", t._("Forbidden action")); 
-		
-		var product = new db.Product();
-		var f = ProductService.getForm(null,contract);
-	
-		if (f.isValid()) {
 
+	@tpl("form.mtt")
+	public function doInsert(contract:db.Catalog) {
+		if (!app.user.isContractManager(contract))
+			throw Error("/", t._("Forbidden action"));
+
+		var product = new db.Product();
+		var f = ProductService.getForm(null, contract);
+
+		if (f.isValid()) {
 			f.toSpod(product);
 			product.catalog = contract;
 			// update stockValue if needed
@@ -137,37 +135,34 @@ class Product extends Controller
 				}
 			}
 
-			try{
+			try {
 				ProductService.check(product);
-			}catch(e:tink.core.Error){
-				throw Error(sugoi.Web.getURI(),e.message);
+			} catch (e:tink.core.Error) {
+				throw Error(sugoi.Web.getURI(), e.message);
 			}
-			
+
 			app.event(NewProduct(product));
 			product.insert();
 			// the product must exists for the stockConfiguration to work, so update the stockConfig after creating the product
 			ProductService.updateProductStocksConfiguration(f, product);
 
-			throw Ok('/contractAdmin/products/'+product.catalog.id, t._("The product has been saved"));
-		}
-		else {
-
+			throw Ok('/contractAdmin/products/' + product.catalog.id, t._("The product has been saved"));
+		} else {
 			app.event(PreNewProduct(contract));
 		}
-		
+
 		CamapForm.addRichText(f, 'textarea');
 		view.form = f;
 		view.title = t._("Key-in a new product");
 	}
-	
+
 	public function doDelete(p:db.Product) {
-		
-		if (!app.user.canManageContract(p.catalog)) throw t._("Forbidden access");
-		
+		if (!app.user.canManageContract(p.catalog))
+			throw t._("Forbidden access");
+
 		if (checkToken()) {
-			
 			app.event(DeleteProduct(p));
-			
+
 			var orders = db.UserOrder.manager.search($productId == p.id, false);
 			if (orders.length > 0) {
 				throw Error("/contractAdmin", t._("Not possible to delete this product because some orders are referencing it"));
@@ -175,18 +170,17 @@ class Product extends Controller
 			var cid = p.catalog.id;
 			p.lock();
 			p.delete();
-			
-			throw Ok("/contractAdmin/products/"+cid, t._("Product deleted"));
+
+			throw Ok("/contractAdmin/products/" + cid, t._("Product deleted"));
 		}
 		throw Error("/contractAdmin", t._("Token error"));
 	}
-	
-	public function doCopyAndDiscard(p:db.Product) {
 
-		if (!app.user.canManageContract(p.catalog)) throw t._("Forbidden access");
-		
+	public function doCopyAndDiscard(p:db.Product) {
+		if (!app.user.canManageContract(p.catalog))
+			throw t._("Forbidden access");
+
 		if (checkToken()) {
-			
 			p.lock();
 			var p2 = p.clone();
 			p2.insert();
@@ -194,43 +188,51 @@ class Product extends Controller
 			p.active = false;
 			p.update();
 
-			throw Ok("/contractAdmin/products/"+p.catalog.id, t._("Product copied"));
+			throw Ok("/contractAdmin/products/" + p.catalog.id, t._("Product copied"));
 		}
 		throw Error("/contractAdmin", t._("Token error"));
-
 	}
-	
+
 	@tpl('product/import.mtt')
-	function doImport(c:db.Catalog, ?args: { confirm:Bool } ) {
-		
-		if (!app.user.canManageContract(c)) throw t._("Forbidden access");
-			
+	function doImport(c:db.Catalog, ?args:{confirm:Bool}) {
+		if (!app.user.canManageContract(c))
+			throw t._("Forbidden access");
+
 		var csv = new sugoi.tools.Csv();
 		csv.step = 1;
 		var request = sugoi.tools.Utils.getMultipart(1024 * 1024 * 4);
-		csv.setHeaders( ["productName","price","ref","desc", "vat", "qt", "unit", "organic", "bulk", "variablePrice"] );
+		csv.setHeaders([
+			"productName",
+			"price",
+			"ref",
+			"desc",
+			"vat",
+			"qt",
+			"unit",
+			"organic",
+			"bulk",
+			"variablePrice"
+		]);
 		view.contract = c;
-		
+
 		// get the uploaded file content
 		if (request.get("file") != null) {
 			var csvData = request.get("file");
 			csvData = Formatting.utf8(csvData);
 			var datas = csv.importDatasAsMap(csvData);
-			
+
 			app.session.data.csvImportedData = datas;
-			
+
 			csv.step = 2;
 			view.csv = csv;
 		}
-		
-		if (args != null && args.confirm) {
-			var i : Iterable<Map<String,String>> = cast app.session.data.csvImportedData;
-			var fv = new sugoi.form.filters.FloatFilter();
-			
-			for (p in i) {
-				
-				if (p["productName"] != null){
 
+		if (args != null && args.confirm) {
+			var i:Iterable<Map<String, String>> = cast app.session.data.csvImportedData;
+			var fv = new sugoi.form.filters.FloatFilter();
+
+			for (p in i) {
+				if (p["productName"] != null) {
 					var product = new db.Product();
 					product.name = p["productName"];
 					product.price = fv.filterString(p["price"]);
@@ -238,19 +240,19 @@ class Product extends Controller
 					product.desc = p["desc"];
 					product.vat = fv.filterString(p["vat"]);
 					product.qt = fv.filterString(p["qt"]);
-					if(p["unit"]!=null){
-						product.unitType = switch(p["unit"].toLowerCase()){
-							case "kg" : Kilogram;
-							case "kilogram" : Kilogram;
-							case "g" : Gram;
-							case "gram" : Gram;
-							case "l" : Litre;
-							case "litre" : Litre;
-							case "cl" : Centilitre;
-							case "centilitre" : Centilitre;
-							case "ml" : Millilitre;
-							case "millilitre" : Millilitre;
-							default : Piece;
+					if (p["unit"] != null) {
+						product.unitType = switch (p["unit"].toLowerCase()) {
+							case "kg": Kilogram;
+							case "kilogram": Kilogram;
+							case "g": Gram;
+							case "gram": Gram;
+							case "l": Litre;
+							case "litre": Litre;
+							case "cl": Centilitre;
+							case "centilitre": Centilitre;
+							case "ml": Millilitre;
+							case "millilitre": Millilitre;
+							default: Piece;
 						}
 					}
 					product.stock = null;
@@ -271,59 +273,63 @@ class Product extends Controller
 					} else {
 						product.variablePrice = false;
 					}
-															
+
 					product.catalog = c;
 					product.insert();
 				}
-				
 			}
-			
+
 			view.numImported = app.session.data.csvImportedData.length;
 			app.session.data.csvImportedData = null;
-			
+
 			csv.step = 3;
 		}
-		
+
 		if (csv.step == 1) {
-			//reset import when back to import page
-			app.session.data.csvImportedData =	null;
+			// reset import when back to import page
+			app.session.data.csvImportedData = null;
 		}
-		
+
 		view.step = csv.step;
 	}
-	
-	public function doExport(c:db.Catalog){
 
+	public function doExport(c:db.Catalog) {
 		var data = new Array<Dynamic>();
 		for (p in c.getProducts(false)) {
 			data.push({
-				//"id": p.id,
+				// "id": p.id,
 				"name": p.name,
 				"price": p.price,
 				"ref": p.ref,
 				"desc": p.desc,
 				"vat": p.vat,
 				"quantity": p.qt,
-				//"catalogId": c.id,
+				// "catalogId": c.id,
 				"unit": p.unitType,
 				"organic": p.organic,
 				"bulk": p.bulk,
 				"variablePrice": p.variablePrice,
-				//"vendorId": c.vendor.id,
+				// "vendorId": c.vendor.id,
 				"active": p.active,
-				//"image": "https://"+App.config.HOST+p.getImage(),
+				// "image": "https://"+App.config.HOST+p.getImage(),
 			});
 		}
 
-//		sugoi.tools.Csv.printCsvDataFromObjects(data, [
-//			"id", "name", "ref", "price", "vat", "catalogId", "vendorId", "unit", "quantity", "active", "image"], "Export-produits-" + c.name + "-CAMAP");
-//		return;
-	sugoi.tools.Csv.printCsvDataFromObjects(data, [
-			"name", "price", "ref", "desc", "vat", "quantity", "unit", "organic", "bulk", "variablePrice"], "Export-produits-" + c.name + "-CAMAP");
+		//		sugoi.tools.Csv.printCsvDataFromObjects(data, [
+		//			"id", "name", "ref", "price", "vat", "catalogId", "vendorId", "unit", "quantity", "active", "image"], "Export-produits-" + c.name + "-CAMAP");
+		//		return;
+		sugoi.tools.Csv.printCsvDataFromObjects(data, [
+			"name",
+			"price",
+			"ref",
+			"desc",
+			"vat",
+			"quantity",
+			"unit",
+			"organic",
+			"bulk",
+			"variablePrice"
+		], "Export-produits-" + c.name + "-CAMAP");
 		return;
-		
 	}
-	
-	
-	
 }
