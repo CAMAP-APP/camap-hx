@@ -44,7 +44,7 @@
 			
 			$$edit(::_("Duplicate")::,/contractAdmin/duplicate/::c.id::)
 
-			::if user.canManageAllContracts()::
+			::if user.canManageContract(c)::
 				$$delete(Supprimer,/contractAdmin/delete/::c.id::?token=::token::)
 				<div style="margin-top:8px">
 					<div class="alert alert-warning">
