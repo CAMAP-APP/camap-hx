@@ -14,8 +14,8 @@
 		::else::
 			::user.firstName2::
 		::end::
-		 !
-		</h2>				
+		&nbsp;!
+		</h2>			
 	</div>
 
 	<div class="col-md-12" ::cond (user.isVendor() || user.claimableVendors().length > 0)::>
@@ -56,7 +56,7 @@
 	<!-- actions -->
 	<div class="col-md-12 text-center" style="margin-bottom:12px;" >
 		::if session.lang!="de"::
-			<a class="btn btn-default btn-lg" href="/group/map">
+			<a class="btn btn-default btn-lg" style="white-space: unset" href="/group/map">
 				<i class="icon icon-search"></i> ::_("Find other groups near me")::
 			</a>
 		::end::

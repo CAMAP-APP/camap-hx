@@ -73,6 +73,7 @@ html {
 body {
   font-family: Cabin, Arial, Helvetica, sans-serif;
   color: #333333;
+  min-width: 320px;
 }
 
 h1 {
@@ -186,7 +187,7 @@ form p.desc {
   margin-bottom: 8px !important;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 575px) {
   .navbar {
     margin-left: -15px;
     margin-right: -15px;
@@ -208,7 +209,7 @@ form p.desc {
   display: inline-block;
   color: #777;
 }
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 575px) {
   .navbar-header-current {
     font-size: 14px;
   }
@@ -237,12 +238,18 @@ ul.nav li.active > a {
 }
 
 .noSelect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 .alert-warning a {
@@ -724,7 +731,7 @@ div.reportHeader {
 .header .accountBlock .css-wkfemu {
   background-color: #eb7334;
 }
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .header .accountBlock {
     font-size: 14px;
     flex-shrink: 10;
@@ -758,7 +765,7 @@ div.reportHeader {
     line-height: 14px;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .header .camap-title {
     height: 48px;
     gap: 12px;
@@ -789,7 +796,7 @@ div.reportHeader {
     line-height: 14px;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .header {
     flex-wrap: wrap;
   }
@@ -954,7 +961,8 @@ div.reportHeader {
   color: #333333;
   border-radius: 4px;
 }
-.dateBox .boxLeft, .dateBox .boxRight {
+.dateBox .boxLeft,
+.dateBox .boxRight {
   position: relative;
   display: flex;
   flex-direction: column;
