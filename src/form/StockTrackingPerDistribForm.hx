@@ -24,7 +24,8 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		this.stockElement = stockElement;
 		this.distributionsStocks = distributionsStocks;
 		this.distribs = distribs;
-		if (this.distribs == null) this.distribs = new List<db.Distribution>();
+		if (this.distribs == null)
+			this.distribs = new List<db.Distribution>();
 		this.enumStrings = Type.getEnumConstructs(StockTrackingPerDistribution);
 	}
 
@@ -78,11 +79,13 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 
 	override function getFullRow():String {
 		var s = new StringBuf();
-		if (Form.USE_TWITTER_BOOTSTRAP) s.add('<div class="form-group">\n');
+		if (Form.USE_TWITTER_BOOTSTRAP)
+			s.add('<div class="form-group">\n');
 		s.add('<div class="col-sm-2"></div>');
 		s.add(this.render());
 		// s.add('</div>\n');
-		if (Form.USE_TWITTER_BOOTSTRAP) s.add('</div>\n');
+		if (Form.USE_TWITTER_BOOTSTRAP)
+			s.add('</div>\n');
 		return s.toString();
 	}
 
@@ -96,12 +99,14 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		var choiceIdx:Int = StockTrackingPerDistribution.AlwaysTheSame.getIndex();
 		var isChecked = choiceIdx == this.value;
 		var radio = '<input type="radio" name="${n}" id="${n}_AlwaysTheSame" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} />';
-		s += '<label for="${n}_AlwaysTheSame" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.AlwaysTheSame.getName())}</label>';
+		s += '<label for="${n}_AlwaysTheSame" style="display: inline-block;">${radio} ${choiceIdx + 1}. ${App.t._(StockTrackingPerDistribution.AlwaysTheSame.getName())}</label>';
 		s += '<fieldset id="${n}_AlwaysTheSame_fieldset" disabled="disabled" style="padding:12px 24px;">';
 		s += '	<div>${App.t._("A chaque distribution, le stock défini sera disponible à la vente.")}</div>';
 		var alwaysTheSameStockElem = new StringInput("stock_AlwaysTheSame", stockElement.label, stockElement.value, stockElement.required);
 		alwaysTheSameStockElem.parentForm = parentForm;
-		s += '	<div class="flex-row"><label for="${parentForm.name}_stock_AlwaysTheSame" class="control-label" style="padding-right: 16px;">${alwaysTheSameStockElem.label}</label>' +  alwaysTheSameStockElem.render() + '</div>';
+		s += '	<div class="flex-row"><label for="${parentForm.name}_stock_AlwaysTheSame" class="control-label" style="padding-right: 16px;">${alwaysTheSameStockElem.label}</label>'
+			+ alwaysTheSameStockElem.render()
+			+ '</div>';
 		s += '</fieldset>';
 
 		// à fréquence régulière
@@ -109,14 +114,15 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		isChecked = choiceIdx == this.value;
 		var hasDistribs = this.distribs.length > 0;
 		var radio = '<input type="radio" name="${n}" id="${n}_FrequencyBased" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} ${hasDistribs ? '' : 'disabled="disabled"'} />';
-		s += '<label for="${n}_FrequencyBased" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.FrequencyBased.getName())}</label>';
+		s += '<label for="${n}_FrequencyBased" style="display: inline-block;">${radio} ${choiceIdx + 1}. ${App.t._(StockTrackingPerDistribution.FrequencyBased.getName())}</label>';
 		s += '<fieldset id="${n}_FrequencyBased_fieldset" disabled="disabled" style="padding:12px 24px;display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">';
-		if (!hasDistribs) s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
+		if (!hasDistribs)
+			s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
 		s += '	<div>${App.t._("Le stock définit ici sera disponible uniquement à la fréquence choisir et égal à 0 sinon.")}<br/>';
 		s += '	${App.t._("La date de départ permet de choisir la première date de distribution où le produit est disponible.")}</div>';
-	
+
 		// 		Choix de la distrib de début d'alternance
-		var distribsData = Lambda.map(this.distribs, function(c) return {label:Formatting.dDate(c.date),value: Std.string(c.id)} ).array();
+		var distribsData = Lambda.map(this.distribs, function(c) return {label: Formatting.dDate(c.date), value: Std.string(c.id)}).array();
 		var selectedDistrib = distributionsStocks.length > 0 ? Std.string(distributionsStocks.first().startDistribution.id) : null;
 		var distribSelector = new Selectbox("firstDistrib", "Date de départ de l'alternance", distribsData, selectedDistrib, false, "");
 		distribSelector.parentForm = this.parentForm;
@@ -131,7 +137,7 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		var freqRadioName = parentForm.name + "_frequencyRatio";
 		s += '<div class="flex-row">';
 		s += '	<label for="${freqRadioName}" class="control-label" style="padding-right: 16px; width: 350px;text-align:left;">${App.t._("Fréquence choisie (1/2 = 1 distribution sur 2 à partir de la Date de départ de l'alternance)")}</label>';
-		var frequencies = [2,3,4]; // 1/2, 1/3, 1/4.
+		var frequencies = [2, 3, 4]; // 1/2, 1/3, 1/4.
 		for (freq in frequencies) {
 			var isFreqChecked = distributionsStocks.length > 0 && distributionsStocks.first().frequencyRatio == freq;
 			var radio = '<input type="radio" name="${freqRadioName}" id="${freqRadioName + freq}" value="${freq}" style="margin-right: 6px;" ${isFreqChecked ? "checked" : ""}/>\n';
@@ -140,14 +146,14 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		s += '</div>';
 		s += '</fieldset>';
 
-		
 		// Par période
 		choiceIdx = StockTrackingPerDistribution.PerPeriod.getIndex();
 		isChecked = choiceIdx == this.value;
 		var radio = '<input type="radio" name="${n}" id="${n}_PerPeriod" value="${choiceIdx}" style="margin-right: 6px;" ${isChecked ? "checked" : ""} ${hasDistribs ? '' : 'disabled="disabled"'} />';
-		s += '<label for="${n}_PerPeriod" style="display: inline-block;">${radio} ${choiceIdx+1}. ${App.t._(StockTrackingPerDistribution.PerPeriod.getName())}</label>';
+		s += '<label for="${n}_PerPeriod" style="display: inline-block;">${radio} ${choiceIdx + 1}. ${App.t._(StockTrackingPerDistribution.PerPeriod.getName())}</label>';
 		s += '<fieldset id="${n + "_PerPeriod_fieldset"}" disabled="disabled" style="padding:12px 24px;">';
-		if (!hasDistribs) s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
+		if (!hasDistribs)
+			s += '	<div style="color:red;font-weight:bold;">${App.t._("Cette fonctionnalité nécessite que des distributions soient planifiées.")}</div><br/>';
 		s += '	<div>${App.t._("Vous pouvez définir ici une ou plusieurs périodes pour lesquelles indiquer un stock disponible à chaque distribution. Le stock des distributions non incluses dans les périodes définies sera égale à 0.")}</div>';
 		s += '	<button type="button" class="btn btn-primary btn-noAntiDoubleClick" id="${n}_addPeriodButton" style="margin: 12px 0;">${_("Add period")}</button>';
 		s += '<div class="periods">';
@@ -156,29 +162,35 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 			var initial = new ProductDistributionStock();
 			initial.stockPerDistribution = stockElement.value != null ? stockElement.value : 0;
 			initial.startDistribution = this.distribs.first(); // can be null !
-			initial.endDistribution = this.distribs.last();  // can be null !
+			initial.endDistribution = this.distribs.last(); // can be null !
 			distributionsStocks.add(initial);
 		}
 		for (distribStock in distributionsStocks) {
 			s += '<div class="flex-row stockTrackingPeriod" style="align-items:center;gap:8px;margin: 6px 0">Du ';
-			s += renderDistribSelect('${App.t._("Première distribution de la période")} ${c+1}', '${parentForm.name}_startDistributionId[${c}]','${parentForm.name}_startDistributionId[]', distribsData, Std.string(distribStock.startDistribution.id));
+			s += renderDistribSelect('${App.t._("Première distribution de la période")} ${c + 1}', '${parentForm.name}_startDistributionId[${c}]',
+				'${parentForm.name}_startDistributionId[]', distribsData, Std.string(distribStock.startDistribution.id));
 			s += ' Au ';
-			s += renderDistribSelect('Dernière distribution de la période ${c+1}', '${parentForm.name}_endDistributionId[${c}]','${parentForm.name}_endDistributionId[]', distribsData, Std.string(distribStock.endDistribution.id));
-			var periodStockElem = new StringInput('stockPerDistribution[]', stockElement.label, Std.string(distribStock.stockPerDistribution), stockElement.required);
+			s += renderDistribSelect('Dernière distribution de la période ${c + 1}', '${parentForm.name}_endDistributionId[${c}]',
+				'${parentForm.name}_endDistributionId[]', distribsData, Std.string(distribStock.endDistribution.id));
+			var periodStockElem = new StringInput('stockPerDistribution[]', stockElement.label, Std.string(distribStock.stockPerDistribution),
+				stockElement.required);
 			periodStockElem.parentForm = parentForm;
 			s += '	<label for="${parentForm.name}_stockPerDistribution[]" class="control-label" style="white-space:nowrap;">${periodStockElem.label}</label>${periodStockElem.render()}';
 			s += '	<button type="button" class="btn btn-primary" onclick="(e=>{e.preventDefault();e.currentTarget.parentElement.remove();})(event)">${_("Remove")}</button>';
-			s+= '</div>';
+			s += '</div>';
 			c++;
 		}
 		s += '</div>';
 		s += '</fieldset>';
 
-
 		s += '</div>';
 		s += '
 <script type="text/javascript">
-	_Camap.InitStockTrackingComponent("'+parentForm.name+'", "'+name+'");
+	_Camap.InitStockTrackingComponent("'
+			+ parentForm.name
+			+ '", "'
+			+ name
+			+ '");
 </script>';
 		s += '
 <style>
@@ -188,13 +200,13 @@ class StockTrackingPerDistribForm extends FormElement<Int> {
 		return s;
 	}
 
-	function renderDistribSelect(title: String, id:String, name:String, data:Array<{label:String,value:String}>, selectedValue:String) {
+	function renderDistribSelect(title:String, id:String, name:String, data:Array<{label:String, value:String}>, selectedValue:String) {
 		var s = "";
 		s += '\n<select name="${name}" id="${id}" class="form-control" title="${title}" />';
 
-		if (data != null){	
+		if (data != null) {
 			for (row in data) {
-				s += '<option value="${row.value}" ${row.value == selectedValue ? "selected":""}>${row.label}</option>';
+				s += '<option value="${row.value}" ${row.value == selectedValue ? "selected" : ""}>${row.label}</option>';
 			}
 		}
 		s += "</select>";

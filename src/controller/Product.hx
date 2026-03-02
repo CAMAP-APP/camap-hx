@@ -61,7 +61,7 @@ class Product extends Controller {
 					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>
 					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {
 					qt: product.qt,
-					unitType: product.unitType,
+					unitType: Formatting.unit(product.unitType),
 					url: dupUrl
 				}), qt.label), f.getElements().indexOf(qt));
 			qt.remove();
