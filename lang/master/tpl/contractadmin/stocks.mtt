@@ -92,6 +92,9 @@
 				::if p.organic ::<i class="icon icon-bio" style="vertical-align: text-top"></i>::end::
 				::if p.variablePrice ::<i class="icon icon-scale" style="vertical-align: middle"></i>::end::
 				</div>
+				<a href="/product/edit/::p.id::" class="btn btn-default btn-sm" style="float: right; margin-top:-10px">
+					<i class="icon icon-edit"></i>
+				</a>
 			</td>
 			<td style="text-align:center;font-size:90%;line-height:1;padding-top:12px">
 				<span ::cond p.stockTracking != null && p.stockTracking == 1::>::_("Global")::</span>
