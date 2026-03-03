@@ -2,19 +2,8 @@ package controller;
 
 import Common;
 import form.CamapForm;
-import haxe.io.Bytes;
-import haxe.io.Encoding;
-import neko.Utf8;
 import service.ProductService;
-import sugoi.form.Form;
-import sugoi.form.ListData.FormData;
-import sugoi.form.elements.FloatInput;
-import sugoi.form.elements.FloatSelect;
-import sugoi.form.elements.IntSelect;
-import sugoi.form.validators.EmailValidator;
 import sugoi.form.validators.Validator;
-import sys.db.RecordInfos;
-import thx.Error;
 
 using Std;
 
@@ -67,11 +56,12 @@ class Product extends Controller {
 				}), price.label), f.getElements().indexOf(price));
 			price.remove();
 			var qt = f.getElement("qt");
-			f.addElement(new sugoi.form.elements.Html("quantity_immutable", t._("::qt:: ::unitType::<br/>
+			f.addElement(new sugoi.form.elements.Html("quantity_immutable", t._("
+					::qt:: ::unitType::<br/>
 					Ce produit a déja des commandes passées ou en cours, vous ne pouvez pas modifier son unité de base.<br/>
 					Vous pouvez le <a href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une copie</a>", {
 					qt: product.qt,
-					unitType: product.unitType,
+					unitType: Formatting.unit(product.unitType),
 					url: dupUrl
 				}), qt.label), f.getElements().indexOf(qt));
 			qt.remove();
