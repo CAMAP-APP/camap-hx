@@ -6,6 +6,21 @@
 <meta property="og:description" content="::amap.txtIntro::" />
 <meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
 
+<style>
+div.homeProductImg {
+	margin: 0 12px 0 0;
+}
+@media screen and (max-width: 575px) {
+	div.homeProductImg {
+		margin: 0 8px 0 0;
+		width: 48px;
+		height: 48px;
+		border-radius: 8px;
+	}
+}
+</style>
+
+
 $$browserDetection()
 <div style="margin-top:12px;"></div>
 
@@ -56,7 +71,7 @@ $$browserDetection()
 			<a href="/subscriptions/contract/::c.id::" class="clickable groupBlock" style="height:unset;">
 				::set v = c._vendor::
 				::if v.imageId!=null::
-					<div style="background-image:url('::file(v.imageId)::');float:left;margin-right:12px;" class="productImg hidden-xs" />
+					<div style="background-image:url('::file(v.imageId)::');float:left;" class="productImg homeProductImg" />
 				::else::
 					<div style="float:left;margin-right:12px;" class="productImg" />
 				::end::
@@ -363,7 +378,9 @@ $$browserDetection()
 		</div>
 		
 		::if amap.txtHome!=null && amap.txtHome!=""::
+		<div class="block" style="word-wrap: break-word;">
 		::raw sanitize(amap.txtHome)::
+		</div>
 		::end::
 
 	</div>
