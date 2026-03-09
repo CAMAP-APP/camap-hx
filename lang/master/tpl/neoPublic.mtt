@@ -2,7 +2,7 @@
 
 $$browserDetection()
 
-<meta property="og:type"content="website" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="https://::HOST::/::og.path::" />
 <meta property="og:title" content="::og.title::" />
 <meta property="og:description" content="::og.description::" />
@@ -13,27 +13,28 @@ $$browserDetection()
 	body.container-fluid {
 		max-width: 1400px;
 	}
+
 	@media (min-width: 1440px) {
 		.container {
 			width: 1400px;
 		}
 	}
+
 	nav {
 		margin: 24px;
 	}
+
 	.charIcon {
 		font-family: monospace;
 		padding-right: 12px;
 		font-size: 20px;
 		line-height: 20px;
-	}	
+	}
 </style>
 '::
 
 <nav>
-	<ol class="breadcrumb">
-		<li><a href="/user/choose"><span class="charIcon">&lt;</span> ::_("Back")::</a></li>
-	</ol>
+	<a href="/user/choose" class="btn btn-primary"><span class="charIcon">&lt;</span>::_("Home")::</a>
 </nav>
 
 $$neoModule(::containerId::, ::module::, ::raw neoArgs(args)::)
