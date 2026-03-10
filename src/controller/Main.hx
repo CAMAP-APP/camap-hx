@@ -30,14 +30,14 @@ class Main extends Controller {
 	}
 
 	function doDefault(?permalink:String) {
-		//Check for maintenance
+		// Check for maintenance
 		var maintain = sugoi.db.Variable.getInt("maintain") != 0;
-        var user = app.user;
-		//bypass maintenance for admins		
-		if( maintain && (user != null && user.isAdmin()) ){
+		var user = app.user;
+		// bypass maintenance for admins
+		if (maintain && (user != null && user.isAdmin())) {
 			maintain = false;
-		} 
-		if( maintain ) {
+		}
+		if (maintain) {
 			app.setTemplate("maintain.mtt");
 			return;
 		}
@@ -66,10 +66,10 @@ class Main extends Controller {
 		addBc("home", "Commandes", "/home");
 
 		// If the session has been closed, Neko has been logged out while Nest might still be logged in
-		if (app.user == null){
+		if (app.user == null) {
 			var cookies = Web.getCookies();
 			var authSidCookie = cookies["Auth_sid"];
-			if (authSidCookie != null && authSidCookie != view.sid){
+			if (authSidCookie != null && authSidCookie != view.sid) {
 				throw Redirect('/user/logout');
 			}
 		}
@@ -79,7 +79,7 @@ class Main extends Controller {
 			throw Redirect("/user/choose");
 		} else if (app.user == null && (group == null || group.regOption != db.Group.RegOption.Open)) {
 			throw Redirect("/user/login");
-		}else if(group.disabled!=null){
+		} else if (group.disabled != null) {
 			throw Redirect("/group/disabled");
 		}
 
@@ -126,39 +126,41 @@ class Main extends Controller {
 
 		// message if phone is required
 		if (app.user != null && group.flags.has(db.Group.GroupFlags.PhoneRequired) && app.user.phone == null) {
-			app.session.addMessage("Les membres de ce groupe doivent fournir un numéro de téléphone. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
+			app.session.addMessage("Les membres de ce groupe doivent fournir un numéro de téléphone. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",
+				true);
 		}
 
 		// message if address is required
 		if (app.user != null && group.flags.has(db.Group.GroupFlags.AddressRequired) && app.user.city == null) {
-			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",true);
+			app.session.addMessage("Les membres de ce groupe doivent fournir leur adresse. <a href='/account'>Cliquez ici pour mettre à jour votre compte</a>.",
+				true);
 		}
 
 		// Message aux admins
 		if (app.user != null && isMemberOfGroup) {
 			var ug = app.user.getUserGroup(app.getCurrentGroup());
-			if(ug.getRights().length>0 || app.user.isAdmin()){
+			if (ug.getRights().length > 0 || app.user.isAdmin()) {
 				var attMessageAdmins = Variable.get("attMessageAdmins");
 				var msgAlert = "false";
-				if (Variable.get("attMessageAdminsAlert") == "true"){
-				msgAlert = "true";
-				} 
+				if (Variable.get("attMessageAdminsAlert") == "true") {
+					msgAlert = "true";
+				}
 				if (attMessageAdmins != "" && attMessageAdmins != null && attMessageAdmins != "null") {
 					if (msgAlert == "true") {
-						App.current.session.addMessage(attMessageAdmins,true);
+						App.current.session.addMessage(attMessageAdmins, true);
 					} else {
 						App.current.session.addMessage(attMessageAdmins);
 					}
 				}
 			}
 		}
-	
+
 		// Message à tous les membres
 		var attMessage = Variable.get("attMessage");
 		if (attMessage != "" && attMessage != null && attMessage != "null") {
 			App.current.session.addMessage(attMessage);
 		}
-		
+
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
 	}
@@ -178,7 +180,7 @@ class Main extends Controller {
 	 */
 	function doApi(d:Dispatch) {
 		sugoi.Web.setHeader("Content-Type", "application/json");
-		sugoi.Web.setHeader("Access-Control-Allow-Credentials","true");
+		sugoi.Web.setHeader("Access-Control-Allow-Credentials", "true");
 		try {
 			d.dispatch(new controller.Api());
 		} catch (e:tink.core.Error) {
@@ -225,7 +227,6 @@ class Main extends Controller {
 		d.dispatch(new controller.Account());
 	}
 
-	@logged
 	function doVendor(d:Dispatch) {
 		addBc("contractAdmin", "Producteur", "/contractAdmin");
 		d.dispatch(new controller.Vendor());
@@ -297,17 +298,16 @@ class Main extends Controller {
 	}
 
 	@tpl('invite.mtt')
-	function doInvite(hash:String, userEmail:String, group:db.Group, ?user:db.User){
-
-		if (haxe.crypto.Sha1.encode(App.config.KEY+userEmail) != hash){
-			throw Error("/","Lien invalide");
+	function doInvite(hash:String, userEmail:String, group:db.Group, ?user:db.User) {
+		if (haxe.crypto.Sha1.encode(App.config.KEY + userEmail) != hash) {
+			throw Error("/", "Lien invalide");
 		}
 
 		app.session.data.amapId = group.id;
 
-		if (user!=null) {
-			db.UserGroup.getOrCreate(user,group);
-			throw Ok("/", t._("You're now a member of \"::group::\" ! You'll receive an email as soon as next order will open", {group:group.name}));
+		if (user != null) {
+			db.UserGroup.getOrCreate(user, group);
+			throw Ok("/", t._("You're now a member of \"::group::\" ! You'll receive an email as soon as next order will open", {group: group.name}));
 		} else {
 			service.UserService.prepareLoginBoxOptions(view, group);
 			view.invitedUserEmail = userEmail;
@@ -319,7 +319,6 @@ class Main extends Controller {
 		Sys.print(haxe.Json.stringify({version: App.VERSION.toString()}));
 	}
 
-	
 	/**
 		backoffice for superadmins
 	**/
@@ -328,7 +327,6 @@ class Main extends Controller {
 		d.dispatch(new controller.admin.Admin());
 	}
 
-
 	/**
 		Maintenance and migration scripts to run in CLI like "neko index.n scripts/scriptAction"
 	**/
@@ -336,13 +334,14 @@ class Main extends Controller {
 		try {
 			d.dispatch(new controller.Scripts());
 		} catch (e:Dynamic) {
-			//errors for CLI context
+			// errors for CLI context
 			sugoi.Web.setReturnCode(500);
 			var stack = haxe.CallStack.toString(haxe.CallStack.exceptionStack());
 			App.current.logError(e, stack);
 			Sys.println("");
 			Sys.println(Std.string(e));
-			for(m in stack.split("\n")) Sys.println(m);
+			for (m in stack.split("\n"))
+				Sys.println(m);
 			Sys.println("");
 			app.rollback();
 		}
@@ -355,6 +354,4 @@ class Main extends Controller {
 	public function doCgu() {
 		throw Redirect('/tos');
 	}
-
-
 }
