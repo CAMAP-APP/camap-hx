@@ -1,22 +1,33 @@
-::use 'base.mtt':: 
+::use 'base.mtt'::
 
 $$browserDetection()
 
 <div class="row header">
   <div class="camap-title">
-    <img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:100%;"/>
+    <img src="/theme/::theme.id::/logo3.png" alt="logo ::theme.name::" style="height:100%;" />
     <div style="display:flex;flex-flow:column;justify-content:center">
       <h1>CAMAP</h1>
       <h4>L'application libre de gestion d'AMAP</h4>
     </div>
   </div>
+
+  <div class="accountBlock">
+    <div class="pull-right links">
+      <div style="margin-top: -6px">
+        <a class="btn btn-default btn-sm" href="/group/map"><i class="icon icon-search"></i>
+          ::_("Look for another group")::
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 <div class="col-md-12" style="margin-bottom: 16px;">
   <div id='login-registration-container'></div>
   <script language="javascript">
-    document.addEventListener("DOMContentLoaded", function(event) {
-      _Camap.loginBox('::redirect::','::sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::, null, null, null, false);
+    document.addEventListener("DOMContentLoaded", function (event) {
+      _Camap.loginBox('::redirect::', '::sid::', null,:: loginBoxOptions.phoneRequired::,:: loginBoxOptions.addressRequired::, null, null, null, false);
     });
   </script>
 </div>

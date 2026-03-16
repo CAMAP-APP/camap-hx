@@ -3312,19 +3312,6 @@ msgstr "Pré-remplir tous les montants"
 msgid "Vendor is no Longer available"
 msgstr "Ce producteur n'est plus référencé"
 
-#: ../src/controller/Product.hx:1494
-msgid ""
-"::qt:: ::unitType::<br/>\n"
-"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
-"pouvez pas modifier son unité de base.<br/>\n"
-"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
-"btn-sm\">Désactiver et créer une copie</a>"
-msgstr ""
-"Ce produit a déjà des commandes passées ou en cours, vous ne pouvez pas "
-"modifier son unité de base.<br/>Vous pouvez le <a "
-"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
-"copie</a>"
-
 #: ../src/controller/Product.hx:5425
 msgid "Product copied"
 msgstr "Produit dupliqué"
@@ -3340,6 +3327,33 @@ msgstr "Rafraîchir les soldes"
 #: ../lang/master/tpl/macros.mtt:1731
 msgid "Vendor Dashboard"
 msgstr "Espace Producteur"
+
+#: ../src/controller/Product.hx:1214
+msgid ""
+"::price::<br/>\n"
+"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
+"pouvez pas modifier son prix.<br/>\n"
+"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
+"btn-sm\">Désactiver et créer une copie</a>"
+msgstr ""
+"::price::<br/>Ce produit a déja des commandes passées ou en cours, vous ne "
+"pouvez pas modifier son prix.<br/>Vous pouvez le <a "
+"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
+"copie</a>"
+
+#: ../src/controller/Product.hx:1706
+msgid ""
+"\n"
+"\t\t\t\t\t::qt:: ::unitType::<br/>\n"
+"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
+"pouvez pas modifier son unité de base.<br/>\n"
+"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
+"btn-sm\">Désactiver et créer une copie</a>"
+msgstr ""
+"::qt:: ::unitType::<br/>Ce produit a déja des commandes passées ou en "
+"cours, vous ne pouvez pas modifier son unité de base.<br/>Vous pouvez le <a "
+"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
+"copie</a>"
 
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
