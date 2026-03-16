@@ -22,17 +22,21 @@ class BridgeService {
 
 	/** Normalise une URL potentiellement absolue -> /neostatic/xxx.bundle.js */
 	static inline function normalize(u:Dynamic):String {
-		if (u == null) return null;
+		if (u == null)
+			return null;
 		var s = Std.string(u);
 		// retire l'origine si présente (http(s)://host/...)
 		var re = ~/^https?:\/\/[^\/]+(\/.*)$/;
-		if (re.match(s)) s = re.matched(1);
+		if (re.match(s))
+			s = re.matched(1);
 		// force un chemin absolu
-		if (!StringTools.startsWith(s, "/")) s = "/" + s;
+		if (!StringTools.startsWith(s, "/"))
+			s = "/" + s;
 		// assure le préfixe /neostatic/
 		if (!StringTools.startsWith(s, "/neostatic/")) {
 			var i = s.indexOf("neostatic/");
-			if (i >= 0) s = "/" + s.substr(i);
+			if (i >= 0)
+				s = "/" + s.substr(i);
 		}
 		return s;
 	}
@@ -42,7 +46,7 @@ class BridgeService {
 			var manifest = BridgeService.getNeoWebpackManifest();
 
 			// ordre conseillé: runtime -> vendors -> reactlibs -> neo
-			var order = ["runtime.js", "vendors.js", "reactlibs.js", "neo.js"];
+			var order = ["runtime.js", "vendors.js", "reactlibs.js", "neo.js", "app.js"];
 			var data:Array<String> = [];
 
 			// 1) config runtime d'abord (générée par camap-hx: /srv/www/env.js)
@@ -51,7 +55,8 @@ class BridgeService {
 			// 2) URLs issues du manifest, normalisées
 			for (k in order) {
 				var v = normalize(manifest.get(k));
-				if (v != null) data.push(v);
+				if (v != null)
+					data.push(v);
 			}
 
 			// cache léger pour fallback
@@ -59,7 +64,6 @@ class BridgeService {
 				Cache.set("manifest", data, 60 * 60);
 			}
 			return data;
-
 		} catch (e:Dynamic) {
 			var cache = Cache.get("manifest");
 			if (cache != null) {
@@ -89,13 +93,14 @@ class BridgeService {
 	}
 
 	public static function logout(user:db.User) {
-		if (user == null) return null;
+		if (user == null)
+			return null;
 		var baseUrl = App.config.get("camap_bridge_api") + "/bridge";
 		var curl = new sugoi.apis.linux.Curl();
 		return curl.call("GET", baseUrl + "/auth/logout/" + user.id, getHeaders());
 	}
 
-	static function getHeaders():Map<String,String> {
+	static function getHeaders():Map<String, String> {
 		return [
 			"Authorization" => "Bearer " + App.config.get("key"),
 			"Content-type" => "application/json;charset=utf-8",

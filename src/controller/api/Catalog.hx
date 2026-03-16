@@ -60,8 +60,8 @@ class Catalog extends Controller {
 			stocksPerProductDistribution = new Map<Int, Map<Int, Float>>();
 			for (product in catalog.getProducts()) {
 				var stocksPerDistrib = new Map<Int, Float>();
-				for (distrib in catalog.getDistribs()) {
-					if (product.stockTracking != StockTracking.Disabled) {
+				if (product.stockTracking != StockTracking.Disabled) {
+					for (distrib in catalog.getDistribs()) {
 						stocksPerDistrib.set(distrib.id, product.getAvailableStock(distrib.id));
 					}
 				}
