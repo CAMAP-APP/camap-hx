@@ -93,17 +93,6 @@ class Cron extends Controller {
 		if (!canRun())
 			return;
 
-		// Email digest
-		var task = new TransactionWrappedTask("Email digest");
-		task.setTask(function() {
-			var notifications = db.NotificationMail.manager.search($digest == 1, {orderBy: cdate DESC }, false);
-			var perRecipient = new Map<String, Array<db.NotificationMail>>();
-			for (notification in notifications) {
-				for (recipient in notification.recipients) {
-					if(!perRecipient.exists(recipient.email) || perRecipient.get(recipient.email). == 0) {
-			}
-		});
-
 		// instructions for dutyperiod volunteers
 		var task = new TransactionWrappedTask("Volunteers instruction mail");
 		task.setTask(function() {
@@ -251,8 +240,7 @@ class Cron extends Controller {
 							}
 
 							if (automatedOrders.length != 0) {
-								var message = 'Bonjour ${subscription.user.firstName},<br /><br />
-									A défaut de commande de votre part, votre commande par défaut a été appliquée automatiquement 
+								var message = 'Votre commande par défaut a été appliquée automatiquement 
 									à la distribution du ${view.hDate(distrib.date)} du contrat "${subscription.catalog.name}".
 									<br /><br />
 									Votre commande par défaut : <br /><br />${subscription.getDefaultOrdersToString()}
@@ -260,10 +248,8 @@ class Cron extends Controller {
 									La commande à chaque distribution est obligatoire dans le contrat "${subscription.catalog.name}". 
 									Vous pouvez modifier votre commande par défaut en accédant à votre souscription à ce contrat depuis la page "commandes" sur ${App.current.getTheme().name}';
 
-								// fail silently
-								try {
-									App.quickMail(subscription.user.email, distrib.catalog.name + ' : Commande par défaut', message, distrib.catalog.group);
-								} catch (e:Dynamic) {}
+								db.NotificationMail.createNotification(message, message, 1, "DEFAULT_ORDER(" + subscription.catalog.id + ")",
+									subscription.catalog.group, subscription.user, []);
 							}
 
 							// Create order operation only
@@ -272,6 +258,13 @@ class Cron extends Controller {
 					}
 				}
 			}
+		});
+		task.execute(!App.config.DEBUG);
+
+		// Email digest
+		var task = new TransactionWrappedTask("Email digest");
+		task.setTask(function() {
+			sendEmailDigest(task, 1); // hourly
 		});
 		task.execute(!App.config.DEBUG);
 
@@ -333,6 +326,12 @@ class Cron extends Controller {
 
 		app.event(DailyCron(this.now));
 
+		var task = new TransactionWrappedTask("Email digest");
+		task.setTask(function() {
+			sendEmailDigest(task, 2); // daily
+		});
+		task.execute(!App.config.DEBUG);
+
 		var task = new TransactionWrappedTask("Send errors to admin by email");
 		task.setTask(function() {
 			var n = Date.now();
@@ -383,6 +382,48 @@ class Cron extends Controller {
 			}
 		});
 		task.execute(!App.config.DEBUG);
+	}
+
+	function sendEmailDigest(task:TransactionWrappedTask, digest:Int) {
+		var notifications = db.NotificationMail.manager.search($digest == digest, {orderBy: cdate}, false);
+		var perRecipientPerGroup = new Map<Int, Map<Int, Map<String, db.NotificationMail>>>();
+		for (notification in notifications) {
+			var recipientnotificationsPerGroup = perRecipientPerGroup.get(notification.recipient.id);
+			if (recipientnotificationsPerGroup == null) {
+				recipientnotificationsPerGroup = new Map<Int, Map<String, db.NotificationMail>>();
+				perRecipientPerGroup.set(notification.recipient.id, recipientnotificationsPerGroup);
+			}
+			var notificationsPerSubject = recipientnotificationsPerGroup.get(notification.group.id);
+			if (notificationsPerSubject == null) {
+				notificationsPerSubject = new Map<String, db.NotificationMail>();
+				recipientnotificationsPerGroup.set(notification.group.id, notificationsPerSubject);
+			}
+			notificationsPerSubject.set(notification.subject, notification);
+			notification.delete();
+		}
+
+		for (userId in perRecipientPerGroup.keys()) {
+			var user = db.User.manager.get(userId, false);
+			for (groupId in perRecipientPerGroup.get(userId).keys()) {
+				var group = db.Group.manager.get(groupId, false);
+				var notifications = perRecipientPerGroup.get(userId).get(groupId);
+				var htmlBodies:Array<String> = [];
+				// filter notifications with unique subject, last (most recent) only
+				for (notification in notifications.iterator()) {
+					htmlBodies.push(notification.htmlBody);
+				}
+				var mail = new Mail();
+				mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+				mail.addRecipient(user.email, user.getName(), user.id);
+				mail.setSubject(t._("Your activity in the group ::group::", {group: group.name}));
+				mail.setHtmlBody(app.processTemplate("mail/digest.mtt", {
+					group: group,
+					user: user,
+					notifications: htmlBodies
+				}));
+				App.sendMail(mail);
+			}
+		}
 	}
 
 	/**

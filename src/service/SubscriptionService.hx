@@ -622,7 +622,6 @@ class SubscriptionService {
 		subscription.catalog = catalog;
 		subscription.startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), 0, 0, 0);
 		subscription.endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate(), 23, 59, 59);
-		subscription.cdate = Date.now();
 
 		// is there a secondary user in this subscription
 		if (catalog.type == db.Catalog.TYPE_CONSTORDERS) {
@@ -715,7 +714,7 @@ class SubscriptionService {
 		// m.setHtmlBody(html);
 		// App.sendMail(m, catalog.group);
 
-		db.NotificationMail.createNotification(html, html, 1, db.NotificationMail.makeSubject(subscription), catalog.group.id, [subscription.user.email], []);
+		db.NotificationMail.createNotification(html, html, 1, db.NotificationMail.makeSubject(subscription), catalog.group, subscription.user, []);
 	}
 
 	public static function checkUser2(ordersData:Array<CSAOrder>):Int {

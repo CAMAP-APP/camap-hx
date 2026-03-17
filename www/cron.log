@@ -1,0 +1,67 @@
+now is 2026-03-17 19:58:44
+<html lang="fr">
+	<head>
+		<link rel="stylesheet" href="/theme/default/css/style.css"/>
+		<link rel="stylesheet" href="/theme/default/css/bootstrap.min.css"/>
+
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/theme/default/apple-touch-icon.png"/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/theme/default/favicon-32x32.png"/>
+		<link rel="icon" type="image/png" sizes="16x16" href="/theme/default/favicon-16x16.png"/>
+		<link rel="icon" type="image/x-icon" href="/theme/default/favicon.ico"/>
+	
+
+	</head>
+	<body class="container">
+		<div class="row" style="margin-top:40px;">
+			<div class="col-md-2"></div>
+			<div class="col-md-8 article">
+				<h1>Ouille !</h1>
+				<p>
+					Une erreur est survenue.
+				</p>					
+				
+				<p>
+					Si le site est indisponible, merci de revenir dans quelques minutes.
+					<br/>
+					En cas d'erreurs répétées, merci de nous contacter de façon à ce que nous corrigions votre problème.
+				</p>
+				
+				<h4>Description technique de l'erreur</h4>
+
+								
+					<pre id="error_msg">Temploc compilation of mail/digest failed : File not found mail/digest
+</pre>
+				
+
+
+				
+				<h4>Stack</h4>
+					<pre>
+Called from templo/Loader.hx line 123
+Called from templo/Loader.hx line 68
+Called from a C function
+Called from templo/Loader.hx line 54
+Called from sugoi/BaseApp.hx line 66
+Called from App.hx line 391
+Called from controller/Cron.hx line 130
+Called from sugoi/tools/TransactionWrappedTask.hx line 58
+Called from controller/Cron.hx line 139
+Called from a C function
+Called from haxe/web/Dispatch.hx line 132
+Called from haxe/web/Dispatch.hx line 131
+Called from controller/Main.hx line 175
+Called from a C function
+Called from haxe/web/Dispatch.hx line 132
+Called from haxe/web/Dispatch.hx line 131
+Called from sugoi/BaseApp.hx line 257
+Called from sugoi/BaseApp.hx line 247
+Called from a C function
+Called from App.hx line 43
+Called from sugoi/BaseApp.hx line 417
+Called from sys/db/Transaction.hx line 32</pre>
+				
+			</div>
+		</div>
+	</body>
+</html>
