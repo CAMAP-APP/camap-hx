@@ -2221,7 +2221,7 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: ../lang/master/tpl/macros.mtt:2340
+#: ../lang/master/tpl/macros.mtt:2340 ../lang/master/tpl/user/login.mtt:562
 msgid "Look for another group"
 msgstr ""
 
