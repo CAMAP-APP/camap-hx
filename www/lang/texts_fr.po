@@ -3328,6 +3328,10 @@ msgstr "Rafraîchir les soldes"
 msgid "Vendor Dashboard"
 msgstr "Espace Producteur"
 
+#: ../src/controller/Cron.hx:16033
+msgid "Your activity in the group ::group::"
+msgstr "Votre activité dans le groupe ::group::"
+
 #: ../src/controller/Product.hx:1214
 msgid ""
 "::price::<br/>\n"

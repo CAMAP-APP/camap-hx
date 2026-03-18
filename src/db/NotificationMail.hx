@@ -10,25 +10,25 @@ class NotificationMail extends Object {
 	public var textBody:SText;
 	public var digest:SInt; // 1 = hourly, 2 = daily
 	public var subject:SString<256>;
-	public var groupId:SInt;
-	public var recipients:SText;
+	@:relation(groupId) public var group:db.Group;
+	@:relation(recipientId) public var recipient:db.User;
 	public var attachments:SText;
 
-	public static function createNotification(htmlBody:String, textBody:String, digest:Int, subject:String, groupId:Int, recipients:Array<String>,
+	public static function createNotification(htmlBody:String, textBody:String, digest:Int, subject:String, group:db.Group, recipient:db.User,
 			attachments:Array<String>) {
 		var notification = new NotificationMail();
 		notification.htmlBody = htmlBody;
 		notification.textBody = textBody;
 		notification.digest = digest;
 		notification.subject = subject;
-		notification.groupId = groupId;
-		notification.recipients = haxe.Json.stringify(recipients);
+		notification.group = group;
+		notification.recipient = recipient;
 		notification.attachments = haxe.Json.stringify(attachments);
 		notification.insert();
 		return notification;
 	}
 
 	public static function makeSubject(subscription:Subscription):String {
-		return "SUBSCRIPTION(" + subscription.id + ")";
+		return "SUBSCRIPTION(" + subscription.catalog.id + ")";
 	}
 }

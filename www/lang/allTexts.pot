@@ -435,35 +435,39 @@ msgstr ""
 msgid "Change the price of a product in orders"
 msgstr ""
 
-#: ../src/controller/Cron.hx:4199
+#: ../src/controller/Cron.hx:3702
 msgid "Instructions for the volunteers of the ::date:: distribution"
 msgstr ""
 
-#: ../src/controller/Cron.hx:4375
+#: ../src/controller/Cron.hx:3878
 msgid "::date:: from ::startHour:: to ::endHour::"
 msgstr ""
 
-#: ../src/controller/Cron.hx:18113
+#: ../src/controller/Cron.hx:16033
+msgid "Your activity in the group ::group::"
+msgstr ""
+
+#: ../src/controller/Cron.hx:19807
 msgid "Do not forget the delivery on <b>::day::</b> from ::from:: to ::to::<br/>"
 msgstr ""
 
-#: ../src/controller/Cron.hx:18325
+#: ../src/controller/Cron.hx:20019
 msgid "Your products to collect :"
 msgstr ""
 
-#: ../src/controller/Cron.hx:18565 ../lang/master/tpl/contractadmin/orders.mtt:6108
+#: ../src/controller/Cron.hx:20259 ../lang/master/tpl/contractadmin/orders.mtt:6108
 msgid "alternated with"
 msgstr ""
 
-#: ../src/controller/Cron.hx:19136 ../src/controller/Cron.hx:22338
+#: ../src/controller/Cron.hx:20830 ../src/controller/Cron.hx:24032
 msgid "Distribution on ::date::"
 msgstr ""
 
-#: ../src/controller/Cron.hx:21387
+#: ../src/controller/Cron.hx:23081
 msgid "Opening of orders for the delivery of <b>::date::</b>"
 msgstr ""
 
-#: ../src/controller/Cron.hx:21527
+#: ../src/controller/Cron.hx:23221
 msgid "The following suppliers are involved :"
 msgstr ""
 
@@ -674,11 +678,11 @@ msgstr ""
 msgid "Products copied from "
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:11131 ../src/db/Subscription.hx:5854 ../src/db/Catalog.hx:13298 ../lang/master/tpl/contractadmin/view.mtt:703
+#: ../src/controller/ContractAdmin.hx:11131 ../src/db/Subscription.hx:5770 ../src/db/Catalog.hx:13298 ../lang/master/tpl/contractadmin/view.mtt:703
 msgid "Start date"
 msgstr ""
 
-#: ../src/controller/ContractAdmin.hx:11276 ../src/db/Subscription.hx:5889 ../src/db/Catalog.hx:13391 ../lang/master/tpl/contractadmin/view.mtt:796
+#: ../src/controller/ContractAdmin.hx:11276 ../src/db/Subscription.hx:5805 ../src/db/Catalog.hx:13391 ../lang/master/tpl/contractadmin/view.mtt:796
 msgid "End date"
 msgstr ""
 
@@ -778,7 +782,7 @@ msgstr ""
 msgid "Means of payment"
 msgstr ""
 
-#: ../src/controller/AmapAdmin.hx:3147 ../src/db/Subscription.hx:5821 ../lang/master/tpl/distribution/volunteersParticipation.mtt:652
+#: ../src/controller/AmapAdmin.hx:3147 ../src/db/Subscription.hx:5737 ../lang/master/tpl/distribution/volunteersParticipation.mtt:652
 msgid "Member"
 msgstr ""
 
