@@ -47,9 +47,12 @@ class SubscriptionService {
 	/**
 		Get user subscriptions in active catalogs
 	**/
-	public static function getActiveSubscriptions(user:db.User, group:db.Group):Array<db.Subscription> {
+	public static function getActiveSubscriptions(user:db.User, group:db.Group, includePastAndFuture = true):Array<db.Subscription> {
 		var catalogIds = group.getActiveContracts(true).map(c -> return c.id);
-		return db.Subscription.manager.search(($user == user || $user2 == user) && ($catalogId in catalogIds), false).array();
+		return db.Subscription.manager.search(($user == user || $user2 == user) && ($catalogId in catalogIds), false)
+			.array()
+			.filter(s -> includePastAndFuture ? true : (s.endDate.getTime() >= Date.now().getTime()
+				&& s.startDate.getTime() <= Date.now().getTime()));
 	}
 
 	/**
@@ -651,70 +654,98 @@ class SubscriptionService {
 		}
 
 		// Email notification
-		sendSubscriptionCreatedEmail(subscription);
+		sendSubscriptionCreatedEmails(subscription);
 		PaymentService.updateUserBalance(user, catalog.group);
 		return subscription;
 	}
 
-	function sendSubscriptionCreatedEmail(subscription:db.Subscription) {
+	function sendSubscriptionCreatedEmails(subscription:db.Subscription) {
 		var catalog = subscription.catalog;
-		var html = '<p><b>Vous venez de souscrire au contrat AMAP "${catalog.name}" avec le paysan "${catalog.vendor.name}".</b></p>';
+		var defaultOrder = subscription.getDefaultOrders().map(o -> return {
+			quantity: o.quantity,
+			product: db.Product.manager.get(o.productId, false)
+		});
+		var abss = subscription.getAbsentDistribs();
+		var absentDistribs = abss.length > 0 ? abss.map(d -> return Formatting.dDate(d.date)).join(", ") : null;
+		var html = App.current.processTemplate("mail/notifications/subscription-created-user.mtt", {
+			catalog: catalog,
+			vendor: catalog.vendor,
+			subscription: subscription,
+			engagement: SubscriptionService.getSubscriptionConstraints(subscription),
+			nbDistributions: SubscriptionService.getSubscriptionDistribsNb(subscription),
+			isConst: catalog.isConstantOrdersCatalog(),
+			isVarWithDefault: catalog.isVariableOrdersCatalog() && catalog.distribMinOrdersTotal > 0,
+			defaultOrder: defaultOrder,
+			hasAbsencesManagement: catalog.hasAbsencesManagement(),
+			absentDistribs: absentDistribs,
+		});
+		// var html = '<p><b>Vous venez de souscrire au contrat AMAP "${catalog.name}" avec le paysan "${catalog.vendor.name}".</b></p>';
 
-		html += "<p>";
-		var engagement = SubscriptionService.getSubscriptionConstraints(subscription);
-		html += 'Votre engagement : ${(engagement == null ? "Aucun" : engagement)}<br/>';
-		html += 'Nombre de distributions : ${SubscriptionService.getSubscriptionDistribsNb(subscription)}<br/>';
-		if (catalog.isVariableOrdersCatalog() && catalog.distribMinOrdersTotal > 0) {
-			html += 'Votre commande par défaut est :<ul>';
-			html += subscription.getDefaultOrders().map(o -> {
-				var p = db.Product.manager.get(o.productId, false);
-				return '<li>${o.quantity} x ${p.getName()} : ${o.quantity * p.price} €</li>';
-			}).join('');
-			html += '</ul>C\'est un contrat AMAP variable, votre commande est donc modifiable date par date<br/>';
-		} else if (catalog.isConstantOrdersCatalog()) {
-			html += 'Vous recevrez à chaque distribution les produits suivants :<ul>';
-			html += subscription.getDefaultOrders().map(o -> {
-				var p = db.Product.manager.get(o.productId, false);
-				return '<li>${o.quantity} x ${p.getName()} : ${o.quantity * p.price} €</li>';
-			}).join('');
-			html += '</ul>';
+		// html += "<p>";
+		// var engagement = SubscriptionService.getSubscriptionConstraints(subscription);
+		// html += 'Votre engagement : ${(engagement == null ? "Aucun" : engagement)}<br/>';
+		// html += 'Nombre de distributions : ${SubscriptionService.getSubscriptionDistribsNb(subscription)}<br/>';
+		// if (catalog.isVariableOrdersCatalog() && catalog.distribMinOrdersTotal > 0) {
+		// 	html += 'Votre commande par défaut est :<ul>';
+		// 	html += subscription.getDefaultOrders().map(o -> {
+		// 		var p = db.Product.manager.get(o.productId, false);
+		// 		return '<li>${o.quantity} x ${p.getName()} : ${o.quantity * p.price} €</li>';
+		// 	}).join('');
+		// 	html += '</ul>C\'est un contrat AMAP variable, votre commande est donc modifiable date par date<br/>';
+		// } else if (catalog.isConstantOrdersCatalog()) {
+		// 	html += 'Vous recevrez à chaque distribution les produits suivants :<ul>';
+		// 	html += subscription.getDefaultOrders().map(o -> {
+		// 		var p = db.Product.manager.get(o.productId, false);
+		// 		return '<li>${o.quantity} x ${p.getName()} : ${o.quantity * p.price} €</li>';
+		// 	}).join('');
+		// 	html += '</ul>';
+		// }
+		// html += "</p>";
+
+		// if (catalog.hasAbsencesManagement()) {
+		// 	var absentDistribs = subscription.getAbsentDistribs();
+		// 	var absencesTxt = absentDistribs.map(d -> Formatting.hDate(d.date)).join(", ");
+		// 	html += '<p>Vous avez choisi d\'être absent(e) pendant ${absentDistribs.length} distributions : $absencesTxt.</p>';
+		// }
+
+		// if (catalog.isVariableOrdersCatalog()) {
+		// 	if (catalog.distribMinOrdersTotal > 0) {
+		// 		html += '<p>Merci de préparer un/des chèque(s) de provision correspondant au total de votre commande par défaut multiplié par le nombre de distributions, soit ${subscription.getTotalPrice()} €. ';
+		// 		html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
+		// 		html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
+		// 	} else if (catalog.catalogMinOrdersTotal > 0) {
+		// 		html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+		// 		html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+		// 		html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
+		// 	} else {
+		// 		html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
+		// 		html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
+		// 		html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
+		// 	}
+		// } else {
+		// 	html += '<p>Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s) pour un total de ${subscription.getTotalPrice()} €.</p>';
+		// }
+
+		db.NotificationMail.createNotification(html, html, db.NotificationMail.HOURLY, db.NotificationMail.makeSubject(subscription), catalog.group,
+			subscription.user, []);
+
+		if (catalog.isConstantOrdersCatalog() || catalog.hasDefaultOrdersManagement()) {
+			html = App.current.processTemplate("mail/notifications/subscription-created-coordinator.mtt", {
+				catalog: catalog,
+				vendor: catalog.vendor,
+				subscription: subscription,
+				defaultOrder: defaultOrder,
+				engagement: SubscriptionService.getSubscriptionConstraints(subscription),
+				nbDistributions: SubscriptionService.getSubscriptionDistribsNb(subscription),
+				isConst: catalog.isConstantOrdersCatalog(),
+				isVarWithDefault: catalog.isVariableOrdersCatalog() && catalog.hasDefaultOrdersManagement(),
+				hasAbsencesManagement: catalog.hasAbsencesManagement(),
+				absentDistribs: absentDistribs,
+			});
+
+			db.NotificationMail.createNotification(html, html, db.NotificationMail.COORDINATOR_HOURLY, db.NotificationMail.makeSubject(subscription),
+				catalog.group, catalog.contact, []);
 		}
-		html += "</p>";
-
-		if (catalog.hasAbsencesManagement()) {
-			var absentDistribs = subscription.getAbsentDistribs();
-			var absencesTxt = absentDistribs.map(d -> Formatting.hDate(d.date)).join(", ");
-			html += '<p>Vous avez choisi d\'être absent(e) pendant ${absentDistribs.length} distributions : $absencesTxt.</p>';
-		}
-
-		if (catalog.isVariableOrdersCatalog()) {
-			if (catalog.distribMinOrdersTotal > 0) {
-				html += '<p>Merci de préparer un/des chèque(s) de provision correspondant au total de votre commande par défaut multiplié par le nombre de distributions, soit ${subscription.getTotalPrice()} €. ';
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.</p>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
-			} else if (catalog.catalogMinOrdersTotal > 0) {
-				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
-			} else {
-				html += '<p>Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l\'onglet \"Mes contrats\". ';
-				html += 'Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.</p>';
-				html += 'Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).</br>';
-			}
-		} else {
-			html += '<p>Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s) pour un total de ${subscription.getTotalPrice()} €.</p>';
-		}
-
-		// var m = new sugoi.mail.Mail();
-		// m.addRecipient(subscription.user.email, subscription.user.getName(), subscription.user.id);
-		// m.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
-		// if (catalog.contact.email != null)
-		// 	m.setReplyTo(catalog.contact.email, catalog.contact.getName());
-		// m.setSubject('Souscription au contrat "${catalog.name}"');
-		// m.setHtmlBody(html);
-		// App.sendMail(m, catalog.group);
-
-		db.NotificationMail.createNotification(html, html, 1, db.NotificationMail.makeSubject(subscription), catalog.group, subscription.user, []);
 	}
 
 	public static function checkUser2(ordersData:Array<CSAOrder>):Int {

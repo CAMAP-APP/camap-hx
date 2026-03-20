@@ -1,0 +1,54 @@
+<p>
+    <b>Vous venez de souscrire au contrat
+        <a href="https://::HOST:://subscriptions/contract/::subscription.catalog.id::">::catalog.name::</a> auprès de
+        <a href="https://::HOST::/vendor/view/::vendor.id::">::vendor.name::</a>.
+    </b>
+</p>
+
+<p>
+    ::if isVarWithDefault::
+    Votre engagement: ::raw engagement::<br />
+    ::end::
+    Nombre de distributions : ::nbDistributions::<br />
+    ::if isConst || isVarWithDefault::
+    ::if isConst::
+    Vous recevrez à chaque distribution les produits suivants :
+    ::elseif isVarWithDefault::
+    Votre commande par défaut est :
+    ::end::
+<ul>
+    ::foreach o defaultOrder::
+    <li>::o.quantity:: x ::o.product.getName():: : ::o.quantity * o.product.price::€</li>
+    ::end::
+</ul>
+::if isVarWithDefault::
+C'est un contrat AMAP variable, votre commande est donc modifiable date par date<br />
+::end::
+::end::
+</p>
+
+::if absentDistribs::
+<p>Vous avez choisi d'être absent(e) pendant ::absentDistribs::.</p>
+::end::
+
+::if isConst::
+<p>Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s) pour un
+    total de ::subscription.getTotalPrice()::€.</p>
+::else::
+::if isVarWithDefault::
+<p>
+    Merci de préparer un/des chèque(s) de provision correspondant au total de votre commande par défaut multiplié par le
+    nombre de distributions, soit ::subscription.getTotalPrice()::€.
+    Une régularisation pourra être demandée en fin de contrat en fonction de votre solde.
+</p>
+::else::
+<p>
+    Merci de préparer un/des chèque(s) correspondant au montant total de votre commande à consulter dans l'onglet
+    <a href="https://::HOST::/history">Mes contrats</a>.
+    Une régularisation pourra être demandée en fin de contrat en fonction de votre solde si vous modifiez vos commandes.
+</p>
+::end::
+<p>
+    Si un contrat papier est associé à votre souscription, pensez à le compléter et à remettre le(s) chèque(s).<br />
+</p>
+::end::

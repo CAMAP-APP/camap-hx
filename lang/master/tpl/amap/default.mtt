@@ -1,106 +1,121 @@
 ::use 'design.mtt'::
 
 <style>
-.vendorCard {
-	cursor: pointer;
-	/* border: 1px solid lightgrey; */
-	border-radius: 4px;
-	box-shadow: 0 0 2px 0 rgba(34,47,62,.2);
-}
-.vendorCard:hover {
-	background-color: #f8f8f8
-}
+	.vendorCard {
+		cursor: pointer;
+		/* border: 1px solid lightgrey; */
+		border-radius: 4px;
+		box-shadow: 0 0 2px 0 rgba(34, 47, 62, .2);
+	}
+
+	.vendorCard:hover {
+		background-color: #f8f8f8
+	}
 </style>
 
-	<div class="col-md-3">
-		
-		<div class="block">
-			
-			<h4>
-				::group.name::
-			</h4>
+<div class="col-md-3">
 
-			::if group.imageId!=null::
-			::if group.extUrl!=null && group.extUrl!=""::
-				<a href="::group.extUrl::"><img src="::file(group.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br/></a>
-			::else::
-				<img src="::file(group.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br/>
-			::end::
-			::end::
-			
-			::raw sanitize(group.txtIntro)::
-			<br/>
-			::if user.isAmapManager()::
-			$$edit(::_("Edit")::,amap/edit)
-			::end::
-		
-		</div>
-		
-		<div class="block">
-			<b>::_("Main contact"):: :</b><br/>
-			$$contact(::group._contact::)	
-		</div>
+	<div class="block">
+
+		<h4>
+			::group.name::
+		</h4>
+
+		::if group.imageId!=null::
+		::if group.extUrl!=null && group.extUrl!=""::
+		<a href="::group.extUrl::"><img src="::file(group.imageId)::" style="margin:auto;display: block;width: 100%;"
+				class="thumbnail" /><br /></a>
+		::else::
+		<img src="::file(group.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
+		::end::
+		::end::
+
+		::raw sanitize(group.txtIntro)::
+		<br />
+		::if user.isAmapManager()::
+		$$edit(::_("Edit")::,amap/edit)
+		::end::
 
 	</div>
-	
-	<div class="col-md-9">
-		<div class="row">
-		
-			::foreach c contracts::
-				<div class="col-md-12">
-					<div class="article">
-						<div class="row">
-							<div class="col-md-3 text-center vendorCard" onclick="window.location.href = '/vendor/view/::c._vendor.id::'">
-								<div style="background-image:url('::c._vendor.getImage()::');position:relative" class="productImg xl">
-									<i class="icon icon-search" style="position: absolute;right:0;bottom:0;font-size:24px"></i>
-								</div>
-								<p>
-									<b>::c._vendor.name::</b>
-									<br/>
-									::c._vendor.city::
-								</p>
-							</div>
 
-							<div class="col-md-6">
-								<h4><a href="/subscriptions/contract/::c.id::">::c.name::</a></h4>
-																
-								<div style="font-size:0;">
-								::foreach p c.getProductsPreview(5)::
-									<div data-toggle="tooltip" data-placement="top" title="::p.name::"  style="background-image:url('::p.getImage()::')" class="productImg medium"/> 
-								::end::
-								</div>
+	<div class="block">
+		<b>::_("Main contact"):: :</b><br />
+		$$contact(::group._contact::)
+	</div>
 
-							</div>
-							
-							<div class="col-md-3">
-								::if c._contact!=null::
-									<b>::_("Coordinator"):: :</b>
-									<br/>
-									$$contact(::c._contact::)
-								::end::								
+</div>
+
+<div class="col-md-9">
+	<div class="row">
+
+		::foreach c contracts::
+		<div class="col-md-12">
+			<div class="article">
+				<div class="row">
+					<div class="col-md-3 text-center vendorCard"
+						onclick="window.location.href = '/vendor/view/::c._vendor.id::'">
+						<div style="background-image:url('::c._vendor.getImage()::');position:relative"
+							class="productImg xl">
+							<i class="icon icon-search" style="position: absolute;right:0;bottom:0;font-size:24px"></i>
+						</div>
+						<p>
+							<b>::c._vendor.name::</b>
+							<br />
+							::c._vendor.city::
+						</p>
+					</div>
+
+					<div class="col-md-6">
+						<h4>
+							<a href="/subscriptions/contract/::c.id::">::c.name::</a>
+							::if subscriptions::
+							::foreach s subscriptions::
+							::if s == c.id::
+							<i class="icon icon-book"></i>
+							::end::
+							::end::
+							::end::
+						</h4>
+
+						<div style="font-size:0;">
+							::foreach p c.getProductsPreview(5)::
+							<div data-toggle="tooltip" data-placement="top" title="::p.name::"
+								style="background-image:url('::p.getImage()::')" class="productImg medium" />
+							::end::
+						</div>
+
+					</div>
+
+					<div class="col-md-3">
+						::if c._contact!=null::
+						<b>::_("Coordinator"):: :</b>
+						<br />
+						$$contact(::c._contact::)
+						::end::
 
 
-								::set docs = c.getVisibleDocuments(user)::
-								::if( docs.length>0)::
-									<b>Documents</b><br/>
-									<ul>
-									::foreach doc docs::
-										<li><a href="::file(doc.fileId)::" target="_blank">::doc._file.name::</a></li>
-									::end::
-									</ul>
-								::end::
-							</div>
-							
-						</div>						
-					</div>				
+						::set docs = c.getVisibleDocuments(user)::
+						::if( docs.length>0)::
+						<b>Documents</b><br />
+						<ul>
+							::foreach doc docs::
+							<li><a href="::file(doc.fileId)::" target="_blank">::doc._file.name::</a></li>
+							::end::
+						</ul>
+						::end::
+					</div>
+
 				</div>
-			::end::
+			</div>
 		</div>
-		<div class="alert alert-warning">
-			<i class="icon icon-info"></i>
-			Le référencement ou la création d'un nouveau producteur se fait via la page Catalogues / Chercher un Producteur.<br/>
-			<center><a href="https://wiki.amap44.org/fr/app/admin-producteur" target="_blank">Consultez le wiki</a></center>
-		</div>
+		::end::
 	</div>
+	<div class="alert alert-warning">
+		<i class="icon icon-info"></i>
+		Le référencement ou la création d'un nouveau producteur se fait via la page Catalogues / Chercher un
+		Producteur.<br />
+		<center><a href="https://wiki.amap44.org/fr/app/admin-producteur" target="_blank">Consultez le wiki</a></center>
+	</div>
+</div>
 
 ::end::

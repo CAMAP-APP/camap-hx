@@ -1,38 +1,37 @@
 package db;
+
 import Common;
 import sugoi.form.validators.EmailValidator;
 import sys.db.Object;
 import sys.db.Types;
 
-enum DisabledReason{
-	IncompleteLegalInfos; 	//0 : incomplete legal infos
-	NotCompliantWithPolicy; //1 : not compliant with policy
-	Banned; 				//2 : banned by administrators	
+enum DisabledReason {
+	IncompleteLegalInfos; // 0 : incomplete legal infos
+	NotCompliantWithPolicy; // 1 : not compliant with policy
+	Banned; // 2 : banned by administrators
 }
-
 
 /**
  * Vendor (farmer/producer/vendor)
  */
-class Vendor extends Object
-{
-	public var id : SId;
-	public var name : SString<128>;	//Business name 
+class Vendor extends Object {
+	public var id:SId;
+	public var name:SString<128>; // Business name
 
 	@hideInForms @:relation(userId)
-	public var user : SNull<User>;	
+	public var user:SNull<User>;
 
-	public var peopleName : SNull<SString<128>>; //Business owner(s) name
-	
-	@hideInForms public var profession : SNull<SInt>;
-	@hideInForms public var production2 : SNull<SInt>;
-	@hideInForms public var production3 : SNull<SInt>;
+	public var peopleName:SNull<SString<128>>; // Business owner(s) name
+
+	@hideInForms public var profession:SNull<SInt>;
+	@hideInForms public var production2:SNull<SInt>;
+	@hideInForms public var production3:SNull<SInt>;
 
 	public var email:SNull<SString<128>>;
 	public var showEmail:SBool;
 	public var phone:SNull<SString<19>>;
 	public var showPhone:SBool;
-		
+
 	public var address1:SNull<SString<64>>;
 	public var address2:SNull<SString<64>>;
 	public var zipCode:SString<32>;
@@ -40,24 +39,23 @@ class Vendor extends Object
 	public var country:SNull<SString<64>>;
 	public var companyNumber:SNull<SString<64>>;
 
-	public var desc : SNull<SText>;
-	@hideInForms public var cdate : SNull<SDateTime>; // date de création
+	public var desc:SNull<SText>;
+	@hideInForms public var cdate:SNull<SDateTime>; // date de création
 
 	public var linkText:SNull<SString<256>>;
 	public var linkUrl:SNull<SString<256>>;
 
-	@hideInForms public var directory 	: SBool;
-	@hideInForms public var longDesc 	: SNull<SText>;
-	
-	@hideInForms @:relation(imageId) public var image : SNull<sugoi.db.File>;
-	
-	@hideInForms public var disabled : SNull<SEnum<DisabledReason>>; // vendor is disabled
-	
+	@hideInForms public var directory:SBool;
+	@hideInForms public var longDesc:SNull<SText>;
+
+	@hideInForms @:relation(imageId) public var image:SNull<sugoi.db.File>;
+
+	@hideInForms public var disabled:SNull<SEnum<DisabledReason>>; // vendor is disabled
+
 	@hideInForms public var lat:SNull<SFloat>;
 	@hideInForms public var lng:SNull<SFloat>;
 
-	public function new() 
-	{
+	public function new() {
 		super();
 		directory = true;
 		cdate = Date.now();
@@ -67,30 +65,29 @@ class Vendor extends Object
 		return name;
 	}
 
-	public function getContracts(){
-		return db.Catalog.manager.search($vendor == this,{orderBy:-startDate}, false);
+	public function getContracts() {
+		return db.Catalog.manager.search($vendor == this, {orderBy: -startDate}, false);
 	}
 
-	public function getActiveContracts(){
+	public function getActiveContracts() {
 		var now = Date.now();
-		return db.Catalog.manager.search($vendor == this && $startDate < now && $endDate > now ,{orderBy:-startDate}, false);
+		return db.Catalog.manager.search($vendor == this && $startDate < now && $endDate > now, {orderBy: -startDate}, false);
 	}
 
-	public function getImage():String{
+	public function getImage():String {
 		if (imageId == null) {
 			return "/img/vendor.png";
-		}else {
+		} else {
 			return App.current.view.file(imageId);
 		}
 	}
 
-	public function getInfos():VendorInfos{
-
-		var file = function(fId: Int){
-			return if(fId==null)  null else App.current.view.file(fId);
+	public function getInfos():VendorInfos {
+		var file = function(fId:Int) {
+			return if (fId == null) null else App.current.view.file(fId);
 		}
 		var vendor = this;
-		var out : VendorInfos = {
+		var out:VendorInfos = {
 			id: id,
 			name: vendor.name,
 			// TODO flag allow show name
@@ -114,99 +111,105 @@ class Vendor extends Object
 			lng: vendor.lng
 		};
 
-		if(this.profession!=null){
+		if (this.profession != null) {
 			out.profession = getProfession();
 		}
-		
+
 		return out;
 	}
 
 	public function getProfession():String {
-		if(this.profession==null) return null;
-		var p = service.VendorService.getVendorProfessions().find(x -> x.id==this.profession);
-		if(p==null) throw new tink.core.Error("Vendor #"+this.id+" has invalid profession code : "+this.profession);
+		if (this.profession == null)
+			return null;
+		var p = service.VendorService.getVendorProfessions().find(x -> x.id == this.profession);
+		if (p == null)
+			throw new tink.core.Error("Vendor #" + this.id + " has invalid profession code : " + this.profession);
 		return p.name;
 	}
 
-	public function getGroups():Array<db.Group>{
+	public function getGroups():Array<db.Group> {
 		var contracts = getActiveContracts();
-		var groups = Lambda.map(contracts,function(c) return c.group);
+		var groups = Lambda.map(contracts, function(c) return c.group);
 		return tools.ObjectListTool.deduplicate(groups);
 	}
 
 	public function getGroupContactMailto():String {
 		var groups = getGroups();
-		return groups.flatMap(g -> if(g.contact != null) [g.contact.email] else [])
-			.map(email -> StringTools.urlEncode(email))
-			.join(";");
+		return groups.flatMap(g -> if (g.contact != null) [g.contact.email] else []).map(email -> StringTools.urlEncode(email)).join(";");
 	}
 
-	public static function getLabels(){
+	public static function getLabels() {
 		var t = sugoi.i18n.Locale.texts;
 		return [
-			"name" 				=> "Nom de votre ferme/entreprise",
-			"peopleName" 		=> "Nom de l'exploitant(e)",	
-			"desc" 				=> t._("Description"),
-			"email" 			=> t._("Email pro"),
-			"legalStatus"		=> t._("Legal status"),
-			"phone" 			=> t._("Phone"),
-			"address1" 			=> t._("Address 1"),
-			"address2" 			=> t._("Address 2"),
-			"zipCode" 			=> t._("Zip code"),
-			"city" 				=> t._("City"),			
-			"linkText" 			=> t._("Link text"),			
-			"linkUrl" 			=> t._("Link URL"),			
-			"companyNumber" 	=> "Numéro SIRET (14 chiffres)",	
+			"name" => "Nom de votre ferme/entreprise",
+			"peopleName" => "Nom de l'exploitant(e)",
+			"desc" => t._("Description"),
+			"email" => t._("Email pro"),
+			"legalStatus" => t._("Legal status"),
+			"phone" => t._("Phone"),
+			"address1" => t._("Address 1"),
+			"address2" => t._("Address 2"),
+			"zipCode" => t._("Zip code"),
+			"city" => t._("City"),
+			"linkText" => t._("Link text"),
+			"linkUrl" => t._("Link URL"),
+			"companyNumber" => "Numéro SIRET (14 chiffres)",
 		];
 	}
 
-	public function getAddress(){
+	public function getAddress() {
 		var str = new StringBuf();
-		if(address1!=null) str.add(address1);
-		if(address2!=null) str.add(", "+address2);
-		if(zipCode!=null) str.add(", "+zipCode);
-		if(city!=null) str.add(" "+city);
-		if(country!=null) str.add(", "+country);
+		if (address1 != null)
+			str.add(address1);
+		if (address2 != null)
+			str.add(", " + address2);
+		if (zipCode != null)
+			str.add(", " + zipCode);
+		if (city != null)
+			str.add(" " + city);
+		if (country != null)
+			str.add(", " + country);
 		return str.toString();
 	}
 
-	public function isDisabled(){
-		return disabled!=null;
+	public function isDisabled() {
+		return disabled != null;
 	}
 
-	public function getDisabledReason():Null<String>{
-		return switch(this.disabled){
-			case null : null;
-			case DisabledReason.IncompleteLegalInfos : "Complétez votre SIRET et contactez le support.";
-			case DisabledReason.NotCompliantWithPolicy : "Producteur incompatible avec les CGU. Contactez le support.";
-			case DisabledReason.Banned : "Contactez le support.";
+	public function getDisabledReason():Null<String> {
+		return switch (this.disabled) {
+			case null: null;
+			case DisabledReason.IncompleteLegalInfos: "Complétez votre SIRET et contactez le support.";
+			case DisabledReason.NotCompliantWithPolicy: "Producteur incompatible avec les CGU. Contactez le support.";
+			case DisabledReason.Banned: "Contactez le support.";
 		};
 	}
 
-	function check(){
-		if(this.email==null){
+	function check() {
+		if (this.email == null) {
 			throw new tink.core.Error("Vous devez obligatoirement saisir un email pour ce producteur.");
 		}
 
-		if(this.email!=null && !EmailValidator.check(this.email) ) {
+		if (this.email != null && !EmailValidator.check(this.email)) {
 			throw new tink.core.Error('Email du producteur ${this.id} invalide.');
 		}
 	}
 
-	override function insert(){
+	override function insert() {
 		check();
 		super.insert();
 	}
-	
-	override function update(){
+
+	override function update() {
 		check();
 		super.update();
 	}
 
-	public function getImageId(){
-        return this.imageId;
-    }
+	public function getImageId() {
+		return this.imageId;
+	}
 
-	public function isClaimed() { return this.user != null; }
-
+	public function isClaimed() {
+		return this.user != null;
+	}
 }

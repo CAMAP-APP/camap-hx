@@ -1,23 +1,24 @@
 ::use 'design.mtt'::
 
-<meta property="og:type"content="website" />
+<meta property="og:type" content="website" />
 <meta property="og:url" content="https://::HOST::/group/::amap.id::" />
 <meta property="og:title" content="::amap.name::" />
 <meta property="og:description" content="::amap.txtIntro::" />
 <meta property="og:image" content="https://::HOST::/theme/default/logo3.png" />
 
 <style>
-div.homeProductImg {
-	margin: 0 12px 0 0;
-}
-@media screen and (max-width: 575px) {
 	div.homeProductImg {
-		margin: 0 8px 0 0;
-		width: 48px;
-		height: 48px;
-		border-radius: 8px;
+		margin: 0 12px 0 0;
 	}
-}
+
+	@media screen and (max-width: 575px) {
+		div.homeProductImg {
+			margin: 0 8px 0 0;
+			width: 48px;
+			height: 48px;
+			border-radius: 8px;
+		}
+	}
 </style>
 
 
@@ -31,17 +32,19 @@ $$browserDetection()
 	<div class="alert alert-success">
 		<h3>Bienvenue sur ::theme.name:: !</h3>
 		<p>
-			Félicitations, vous venez juste de créer une nouvelle AMAP !<br/>
-			Vous pouvez maintenant <a href="/contract/defineVendor/" style="font-weight: bold;">inviter des producteurs</a>, planifier des distributions et inviter des membres.
-		</p>		
+			Félicitations, vous venez juste de créer une nouvelle AMAP !<br />
+			Vous pouvez maintenant <a href="/contract/defineVendor/" style="font-weight: bold;">inviter des
+				producteurs</a>, planifier des distributions et inviter des membres.
+		</p>
 	</div>
 	::end::
 
 	<!--display only on sm and xs screens-->
 	<div class="block hidden-md hidden-lg" style="margin-bottom:24px;" ::cond(registerWithoutOrdering==true)::>
 		<!-- JOIN GROUP BLOCK -->
-		::if (user==null)::		
-		<a href="#" class="btn btn-default btn-sm" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+		::if (user==null)::
+		<a href="#" class="btn btn-default btn-sm"
+			onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 			<span class="glyphicon glyphicon-plus"></span>
 			M'inscrire à ce groupe
 		</a>
@@ -58,7 +61,7 @@ $$browserDetection()
 			<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 		</a>
 	</div>
-	
+
 	<!-- AMAP style order forms -->
 	<div class="row" ::cond ( openContracts!=null && openContracts.length>0 ):: style="margin-bottom: 24px;">
 
@@ -71,11 +74,20 @@ $$browserDetection()
 			<a href="/subscriptions/contract/::c.id::" class="clickable groupBlock" style="height:unset;">
 				::set v = c._vendor::
 				::if v.imageId!=null::
-					<div style="background-image:url('::file(v.imageId)::');float:left;" class="productImg homeProductImg" />
+				<div style="background-image:url('::file(v.imageId)::');float:left;"
+					class="productImg homeProductImg" />
 				::else::
-					<div style="float:left;margin-right:12px;" class="productImg" />
+				<div style="float:left;margin-right:12px;" class="productImg" />
 				::end::
-				::c.name::<br />
+				::c.name::
+				::if subscriptions::
+				::foreach s subscriptions::
+				::if s == c.id::
+				<i class="icon icon-book"></i>
+				::end::
+				::end::
+				::end::
+				<br />
 				<div class="disabled">::v.name::</div>
 				<div class="disabled">::dDate(c.startDate)::</div>
 			</a>
@@ -109,13 +121,13 @@ $$browserDetection()
 			<!-- date box -->
 			<div class="dateBoxOffset">
 				<div class="dateBox">
-				::set s = getDate(start)::
-				::set e = getDate(end)::
-				::if isToday(start)::
-				$$today(::s.dow::,::s::,::e::)
-				::else::
-				$$date(::s.dow::,::s::,::e::)
-				::end::
+					::set s = getDate(start)::
+					::set e = getDate(end)::
+					::if isToday(start)::
+					$$today(::s.dow::,::s::,::e::)
+					::else::
+					$$date(::s.dow::,::s::,::e::)
+					::end::
 				</div>
 			</div>
 
@@ -136,124 +148,128 @@ $$browserDetection()
 		<!-- === CONSTANT order block === -->
 		<div class="content myorder">Mes contrats AMAP classiques</div>
 		::if md.userHasOrders(user,0)::
-			<div class="content orders">
-				::foreach dist md.getDistributions(0)::
-					::set orders = dist.getUserOrders(user)::
-					::if orders.length>0::
-						<h4><a href="/subscriptions/contract/::dist._catalog.id::">::dist._catalog.name::</a></h4>
+		<div class="content orders">
+			::foreach dist md.getDistributions(0)::
+			::set orders = dist.getUserOrders(user)::
+			::if orders.length>0::
+			<h4><a href="/subscriptions/contract/::dist._catalog.id::">::dist._catalog.name::</a></h4>
 
-						<div class="row">
-							::foreach c prepare(orders)::
-							<div class="col-xs-12 col-sm-6 col-lg-4" ::cond orders.length>0:: >
+			<div class="row">
+				::foreach c prepare(orders)::
+				<div class="col-xs-12 col-sm-6 col-lg-4" ::cond orders.length>0:: >
 
-								<div style="background-image:url('::c.productImage::');float:left;margin-right:12px;" class="productImg small" />
-								<span ::cond c.quantity>1:: ><b>::raw c.smartQt::</b></span>
-								<span style="background-color: #B00;color:white;padding: 2px;border-radius: 3px;margin-right:3px;" ::cond c.quantity==0::>
-									::_("Canceled")::
-								</span>
-								::c.productName::
+					<div style="background-image:url('::c.productImage::');float:left;margin-right:12px;"
+						class="productImg small" />
+					<span ::cond c.quantity>1:: ><b>::raw c.smartQt::</b></span>
+					<span style="background-color: #B00;color:white;padding: 2px;border-radius: 3px;margin-right:3px;"
+						::cond c.quantity==0::>
+						::_("Canceled")::
+					</span>
+					::c.productName::
 
-								<!--ALTERNATED ORDER-->
-								::if c.userId2!=null::
-									::if user.id==c.userId::
-										::set you = c.userName::
-										::set mate = c.userName2::
-									::else::
-										::set mate = c.userName::
-										::set you = c.userName2::
-									::end::
-									<br />(
-									::raw __("alternated with ::mate::",{mate:mate})::,
-									::if getWhosTurn(c.id,dist)==false::
-										::if c.userName == you::
-											<span style="color:#080">::_("It's your turn")::</span>
-										::else::
-											::_("It's his/her turn")::
-										::end::
-									::else::
-										::if c.userName2 == you::
-											<span style="color:#080">::_("It's your turn")::</span>
-										::else::
-											::_("It's his/her turn")::
-										::end::
-									::end::
-									)
-								::end::
-							</div>
-							::end::
-						</div>
-
-						<div class="orderFooter">
-							<!-- attendence list-->
-							::if user.isContractManager(dist._catalog) || md.getVolunteerForUser(user).length>0::
-							<a href="/distribution/list/::dist.id::"><i class="icon icon-print"></i> ::_("Distribution list")::</a>
-							::end::
-
-							<!-- subscription balance-->
-							::if(orders!=null && orders[0]!=null)::
-								::set sub = orders[0]._subscription::
-								::if(sub!=null)::
-									$$subscriptionBalance(::sub::)
-								::end::
-							::end::
-						</div>
+					<!--ALTERNATED ORDER-->
+					::if c.userId2!=null::
+					::if user.id==c.userId::
+					::set you = c.userName::
+					::set mate = c.userName2::
+					::else::
+					::set mate = c.userName::
+					::set you = c.userName2::
 					::end::
+					<br />(
+					::raw __("alternated with ::mate::",{mate:mate})::,
+					::if getWhosTurn(c.id,dist)==false::
+					::if c.userName == you::
+					<span style="color:#080">::_("It's your turn")::</span>
+					::else::
+					::_("It's his/her turn")::
+					::end::
+					::else::
+					::if c.userName2 == you::
+					<span style="color:#080">::_("It's your turn")::</span>
+					::else::
+					::_("It's his/her turn")::
+					::end::
+					::end::
+					)
+					::end::
+				</div>
 				::end::
 			</div>
-		::else::
-			<div class="content">
-				<span class="disabled">Vous n'avez rien à récupérer ce jour là.</span>
+
+			<div class="orderFooter">
+				<!-- attendence list-->
+				::if user.isContractManager(dist._catalog) || md.getVolunteerForUser(user).length>0::
+				<a href="/distribution/list/::dist.id::"><i class="icon icon-print"></i> ::_("Distribution list")::</a>
+				::end::
+
+				<!-- subscription balance-->
+				::if(orders!=null && orders[0]!=null)::
+				::set sub = orders[0]._subscription::
+				::if(sub!=null)::
+				$$subscriptionBalance(::sub::)
+				::end::
+				::end::
 			</div>
+			::end::
+			::end::
+		</div>
+		::else::
+		<div class="content">
+			<span class="disabled">Vous n'avez rien à récupérer ce jour là.</span>
+		</div>
 		::end::
 
 
 
 		<!--==== Variable order block ===-->
 		::if md.getDistributions(1).length>0::
-			::if md.userHasOrders(user,1)::
-			<!-- Variable order block with orders -->
-			<div class="content myorder">Mes commandes variables</div>
-			<div class="content orders">
-				<!-- var orders for CSA-->
-				::foreach dist md.getDistributions(1)::
-					::set orders = dist.getUserOrders(user)::
-					::if orders.length>0::
-					
-	
-					<div class="row">
-						<h4><a href="/subscriptions/contract/::dist._catalog.id::">::dist._catalog.name::</a></h4>
-						::foreach c prepare(orders)::
-						<div class="col-xs-12 col-sm-6 col-lg-4" ::cond orders.length>0:: >
-							<div style="background-image:url('::c.productImage::');float:left;margin-right:12px;" class="productImg small" />
-							<span ::cond c.quantity>1:: ><b>::raw c.smartQt::</b></span>
-							<span style="background-color: #B00;color:white;padding: 2px;border-radius: 3px;margin-right:3px;" ::cond c.quantity==0::>
-								::_("Canceled")::
-							</span>
-							::c.productName::
-						</div>
-						::end::
-					</div>
-	
-					<div class="orderFooter">
-						<!-- attendence list-->
-						::if user.isContractManager(dist._catalog) || md.getVolunteerForUser(user).length>0::
-						<a href="/distribution/list/::dist.id::"><i class="icon icon-print"></i> ::_("Distribution list")::</a>
-						::end::
+		::if md.userHasOrders(user,1)::
+		<!-- Variable order block with orders -->
+		<div class="content myorder">Mes commandes variables</div>
+		<div class="content orders">
+			<!-- var orders for CSA-->
+			::foreach dist md.getDistributions(1)::
+			::set orders = dist.getUserOrders(user)::
+			::if orders.length>0::
 
-						<!-- subscription balance-->
-						::if(orders!=null && orders[0]!=null)::
-							::set sub = orders[0]._subscription::
-							::if(sub!=null)::
-								$$subscriptionBalance(::sub::)
-							::end::
-						::end::
-					</div>
-	
-					::end::
 
+			<div class="row">
+				<h4><a href="/subscriptions/contract/::dist._catalog.id::">::dist._catalog.name::</a></h4>
+				::foreach c prepare(orders)::
+				<div class="col-xs-12 col-sm-6 col-lg-4" ::cond orders.length>0:: >
+					<div style="background-image:url('::c.productImage::');float:left;margin-right:12px;"
+						class="productImg small" />
+					<span ::cond c.quantity>1:: ><b>::raw c.smartQt::</b></span>
+					<span style="background-color: #B00;color:white;padding: 2px;border-radius: 3px;margin-right:3px;"
+						::cond c.quantity==0::>
+						::_("Canceled")::
+					</span>
+					::c.productName::
+				</div>
 				::end::
 			</div>
+
+			<div class="orderFooter">
+				<!-- attendence list-->
+				::if user.isContractManager(dist._catalog) || md.getVolunteerForUser(user).length>0::
+				<a href="/distribution/list/::dist.id::"><i class="icon icon-print"></i> ::_("Distribution list")::</a>
+				::end::
+
+				<!-- subscription balance-->
+				::if(orders!=null && orders[0]!=null)::
+				::set sub = orders[0]._subscription::
+				::if(sub!=null)::
+				$$subscriptionBalance(::sub::)
+				::end::
+				::end::
+			</div>
+
 			::end::
+
+			::end::
+		</div>
+		::end::
 		::end::
 		<!--=== end VAR order block ===-->
 
@@ -262,7 +278,7 @@ $$browserDetection()
 			::set roles = md.getVolunteerForUser(user)::
 			<div class="alert alert-warning text-center" ::cond roles.length>0::>
 				<i class="icon icon-alert"></i>
-				::_("Please be aware that you or your spouse is a volunteer for the role:")::<br/>
+				::_("Please be aware that you or your spouse is a volunteer for the role:")::<br />
 				::foreach r roles::
 				<b>::r._volunteerRole.name::</b>,
 				::end::
@@ -277,7 +293,8 @@ $$browserDetection()
 			<div class="alert alert-danger text-center" ::cond roles.length==0 && vacantVolunteerRoles !=null &&
 				vacantVolunteerRoles.length !=0::>
 				<i class="icon icon-alert"></i>
-				::raw __("We need <b>::rolesNum::</b> volunteer(s) for the following roles:",{rolesNum:vacantVolunteerRoles.length})::<br />
+				::raw __("We need <b>::rolesNum::</b> volunteer(s) for the following
+				roles:",{rolesNum:vacantVolunteerRoles.length})::<br />
 				<div>
 					::foreach role vacantVolunteerRoles::
 					<b>::role.name::</b>,
@@ -310,7 +327,7 @@ $$browserDetection()
 	</div>
 
 	<!-- JOIN GROUP BLOCK -->
-	
+
 </div>
 
 
@@ -321,34 +338,42 @@ $$browserDetection()
 	<div class="block">
 
 		::if amap.imageId!=null::
-			::if amap.extUrl!=null && amap.extUrl!=""::
-				<a href="::amap.extUrl::"><img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;"
-					class="thumbnail" /><br /></a>
-			::else::
-				<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
-			::end::
+		::if amap.extUrl!=null && amap.extUrl!=""::
+		<a href="::amap.extUrl::"><img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;"
+				class="thumbnail" /><br /></a>
+		::else::
+		<img src="::file(amap.imageId)::" style="margin:auto;display: block;width: 100%;" class="thumbnail" /><br />
 		::end::
-		
+		::end::
+
 		<!-- https://github.com/kytta/shareon -->
 		<link href="https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.min.css" rel="stylesheet" type="text/css" />
 		<script type="module">
- 			import { init } from "https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.es.js";
-  			init();
+			import { init } from "https://cdn.jsdelivr.net/npm/shareon@2/dist/shareon.es.js";
+			init();
 		</script>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<center><div class="shareon" data-url="https://::HOST::/group/::amap.id::">
-						<a class="facebook" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-hashtags="#Camap"></a>
-  						<a class="telegram" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
-  						<a class="twitter" data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP" data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a>
-  						<a class="whatsapp" data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a><br/>
+				<center>
+					<div class="shareon" data-url="https://::HOST::/group/::amap.id::">
+						<a class="facebook"
+							data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"
+							data-hashtags="#Camap"></a>
+						<a class="telegram"
+							data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a>
+						<a class="twitter"
+							data-title="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"
+							data-via="@interamap44" data-hashtags="Camap,::amap.name::"></a>
+						<a class="whatsapp"
+							data-text="::amap.name:: utilise Camap, l'application libre de gestion d'AMAP"></a><br />
 						<a class="copy-url">Copier le lien</a>
 						<a class="web-share"></a>
-				</div></center>	
+					</div>
+				</center>
 			</div>
 		</div>
-		
-		
+
+
 		<!-- JOIN GROUP BLOCK -->
 		<div class="homeBlock text-center hidden-sm hidden-xs" ::cond(registerWithoutOrdering==true)::>
 			<p>
@@ -357,8 +382,9 @@ $$browserDetection()
 				ainsi que des nouvelles des producteurs !
 			</p>
 
-			::if (user==null)::		
-			<a href="#" class="btn btn-default" onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
+			::if (user==null)::
+			<a href="#" class="btn btn-default"
+				onclick="_Camap.registerBox('/user/joingroup','::loginBoxOptions.sid::',null,::loginBoxOptions.phoneRequired::,::loginBoxOptions.addressRequired::)">
 				<span class="glyphicon glyphicon-plus"></span>
 				M'inscrire à ce groupe
 			</a>
@@ -369,17 +395,17 @@ $$browserDetection()
 			</a>
 			::end::
 		</div>
-		
+
 		<div class="block hidden-sm hidden-xs">
 			<!-- VOLUNTEERS CALENDAR -->
 			<a href="/distribution/volunteersCalendar" class="btn btn-default btn-sm">
 				<i class="icon icon-calendar"></i> ::_("Duty periods calendar")::
 			</a>
 		</div>
-		
+
 		::if amap.txtHome!=null && amap.txtHome!=""::
 		<div class="block" style="word-wrap: break-word;">
-		::raw sanitize(amap.txtHome)::
+			::raw sanitize(amap.txtHome)::
 		</div>
 		::end::
 
@@ -389,7 +415,8 @@ $$browserDetection()
 		<h4>Documents</h4>
 		<div>
 			::foreach doc visibleDocuments::
-			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank"> ::doc._file.name::</a><br />
+			<i class="icon icon-file-pdf"></i><a href="::file(doc.fileId)::" target="_blank">
+				::doc._file.name::</a><br />
 			::end::
 		</div>
 	</div>
