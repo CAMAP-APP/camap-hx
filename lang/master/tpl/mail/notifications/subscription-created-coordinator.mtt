@@ -1,0 +1,30 @@
+<p>
+    <b>
+        <a href="https://::HOST::/member/view/::subscription.user.id::">
+            ::subscription.user.getName()::
+        </a> (::subscription.user.email::) a souscrit au contrat
+        <a href="https://::HOST:://subscriptions/contract/::subscription.catalog.id::">::catalog.name::</a> auprès de
+        <a href="https://::HOST::/vendor/view/::vendor.id::">::vendor.name::</a>.
+    </b>
+</p>
+<p>
+    Nombre de distributions : ::nbDistributions::
+    ::if absentDistribs::
+    (absent.e ::absentDistribs::)
+    ::end::
+    .
+</p>
+<p>
+    ::if isConst::
+    Engagement pour les produits suivants :
+    ::elseif isVarWithDefault::
+    Commande par défaut :
+    ::end::
+    ::if isConst || isVarWithDefault::
+<ul>
+    ::foreach o defaultOrder::
+    <li>::o.quantity:: x ::o.product.getName():: : ::o.quantity * o.product.price::€</li>
+    ::end::
+</ul>
+::end::
+</p>

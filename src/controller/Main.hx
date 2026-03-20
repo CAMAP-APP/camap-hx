@@ -1,5 +1,6 @@
 package controller;
 
+import service.SubscriptionService;
 import db.UserGroup;
 import sugoi.form.elements.RadioGroup;
 import payment.MoneyPot;
@@ -163,6 +164,7 @@ class Main extends Controller {
 
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
+		view.subscriptions = SubscriptionService.getActiveSubscriptions(app.user, app.user.getGroup(), false).map(s -> s.catalog.id);
 	}
 
 	// login and stuff

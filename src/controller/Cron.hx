@@ -264,7 +264,8 @@ class Cron extends Controller {
 		// Email digest
 		var task = new TransactionWrappedTask("Email digest");
 		task.setTask(function() {
-			sendEmailDigest(task, 1); // hourly
+			sendEmailDigest(task, db.NotificationMail.HOURLY); // hourly
+			sendEmailDigest(task, db.NotificationMail.COORDINATOR_HOURLY); // coordinator hourly
 		});
 		task.execute(!App.config.DEBUG);
 
@@ -328,7 +329,8 @@ class Cron extends Controller {
 
 		var task = new TransactionWrappedTask("Email digest");
 		task.setTask(function() {
-			sendEmailDigest(task, 2); // daily
+			sendEmailDigest(task, db.NotificationMail.DAILY); // daily
+			sendEmailDigest(task, db.NotificationMail.COORDINATOR_DAILY); // coordinator daily
 		});
 		task.execute(!App.config.DEBUG);
 
@@ -415,8 +417,14 @@ class Cron extends Controller {
 				var mail = new Mail();
 				mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 				mail.addRecipient(user.email, user.getName(), user.id);
-				mail.setSubject(t._("Your activity in the group ::group::", {group: group.name}));
-				mail.setHtmlBody(app.processTemplate("mail/digest.mtt", {
+				if (digest == db.NotificationMail.COORDINATOR_HOURLY || digest == db.NotificationMail.COORDINATOR_DAILY) {
+					mail.setSubject(t._("Notifications in group ::group::", {group: group.name}));
+				} else {
+					mail.setSubject(t._("Your activity in the group ::group::", {group: group.name}));
+				}
+				var template = digest == db.NotificationMail.COORDINATOR_HOURLY
+					|| digest == db.NotificationMail.COORDINATOR_DAILY ? "mail/digest-coordinator.mtt" : "mail/digest.mtt";
+				mail.setHtmlBody(app.processTemplate(template, {
 					group: group,
 					user: user,
 					notifications: htmlBodies

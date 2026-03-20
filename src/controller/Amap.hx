@@ -24,6 +24,7 @@ class Amap extends Controller {
 				contracts.remove(c);
 		}
 		view.contracts = contracts;
+		// view.subscriptions = SubscriptionService.getActiveSubscriptions(app.user, group, false).map(s -> s.catalog.id);
 		view.group = app.user.getGroup();
 	}
 

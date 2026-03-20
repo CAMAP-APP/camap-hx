@@ -1,0 +1,20 @@
+:: use 'mail/layout-group.mtt'::
+<style>
+    .header-notifications {}
+
+    .notification {
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="header-notifications">
+    Notifications dans le groupe ::group.name::
+</div>
+
+::foreach n notifications::
+<div class="notification">
+    ::raw n::
+</div>
+::end::
+
+::end::
