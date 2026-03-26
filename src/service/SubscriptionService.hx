@@ -684,7 +684,9 @@ class SubscriptionService {
 		db.NotificationMail.createNotification(html, html, db.NotificationMail.HOURLY, db.NotificationMail.makeSubject(subscription), catalog.group,
 			subscription.user, []);
 
-		if (catalog.isConstantOrdersCatalog() || catalog.hasDefaultOrdersManagement() || catalog.catalogMinOrdersTotal > 0) {
+		// if the first distribution is past, and the subscription has constraints, notify the coordinator
+		if (getSubscriptionDistributions(subscription).find(d -> d.date.getTime() < Date.now().getTime()) != null
+			&& (catalog.isConstantOrdersCatalog() || catalog.hasDefaultOrdersManagement() || catalog.catalogMinOrdersTotal > 0)) {
 			html = App.current.processTemplate("mail/notifications/subscription-created-coordinator.mtt", {
 				catalog: catalog,
 				vendor: catalog.vendor,

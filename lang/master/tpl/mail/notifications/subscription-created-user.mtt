@@ -3,7 +3,8 @@
         <a href="https://::HOST:://subscriptions/contract/::subscription.catalog.id::">::catalog.name::</a> auprès de
         <a href="https://::HOST::/vendor/view/::vendor.id::">::vendor.name::</a>
         ::if isVarWithMin::
-        pour un montant total de ::subscription.getTotalPrice()::€ sur la durée du contrat. Vous pouvez changer vos commandes avant la
+        pour un montant total de ::subscription.getTotalPrice()::€ sur la durée du contrat. Vous pouvez changer vos
+        commandes avant la
         date de fermeture des commandes.
         ::else::
         .
@@ -48,13 +49,13 @@ C'est un contrat AMAP variable, votre commande est donc modifiable date par date
 <p>
     Merci de respecter les modalités de paiement de provision indiquées et prévues au contrat en PDF ou sur la page
     "informations" pour un montant total de <b>::subscription.getTotalPrice()::€</b> correspondant à votre commande
-    par défaut multiplié par le nombre de distributions.<br/>
+    par défaut multiplié par le nombre de distributions.<br />
     Une régularisation sera demandée à la fin du contrat en fonction de vos commandes réellement passées.
 </p>
-::else if isVarWithMin::
+::elseif isVarWithMin::
 <p>
-    Merci de respecter les modalités de paiement de provision indiquées et prévues au contrat en PDF ou sur la page 
-    informations" correspondant à votre engagement sur la durée du contrat.<br/>
+    Merci de respecter les modalités de paiement de provision indiquées et prévues au contrat en PDF ou sur la page
+    informations" correspondant à votre engagement sur la durée du contrat.<br />
     Une régularisation sera demandée à la fin du contrat en fonction de vos commandes réellement passées.
 </p>
 ::else::
