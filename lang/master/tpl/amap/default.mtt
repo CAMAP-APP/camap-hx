@@ -68,12 +68,8 @@
 					<div class="col-md-6">
 						<h4>
 							<a href="/subscriptions/contract/::c.id::">::c.name::</a>
-							::if subscriptions::
-							::foreach s subscriptions::
-							::if s == c.id::
+							::if subscriptions && subscriptions.indexOf(c.id, 0) > -1::
 							<i class="icon icon-book"></i>
-							::end::
-							::end::
 							::end::
 						</h4>
 

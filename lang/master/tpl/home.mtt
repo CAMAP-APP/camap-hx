@@ -80,12 +80,9 @@ $$browserDetection()
 				<div style="float:left;margin-right:12px;" class="productImg" />
 				::end::
 				::c.name::
-				::if subscriptions::
-				::foreach s subscriptions::
-				::if s == c.id::
+				::c.id::
+				::if subscriptions.indexOf(c.id, 0) > -1::
 				<i class="icon icon-book"></i>
-				::end::
-				::end::
 				::end::
 				<br />
 				<div class="disabled">::v.name::</div>

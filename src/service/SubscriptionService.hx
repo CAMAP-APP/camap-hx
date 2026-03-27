@@ -47,12 +47,19 @@ class SubscriptionService {
 	/**
 		Get user subscriptions in active catalogs
 	**/
-	public static function getActiveSubscriptions(user:db.User, group:db.Group, includePastAndFuture = true):Array<db.Subscription> {
+	public static function getSubscriptionsForActiveContracts(user:db.User, group:db.Group):Array<db.Subscription> {
+		var catalogIds = group.getActiveContracts(true).map(c -> return c.id);
+		return db.Subscription.manager.search(($user == user || $user2 == user) && ($catalogId in catalogIds), false).array();
+	}
+
+	/**
+		Get user active subscriptions in active catalogs
+	**/
+	public static function getActiveSubscriptions(user:db.User, group:db.Group):Array<db.Subscription> {
 		var catalogIds = group.getActiveContracts(true).map(c -> return c.id);
 		return db.Subscription.manager.search(($user == user || $user2 == user) && ($catalogId in catalogIds), false)
 			.array()
-			.filter(s -> includePastAndFuture ? true : (s.endDate.getTime() >= Date.now().getTime()
-				&& s.startDate.getTime() <= Date.now().getTime()));
+			.filter(s -> (s.endDate.getTime() >= Date.now().getTime() && s.startDate.getTime() <= Date.now().getTime()));
 	}
 
 	/**
@@ -77,7 +84,7 @@ class SubscriptionService {
 		if (user == null || user.id == null)
 			throw new Error('Le membre que vous cherchez n\'existe pas');
 
-		var memberSubscriptions = getActiveSubscriptions(user, group);
+		var memberSubscriptions = getSubscriptionsForActiveContracts(user, group);
 		var subscriptionsByCatalog = new Map<Catalog, Array<Subscription>>();
 		for (subscription in memberSubscriptions) {
 			if (subscriptionsByCatalog[subscription.catalog] == null) {

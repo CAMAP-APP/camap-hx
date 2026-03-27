@@ -1,5 +1,6 @@
 package controller;
 
+import db.Catalog;
 import service.SubscriptionService;
 import db.UserGroup;
 import sugoi.form.elements.RadioGroup;
@@ -87,7 +88,12 @@ class Main extends Controller {
 		view.amap = group;
 
 		// contract not ended with UserCanOrder flag
-		view.openContracts = group.getActiveContracts().filter((c) -> c.hasOpenOrders());
+		var openContracts = group.getActiveContracts().filter((c) -> c.hasOpenOrders());
+		view.openContracts = openContracts;
+		view.subscriptions = openContracts.map(c -> SubscriptionService.getCurrentOrComingSubscription(app.user, c))
+			.filter(s -> s != null)
+			.map(s -> s.catalog.id)
+			.array();
 
 		// freshly created group
 		view.newGroup = app.session.data.newGroup == true;
@@ -164,7 +170,6 @@ class Main extends Controller {
 
 		view.visibleDocuments = group.getVisibleDocuments(isMemberOfGroup);
 		view.user = app.user;
-		view.subscriptions = SubscriptionService.getActiveSubscriptions(app.user, app.user.getGroup(), false).map(s -> s.catalog.id);
 	}
 
 	// login and stuff
