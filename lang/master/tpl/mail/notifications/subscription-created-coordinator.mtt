@@ -28,3 +28,8 @@
 </ul>
 ::end::
 </p>
+<p>
+    Montant total à régler: ::subscription.getTotalPrice()::€<br />
+    Un e-mail lui a été envoyé afin de lui rappeler de respecter les modalités de paiement prévues au contrat et de
+    remettre le contrat PDF complété s'il existe
+</p>
