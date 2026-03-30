@@ -1,7 +1,6 @@
 package service;
 
-import Common;
-import controller.Distribution;
+import haxe.Json;
 import db.Catalog;
 import db.Group.RegOption;
 import db.Operation.OperationType;
@@ -305,7 +304,7 @@ class SubscriptionService {
 	/**
 	 * Checks subscription validity
 	 */
-	public function check(subscription:db.Subscription, ?previousStartDate:Date) {
+	function checkSubscriptionBeforeUpdate(subscription:db.Subscription, ?previousStartDate:Date) {
 		// catalog must have the flag UsersCanOrder or user must have admin rights on catalog
 
 		// if (!subscription.catalog.hasOpenOrders() && (!app.user.isContractManager() || !app.user.isAdmin() || !app.user.isGroupManager()))
@@ -563,30 +562,11 @@ class SubscriptionService {
 				}
 			}
 
-			// Checks that the orders total is higher than the required minimum
-			/*var allDistribs = [];
-				if(subscription!=null){
-					allDistribs = getSubscriptionDistributions( subscription, 'all' );
-				}else{
-					allDistribs = catalog.getDistribs().array();
-				}
-
-				var lastDistrib = allDistribs[ allDistribs.length - 1 ];
-				if( lastDistrib != null ) {
-
-					var now = Date.now();
-					var doCheckMin = false;
-					var includeLastDistrib = ordersDistribIds.find( id -> id == lastDistrib.id ) != null;
-					var lastDistribIsOpen = lastDistrib.orderStartDate.getTime() <= now.getTime() &&  now.getTime() < lastDistrib.orderEndDate.getTime();
-					
-					if ( includeLastDistrib && lastDistribIsOpen ) { */
 			if (ordersTotal < catalogMinOrdersTotal) {
 				var message = 'Le total de vos commandes sur la durée du contrat est de $ordersTotal € ';
 				message += 'alors qu\'il doit être supérieur à $catalogMinOrdersTotal €. Vous devez commander plus pour respecter le contrat.';
 				throw TypedError.typed(message, CatalogRequirementsNotMet);
 			}
-			//	}
-			// }
 		}
 
 		return true;
@@ -609,8 +589,9 @@ class SubscriptionService {
 		Creates a new subscription
 		@param OrdersData : defaultOrder or recurrent order
 	 */
-	public function createSubscription(user:db.User, catalog:db.Catalog, ?ordersData:Array<CSAOrder>, ?absenceDistribIds:Array<Int>, ?absenceNb:Int,
-			?startDate:Date, ?endDate:Date):db.Subscription {
+	public function createSubscription(user:db.User, catalog:db.Catalog, ?defaultOrder:Array<CSAOrder>,
+			?initialOrders:Array<{id:Int, orders:Array<{productId:Int, qty:Float}>}>, ?absenceDistribIds:Array<Int>, ?absenceNb:Int, ?startDate:Date,
+			?endDate:Date):db.Subscription {
 		if (startDate == null)
 			startDate = getNewSubscriptionStartDate(catalog);
 		if (startDate == null)
@@ -635,7 +616,7 @@ class SubscriptionService {
 
 		// is there a secondary user in this subscription
 		if (catalog.type == db.Catalog.TYPE_CONSTORDERS) {
-			var user2 = checkUser2(ordersData);
+			var user2 = checkUser2(defaultOrder);
 			subscription.user2 = db.User.manager.get(user2, false);
 		}
 
@@ -648,17 +629,20 @@ class SubscriptionService {
 			AbsencesService.setAbsences(subscription, AbsencesService.getAutomaticAbsentDistribs(catalog, nb).map(d -> d.id), false);
 		}
 
-		check(subscription);
+		checkSubscriptionBeforeUpdate(subscription);
 		subscription.insert();
 
 		if (catalog.hasDefaultOrdersManagement()) {
 			// default orders is used only in constant orders, or variable orders with distribMinOrdersTotal
-			try {
-				this.updateDefaultOrders(subscription, ordersData);
-			} catch (e:tink.core.Error) {
-				throw(e);
-			}
+			this.setDefaultOrders(subscription, defaultOrder);
 		}
+		if (initialOrders != null) {
+			// initial orders is used by var contracts with minimum over the whole contract duration
+			this.setOrders(subscription, initialOrders);
+		}
+
+		SubscriptionService.createOrUpdateTotalOperation(subscription);
+		SubscriptionService.areVarOrdersValid(subscription);
 
 		// Email notification
 		sendSubscriptionCreatedEmails(subscription);
@@ -752,7 +736,7 @@ class SubscriptionService {
 			}
 		}
 
-		check(subscription, previousStartDate);
+		checkSubscriptionBeforeUpdate(subscription, previousStartDate);
 
 		subscription.update();
 
@@ -951,19 +935,67 @@ class SubscriptionService {
 			}
 		}
 
-		try {
-			createRecurrentOrders(subscription, defaultOrders);
-		} catch (e:tink.core.Error) {
-			throw TypedError.typed(e.message, CatalogRequirementsNotMet);
-		}
+		setDefaultOrders(subscription, defaultOrders);
 
 		// check if default Orders meet the catalog requirements
 		if (subscription.catalog.isVariableOrdersCatalog()) {
 			areVarOrdersValid(subscription);
 		}
+	}
 
+	function setDefaultOrders(subscription:db.Subscription, defaultOrders:Array<CSAOrder>) {
+		try {
+			createRecurrentOrders(subscription, defaultOrders);
+		} catch (e:tink.core.Error) {
+			throw TypedError.typed(e.message, CatalogRequirementsNotMet);
+		}
 		subscription.defaultOrders = haxe.Json.stringify(defaultOrders);
 		subscription.update();
+	}
+
+	public function updateOrders(subscription:db.Subscription, orders:Array<{id:Int, orders:Array<{productId:Int, qty:Float}>}>) {
+		setOrders(subscription, orders);
+
+		SubscriptionService.createOrUpdateTotalOperation(subscription);
+		SubscriptionService.areVarOrdersValid(subscription);
+	}
+
+	function setOrders(sub:db.Subscription, orders:Array<{id:Int, orders:Array<{productId:Int, qty:Float}>}>) {
+		for (d in orders) {
+			for (order in d.orders) {
+				var p = db.Product.manager.get(order.productId, false);
+
+				var prevOrder = db.UserOrder.manager.select($product == p && $user == sub.user && $distributionId == d.id, true);
+				if (prevOrder == null) {
+					try {
+						OrderService.make(sub.user, order.qty, p, d.id, null, sub);
+					} catch (e:tink.core.Error) {
+						// var msg = e.message;
+						// App.current.session.addMessage(msg, true);
+						throw new Error(e.message);
+						// throw e;
+					}
+				} else {
+					if (p.multiWeight) {
+						try {
+							OrderService.editMultiWeight(prevOrder, order.qty);
+						} catch (e:tink.core.Error) {
+							throw new Error(e.message);
+							// throw e;
+						}
+					} else {
+						try {
+							OrderService.edit(prevOrder, order.qty);
+						} catch (e:tink.core.Error) {
+							// var msg = e.message;
+							// App.current.session.addMessage(msg, true);
+							throw new Error(e.message);
+							// throw e;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	public static function createOrUpdateTotalOperation(subscription:db.Subscription):db.Operation {
