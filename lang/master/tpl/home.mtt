@@ -80,7 +80,6 @@ $$browserDetection()
 				<div style="float:left;margin-right:12px;" class="productImg" />
 				::end::
 				::c.name::
-				::c.id::
 				::if subscriptions.indexOf(c.id, 0) > -1::
 				<i class="icon icon-book"></i>
 				::end::
