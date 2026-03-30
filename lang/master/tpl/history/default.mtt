@@ -17,7 +17,9 @@
 						::set subscriptions = subscriptionsByCatalog.get(catalog)::
 						
 						::foreach subscription subscriptions::
-							$$subscription(::subscription::,::user::)					
+							::if subscription.endDate.getTime() >= now().getTime()::
+								$$subscription(::subscription::,::user::)					
+							::end::
 						::end::
 					::end::
 				::end::
@@ -27,6 +29,73 @@
 				::end::
 
 			::end::
+		::end::
+
+		<h2>Mes contrats archivés</h2>
+
+		<!-- ARCHIVES -->
+		::if count(subscriptionsByCatalog) > 0 ::
+			::set subscriptionsFound = false::
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Contrat</th>
+						<th>Solde</th>
+						<th>Début</th>
+						<th>Fin</th>
+					</tr>
+				</thead>
+			::foreach i loopList(0, 2)::
+				::foreach catalog subscriptionsByCatalog.keys()::
+
+					::if ( i == 0 && catalog.isVariableOrdersCatalog() ) || ( i == 1 && catalog.isConstantOrdersCatalog() )::
+
+						::set subscriptionsFound = true::
+
+						::set subscriptions = subscriptionsByCatalog.get(catalog)::
+						
+						::foreach subscription subscriptions::
+							::if subscription.endDate.getTime() < now().getTime()::
+								<tr>
+									<td>
+										<a href="/subscriptions/contract/::subscription._catalog.id::">
+											::subscription._catalog.name::
+											-
+											::subscription._catalog._vendor.name::
+										</a>
+									</td>
+									::set balance = subscription.getPaymentsTotal() - subscription.getTotalPrice()::
+									::if balance < 0::
+										::set color = "color: red"::
+									::else::
+										::set color = ""::
+									::end::
+									<td style="text-align: end; ::color::">
+										<div>
+											::formatNum(balance)::&nbsp;::currency()::
+											<a href="/history/subscriptionPayments/::subscription.id::" class="btn btn-default btn-xs">
+												Paiements
+											</a>							
+										</div>
+									</td>
+									<td>
+										::sDate(subscription.startDate)::
+									</td>
+									<td>
+										::sDate(subscription.endDate)::
+									</td>
+								</tr>
+							::end::
+						::end::
+					::end::
+				::end::
+
+				::if subscriptionsFound == false::
+					<div class="text-center" style="margin-top:40px;margin-bottom:40px;">Il n'y a pas de souscription.</div>
+				::end::
+
+			::end::
+			</table>
 		::end::
 		
 </div>

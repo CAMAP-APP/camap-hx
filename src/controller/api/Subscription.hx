@@ -6,16 +6,19 @@ import service.OrderService;
 import service.SubscriptionService;
 import tink.core.Error;
 
+typedef OrdersDto = Array<{id:Int, orders:Array<{productId:Int, qty:Float}>}>;
+
 typedef NewSubscriptionDto = {
 	userId:Int,
 	catalogId:Int,
 	defaultOrder:Array<CSAOrder>,
-	absentDistribIds:Array<Int>
+	absentDistribIds:Array<Int>,
+	initialOrders:OrdersDto
 };
 
 typedef UpdateOrdersDto = {
 	// id is distributionId
-	distributions:Array<{id:Int, orders:Array<{productId:Int, qty:Float}>}>,
+	distributions:OrdersDto,
 };
 
 class Subscription extends Controller {
@@ -44,6 +47,15 @@ class Subscription extends Controller {
 			} catch (e:tink.core.Error) {
 				throw(e);
 			}
+
+			if (newSubData.initialOrders.length > 0) {
+				try {
+					updateOrders(sub, newSubData.initialOrders);
+				} catch (e:tink.core.Error) {
+					sub.delete();
+					throw e;
+				}
+			}
 		}
 
 		getSubscription(sub);
@@ -58,56 +70,60 @@ class Subscription extends Controller {
 		if (post != null) {
 			var updateOrdersData:UpdateOrdersDto = Json.parse(StringTools.urlDecode(post));
 
-			if (!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id != sub.user.id) {
-				throw new Error(403, "You're not allowed to edit a subscription for this user");
-			}
-			// Ajout Amaury blocage souscriptions sauvages
-			if (!sub.catalog.hasOpenOrders()
-				&& (!app.user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())) {
-				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
-			}
+			updateOrders(sub, updateOrdersData.distributions);
+		}
 
-			for (d in updateOrdersData.distributions) {
-				for (order in d.orders) {
-					var p = db.Product.manager.get(order.productId, false);
+		getSubscription(sub);
+	}
 
-					var prevOrder = db.UserOrder.manager.select($product == p && $user == sub.user && $distributionId == d.id, true);
-					if (prevOrder == null) {
+	private function updateOrders(sub:db.Subscription, updateOrdersData:OrdersDto) {
+		if (!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id != sub.user.id) {
+			throw new Error(403, "You're not allowed to edit a subscription for this user");
+		}
+		// Ajout Amaury blocage souscriptions sauvages
+		if (!sub.catalog.hasOpenOrders()
+			&& (!app.user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())) {
+			throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+		}
+
+		for (d in updateOrdersData) {
+			for (order in d.orders) {
+				var p = db.Product.manager.get(order.productId, false);
+
+				var prevOrder = db.UserOrder.manager.select($product == p && $user == sub.user && $distributionId == d.id, true);
+				if (prevOrder == null) {
+					try {
+						OrderService.make(sub.user, order.qty, p, d.id, null, sub);
+					} catch (e:tink.core.Error) {
+						// var msg = e.message;
+						// App.current.session.addMessage(msg, true);
+						throw new Error(e.message);
+						// throw e;
+					}
+				} else {
+					if (p.multiWeight) {
 						try {
-							OrderService.make(sub.user, order.qty, p, d.id, null, sub);
+							OrderService.editMultiWeight(prevOrder, order.qty);
+						} catch (e:tink.core.Error) {
+							throw new Error(e.message);
+							// throw e;
+						}
+					} else {
+						try {
+							OrderService.edit(prevOrder, order.qty);
 						} catch (e:tink.core.Error) {
 							// var msg = e.message;
 							// App.current.session.addMessage(msg, true);
 							throw new Error(e.message);
 							// throw e;
 						}
-					} else {
-						if (p.multiWeight) {
-							try {
-								OrderService.editMultiWeight(prevOrder, order.qty);
-							} catch (e:tink.core.Error) {
-								throw new Error(e.message);
-								// throw e;
-							}
-						} else {
-							try {
-								OrderService.edit(prevOrder, order.qty);
-							} catch (e:tink.core.Error) {
-								// var msg = e.message;
-								// App.current.session.addMessage(msg, true);
-								throw new Error(e.message);
-								// throw e;
-							}
-						}
 					}
 				}
 			}
-
-			SubscriptionService.createOrUpdateTotalOperation(sub);
-			SubscriptionService.areVarOrdersValid(sub);
 		}
 
-		getSubscription(sub);
+		SubscriptionService.createOrUpdateTotalOperation(sub);
+		SubscriptionService.areVarOrdersValid(sub);
 	}
 
 	public function doUpdateDefaultOrder(sub:db.Subscription) {
@@ -146,7 +162,7 @@ class Subscription extends Controller {
 			}
 
 			// no default order to check in those cases
-			if (catalog.isConstantOrdersCatalog() || catalog.distribMinOrdersTotal == 0) {
+			if (catalog.isConstantOrdersCatalog() || (catalog.distribMinOrdersTotal == 0 && catalog.catalogMinOrdersTotal == 0)) {
 				return json({defaultOrderCheck: true});
 			}
 
