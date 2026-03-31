@@ -85,7 +85,7 @@ RUN set -eux; \
     npx haxe -v build.hxml
 
 # Génération des templates (lang/master/tpl -> lang/master/tmp)
-WORKDIR /srv/lang/master/tpl
+WORKDIR /srv/lang/fr/tpl
 RUN set -eux; \
     neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
 
