@@ -289,8 +289,7 @@ $$browserDetection()
 			<div class="alert alert-danger text-center" ::cond roles.length==0 && vacantVolunteerRoles !=null &&
 				vacantVolunteerRoles.length !=0::>
 				<i class="icon icon-alert"></i>
-				::raw __("We need <b>::rolesNum::</b> volunteer(s) for the following
-				roles:",{rolesNum:vacantVolunteerRoles.length})::<br />
+				::raw __("We need <b>::rolesNum::</b> volunteer(s) for the following roles:",{rolesNum:vacantVolunteerRoles.length})::<br />
 				<div>
 					::foreach role vacantVolunteerRoles::
 					<b>::role.name::</b>,

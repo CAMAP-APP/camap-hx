@@ -135,6 +135,7 @@ COPY --from=builder /srv/www  /srv/www
 COPY --from=builder /srv/lang  /srv/lang
 COPY --from=builder /srv/data /srv/data
 COPY --from=builder /srv/backend/temploc2.n /usr/local/lib/camap/temploc2.n
+# Wrapper minimal pour exposer temploc2 dans le PATH via le bytecode Neko embarqué
 RUN echo "neko /usr/local/lib/camap/temploc2.n \$@" > /usr/bin/temploc2
 RUN chmod +x /usr/bin/temploc2
 
