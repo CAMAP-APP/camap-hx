@@ -290,6 +290,8 @@ class SubscriptionService {
 				return null;
 			var label = "";
 			for (order in subscriptionOrders) {
+				if (order.quantity == 0)
+					continue;
 				label += tools.FloatTool.clean(order.quantity) + ' x ' + Product.manager.get(order.productId).name + '<br />';
 			}
 			label += "à chaque distribution.";
