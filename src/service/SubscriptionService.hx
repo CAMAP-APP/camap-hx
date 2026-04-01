@@ -657,7 +657,7 @@ class SubscriptionService {
 		var defaultOrder = subscription.getDefaultOrders().map(o -> return {
 			quantity: o.quantity,
 			product: db.Product.manager.get(o.productId, false)
-		});
+		}).filter(o -> o.quantity > 0);
 		var abss = subscription.getAbsentDistribs();
 		var absentDistribs = abss.length > 0 ? abss.map(d -> return Formatting.dDate(d.date)).join(", ") : null;
 		var html = App.current.processTemplate("mail/notifications/subscription-created-user.mtt", {
@@ -666,6 +666,7 @@ class SubscriptionService {
 			subscription: subscription,
 			engagement: SubscriptionService.getSubscriptionConstraints(subscription),
 			nbDistributions: SubscriptionService.getSubscriptionDistribsNb(subscription),
+			nextDistrib: Formatting.dDate(SubscriptionService.getSubscriptionDistributions(subscription)[0].date),
 			isConst: catalog.isConstantOrdersCatalog(),
 			isVarWithDefault: catalog.isVariableOrdersCatalog() && catalog.hasDefaultOrdersManagement(),
 			isVarWithMin: catalog.isVariableOrdersCatalog() && catalog.catalogMinOrdersTotal > 0,
@@ -678,7 +679,7 @@ class SubscriptionService {
 			subscription.user, []);
 
 		// if the first distribution is past, and the subscription has constraints, notify the coordinator
-		if (getSubscriptionDistributions(subscription).find(d -> d.date.getTime() < Date.now().getTime()) != null
+		if (catalog.getDistribs(false).find(d -> d.date.getTime() < Date.now().getTime()) != null
 			&& (catalog.isConstantOrdersCatalog() || catalog.hasDefaultOrdersManagement() || catalog.catalogMinOrdersTotal > 0)) {
 			html = App.current.processTemplate("mail/notifications/subscription-created-coordinator.mtt", {
 				catalog: catalog,
@@ -687,6 +688,7 @@ class SubscriptionService {
 				defaultOrder: defaultOrder,
 				engagement: SubscriptionService.getSubscriptionConstraints(subscription),
 				nbDistributions: SubscriptionService.getSubscriptionDistribsNb(subscription),
+				nextDistrib: Formatting.dDate(SubscriptionService.getSubscriptionDistributions(subscription)[0].date),
 				isConst: catalog.isConstantOrdersCatalog(),
 				isVarWithDefault: catalog.isVariableOrdersCatalog() && catalog.hasDefaultOrdersManagement(),
 				isVarWithMin: catalog.isVariableOrdersCatalog() && catalog.catalogMinOrdersTotal > 0,

@@ -4,8 +4,7 @@
         <a href="https://::HOST::/vendor/view/::vendor.id::">::vendor.name::</a>
         ::if isVarWithMin::
         pour un montant total de ::subscription.getTotalPrice()::€ sur la durée du contrat. Vous pouvez changer vos
-        commandes avant la
-        date de fermeture des commandes.
+        commandes avant la date de fermeture de chaque commande.
         ::else::
         .
         ::end::
@@ -16,7 +15,11 @@
     ::if isVarWithDefault::
     Votre engagement: ::raw engagement::<br />
     ::end::
+    ::if nbDistributions > 1::
     Nombre de distributions : ::nbDistributions::<br />
+    ::elseif nbDistributions == 1::
+    Distribution le ::nextDistrib::
+    ::end::
     ::if isConst || isVarWithDefault::
     ::if isConst::
     Vous recevrez à chaque distribution les produits suivants :
@@ -66,6 +69,6 @@ C'est un contrat AMAP variable, votre commande est donc modifiable date par date
 </p>
 ::end::
 <p>
-    Si un contrat papier est associé à votre souscription, pensez à le compléter et à le remettre avec le mode paiement.
+    Si un contrat papier est associé à votre souscription, pensez à le compléter et à le remettre avec le paiement.
 </p>
 ::end::
