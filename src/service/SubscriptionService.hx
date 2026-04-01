@@ -678,7 +678,7 @@ class SubscriptionService {
 			subscription.user, []);
 
 		// if the first distribution is past, and the subscription has constraints, notify the coordinator
-		if (getSubscriptionDistributions(subscription).find(d -> d.date.getTime() < Date.now().getTime()) != null
+		if (catalog.getDistribs(false).find(d -> d.date.getTime() < Date.now().getTime()) != null
 			&& (catalog.isConstantOrdersCatalog() || catalog.hasDefaultOrdersManagement() || catalog.catalogMinOrdersTotal > 0)) {
 			html = App.current.processTemplate("mail/notifications/subscription-created-coordinator.mtt", {
 				catalog: catalog,
