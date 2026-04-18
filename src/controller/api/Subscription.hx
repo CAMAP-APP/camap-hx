@@ -32,17 +32,11 @@ class Subscription extends Controller {
 			var user = db.User.manager.get(newSubData.userId, false);
 			var catalog = db.Catalog.manager.get(newSubData.catalogId, false);
 
-      var isAdmin = app.user.isAdmin();
-      var isGroupManager = app.user.isGroupManager();
-      var canManage = app.user.canManageContract(catalog);
-      var isSelf = app.user.id == user.id;
-
-      if (!isAdmin && !canManage && !isSelf && !isGroupManager) {
-        throw new Error(403, "Vous ne disposez pas des droits (Gestionnaire de catalogue ou Administrateur) pour créer une souscription pour cet utilisateur");
-      }
-
+			if (!app.user.isAdmin() && !user.canManageContract(catalog) && app.user.id != user.id) {
+				throw new Error(403, "You're not allowed to create a subscription for this user");
+			}
 			// Ajout Amaury blocage souscriptions sauvages
-			if (!catalog.hasOpenOrders() && (!canManage || !isAdmin || !isGroupManager)) {
+			if (!catalog.hasOpenOrders() && (!user.canManageContract(catalog) || !app.user.isAdmin() || !app.user.isGroupManager())) {
 				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
 			}
 
