@@ -9,6 +9,12 @@
 <style>
 	div.homeProductImg {
 		margin: 0 12px 0 0;
+		width: 58px;
+		height: 58px;
+		border-radius: 10px;
+		overflow: hidden;
+		background-size: cover;
+		background-position: center;
 	}
 
 	@media screen and (max-width: 575px) {
