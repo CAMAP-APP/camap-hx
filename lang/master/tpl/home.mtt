@@ -85,7 +85,6 @@ $$browserDetection()
 				::end::
 				<br />
 				<div class="disabled">::v.name::</div>
-				<div class="disabled">::dDate(c.startDate)::</div>
 			</a>
 		</div>
 		::end::
