@@ -310,7 +310,7 @@ class SubscriptionService {
 		// catalog must have the flag UsersCanOrder or user must have admin rights on catalog
 
 		if (!subscription.catalog.hasOpenOrders() && !adminMode) {
-			throw new Error("Les souscriptions à ce catalogue sont fermées #3. Veuillez contacter le coordinateur du contrat.");
+			throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
 		}
 
 		// catalog should have distribs
