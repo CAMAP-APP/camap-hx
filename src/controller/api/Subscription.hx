@@ -43,7 +43,7 @@ class Subscription extends Controller {
 
 			// Ajout Amaury blocage souscriptions sauvages
 			if (!catalog.hasOpenOrders() && (!canManage || !isAdmin || !isGroupManager)) {
-				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+				throw new Error("Les souscriptions à ce catalogue sont fermées #1. Veuillez contacter le coordinateur du contrat.");
 			}
 
 			var ss = new SubscriptionService();
@@ -68,7 +68,7 @@ class Subscription extends Controller {
 			// Ajout Amaury blocage souscriptions sauvages
 			if (!sub.catalog.hasOpenOrders()
 				&& (!app.user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())) {
-				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
+				throw new Error("Les souscriptions à ce catalogue sont fermées #2. Veuillez contacter le coordinateur du contrat.");
 			}
 
 			var ss = new SubscriptionService();
