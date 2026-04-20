@@ -1,11 +1,11 @@
-name: Publish feature image to GHCR (camap-hx)
+name: Publish mantis image to GHCR (camap-hx)
 
 on:
   push:
-    # Tags du type "feature-…" (ex: feature-producteur, feature-foo-1)
+    # Tags du type "mantis-…" 
     tags:
       - 'mantis-*'
-    # Branches "feature/*" ET "feature-*"
+    # Branches "mantis-*"
     branches:
       - 'mantis-*'
   workflow_dispatch:
@@ -20,11 +20,11 @@ env:
   ENFORCE_NOT_IN_MAINLINE: "false"
 
 jobs:
-  verify-feature:
-    name: Verify ref complies with feature rules
+  verify-mantis:
+    name: Verify ref complies with mantis rules
     runs-on: ubuntu-latest
-    # Ne s’exécute que pour branches/tags "feature"
-    if: startsWith(github.ref, 'refs/heads/feature') || startsWith(github.ref, 'refs/tags/feature-')
+    # Ne s’exécute que pour branches/tags "mantis"
+    if: startsWith(github.ref, 'refs/heads/mantis-') || startsWith(github.ref, 'refs/tags/mantis-')
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -47,7 +47,7 @@ jobs:
 
   build-and-push:
     name: Build & push camap-hx
-    needs: verify-feature
+    needs: verify-mantis
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/mantis-')
     steps:
@@ -62,7 +62,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # ===== Tags "feature-*" =====
+      # ===== Tags "mantis-*" =====
       - name: Prepare tag-based metadata
         id: tag_meta
         if: github.ref_type == 'tag'
