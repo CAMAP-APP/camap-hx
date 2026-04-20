@@ -309,7 +309,6 @@ class SubscriptionService {
 	function checkSubscriptionBeforeUpdate(subscription:db.Subscription, ?previousStartDate:Date) {
 		// catalog must have the flag UsersCanOrder or user must have admin rights on catalog
 
-		// if (!subscription.catalog.hasOpenOrders() && (!app.user.isContractManager() || !app.user.isAdmin() || !app.user.isGroupManager()))
 		if (!subscription.catalog.hasOpenOrders() && !adminMode) {
 			throw new Error("Les souscriptions à ce catalogue sont fermées #3. Veuillez contacter le coordinateur du contrat.");
 		}
