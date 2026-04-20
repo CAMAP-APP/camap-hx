@@ -49,7 +49,7 @@ jobs:
     name: Build & push camap-hx
     needs: verify-mantis
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/mantis-')
+    if: startsWith(github.ref, 'refs/tags/mantis-') || startsWith(github.ref, 'refs/heads/mantis-')
     steps:
       - uses: actions/checkout@v4
 
