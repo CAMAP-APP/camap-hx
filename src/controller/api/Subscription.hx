@@ -42,11 +42,12 @@ class Subscription extends Controller {
       }
 
 			// Ajout Amaury blocage souscriptions sauvages
-			if (!catalog.hasOpenOrders() && (!canManage || !isAdmin || !isGroupManager)) {
+			if (!catalog.hasOpenOrders() && !canManage && !isAdmin && !isGroupManager) {
 				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
 			}
 
 			var ss = new SubscriptionService();
+      ss.adminMode = true;
 			sub = ss.createSubscription(user, catalog, newSubData.defaultOrder, newSubData.initialOrders, newSubData.absentDistribIds);
 		}
 
@@ -63,15 +64,16 @@ class Subscription extends Controller {
 			var updateOrdersData:UpdateOrdersDto = Json.parse(StringTools.urlDecode(post));
 
 			if (!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id != sub.user.id) {
-				throw new Error(403, "You're not allowed to edit a subscription for this user");
+				throw new Error(403, "Vous n'êtes pas autorisé à modifier la souscription de cet utilisateur.");
 			}
 			// Ajout Amaury blocage souscriptions sauvages
 			if (!sub.catalog.hasOpenOrders()
-				&& (!app.user.canManageContract(sub.catalog) || !app.user.isAdmin() || !app.user.isGroupManager())) {
+				&& !app.user.canManageContract(sub.catalog) && !app.user.isAdmin() && !app.user.isGroupManager()) {
 				throw new Error("Les souscriptions à ce catalogue sont fermées. Veuillez contacter le coordinateur du contrat.");
 			}
 
 			var ss = new SubscriptionService();
+      ss.adminMode = true;
 			ss.updateOrders(sub, updateOrdersData.distributions);
 		}
 
@@ -85,7 +87,7 @@ class Subscription extends Controller {
 			var updateDefaultOrderData:Array<CSAOrder> = Json.parse(StringTools.urlDecode(post));
 
 			if (!app.user.isAdmin() && !app.user.canManageContract(sub.catalog) && app.user.id != sub.user.id) {
-				throw new Error(403, "You're not allowed to edit a subscription for this user");
+				throw new Error(403, "Vous n'êtes pas autorisé à modifier la souscription de cet utilisateur.");
 			}
 
 			var ss = new SubscriptionService();
