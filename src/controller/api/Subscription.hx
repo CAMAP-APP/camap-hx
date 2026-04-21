@@ -91,6 +91,9 @@ class Subscription extends Controller {
 			}
 
 			var ss = new SubscriptionService();
+      if (app.user.isAdmin() || app.user.canManageContract(sub.catalog) || app.user.isGroupManager()) {
+        ss.adminMode = true;
+      }
 			try {
 				ss.updateDefaultOrders(sub, updateDefaultOrderData);
 			} catch (e:tink.core.Error) {

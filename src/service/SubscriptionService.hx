@@ -920,15 +920,14 @@ class SubscriptionService {
 		defaultOrders = defaultOrders.filter(o -> o.quantity > 0);
 
 		subscription.lock();
-		/*if( subscription.catalog.isVariableOrdersCatalog()){
-			if ( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders==null || defaultOrders.length==0 ) ) {
-				throw new Error('La commande par défaut ne peut pas être vide. (Souscription de ${subscription.user.getName()})');
-			}
-		}else{*/
-		if (defaultOrders == null || defaultOrders.length == 0) {
-			throw new Error('La commande par défaut ne peut pas être vide. (Souscription de ${subscription.user.getName()})');
-		}
-		// }
+
+		// si contrat variable et commandes non ouvertes,
+    // => si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
+    if (subscription.catalog.isVariableOrdersCatalog() && !subscription.catalog.hasOpenOrders()) {
+      if (( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode ) {
+        throw new Error('La commande par défaut ne peut pas être vide ou vous n\'avez pas les droits nécessaire à sa modification. (Souscription de ${subscription.user.getName()})');
+      }
+    }
 
 		// if constantOrders, the user (not admin) cannot edit default orders if sub has past distrib orders
 		if (subscription.catalog.isConstantOrdersCatalog()) {
