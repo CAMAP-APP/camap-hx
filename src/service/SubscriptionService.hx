@@ -921,8 +921,9 @@ class SubscriptionService {
 
 		subscription.lock();
 
-		// si contrat variable, si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
-    if (subscription.catalog.isVariableOrdersCatalog()) {
+		// si contrat variable et commandes non ouvertes,
+    // => si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
+    if (subscription.catalog.isVariableOrdersCatalog() && !subscription.catalog.hasOpenOrders()) {
       if (( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode ) {
         throw new Error('La commande par défaut ne peut pas être vide ou vous n\'avez pas les droits nécessaire à sa modification. (Souscription de ${subscription.user.getName()})');
       }
