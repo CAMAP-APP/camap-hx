@@ -927,7 +927,7 @@ class SubscriptionService {
 		}else{*/
 		// si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
       if (( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode ) {
-			throw new Error('La commande par défaut ne peut pas être vide. (Souscription de ${subscription.user.getName()})');
+			throw new Error('La commande par défaut ne peut pas être vide ou vous n\'avez pas les droits nécessaire à sa modification. (Souscription de ${subscription.user.getName()}. Contactez un coordinateur)');
 		}
 		// }
 
