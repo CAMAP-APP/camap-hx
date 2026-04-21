@@ -925,7 +925,8 @@ class SubscriptionService {
 				throw new Error('La commande par défaut ne peut pas être vide. (Souscription de ${subscription.user.getName()})');
 			}
 		}else{*/
-		if ( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) {
+		// si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
+      if (( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode ) {
 			throw new Error('La commande par défaut ne peut pas être vide. (Souscription de ${subscription.user.getName()})');
 		}
 		// }
