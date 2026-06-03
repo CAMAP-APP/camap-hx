@@ -3359,6 +3359,14 @@ msgstr ""
 "href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
 "copie</a>"
 
+#: ../lang/master/tpl/contractadmin/default.mtt
+msgid "Export subscriptions"
+msgstr "Exporter les souscriptions"
+
+#: ../src/controller/ContractAdmin.hx
+msgid "Subscriptions"
+msgstr "Souscriptions"
+
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"
 

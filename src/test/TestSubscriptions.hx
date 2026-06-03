@@ -496,4 +496,53 @@ class TestSubscriptions extends utest.Test
 		// Assert.isTrue(sebBasket1.num == 2);
 
 	}
+
+	// Test the CSV export data builder ( SubscriptionService.getSubscriptionsExportData )
+	function testGetSubscriptionsExportData() {
+
+		var ordersData = new Array< { productId : Int, quantity : Float, invertSharedOrder : Bool, userId2 : Int } >();
+		ordersData.push( { productId : panierAmap.id, quantity : 1, invertSharedOrder : false, userId2 : null } );
+
+		var subscription = SubscriptionService.createSubscription( bob, catalog, ordersData, null, Date.now(), catalog.endDate );
+
+		//----------------------------------------
+		// No payment yet : paid == "non"
+		//----------------------------------------
+		var rows = SubscriptionService.getSubscriptionsExportData( [catalog] );
+		var bobRows = rows.filter( r -> r.userId == bob.id );
+		Assert.equals( 1, bobRows.length );
+
+		var row = bobRows[0];
+		Assert.equals( subscription.id, row.subscriptionId );
+		Assert.equals( bob.getName(), row.userName );
+		Assert.equals( bob.email, row.userEmail );
+		Assert.equals( "", row.user2Name );
+		Assert.equals( catalog.id, row.catalogId );
+		Assert.equals( catalog.name, row.catalogName );
+		Assert.equals( catalog.vendor.name, row.vendorName );
+		Assert.equals( subscription.getTotalPrice(), row.totalPrice );
+		Assert.equals( 0.0, row.paymentsTotal );
+		Assert.equals( subscription.getBalance(), row.balance );
+		Assert.equals( "non", row.paid );
+
+		//----------------------------------------
+		// Full payment : paid == "oui"
+		//----------------------------------------
+		var operation = new db.Operation();
+		operation.amount = subscription.getTotalPrice();
+		operation.date = Date.now();
+		operation.name = "Paiement test";
+		operation.type = db.Operation.OperationType.Payment;
+		operation.setPaymentData( { type : "cash" } );
+		operation.group = catalog.group;
+		operation.user = bob;
+		operation.subscription = subscription;
+		operation.pending = false;
+		operation.insert();
+
+		var paidRow = SubscriptionService.getSubscriptionsExportData( [catalog] ).filter( r -> r.userId == bob.id )[0];
+		Assert.equals( subscription.getTotalPrice(), paidRow.paymentsTotal );
+		Assert.equals( 0.0, paidRow.balance );
+		Assert.equals( "oui", paidRow.paid );
+	}
 }
