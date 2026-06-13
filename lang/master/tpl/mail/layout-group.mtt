@@ -165,6 +165,9 @@
 				href="https://wiki.amap44.org/fr/app/mon-compte-camap#quitter-un-groupe" rel="notrack">quitter ce
 				groupe</a></p>
 		::end::
+	::if (replyTo!=null)::
+	<p>Vous pouvez répondre à : <a href="::'mailto:'+replyTo::">::replyTo::</a></p>
+	::end::
 	</div>
 </body>
 

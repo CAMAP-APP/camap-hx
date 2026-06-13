@@ -585,7 +585,8 @@ class Cron extends Controller {
 							group: group,
 							multiDistrib: u.distrib,
 							user: u.user,
-							hHour: Formatting.hHour
+							hHour: Formatting.hHour,
+							replyTo: group.contact != null ? group.contact.email : null
 						}));
 						App.sendMail(m, group);
 
@@ -676,7 +677,8 @@ class Cron extends Controller {
 								group: group,
 								multiDistrib: md,
 								user: user,
-								hHour: Formatting.hHour
+								hHour: Formatting.hHour,
+								replyTo: group.contact != null ? group.contact.email : null
 							}));
 							App.sendMail(m, group);
 
@@ -760,7 +762,8 @@ class Cron extends Controller {
 					dDate: Formatting.dDate,
 					hHour: Formatting.hHour,
 					group: amap,
-					newSubscriptions: distribOrders.newSubs
+					newSubscriptions: distribOrders.newSubs,
+					replyTo: amap.contact != null ? amap.contact.email : null
 				});
 
 				m.setHtmlBody(html);

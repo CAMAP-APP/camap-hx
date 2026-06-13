@@ -539,7 +539,7 @@ class OrderService
 			m.setSubject(title);
 			var orders = prepare(d.catalog.getUserOrders(user,d));
 
-			var html = App.current.processTemplate("mail/orderSummaryForMember.mtt", { 
+			var html = App.current.processTemplate("mail/orderSummaryForMember.mtt", {
 				contract:d.catalog,
 				distribution:d,
 				orders:orders,
@@ -547,7 +547,8 @@ class OrderService
 				currency:App.current.view.currency,
 				dDate:Formatting.dDate,
 				hHour:Formatting.hHour,
-				group:d.catalog.group
+				group:d.catalog.group,
+				replyTo:d.catalog.contact.email
 			} );
 			
 			m.setHtmlBody(html);
