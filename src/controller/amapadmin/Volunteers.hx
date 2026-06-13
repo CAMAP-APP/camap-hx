@@ -23,7 +23,7 @@ class Volunteers extends controller.Controller
 		var form = new sugoi.form.Form("msg"); // don't change this name, it's used in the template view.mtt
 
 		form.addElement( new form.RawHtml("title1", '<h3>${t._("Duties configuration")}</h3>'));
-		form.addElement( new IntInput("daysAfterClosingBeforeHidingDutyPeriods", t._("Masquer les catalogues expirés depuis plus de… (jours)"), userGroup.daysAfterClosingBeforeHidingDutyPeriods, true) );
+		form.addElement( new IntInput("daysAfterClosingBeforeHidingDutyPeriods", t._("Masquer les permanences passées depuis plus de… (jours)"), userGroup.daysAfterClosingBeforeHidingDutyPeriods, true) );
 
 
 		form.addElement( new form.RawHtml("title2", '<h3>${t._("Delays and messages")}</h3>'));
