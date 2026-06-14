@@ -77,7 +77,7 @@ class App extends sugoi.BaseApp {
                                 <a href="/cgu" target="_blank">Conditions générales d\'utilisation</a>
                             </li>
                             <li>
-                                <a href="/privacy" target="_blank">Notice d\'information RGPD</a>
+                                <a href="/privacypolicy" target="_blank">Notice d\'information RGPD</a>
                             </li>
                             <li>
                             <a href="https://feedback.amap44.org" target="_blank">Idées & Suggestions</a>
