@@ -86,7 +86,18 @@ class Contract extends Controller
 	@logged @tpl("form.mtt")
 	public function doInsertVendor(?name:String) {
 		var form = VendorService.getForm(new db.Vendor());
-				
+
+		var gdprHtml = '<div class="well" style="margin-top:20px; font-size:0.9em;">'
+			+ '<p>En enregistrant ce compte, vous vous engagez à informer le producteur que ses données (nom, prénom, email, téléphone, SIRET, description de son activité et données commerciales) sont enregistrées dans CAMAP et gérées par votre AMAP.</p>'
+			+ '<p>Le producteur dispose d\'un droit d\'accès, de rectification, d\'effacement, de limitation, de portabilité et d\'opposition sur ses données (art. 15 à 21 RGPD). Il peut les exercer en vous contactant ou à l\'adresse <a href="mailto:support@amap44.org">support@amap44.org</a>.</p>'
+			+ '<p>Sa page de présentation (photos, textes, catalogue) est visible publiquement.</p>'
+			+ '<p><a href="https://wiki.amap44.org/fr/LEGAL/RGPD" target="_blank">En savoir plus : Notice d\'information RGPD</a></p>'
+			+ '<div class="checkbox" style="margin-top:10px;">'
+			+ '<label><input type="checkbox" name="gdprConsent" required> <strong>J\'ai informé le producteur de ses droits</strong></label>'
+			+ '</div>'
+			+ '</div>';
+		form.addElement(new form.RawHtml("gdprDisclaimer", gdprHtml));
+
 		if (form.isValid()) {
 			var vendor = null;
 			try{

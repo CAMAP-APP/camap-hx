@@ -24,8 +24,8 @@ msgid "Duties configuration"
 msgstr "Configuration des permanences"
 
 #: ../src/controller/amapadmin/Volunteers.hx:953
-msgid "Masquer les catalogues expirés depuis plus de… (jours)"
-msgstr "Masquer les catalogues expirés depuis plus de… (jours)"
+msgid "Hide volunteer shift for catalogs expired for more than … (days)"
+msgstr "Masquer les permanences des catalogues expirés depuis plus de … (jours)"
 
 #: ../src/controller/amapadmin/Volunteers.hx:1134
 msgid "Delays and messages"

@@ -18,7 +18,7 @@ class App extends sugoi.BaseApp {
 	 * Version management
 	 * @doc https://github.com/fponticelli/thx.semver
 	 */
-	public static var VERSION = ([3, 0, 5] : Version) /*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
+	public static var VERSION = ([3, 0, 6] : Version) /*.withPre(GitMacros.getGitShortSHA(), GitMacros.getGitCommitDate())*/;
 
 	public function new() {
 		super();
@@ -75,6 +75,9 @@ class App extends sugoi.BaseApp {
                             </li>
                             <li>
                                 <a href="/cgu" target="_blank">Conditions générales d\'utilisation</a>
+                            </li>
+                            <li>
+                                <a href="/privacypolicy" target="_blank">Notice d\'information RGPD</a>
                             </li>
                             <li>
                             <a href="https://feedback.amap44.org" target="_blank">Idées & Suggestions</a>
