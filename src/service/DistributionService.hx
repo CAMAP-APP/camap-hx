@@ -559,7 +559,9 @@ class DistributionService
 	 */
 	public static function canDelete(d:db.Distribution):Bool{
 
-		if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) return true;
+		if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) {
+			return db.Distribution.manager.count( $catalog == d.catalog && $date < Date.now() ) == 0;
+		}
 		
 		var quantity = 0.0;
 		for ( order in d.getOrders() ){
