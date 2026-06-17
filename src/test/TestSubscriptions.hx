@@ -520,9 +520,9 @@ class TestSubscriptions extends utest.Test
 		Assert.equals( catalog.id, row.catalogId );
 		Assert.equals( catalog.name, row.catalogName );
 		Assert.equals( catalog.vendor.name, row.vendorName );
-		Assert.equals( subscription.getTotalPrice(), row.totalPrice );
-		Assert.equals( 0.0, row.paymentsTotal );
-		Assert.equals( subscription.getBalance(), row.balance );
+		Assert.equals( Formatting.formatNum( subscription.getTotalPrice() ), row.totalPrice );
+		Assert.equals( Formatting.formatNum( 0.0 ), row.paymentsTotal );
+		Assert.equals( Formatting.formatNum( subscription.getBalance() ), row.balance );
 		Assert.equals( "non", row.paid );
 
 		//----------------------------------------
@@ -541,8 +541,8 @@ class TestSubscriptions extends utest.Test
 		operation.insert();
 
 		var paidRow = SubscriptionService.getSubscriptionsExportData( [catalog] ).filter( r -> r.userId == bob.id )[0];
-		Assert.equals( subscription.getTotalPrice(), paidRow.paymentsTotal );
-		Assert.equals( 0.0, paidRow.balance );
+		Assert.equals( Formatting.formatNum( subscription.getTotalPrice() ), paidRow.paymentsTotal );
+		Assert.equals( Formatting.formatNum( 0.0 ), paidRow.balance );
 		Assert.equals( "oui", paidRow.paid );
 	}
 }

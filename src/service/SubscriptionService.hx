@@ -38,9 +38,9 @@ typedef SubscriptionExportRow = {
 	catalogName:String,
 	startDate:String, // yyyy-mm-dd
 	endDate:String, // yyyy-mm-dd
-	totalPrice:Float,
-	paymentsTotal:Float,
-	balance:Float,
+	totalPrice:String, // FR-formatted (comma decimal)
+	paymentsTotal:String, // FR-formatted (comma decimal)
+	balance:String, // FR-formatted (comma decimal)
 	paid:String // "oui" / "non"
 }
 
@@ -84,9 +84,9 @@ class SubscriptionService {
 					catalogName: catalog.name,
 					startDate: sub.startDate == null ? "" : sub.startDate.toString().substr(0, 10),
 					endDate: sub.endDate == null ? "" : sub.endDate.toString().substr(0, 10),
-					totalPrice: sub.getTotalPrice(),
-					paymentsTotal: sub.getPaymentsTotal(),
-					balance: sub.getBalance(),
+					totalPrice: Formatting.formatNum(sub.getTotalPrice()),
+					paymentsTotal: Formatting.formatNum(sub.getPaymentsTotal()),
+					balance: Formatting.formatNum(sub.getBalance()),
 					paid: sub.paid() ? "oui" : "non"
 				});
 			}
