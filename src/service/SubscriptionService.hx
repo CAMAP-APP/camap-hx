@@ -555,7 +555,7 @@ class SubscriptionService {
 		// get orders in correct format
 		var allOrders = getSubscriptionAllOrders(subscription);
 		if (allOrders.length == 0)
-			throw "Aucune commande dans cette souscription";
+			throw new Error("Aucune commande dans cette souscription");
 		var ordersByDistrib = ordersToOrdersByDistrib(allOrders);
 
 		checkVarOrders(ordersByDistrib, subscription);
@@ -575,7 +575,7 @@ class SubscriptionService {
 		for (k in ordersByDistrib.keys())
 			keys.push(k);
 		if (keys.length == 0)
-			throw "Aucune distribution ouverte à la commande pour cette souscription";
+			throw new Error("Aucune distribution ouverte à la commande pour cette souscription");
 		var catalog = keys.find(d -> d != null).catalog;
 
 		// Minimum by distribution
@@ -647,7 +647,7 @@ class SubscriptionService {
 		if (startDate == null)
 			startDate = getNewSubscriptionStartDate(catalog);
 		if (startDate == null)
-			throw "Aucune distribution non fermée dans le futur";
+			throw new Error("Aucune distribution non fermée dans le futur");
 		if (endDate == null)
 			endDate = catalog.endDate;
 

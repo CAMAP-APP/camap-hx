@@ -148,9 +148,17 @@ class VolunteerService
 					}
 					var adminUsers = service.GroupService.getGroupMembersWithRights( multidistrib.group, rights );
 					for ( admin in adminUsers ) {
-						mail.addRecipient( admin.email, admin.getName() );
+						try {
+							mail.addRecipient( admin.email, admin.getName() );
+						} catch (e:Dynamic) {
+							trace('Invalid email for admin ${admin.getName()}: ${admin.email}');
+						}
 						if ( admin.email2 != null ) {
-							mail.addRecipient( admin.email2 );
+							try {
+								mail.addRecipient( admin.email2 );
+							} catch (e:Dynamic) {
+								trace('Invalid email2 for admin ${admin.getName()}: ${admin.email2}');
+							}
 						}
 					}
 				}else{
@@ -158,9 +166,17 @@ class VolunteerService
 					var members = Lambda.array( multidistrib.group.getMembers() );
 					//Recipients are all members
 					for ( member in members ) {
-						mail.addRecipient( member.email, member.getName() );
+						try {
+							mail.addRecipient( member.email, member.getName() );
+						} catch (e:Dynamic) {
+							trace('Invalid email for member ${member.getName()}: ${member.email}');
+						}
 						if ( member.email2 != null ) {
-							mail.addRecipient( member.email2 );
+							try {
+								mail.addRecipient( member.email2 );
+							} catch (e:Dynamic) {
+								trace('Invalid email2 for member ${member.getName()}: ${member.email2}');
+							}
 						}
 					}
 				}
