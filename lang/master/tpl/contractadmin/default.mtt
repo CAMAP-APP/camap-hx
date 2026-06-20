@@ -81,9 +81,13 @@
 			::if user.canManageAllContracts()::
 			<li><a href="/contractAdmin/ordersByDate">::_("Same day")::</a></li>
 			::end::
-			<li><a href="/contractAdmin/ordersByTimeFrame">::_("Timeframe")::</a></li>			
+			<li><a href="/contractAdmin/ordersByTimeFrame">::_("Timeframe")::</a></li>
 		  </ul>
 		</div>
+
+		<a href="/contractAdmin/exportSubscriptions" class="btn btn-default btn-sm">
+			<i class="icon icon-euro"></i> ::_("Export subscriptions")::
+		</a>
 		::end::
 	</div>
 </div>

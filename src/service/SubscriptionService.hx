@@ -24,6 +24,27 @@ enum SubscriptionServiceError {
 typedef CSAOrder = {productId:Int, productPrice:Float, quantity:Float, ?userId2:Int, ?invertSharedOrder:Bool}
 
 /**
+	One flat row of the subscriptions CSV export (one row per subscription).
+**/
+typedef SubscriptionExportRow = {
+	subscriptionId:Int,
+	userId:Int,
+	userName:String,
+	userEmail:String,
+	userPhone:String,
+	user2Name:String, // "" when there is no co-holder
+	vendorName:String,
+	catalogId:Int,
+	catalogName:String,
+	startDate:String, // yyyy-mm-dd
+	endDate:String, // yyyy-mm-dd
+	totalPrice:String, // FR-formatted (comma decimal)
+	paymentsTotal:String, // FR-formatted (comma decimal)
+	balance:String, // FR-formatted (comma decimal)
+	paid:String // "oui" / "non"
+}
+
+/**
  * Subscription service
  * @author web-wizard
  */
@@ -41,6 +62,36 @@ class SubscriptionService {
 
 	public static function getNewCatalogSubscriptions(catalog:db.Catalog, since:Date):Array<db.Subscription> {
 		return db.Subscription.manager.search($catalogId == catalog.id && $startDate > since, {orderBy: id}, false).array();
+	}
+
+	/**
+		Build the flat export rows (one per subscription) for the given catalogs.
+		Pure function (no I/O) : the CSV formatting is left to the caller.
+	**/
+	public static function getSubscriptionsExportData(catalogs:Array<db.Catalog>):Array<SubscriptionExportRow> {
+		var rows = new Array<SubscriptionExportRow>();
+		for (catalog in catalogs) {
+			for (sub in getCatalogSubscriptions(catalog)) {
+				rows.push({
+					subscriptionId: sub.id,
+					userId: sub.user.id,
+					userName: sub.user.getName(),
+					userEmail: sub.user.email,
+					userPhone: sub.user.phone == null ? "" : sub.user.phone,
+					user2Name: sub.user2 == null ? "" : sub.user2.getName(),
+					vendorName: catalog.vendor.name,
+					catalogId: catalog.id,
+					catalogName: catalog.name,
+					startDate: sub.startDate == null ? "" : sub.startDate.toString().substr(0, 10),
+					endDate: sub.endDate == null ? "" : sub.endDate.toString().substr(0, 10),
+					totalPrice: Formatting.formatNum(sub.getTotalPrice()),
+					paymentsTotal: Formatting.formatNum(sub.getPaymentsTotal()),
+					balance: Formatting.formatNum(sub.getBalance()),
+					paid: sub.paid() ? "oui" : "non"
+				});
+			}
+		}
+		return rows;
 	}
 
 	/**
