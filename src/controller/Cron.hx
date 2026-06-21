@@ -135,7 +135,7 @@ class Cron extends Controller {
 					}
 					volunteersList += "</ul>";
 
-					mail.setSubject(t._("Instructions for the volunteers of the ::date:: distribution", {date: view.hDate(multidistrib.distribStartDate)}));
+					mail.setSubject(t._("Instructions for the volunteers of the ::date:: distribution", {date: view.hDate(multidistrib.distribStartDate, true)}));
 
 					// Let's replace all the tokens
 					var ddate = t._("::date:: from ::startHour:: to ::endHour::", {
@@ -194,7 +194,7 @@ class Cron extends Controller {
 				var vacantVolunteerRolesList = "<ul>"
 					+ Lambda.map(multidistrib.getVacantVolunteerRoles(), function(r) return "<li>" + r.name + "</li>").join("\n")
 					+ "</ul>";
-				mail.setSubject("Besoin de volontaires pour la distribution du " + view.hDate(multidistrib.distribStartDate));
+				mail.setSubject("Besoin de volontaires pour la distribution du " + view.hDate(multidistrib.distribStartDate, true));
 
 				// Let's replace all the tokens
 				var ddate = view.dDate(multidistrib.distribStartDate) + " de " + view.hHour(multidistrib.distribStartDate) + " à "
@@ -595,7 +595,7 @@ class Cron extends Controller {
 						m.addRecipient(u.user.email, u.user.getName());
 						if (u.user.email2 != null)
 							m.addRecipient(u.user.email2);
-						m.setSubject(t._("Distribution on ::date::", {date: app.view.hDate(u.distrib.distribStartDate)}));
+						m.setSubject(t._("Distribution on ::date::", {date: app.view.hDate(u.distrib.distribStartDate, true)}));
 						m.setHtmlBody(app.processTemplate("mail/orderNotif.mtt", {
 							text: text,
 							group: group,
@@ -686,7 +686,7 @@ class Cron extends Controller {
 							m.addRecipient(user.email, user.getName());
 							if (user.email2 != null)
 								m.addRecipient(user.email2);
-							m.setSubject(t._("Distribution on ::date::", {date: app.view.hDate(md.distribStartDate)}));
+							m.setSubject(t._("Distribution on ::date::", {date: app.view.hDate(md.distribStartDate, true)}));
 
 							m.setHtmlBody(app.processTemplate("mail/orderNotif.mtt", {
 								text: text,
