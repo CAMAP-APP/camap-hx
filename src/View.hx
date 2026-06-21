@@ -182,8 +182,8 @@ class View extends sugoi.BaseView {
 	/**
 	 * human readable date + time
 	 */
-	public function hDate(date:Date):String {
-		return Formatting.hDate(date);
+	public function hDate(date:Date, ?year:Bool = false):String {
+		return Formatting.hDate(date, year);
 	}
 
 	/**
