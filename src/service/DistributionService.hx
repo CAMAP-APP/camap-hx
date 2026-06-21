@@ -589,6 +589,9 @@ class DistributionService
 		}
 
 		if ( !canDelete(d) ) {
+			if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) {
+				throw new Error("Vous ne pouvez pas supprimer cette participation car au moins une distribution de ce contrat a déjà eu lieu.");
+			}
 			throw new Error(t._("Deletion not possible: orders are recorded for ::vendorName:: on ::date::.",{vendorName:d.catalog.vendor.name,date:Formatting.hDate(d.date)}));
 		}
 
