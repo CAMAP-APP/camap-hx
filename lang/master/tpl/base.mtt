@@ -61,10 +61,10 @@
     <div style="position: fixed;background: #666;padding: 8px;left: 0;bottom:0;color:#FF0;">DEBUG</div>
     ::end::
 
-    ::if ( HOST.indexOf("dev",null)!=-1 )::
+    ::if ( HOST.indexOf("dev",null)!=-1 || HOST.indexOf("local",null)!=-1 )::
     <div style="position: fixed;background: #600;padding: 8px;left:0;bottom:0;color: #FA0;width: 100%;z-index: 99;text-align: center;">
         <i class="icon icon-alert"></i>
-        <b>Ce site est une instance de test.</b> Ne l'utilisez pas pour prendre de vraies commandes.
+        <b>Ce site est une instance de test.</b> Toutes les données peuvent être effacées sans préavis.
     </div>
     ::end::
 
