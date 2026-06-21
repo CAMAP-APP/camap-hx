@@ -119,9 +119,17 @@ class Cron extends Controller {
 					mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 					var volunteersList = "<ul>";
 					for (volunteer in volunteers) {
-						mail.addRecipient(volunteer.user.email, volunteer.user.getName());
+						try {
+							mail.addRecipient(volunteer.user.email, volunteer.user.getName());
+						} catch (e:Dynamic) {
+							task.log('Invalid email for volunteer ${volunteer.user.getName()}: ${volunteer.user.email}');
+						}
 						if (volunteer.user.email2 != null) {
-							mail.addRecipient(volunteer.user.email2);
+							try {
+								mail.addRecipient(volunteer.user.email2);
+							} catch (e:Dynamic) {
+								task.log('Invalid email2 for volunteer ${volunteer.user.getName()}: ${volunteer.user.email2}');
+							}
 						}
 						volunteersList += "<li>" + volunteer.volunteerRole.name + " : " + volunteer.user.getCoupleName() + "</li>";
 					}
@@ -168,9 +176,17 @@ class Cron extends Controller {
 				var mail = new Mail();
 				mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 				for (member in multidistrib.group.getMembers()) {
-					mail.addRecipient(member.email, member.getName());
+					try {
+						mail.addRecipient(member.email, member.getName());
+					} catch (e:Dynamic) {
+						task.log('Invalid email for member ${member.getName()}: ${member.email}');
+					}
 					if (member.email2 != null) {
-						mail.addRecipient(member.email2);
+						try {
+							mail.addRecipient(member.email2);
+						} catch (e:Dynamic) {
+							task.log('Invalid email2 for member ${member.getName()}: ${member.email2}');
+						}
 					}
 				}
 

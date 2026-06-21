@@ -3354,10 +3354,20 @@ msgid ""
 "\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
 "btn-sm\">Désactiver et créer une copie</a>"
 msgstr ""
-"::qt:: ::unitType::<br/>Ce produit a déja des commandes passées ou en "
-"cours, vous ne pouvez pas modifier son unité de base.<br/>Vous pouvez le <a "
-"href=\"::url::\"class=\"btn btn-primary btn-sm\">Désactiver et créer une "
-"copie</a>"
+"\n"
+"\t\t\t\t\t::qt:: ::unitType::<br/>\n"
+"\t\t\t\t\tCe produit a déja des commandes passées ou en cours, vous ne "
+"pouvez pas modifier son unité de base.<br/>\n"
+"\t\t\t\t\tVous pouvez le <a href=\"::url::\"class=\"btn btn-primary "
+"btn-sm\">Désactiver et créer une copie</a>"
+
+#: ../lang/master/tpl/contractadmin/default.mtt
+msgid "Export subscriptions"
+msgstr "Exporter les souscriptions"
+
+#: ../src/controller/ContractAdmin.hx
+msgid "Subscriptions"
+msgstr "Souscriptions"
 
 #~ msgid "Read more"
 #~ msgstr "En savoir plus"

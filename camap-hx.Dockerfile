@@ -6,7 +6,7 @@ FROM node:20.19.5-slim AS builder
 # Outils build (git/SSL) + Neko (pour temploc2.n)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    git curl ca-certificates neko \
+    git curl ca-certificates neko gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # lix figé
@@ -88,6 +88,10 @@ RUN set -eux; \
 WORKDIR /srv/lang/fr/tpl
 RUN set -eux; \
     neko ../../../backend/temploc2.n -macros macros.mtt -output ../tmp/ *.mtt */*.mtt */*/*.mtt
+
+# Compilation des traductions (.po -> .mo)
+WORKDIR /srv
+RUN msgfmt www/lang/texts_fr.po -o www/lang/texts_fr.mo
 
 
 # ===========================

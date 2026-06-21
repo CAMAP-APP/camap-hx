@@ -559,7 +559,9 @@ class DistributionService
 	 */
 	public static function canDelete(d:db.Distribution):Bool{
 
-		if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) return true;
+		if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) {
+			return db.Distribution.manager.count( $catalog == d.catalog && $date < Date.now() ) == 0;
+		}
 		
 		var quantity = 0.0;
 		for ( order in d.getOrders() ){
@@ -587,6 +589,9 @@ class DistributionService
 		}
 
 		if ( !canDelete(d) ) {
+			if (d.catalog.type == db.Catalog.TYPE_CONSTORDERS) {
+				throw new Error("Vous ne pouvez pas supprimer cette participation car au moins une distribution de ce contrat a déjà eu lieu.");
+			}
 			throw new Error(t._("Deletion not possible: orders are recorded for ::vendorName:: on ::date::.",{vendorName:d.catalog.vendor.name,date:Formatting.hDate(d.date)}));
 		}
 

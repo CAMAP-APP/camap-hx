@@ -423,8 +423,32 @@ class ContractAdmin extends Controller {
 	}
 
 	/**
+	 * Export all subscriptions of the group's active contracts as a CSV.
+	 * Restricted to the contracts the current user is allowed to manage.
+	 */
+	function doExportSubscriptions() {
+		var contracts = app.user.getGroup().getActiveContracts(true);
+		if (!app.user.canManageAllContracts() && !app.user.isAmapManager()) {
+			for (c in Lambda.array(contracts).copy()) {
+				if (!app.user.canManageContract(c))
+					contracts.remove(c);
+			}
+		}
+		if (contracts.length == 0)
+			throw Error("/contractAdmin", t._("Forbidden access"));
+
+		var data = service.SubscriptionService.getSubscriptionsExportData(Lambda.array(contracts));
+		var fileName = t._("Subscriptions") + " - " + app.user.getGroup().name + ".csv";
+		sugoi.tools.Csv.printCsvDataFromObjects(data, [
+			"subscriptionId", "userId", "userName", "userEmail", "userPhone", "user2Name",
+			"vendorName", "catalogId", "catalogName", "startDate", "endDate",
+			"totalPrice", "paymentsTotal", "balance", "paid"
+		], fileName);
+	}
+
+	/**
 	 * Global view on orders in one day
-	 * 
+	 *
 	 * @param	date
 	 */
 	@tpl('contractadmin/ordersByDate.mtt')
