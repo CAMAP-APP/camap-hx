@@ -181,9 +181,10 @@ class View extends sugoi.BaseView {
 
 	/**
 	 * human readable date + time
+	 * Note: no optional param — Templo cannot call functions with optional parameters
 	 */
-	public function hDate(date:Date, ?year:Bool = false):String {
-		return Formatting.hDate(date, year);
+	public function hDate(date:Date):String {
+		return Formatting.hDate(date);
 	}
 
 	/**
