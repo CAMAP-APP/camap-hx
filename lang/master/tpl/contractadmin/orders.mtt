@@ -119,8 +119,10 @@
 								<span style="color:#AAA">::_("Canceled")::</span>
 							::else::
 								::if(o.product.multiWeight && o.product.variablePrice)::
+								::set effectiveQt = o.productQt::
+								::if effectiveQt == null::::set effectiveQt = 1::::end::
 								<div class="orderQtInput hidden">
-									<input type="text" id="::o.id::_qt" value="::formatNum(o.quantity * o.productQt)::"
+									<input type="text" id="::o.id::_qt" value="::formatNum(o.quantity * effectiveQt)::"
 										title="::unit(o.productUnit,o.quantity>0):: ::o.productName:: ::basket._user.getName()::"
 										style="width:70%;"
 										onchange="this.style.color = 'initial'"
@@ -128,7 +130,7 @@
 									/>&nbsp;::unit(o.productUnit,o.quantity>0)::
 								</div>
 									<script>
-										let  qt_::o.id::_lastVal = '::formatNum(o.quantity * o.productQt)::';
+										let  qt_::o.id::_lastVal = '::formatNum(o.quantity * effectiveQt)::';
 										document.getElementById("::o.id::_qt").addEventListener("keydown", blurOnEnter);
 									</script>
 								::end::
