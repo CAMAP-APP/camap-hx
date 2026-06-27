@@ -180,7 +180,7 @@ class VolunteerService
 						}
 					}
 				}
-				var date = App.current.view.hDate(multidistrib.distribStartDate, true);
+				var date = Formatting.hDate(multidistrib.distribStartDate, true);
 				var subject = t._( "A role has been left for ::date:: distribution",{date:date});
 				mail.setSubject( subject );
 				var html = App.current.processTemplate("mail/volunteerUnsuscribed.mtt", { fullname : user.getName(), role : role.name, reason : reason, group: multidistrib.group  } );
