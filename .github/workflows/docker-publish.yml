@@ -3,14 +3,13 @@ name: Publish production image to GHCR (camap-hx)
 on:
   push:
     tags:
-      - 'v[0-9]*.[0-9]*.[0-9]*'      # déclenche UNIQUEMENT sur un tag vX.Y.Z
-  workflow_dispatch:                 # exécution manuelle
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+  workflow_dispatch:
 
 permissions:
   contents: read
   packages: write
 
-# Empêche deux builds simultanés sur le même tag
 concurrency:
   group: prod-${{ github.ref }}
   cancel-in-progress: true
@@ -72,13 +71,11 @@ jobs:
           minor="${minor_patch%%.*}"
           major_minor="${major}.${minor}"
 
-          echo "tag=$tag"           >> $GITHUB_OUTPUT
-          echo "semver=$semver"     >> $GITHUB_OUTPUT
-          echo "major=$major"       >> $GITHUB_OUTPUT
+          echo "tag=$tag"                 >> $GITHUB_OUTPUT
+          echo "semver=$semver"           >> $GITHUB_OUTPUT
+          echo "major=$major"             >> $GITHUB_OUTPUT
           echo "major_minor=$major_minor" >> $GITHUB_OUTPUT
 
-      # Multi-arch prerequisites
-      - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
 
       - name: Login to GHCR
@@ -88,28 +85,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # --- Build multi-arch (ARM64 peut échouer si mod-neko indisponible) ---
-      - name: Build & push (try multi-arch)
-        id: build_multi
-        continue-on-error: true
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: ./camap-hx.Dockerfile
-          push: true
-          platforms: linux/amd64,linux/arm64
-          provenance: false
-          tags: |
-            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.tag }}
-            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.major_minor }}
-            ${{ env.IMAGE_NAME }}:${{ steps.ver.outputs.major }}
-            ${{ env.IMAGE_NAME }}:latest
-          cache-from: type=gha,scope=camap-hx
-          cache-to:   type=gha,scope=camap-hx,mode=max
-
-      # --- En cas d’échec ARM64, fallback amd64-only ---
-      - name: Build & push (fallback amd64-only)
-        if: steps.build_multi.outcome == 'failure'
+      - name: Build & push (amd64)
         uses: docker/build-push-action@v6
         with:
           context: .
