@@ -971,44 +971,11 @@ class Distribution extends Controller {
 	}
 
 	/**
-		Remove current user from a volunteer role
-	**/ 
-	@tpl("form.mtt")
+		Legacy URL — désincription désormais gérée par le NeoModule volunteersCalendar
+	**/
 	function doUnsubscribeFromRole(distrib:db.MultiDistrib, role:db.VolunteerRole, ?args:{returnUrl:String, ?to:String}) {
-
-		if (args != null && args.returnUrl != null) {
-			var toArg = args.to != null ? "&to=" + args.to : "";
-			App.current.session.data.volunteersReturnUrl = args.returnUrl + toArg;
-		}
-
-		var form = new sugoi.form.Form("unsubscribe");
-
-		var returnUrl = App.current.session.data.volunteersReturnUrl != null ? App.current.session.data.volunteersReturnUrl : '/distribution/unsubscribeFromRole/'
-			+ distrib.id
-			+ '/'
-			+ role.id;
-
-		var volunteer = distrib.getVolunteerForRole(role);
-		if (volunteer == null) {
-			throw Error(returnUrl, t._("There is no volunteer to remove for this role!"));
-		} else if (volunteer.user.id != app.user.id) {
-			throw Error(returnUrl, t._("You can only remove yourself from a role."));
-		}
-
-		form.addElement(new TextArea("unsubscriptionreason", t._("Reason for leaving the role. Please note: a withdrawal notification including the content of this message will be sent by email to all members of the group"), null, true, null, "style='width:500px;height:350px;'"));
-
-		if (form.isValid()) {
-			try {
-				service.VolunteerService.removeUserFromRole(app.user, distrib, role, form.getValueOf("unsubscriptionreason"));
-			} catch (e:tink.core.Error) {
-				throw Error(returnUrl, e.message);
-			}
-
-			throw Ok(returnUrl, t._("You have been successfully removed from this role."));
-		}
-
-		view.title = t._("Enter the reason why you are leaving this role.");
-		view.form = form;
+		var returnUrl = args != null && args.returnUrl != null ? args.returnUrl : '/distribution/volunteersCalendar';
+		throw Redirect(returnUrl);
 	}
 
 	/**
