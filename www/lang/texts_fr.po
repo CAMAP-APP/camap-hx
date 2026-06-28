@@ -3041,13 +3041,9 @@ msgstr ""
 "Vous pouvez utiliser les courriels suivants pour vous connecter à votre "
 "compte : <b>::emails::</b>"
 
-#: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:52
-msgid ""
-"<b>::fullname::</b> has left the role <b>::role::</b> for the following "
-"reason:"
-msgstr ""
-"<b>::fullname::</b> s'est désisté pour le rôle <b>::role::</b> et a indiqué "
-"la raison suivante :"
+#: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:4
+msgid "<b>::fullname::</b> has left the role <b>::role::</b>."
+msgstr "<b>::fullname::</b> s'est désisté du rôle <b>::role::</b>."
 
 #: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:228
 msgid "This role needs to be assigned to another person."
