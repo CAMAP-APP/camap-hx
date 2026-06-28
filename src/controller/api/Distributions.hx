@@ -26,7 +26,7 @@ class Distributions extends Controller {
 		} else if (volunteer.user.id != app.user.id) {
 			throw new Error(403, t._("You can only remove yourself from a role."));
 		}
-		VolunteerService.removeUserFromRole(app.user, distrib, role, "");
+		VolunteerService.removeUserFromRole(app.user, distrib, role);
 		json({success: true});
 	}
 
