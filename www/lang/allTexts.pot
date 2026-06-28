@@ -1849,8 +1849,8 @@ msgstr ""
 msgid "Be careful, this link is valid only 24 hours for security reasons."
 msgstr ""
 
-#: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:49
-msgid "<b>::fullname::</b> has left the role <b>::role::</b> for the following reason:"
+#: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:4
+msgid "<b>::fullname::</b> has left the role <b>::role::</b>."
 msgstr ""
 
 #: ../lang/master/tpl/mail/volunteerUnsuscribed.mtt:219
