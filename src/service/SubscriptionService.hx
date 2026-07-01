@@ -725,8 +725,13 @@ class SubscriptionService {
 			absentDistribs: absentDistribs,
 		});
 
-		db.NotificationMail.createNotification(html, html, db.NotificationMail.HOURLY, db.NotificationMail.makeSubject(subscription), catalog.group,
-			subscription.user, []);
+		if (catalog.isConstantOrdersCatalog()
+			|| catalog.hasDefaultOrdersManagement()
+			|| catalog.catalogMinOrdersTotal > 0
+			|| defaultOrder.length > 0) {
+			db.NotificationMail.createNotification(html, html, db.NotificationMail.HOURLY, db.NotificationMail.makeSubject(subscription), catalog.group,
+				subscription.user, []);
+		}
 
 		// if the first distribution is past, and the subscription has constraints, notify the coordinator
 		if (catalog.getDistribs(false).find(d -> d.date.getTime() < Date.now().getTime()) != null
@@ -973,12 +978,12 @@ class SubscriptionService {
 		subscription.lock();
 
 		// si contrat variable et commandes non ouvertes,
-    // => si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
-    if (subscription.catalog.isVariableOrdersCatalog() && !subscription.catalog.hasOpenOrders()) {
-      if (( subscription.catalog.distribMinOrdersTotal>0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode ) {
-        throw new Error('La commande par défaut ne peut pas être vide ou vous n\'avez pas les droits nécessaire à sa modification. (Souscription de ${subscription.user.getName()})');
-      }
-    }
+		// => si commande mini > 0 et commande par défaut nulle ou = 0 ou si non admin
+		if (subscription.catalog.isVariableOrdersCatalog() && !subscription.catalog.hasOpenOrders()) {
+			if ((subscription.catalog.distribMinOrdersTotal > 0 && (defaultOrders == null || defaultOrders.length == 0)) || !adminMode) {
+				throw new Error('La commande par défaut ne peut pas être vide ou vous n\'avez pas les droits nécessaire à sa modification. (Souscription de ${subscription.user.getName()})');
+			}
+		}
 
 		// if constantOrders, the user (not admin) cannot edit default orders if sub has past distrib orders
 		if (subscription.catalog.isConstantOrdersCatalog()) {
