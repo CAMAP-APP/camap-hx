@@ -123,49 +123,23 @@ class VolunteerService
 		}			
 	}
 
-	public static function removeUserFromRole(user: db.User, multidistrib: db.MultiDistrib, role: db.VolunteerRole, reason: String ) {
+	public static function removeUserFromRole(user: db.User, multidistrib: db.MultiDistrib, role: db.VolunteerRole) {
 
 		var t = sugoi.i18n.Locale.texts;
 		if ( user != null && multidistrib != null && role != null ) {
 
-			//Look for the volunteer for that user adn this role
 			var foundVolunteer = Lambda.find(multidistrib.getVolunteerForUser(user), function(v) return v.volunteerRole.id==role.id);
 			if ( foundVolunteer != null ) {
 
-				//Send notification email to either the coordinators or all the members depending on the current date
-				var mail = new Mail();
-				mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
 				var now = Date.now();
 				var alertDate = DateTools.delta( multidistrib.distribStartDate, - 1000.0 * 60 * 60 * 24 * multidistrib.group.vacantVolunteerRolesMailDaysBeforeDutyPeriod );
 
-				if ( now.getTime() <=  alertDate.getTime() ) {
-
-					//Recipients are the coordinators
-					var rights = if(foundVolunteer.volunteerRole.catalog==null){
-						[ Right.GroupAdmin ];
-					}else{
-						[ Right.ContractAdmin(foundVolunteer.volunteerRole.catalog.id) ];
-					}
-					var adminUsers = service.GroupService.getGroupMembersWithRights( multidistrib.group, rights );
-					for ( admin in adminUsers ) {
-						try {
-							mail.addRecipient( admin.email, admin.getName() );
-						} catch (e:Dynamic) {
-							trace('Invalid email for admin ${admin.getName()}: ${admin.email}');
-						}
-						if ( admin.email2 != null ) {
-							try {
-								mail.addRecipient( admin.email2 );
-							} catch (e:Dynamic) {
-								trace('Invalid email2 for admin ${admin.getName()}: ${admin.email2}');
-							}
-						}
-					}
-				}else{
-
-					var members = Lambda.array( multidistrib.group.getMembers() );
-					//Recipients are all members
-					for ( member in members ) {
+				// Only notify members if the "vacant roles" scheduled mail has already been sent.
+				// Before that date the upcoming cron mail will cover the vacancy.
+				if ( now.getTime() > alertDate.getTime() ) {
+					var mail = new Mail();
+					mail.setSender(App.current.getTheme().email.senderEmail, App.current.getTheme().name);
+					for ( member in Lambda.array(multidistrib.group.getMembers()) ) {
 						try {
 							mail.addRecipient( member.email, member.getName() );
 						} catch (e:Dynamic) {
@@ -179,23 +153,21 @@ class VolunteerService
 							}
 						}
 					}
+					var date = Formatting.hDate(multidistrib.distribStartDate, true);
+					mail.setSubject( t._( "A role has been left for ::date:: distribution", {date:date}) );
+					var html = App.current.processTemplate("mail/volunteerUnsuscribed.mtt", { fullname : user.getName(), role : role.name, group: multidistrib.group } );
+					mail.setHtmlBody( html );
+					App.sendMail(mail, multidistrib.group);
 				}
-				var date = Formatting.hDate(multidistrib.distribStartDate, true);
-				var subject = t._( "A role has been left for ::date:: distribution",{date:date});
-				mail.setSubject( subject );
-				var html = App.current.processTemplate("mail/volunteerUnsuscribed.mtt", { fullname : user.getName(), role : role.name, reason : reason, group: multidistrib.group  } );
-				mail.setHtmlBody( html );
-				App.sendMail(mail, multidistrib.group);
 
-				//delete assignment
 				foundVolunteer.lock();
 				foundVolunteer.delete();
-			} else {				
-				throw new Error(t._("This user is not assigned to this role!"));				
+			} else {
+				throw new Error(t._("This user is not assigned to this role!"));
 			}
 		} else {
 			throw new Error(t._("Missing distribution or role in the url!"));
-		}			
+		}
 	}
 
 	/**

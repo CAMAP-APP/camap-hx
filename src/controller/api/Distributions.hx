@@ -10,9 +10,24 @@ import service.VolunteerService;
 import service.DistributionService;
 
 class Distributions extends Controller {
-	
+
 	public function new() {
 		super();
+	}
+
+	/**
+		Remove current user from a volunteer role (REST endpoint, no reason required)
+	**/
+	function doUnsubscribeFromRole(distrib:db.MultiDistrib, role:db.VolunteerRole) {
+		checkIsLogged();
+		var volunteer = distrib.getVolunteerForRole(role);
+		if (volunteer == null) {
+			throw new Error(422, t._("There is no volunteer to remove for this role!"));
+		} else if (volunteer.user.id != app.user.id) {
+			throw new Error(403, t._("You can only remove yourself from a role."));
+		}
+		VolunteerService.removeUserFromRole(app.user, distrib, role);
+		json({success: true});
 	}
 
 	/**
