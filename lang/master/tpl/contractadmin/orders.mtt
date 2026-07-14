@@ -78,7 +78,7 @@
 				<tr class="darkhead">
 					<td colspan="7">
 						<div class="basketNumber" ::cond basket!=null:: >
-							<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::basket.num::
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::orderRank.get(basket.id)::
 						</div>
 
 						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a>
