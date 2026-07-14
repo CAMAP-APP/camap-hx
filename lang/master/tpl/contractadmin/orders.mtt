@@ -53,6 +53,17 @@
 			onclick="toggleQtInput()" id="setWeightsButton">
 			<i class="icon icon-balance"></i> <span class="orderQtInput">::_("Set weights after weighing")::</span><span class="orderQtText hidden">::_("Stop editing weights")::</span>
 		</button>
+
+		<div class="btn-group" role="group" style="display:inline-block;">
+			<a href="/contractAdmin/orders/::catalog.id::?d=::distribution.id::&sort=name"
+				class="btn btn-default btn-sm ::if(sortBy=='name')::active::end::">
+				::_("Sort by name")::
+			</a>
+			<a href="/contractAdmin/orders/::catalog.id::?d=::distribution.id::&sort=num"
+				class="btn btn-default btn-sm ::if(sortBy=='num')::active::end::">
+				::_("Sort by order N°")::
+			</a>
+		</div>
 	</div>
 
 	::if disabledProducts > 0::
@@ -69,7 +80,7 @@
 	td.userRow a{ color:white; }
 	</style>
 
-		::foreach basket distribution._multiDistrib.getBaskets()::
+		::foreach basket baskets::
 			::set total = 0::
 			::set distribOrders = prepare(basket.getDistributionOrders(distribution))::
 			::if (distribOrders.length > 0 )::
