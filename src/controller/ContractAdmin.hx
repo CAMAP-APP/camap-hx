@@ -663,7 +663,7 @@ class ContractAdmin extends Controller {
 	 * Overview of orders for this contract in backoffice
 	 */
 	@tpl("contractadmin/orders.mtt")
-	function doOrders(catalog:db.Catalog, ?args:{d:db.Distribution, ?delete:db.UserOrder}) {
+	function doOrders(catalog:db.Catalog, ?args:{d:db.Distribution, ?delete:db.UserOrder, ?sort:String}) {
 		view.nav.push("orders");
 		sendNav(catalog);
 
@@ -704,6 +704,21 @@ class ContractAdmin extends Controller {
 			rank++;
 		}
 		view.orderRank = orderRank;
+
+		// Tri des paniers : par nom (défaut, historique) ou par rang de commande
+		var sortBy = args.sort == "num" ? "num" : "name";
+		var baskets = args.d.multiDistrib.getBaskets();
+		if (sortBy == "num") {
+			baskets.sort(function(a, b) {
+				var ra = orderRank.get(a.id);
+				var rb = orderRank.get(b.id);
+				if (ra == null) ra = 999999;
+				if (rb == null) rb = 999999;
+				return ra - rb;
+			});
+		}
+		view.baskets = baskets;
+		view.sortBy = sortBy;
 
 		if (App.current.params.get("csv") == "1") {
 			var data = [];
