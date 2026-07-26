@@ -2322,6 +2322,14 @@ msgstr "Par produit-membre"
 msgid "Set weights after weighing"
 msgstr "Saisie des poids après pesée"
 
+#: ../lang/master/tpl/contractadmin/orders.mtt:2382
+msgid "Sort by name"
+msgstr "Trier par nom"
+
+#: ../lang/master/tpl/contractadmin/orders.mtt:2386
+msgid "Sort by order N°"
+msgstr "Trier par n° de commande"
+
 #: ../lang/master/tpl/contractadmin/orders.mtt:2445
 msgid "Stop editing weights"
 msgstr "Terminer la saisie"

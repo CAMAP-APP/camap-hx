@@ -663,7 +663,7 @@ class ContractAdmin extends Controller {
 	 * Overview of orders for this contract in backoffice
 	 */
 	@tpl("contractadmin/orders.mtt")
-	function doOrders(catalog:db.Catalog, ?args:{d:db.Distribution, ?delete:db.UserOrder}) {
+	function doOrders(catalog:db.Catalog, ?args:{d:db.Distribution, ?delete:db.UserOrder, ?sort:String}) {
 		view.nav.push("orders");
 		sendNav(catalog);
 
@@ -690,6 +690,35 @@ class ContractAdmin extends Controller {
 		view.distribution = args.d;
 		view.multiDistribId = args.d.multiDistrib.id;
 		view.c = view.catalog = catalog;
+
+		// Rang de passage de commande pour cette distribution (ce catalogue, cette date),
+		// basé sur la première ligne de commande de chaque panier (min(id), stable même après
+		// modification de quantité). Utilisé pour prioriser les commandes en cas de stock insuffisant.
+		var orderRank = new Map<Int, Int>();
+		var rankRows = sys.db.Manager.cnx.request("select basketId, min(id) as firstOrderId from UserOrder "
+			+ "where distributionId=" + args.d.id + " and basketId is not null "
+			+ "group by basketId order by firstOrderId").results();
+		var rank = 1;
+		for (r in rankRows) {
+			orderRank.set(r.basketId, rank);
+			rank++;
+		}
+		view.orderRank = orderRank;
+
+		// Tri des paniers : par nom (défaut, historique) ou par rang de commande
+		var sortBy = args.sort == "num" ? "num" : "name";
+		var baskets = args.d.multiDistrib.getBaskets();
+		if (sortBy == "num") {
+			baskets.sort(function(a, b) {
+				var ra = orderRank.get(a.id);
+				var rb = orderRank.get(b.id);
+				if (ra == null) ra = 999999;
+				if (rb == null) rb = 999999;
+				return ra - rb;
+			});
+		}
+		view.baskets = baskets;
+		view.sortBy = sortBy;
 
 		if (App.current.params.get("csv") == "1") {
 			var data = [];
