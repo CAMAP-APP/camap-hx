@@ -88,11 +88,18 @@
 
 				<tr class="darkhead">
 					<td colspan="7">
-						<div class="basketNumber" ::cond basket!=null:: >
-							<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::orderRank.get(basket.id)::
-						</div>
+						<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+							<div>
+								<div class="basketNumber" ::cond basket!=null:: >
+									<i class="fa fa-shopping-basket" aria-hidden="true"></i> N°::basket.num::
+								</div>
 
-						<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a>
+								<a href="/member/view/::basket.userId::" target="_blank">::basket._user.getName()::</a>
+							</div>
+							<div ::cond basket!=null:: style="font-size:85%;color:#ccc;">
+								::_("Order rank")::&nbsp;: N°::orderRank.get(basket.id)::
+							</div>
+						</div>
 					</td>
 					::if(catalog.isVariableOrdersCatalog())::
 					<td>

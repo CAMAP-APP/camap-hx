@@ -2323,6 +2323,10 @@ msgid "Set weights after weighing"
 msgstr "Saisie des poids après pesée"
 
 #: ../lang/master/tpl/contractadmin/orders.mtt:2382
+msgid "Order rank"
+msgstr "Rang de commande"
+
+#: ../lang/master/tpl/contractadmin/orders.mtt:2382
 msgid "Sort by name"
 msgstr "Trier par nom"
 
