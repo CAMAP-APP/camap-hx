@@ -53,9 +53,10 @@ class ContractAdmin extends Controller {
 
 		var contracts;
 		if (args != null && args.old) {
-			contracts = db.Catalog.manager.search($group == group && $endDate < Date.now(), {orderBy: -startDate}, false);
+			contracts = Lambda.array(db.Catalog.manager.search($group == group && $endDate < Date.now(), {orderBy: -startDate}, false));
 		} else {
-			contracts = db.Catalog.getActiveContracts(group, true, false);
+			contracts = Lambda.array(db.Catalog.getActiveContracts(group, true, false));
+			contracts.sort((a, b) -> tools.StringTool.compare(a.name, b.name));
 		}
 
 		// filter if current user is not manager
@@ -66,11 +67,12 @@ class ContractAdmin extends Controller {
 			}
 		}
 
-		var vendors = [];
+		var vendors:Array<db.Vendor> = [];
 		for (c in contracts) {
 			if (!vendors.exists(v -> v.id == c.vendor.id))
 				vendors.push(c.vendor);
 		}
+		vendors.sort((a, b) -> tools.StringTool.compare(a.name, b.name));
 
 		view.contracts = contracts;
 		view.vendors = vendors;
