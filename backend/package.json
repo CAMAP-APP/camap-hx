@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "gettext-parser": "^8.0.0",
-    "haxe-watchify": "^1.3.0",
     "sass": "^1.92.1"
   }
 }
