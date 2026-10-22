@@ -37,7 +37,11 @@ class History extends Controller
 		var to 	  = DateTools.delta(Date.now(), 1000.0 * 60 * 60 * 24 * 30 * 6);
 		
 		//constant orders
-		view.subscriptionsByCatalog = SubscriptionService.getActiveSubscriptionsByCatalog( app.user, group );
+		var subscriptionsByCatalog = SubscriptionService.getActiveSubscriptionsByCatalog( app.user, group );
+		view.subscriptionsByCatalog = subscriptionsByCatalog;
+		var catalogs = Lambda.array({ iterator: subscriptionsByCatalog.keys });
+		catalogs.sort((a, b) -> tools.StringTool.compare(a.name, b.name));
+		view.catalogs = catalogs;
 		view.subscriptionService = SubscriptionService;
 				
 		//variable orders, grouped by date

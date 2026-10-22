@@ -23,6 +23,7 @@ class Amap extends Controller {
 			if (c.endDate.getTime() < Date.now().getTime())
 				contracts.remove(c);
 		}
+		contracts.sort((a, b) -> tools.StringTool.compare(a.name, b.name));
 		view.contracts = contracts;
 		view.subscriptions = contracts.map(c -> SubscriptionService.getCurrentOrComingSubscription(app.user, c))
 			.filter(s -> s != null)
