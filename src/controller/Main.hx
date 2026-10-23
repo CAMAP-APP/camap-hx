@@ -88,7 +88,8 @@ class Main extends Controller {
 		view.amap = group;
 
 		// contract not ended with UserCanOrder flag
-		var openContracts = group.getActiveContracts().filter((c) -> c.hasOpenOrders());
+		var openContracts = Lambda.array(group.getActiveContracts().filter((c) -> c.hasOpenOrders()));
+		openContracts.sort((a, b) -> tools.StringTool.compare(a.name, b.name));
 		view.openContracts = openContracts;
 		view.subscriptions = openContracts.map(c -> SubscriptionService.getCurrentOrComingSubscription(app.user, c))
 			.filter(s -> s != null)
