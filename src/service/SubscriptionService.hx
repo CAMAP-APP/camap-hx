@@ -985,9 +985,14 @@ class SubscriptionService {
 			}
 		}
 
-		// if constantOrders, the user (not admin) cannot edit default orders if sub has past distrib orders
-		if (subscription.catalog.isConstantOrdersCatalog()) {
-			if (hasPastDistribOrders(subscription) && !adminMode) {
+		// if constantOrders, the user (not admin) can edit default orders only while orders are open
+		// and the order end date of the first distribution of the subscription is not passed
+		if (subscription.catalog.isConstantOrdersCatalog() && !adminMode) {
+			if (!canMemberEditConstOrders(subscription)) {
+				throw TypedError.typed('La modification de votre commande n\'est plus possible : les commandes en ligne sont fermées ou la date de fermeture des commandes de la première distribution de votre souscription est passée. Veuillez contacter le coordinateur du contrat.',
+					SubscriptionServiceError.PastOrders);
+			}
+			if (hasPastDistribOrders(subscription)) {
 				throw TypedError.typed('Il y a des commandes pour des distributions passées. Les commandes du passé ne pouvant être modifiées, il faut recréer une nouvelle souscription avec une nouvelle commande.',
 					SubscriptionServiceError.PastOrders);
 			}
@@ -999,6 +1004,26 @@ class SubscriptionService {
 		if (subscription.catalog.isVariableOrdersCatalog()) {
 			areVarOrdersValid(subscription);
 		}
+	}
+
+	/**
+		A member (not admin) can edit the recurring order of a constant orders subscription
+		while the members can order online and the order end date
+		of the first distribution of the subscription is not passed.
+	**/
+	public static function canMemberEditConstOrders(subscription:db.Subscription):Bool {
+		if (subscription == null || !subscription.catalog.isConstantOrdersCatalog()) {
+			return false;
+		}
+		if (!subscription.catalog.hasOpenOrders()) {
+			return false;
+		}
+
+		var firstDistribution:db.Distribution = getSubscriptionDistributions(subscription, "allIncludingAbsences")[0];
+		if (firstDistribution == null) {
+			return false;
+		}
+		return firstDistribution.orderEndDate.getTime() > Date.now().getTime();
 	}
 
 	function setDefaultOrders(subscription:db.Subscription, defaultOrders:Array<CSAOrder>) {
