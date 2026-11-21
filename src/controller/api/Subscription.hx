@@ -198,7 +198,8 @@ class Subscription extends Controller {
 			distributions: distributionsWithOrders2,
 			absentDistribIds: sub.getAbsentDistribIds(),
 			defaultOrder: sub.getDefaultOrders(),
-			minSubscriptionOrder: minSubscriptionOrder
+			minSubscriptionOrder: minSubscriptionOrder,
+			canMemberEditConstOrders: SubscriptionService.canMemberEditConstOrders(sub)
 		});
 	}
 }
