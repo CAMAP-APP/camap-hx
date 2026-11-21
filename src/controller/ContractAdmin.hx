@@ -799,6 +799,11 @@ class ContractAdmin extends Controller {
 			{value: "onlyActiveProducts", label: t._("Only active products")},
 		], "all"));
 
+		var sourceHasAbsences:Bool = catalog.absentDistribsMaxNb != null && catalog.absentDistribsMaxNb > 0;
+		if (sourceHasAbsences) {
+			form.addElement(new Checkbox("keepAbsences", "Conserver le même nombre d'absences", true));
+		}
+
 		/* Pour superadmin et admin groupe seulement, décoché par défaut v1.0.5 */
 		if (app.user.isAdmin() || app.user.isGroupManager()) {
 			form.addElement(new Checkbox("copyDeliveries", t._("Copy deliveries"), false));
@@ -819,9 +824,16 @@ class ContractAdmin extends Controller {
 			nc.type = form.getValueOf("catalogtype");
 
 			nc.orderEndHoursBeforeDistrib = catalog.orderEndHoursBeforeDistrib;
-			nc.absentDistribsMaxNb = catalog.absentDistribsMaxNb;
-			// nc.absencesStartDate = catalog.absencesStartDate;
-			// nc.absencesEndDate = catalog.absencesEndDate;
+			// un nombre d'absences sans période d'absence bloque l'affichage du catalogue :
+			// on copie le nombre et la période ensemble, ou rien du tout
+			if (sourceHasAbsences && form.getValueOf("keepAbsences") == true) {
+				nc.absentDistribsMaxNb = catalog.absentDistribsMaxNb;
+				// même valeurs par défaut que doAbsences si la source n'a pas de période définie
+				nc.absencesStartDate = catalog.absencesStartDate == null ? catalog.startDate : catalog.absencesStartDate;
+				nc.absencesEndDate = catalog.absencesEndDate == null ? catalog.endDate : catalog.absencesEndDate;
+			} else {
+				nc.absentDistribsMaxNb = 0;
+			}
 
 			if (nc.type == Catalog.TYPE_VARORDER) {
 				nc.orderStartDaysBeforeDistrib = catalog.type == Catalog.TYPE_VARORDER ? catalog.orderStartDaysBeforeDistrib : 365;
